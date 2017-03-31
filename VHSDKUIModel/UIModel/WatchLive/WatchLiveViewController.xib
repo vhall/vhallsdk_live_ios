@@ -165,9 +165,9 @@
                                         <outlet property="delegate" destination="-1" id="Rk0-wb-wQK"/>
                                     </connections>
                                 </tableView>
-                                <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="YSQ-PK-ZTq">
+                                <imageView hidden="YES" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="YSQ-PK-ZTq">
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="398"/>
-                                    <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <color key="backgroundColor" red="0.8862745098" green="0.90980392160000001" blue="0.92156862750000001" alpha="1" colorSpace="calibratedRGB"/>
                                 </imageView>
                             </subviews>
                             <color key="backgroundColor" name="alternateSelectedControlTextColor" catalog="System" colorSpace="catalog"/>

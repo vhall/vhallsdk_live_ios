@@ -122,8 +122,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-    EnableVHallDebugModel(YES);
-      _selectArray = @[@"352X288",@"640X480",@"960X540",@"1280X720"];
+
+    _selectArray = @[@"352X288",@"640X480",@"960X540",@"1280X720"];
     self.title = @"设置";
     [self setupGroup0];
     [self  setupGroup1];

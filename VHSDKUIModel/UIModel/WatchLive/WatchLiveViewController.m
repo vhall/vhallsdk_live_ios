@@ -22,6 +22,10 @@
 #import "NSSafeObject.h"
 #import "SZQuestionItem.h"
 #import "VHQuestionCheckBox.h"
+//#import "VHDrawView.h"
+#import "VHDocumentView.h"
+
+
 static AnnouncementView* announcementView = nil;
 @interface WatchLiveViewController ()<VHallMoviePlayerDelegate, VHallChatDelegate, VHallQADelegate, VHallLotteryDelegate,VHallSignDelegate,VHallSurveyDelegate, UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate,VHMessageToolBarDelegate>
 {
@@ -48,9 +52,12 @@ static AnnouncementView* announcementView = nil;
     int                _leve;//
     NSMutableArray    *_videoPlayModel;//播放模式
 //    NSMutableArray    *_videoPlayModelPicArray;//单视频纯音频切换
-    UIButton          *_toolViewBackView;//遮罩
+     UIButton          *_toolViewBackView;//遮罩
      NSMutableDictionary *announcementContentDic;//公告内容
-    
+//     VHDrawView *_pptHandView;//PPT
+//    VHDrawView *_whiteBoardView;//白板
+//    UIView     *_whiteBoardContainer;//白板容器
+    VHDocumentView* _documentView;
 }
 
 @property (weak, nonatomic) IBOutlet UILabel *bufferCountLabel;
@@ -442,6 +449,13 @@ static AnnouncementView* announcementView = nil;
     _moviePlayer.moviePlayerView.frame = self.backView.bounds;
     _logView.frame = _moviePlayer.moviePlayerView.bounds;
     _lotteryVC.view.frame = _showView.bounds;
+    if (_documentView)
+    {
+        _documentView.frame = self.textImageView.bounds;
+        [_documentView layoutSubviews];
+        
+    }
+    
 }
 
 - (void)didReceiveMemoryWarning
@@ -701,15 +715,49 @@ static AnnouncementView* announcementView = nil;
 #pragma mark - vhallMoviePlayerDelegate
 -(void)PPTScrollNextPagechangeImagePath:(NSString *)changeImagePath
 {
-    self.textImageView.image = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:changeImagePath]]];
-    if (self.textImageView.image == nil) {
+//    [_pptHandView removeFromSuperview];
+//    _pptHandView = nil;
+//    self.textImageView.image = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:changeImagePath]]];
+//    if (self.textImageView.image == nil) {
+//        [self.textImageView addSubview:self.textLabel];
+//    }else{
+//        [self.textLabel removeFromSuperview];
+//        self.textLabel = nil;
+//
+//    }
+    
+    if (changeImagePath.length<=0) {
         [self.textImageView addSubview:self.textLabel];
     }else{
         [self.textLabel removeFromSuperview];
         self.textLabel = nil;
-
+        
     }
+    
+    if(!_documentView)
+    {
+        _documentView = [[VHDocumentView alloc]initWithFrame:self.textImageView.bounds];
+        _documentView.contentMode = UIViewContentModeScaleAspectFit;
+        _documentView.backgroundColor=MakeColorRGB(0xe2e8eb);
+    }
+    _documentView.frame = self.textImageView.bounds;
+    [self.textImageView addSubview:_documentView];
+    _documentView.imagePath = changeImagePath;
 }
+
+- (void)docHandList:(NSArray*)docList whiteBoardHandList:(NSArray*)boardList
+{
+    if(!_documentView)
+    {
+        _documentView = [[VHDocumentView alloc]initWithFrame:self.textImageView.bounds];
+        _documentView.contentMode = UIViewContentModeScaleAspectFit;
+        _documentView.backgroundColor=MakeColorRGB(0xe2e8eb);
+    }
+    _documentView.frame = self.textImageView.bounds;
+    [_documentView drawDocHandList:docList whiteBoardHandList:boardList];
+}
+
+
 
 -(void)VideoPlayMode:(VHallMovieVideoPlayMode)playMode
 {

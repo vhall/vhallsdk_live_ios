@@ -15,6 +15,10 @@
 #import "VHPullingRefreshTableView.h"
 #import "UIView+ITTAdditions.h"
 #import "AnnouncementView.h"
+//#import "VHDrawView.h"
+#import "VHDocumentView.h"
+
+
 static AnnouncementView* announcementView = nil;
 @interface WatchPlayBackViewController ()<VHallMoviePlayerDelegate,UITableViewDelegate,UITableViewDataSource,VHPullingRefreshTableViewDelegate>
 {
@@ -24,6 +28,11 @@ static AnnouncementView* announcementView = nil;
     NSMutableArray *_commentsArray;//评论
     VHPullingRefreshTableView* _tableView;
     UIButton              *_toolViewBackView;//遮罩
+//    VHDrawView *_pptHandView;//PPT
+//    VHDrawView *_whiteBoardView;//白板
+//    UIView     *_whiteBoardContainer;//白板容器
+    
+    VHDocumentView* _documentView;
 }
 
 @property (weak, nonatomic) IBOutlet UILabel *bufferCountLabel;
@@ -209,6 +218,12 @@ static AnnouncementView* announcementView = nil;
     _hlsMoviePlayer.view.frame = _backView.bounds;
     [self.backView addSubview:self.hlsMoviePlayer.view];
     [self.backView sendSubviewToBack:self.hlsMoviePlayer.view];
+    if (_documentView)
+    {
+        _documentView.frame = self.textImageView.bounds;
+        [_documentView layoutSubviews];
+        
+    }
 }
 
 
@@ -363,15 +378,38 @@ static AnnouncementView* announcementView = nil;
 
 -(void)PPTScrollNextPagechangeImagePath:(NSString *)changeImagePath
 {
-    self.textImageView.image = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:changeImagePath]]];
-    if (self.textImageView.image == nil) {
+    if (changeImagePath.length<=0) {
         [self.textImageView addSubview:self.textLabel];
     }else{
         [self.textLabel removeFromSuperview];
         self.textLabel = nil;
-
+        
     }
+    
+    if(!_documentView)
+    {
+        _documentView = [[VHDocumentView alloc]initWithFrame:self.textImageView.bounds];
+        _documentView.contentMode = UIViewContentModeScaleAspectFit;
+        _documentView.backgroundColor=MakeColorRGB(0xe2e8eb);
+    }
+    _documentView.frame = self.textImageView.bounds;
+    [self.textImageView addSubview:_documentView];
+    _documentView.imagePath = changeImagePath;
 }
+
+- (void)docHandList:(NSArray*)docList whiteBoardHandList:(NSArray*)boardList
+{
+    if(!_documentView)
+    {
+        _documentView = [[VHDocumentView alloc]initWithFrame:self.textImageView.bounds];
+        _documentView.contentMode = UIViewContentModeScaleAspectFit;
+        _documentView.backgroundColor=MakeColorRGB(0xe2e8eb);
+    }
+    _documentView.frame = self.textImageView.bounds;
+    [self.textImageView addSubview:_documentView];
+    [_documentView drawDocHandList:docList whiteBoardHandList:boardList];
+}
+
 -(void)VideoPlayMode:(VHallMovieVideoPlayMode)playMode
 {
     VHLog(@"---%ld",(long)playMode);

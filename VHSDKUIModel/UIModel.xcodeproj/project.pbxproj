@@ -13,6 +13,8 @@
 		2F6EAA441E6FEE2C00085AD4 /* 多选空.png in Resources */ = {isa = PBXBuildFile; fileRef = 2F6EAA431E6FEE2C00085AD4 /* 多选空.png */; };
 		2F8E6C311E6D764A0097AE94 /* checked.png in Resources */ = {isa = PBXBuildFile; fileRef = 2F8E6C301E6D764A0097AE94 /* checked.png */; };
 		2F8E6C331E6D764E0097AE94 /* unchecked.png in Resources */ = {isa = PBXBuildFile; fileRef = 2F8E6C321E6D764E0097AE94 /* unchecked.png */; };
+		2FB44D7C1E7A75B300460E1D /* UIImage+Tint.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FB44D7B1E7A75B300460E1D /* UIImage+Tint.m */; };
+		2FB44D7E1E7A770C00460E1D /* point.png in Resources */ = {isa = PBXBuildFile; fileRef = 2FB44D7D1E7A770C00460E1D /* point.png */; };
 		84880C551E6D933A00D70114 /* WatchLiveSurveyTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 84880C531E6D933A00D70114 /* WatchLiveSurveyTableViewCell.m */; };
 		84880C561E6D933A00D70114 /* WatchLiveSurveyTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84880C541E6D933A00D70114 /* WatchLiveSurveyTableViewCell.xib */; };
 		84880C951E6D965A00D70114 /* resource.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 84880C8A1E6D965A00D70114 /* resource.bundle */; };
@@ -221,6 +223,27 @@
 		C04D57B61E5D853000F75A64 /* Expression_9@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C04D56151E5D705400F75A64 /* Expression_9@2x.png */; };
 		C04D57B71E5D853000F75A64 /* faceExpression.plist in Resources */ = {isa = PBXBuildFile; fileRef = C04D56161E5D705400F75A64 /* faceExpression.plist */; };
 		C04D57B81E5D853000F75A64 /* faceDelete@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C04D56171E5D705400F75A64 /* faceDelete@2x.png */; };
+		C0F3286D1E80C47C00AA557D /* VHDocumentView.m in Sources */ = {isa = PBXBuildFile; fileRef = C0F3286C1E80C47C00AA557D /* VHDocumentView.m */; };
+		C0F328711E80CD3C00AA557D /* VHDrawView.m in Sources */ = {isa = PBXBuildFile; fileRef = C0F328701E80CD3C00AA557D /* VHDrawView.m */; };
+		C0F328781E822AED00AA557D /* libVHallSDK.a in CopyFiles */ = {isa = PBXBuildFile; fileRef = C04D56B71E5D725C00F75A64 /* libVHallSDK.a */; };
+		C0F328791E822AED00AA557D /* libVHLivePlay.a in CopyFiles */ = {isa = PBXBuildFile; fileRef = C04D56B81E5D725C00F75A64 /* libVHLivePlay.a */; };
+		C0F3287A1E822AED00AA557D /* libVinnyLive.a in CopyFiles */ = {isa = PBXBuildFile; fileRef = C04D56B91E5D725C00F75A64 /* libVinnyLive.a */; };
+		C0F3287B1E822AED00AA557D /* libGPUImage.a in CopyFiles */ = {isa = PBXBuildFile; fileRef = C04D56C01E5D725C00F75A64 /* libGPUImage.a */; };
+		C0F3287C1E822AED00AA557D /* libVHallFilterSDK.a in CopyFiles */ = {isa = PBXBuildFile; fileRef = C04D56C11E5D725C00F75A64 /* libVHallFilterSDK.a */; };
+		C0F328921E82349F00AA557D /* CameraEngineRtmp.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = C04D56B21E5D725C00F75A64 /* CameraEngineRtmp.h */; };
+		C0F328931E82349F00AA557D /* OpenCONSTS.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = C04D56BB1E5D725C00F75A64 /* OpenCONSTS.h */; };
+		C0F328941E82349F00AA557D /* VHallApi.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = C04D56BC1E5D725C00F75A64 /* VHallApi.h */; };
+		C0F328951E82349F00AA557D /* VHallChat.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = C04D56BD1E5D725C00F75A64 /* VHallChat.h */; };
+		C0F328961E82349F00AA557D /* VHallComment.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = C04D56BE1E5D725C00F75A64 /* VHallComment.h */; };
+		C0F328971E82349F00AA557D /* VHallLivePublishFilter.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = C04D56C21E5D725C00F75A64 /* VHallLivePublishFilter.h */; };
+		C0F328981E82349F00AA557D /* VHallLivePublish.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = C04D56C31E5D725C00F75A64 /* VHallLivePublish.h */; };
+		C0F328991E82349F00AA557D /* VHallLottery.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = C04D56C41E5D725C00F75A64 /* VHallLottery.h */; };
+		C0F3289A1E82349F00AA557D /* VHallMoviePlayer.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = C04D56C51E5D725C00F75A64 /* VHallMoviePlayer.h */; };
+		C0F3289B1E82349F00AA557D /* VHallMsgModels.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = C04D56C61E5D725C00F75A64 /* VHallMsgModels.h */; };
+		C0F3289C1E82349F00AA557D /* VHallQAndA.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = C04D56C71E5D725C00F75A64 /* VHallQAndA.h */; };
+		C0F3289D1E82349F00AA557D /* VHallSign.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = C04D56C81E5D725C00F75A64 /* VHallSign.h */; };
+		C0F3289E1E82349F00AA557D /* VHMoviePlayer.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = C04D56C91E5D725C00F75A64 /* VHMoviePlayer.h */; };
+		C0F328C21E82368900AA557D /* VHallSurvey.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = C0F328C11E82368100AA557D /* VHallSurvey.h */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -240,6 +263,25 @@
 			dstPath = "include/$(PRODUCT_NAME)";
 			dstSubfolderSpec = 16;
 			files = (
+				C0F328C21E82368900AA557D /* VHallSurvey.h in CopyFiles */,
+				C0F328921E82349F00AA557D /* CameraEngineRtmp.h in CopyFiles */,
+				C0F328931E82349F00AA557D /* OpenCONSTS.h in CopyFiles */,
+				C0F328941E82349F00AA557D /* VHallApi.h in CopyFiles */,
+				C0F328951E82349F00AA557D /* VHallChat.h in CopyFiles */,
+				C0F328961E82349F00AA557D /* VHallComment.h in CopyFiles */,
+				C0F328971E82349F00AA557D /* VHallLivePublishFilter.h in CopyFiles */,
+				C0F328981E82349F00AA557D /* VHallLivePublish.h in CopyFiles */,
+				C0F328991E82349F00AA557D /* VHallLottery.h in CopyFiles */,
+				C0F3289A1E82349F00AA557D /* VHallMoviePlayer.h in CopyFiles */,
+				C0F3289B1E82349F00AA557D /* VHallMsgModels.h in CopyFiles */,
+				C0F3289C1E82349F00AA557D /* VHallQAndA.h in CopyFiles */,
+				C0F3289D1E82349F00AA557D /* VHallSign.h in CopyFiles */,
+				C0F3289E1E82349F00AA557D /* VHMoviePlayer.h in CopyFiles */,
+				C0F328781E822AED00AA557D /* libVHallSDK.a in CopyFiles */,
+				C0F328791E822AED00AA557D /* libVHLivePlay.a in CopyFiles */,
+				C0F3287A1E822AED00AA557D /* libVinnyLive.a in CopyFiles */,
+				C0F3287B1E822AED00AA557D /* libGPUImage.a in CopyFiles */,
+				C0F3287C1E822AED00AA557D /* libVHallFilterSDK.a in CopyFiles */,
 				C04D56EB1E5D790500F75A64 /* VHBaseViewController.h in CopyFiles */,
 				C04D56EC1E5D790500F75A64 /* LaunchLiveViewController.h in CopyFiles */,
 				C04D56ED1E5D790500F75A64 /* WatchLiveViewController.h in CopyFiles */,
@@ -256,7 +298,9 @@
 		2F6EAA431E6FEE2C00085AD4 /* 多选空.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "多选空.png"; sourceTree = "<group>"; };
 		2F8E6C301E6D764A0097AE94 /* checked.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = checked.png; sourceTree = "<group>"; };
 		2F8E6C321E6D764E0097AE94 /* unchecked.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = unchecked.png; sourceTree = "<group>"; };
-		2FF65A1F1E76B60A008FCCCF /* VHallSurvey.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VHallSurvey.h; sourceTree = "<group>"; };
+		2FB44D7A1E7A75B300460E1D /* UIImage+Tint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Tint.h"; sourceTree = "<group>"; };
+		2FB44D7B1E7A75B300460E1D /* UIImage+Tint.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Tint.m"; sourceTree = "<group>"; };
+		2FB44D7D1E7A770C00460E1D /* point.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = point.png; sourceTree = "<group>"; };
 		84880C521E6D933A00D70114 /* WatchLiveSurveyTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WatchLiveSurveyTableViewCell.h; path = UIModel/WatchLive/WatchLiveSurveyTableViewCell.h; sourceTree = SOURCE_ROOT; };
 		84880C531E6D933A00D70114 /* WatchLiveSurveyTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WatchLiveSurveyTableViewCell.m; path = UIModel/WatchLive/WatchLiveSurveyTableViewCell.m; sourceTree = SOURCE_ROOT; };
 		84880C541E6D933A00D70114 /* WatchLiveSurveyTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = WatchLiveSurveyTableViewCell.xib; path = UIModel/WatchLive/WatchLiveSurveyTableViewCell.xib; sourceTree = SOURCE_ROOT; };
@@ -559,6 +603,11 @@
 		C04D57521E5D83B600F75A64 /* UIModel.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = UIModel.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
 		C04D57541E5D83B600F75A64 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C04D575B1E5D848C00F75A64 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = UIModel/Assets.xcassets; sourceTree = "<group>"; };
+		C0F3286B1E80C47C00AA557D /* VHDocumentView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VHDocumentView.h; sourceTree = "<group>"; };
+		C0F3286C1E80C47C00AA557D /* VHDocumentView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VHDocumentView.m; sourceTree = "<group>"; };
+		C0F3286F1E80CD3C00AA557D /* VHDrawView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VHDrawView.h; sourceTree = "<group>"; };
+		C0F328701E80CD3C00AA557D /* VHDrawView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VHDrawView.m; sourceTree = "<group>"; };
+		C0F328C11E82368100AA557D /* VHallSurvey.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VHallSurvey.h; sourceTree = "<group>"; };
 		C0FC255E1E51A45D00B3D834 /* libUIModel.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libUIModel.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -675,6 +724,7 @@
 		C000AB791E67DE8D005DFB7C /* Image */ = {
 			isa = PBXGroup;
 			children = (
+				2FB44D7D1E7A770C00460E1D /* point.png */,
 				2F6EAA431E6FEE2C00085AD4 /* 多选空.png */,
 				2F6EAA411E6FEE2900085AD4 /* 多选.png */,
 				2F6EAA3F1E6FEE2500085AD4 /* 单选空.png */,
@@ -1060,13 +1110,12 @@
 		C04D56B11E5D725C00F75A64 /* VHallSDK */ = {
 			isa = PBXGroup;
 			children = (
-				2FF65A1F1E76B60A008FCCCF /* VHallSurvey.h */,
-				C04D56B21E5D725C00F75A64 /* CameraEngineRtmp.h */,
+				C04D56BC1E5D725C00F75A64 /* VHallApi.h */,
 				C04D56B71E5D725C00F75A64 /* libVHallSDK.a */,
 				C04D56B81E5D725C00F75A64 /* libVHLivePlay.a */,
 				C04D56B91E5D725C00F75A64 /* libVinnyLive.a */,
 				C04D56BB1E5D725C00F75A64 /* OpenCONSTS.h */,
-				C04D56BC1E5D725C00F75A64 /* VHallApi.h */,
+				C04D56B21E5D725C00F75A64 /* CameraEngineRtmp.h */,
 				C04D56BD1E5D725C00F75A64 /* VHallChat.h */,
 				C04D56BE1E5D725C00F75A64 /* VHallComment.h */,
 				C04D56BF1E5D725C00F75A64 /* VHallFilterSDK */,
@@ -1077,6 +1126,7 @@
 				C04D56C71E5D725C00F75A64 /* VHallQAndA.h */,
 				C04D56C81E5D725C00F75A64 /* VHallSign.h */,
 				C04D56C91E5D725C00F75A64 /* VHMoviePlayer.h */,
+				C0F328C11E82368100AA557D /* VHallSurvey.h */,
 			);
 			name = VHallSDK;
 			path = ../../../VHallSDK;
@@ -1095,6 +1145,8 @@
 		C04D56CA1E5D736B00F75A64 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				2FB44D7A1E7A75B300460E1D /* UIImage+Tint.h */,
+				2FB44D7B1E7A75B300460E1D /* UIImage+Tint.m */,
 				C04D56CB1E5D736B00F75A64 /* DXFaceView.h */,
 				C04D56CC1E5D736B00F75A64 /* DXFaceView.m */,
 				C04D56CD1E5D736B00F75A64 /* FacialView.h */,
@@ -1108,6 +1160,10 @@
 				C04D56DE1E5D736B00F75A64 /* VHMessageTextView.m */,
 				C04D56DF1E5D736B00F75A64 /* VHMessageToolView.h */,
 				C04D56E01E5D736B00F75A64 /* VHMessageToolView.m */,
+				C0F3286F1E80CD3C00AA557D /* VHDrawView.h */,
+				C0F328701E80CD3C00AA557D /* VHDrawView.m */,
+				C0F3286B1E80C47C00AA557D /* VHDocumentView.h */,
+				C0F3286C1E80C47C00AA557D /* VHDocumentView.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1204,6 +1260,7 @@
 				C0FC255A1E51A45D00B3D834 /* Sources */,
 				C0FC255B1E51A45D00B3D834 /* Frameworks */,
 				C0FC255C1E51A45D00B3D834 /* CopyFiles */,
+				C0F328771E822A7F00AA557D /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -1368,6 +1425,7 @@
 				C000AB851E67DE8D005DFB7C /* 标清@3x.png in Resources */,
 				C04D57A31E5D853000F75A64 /* Expression_74@2x.png in Resources */,
 				C04D57A41E5D853000F75A64 /* Expression_75@2x.png in Resources */,
+				2FB44D7E1E7A770C00460E1D /* point.png in Resources */,
 				C000AB6F1E67C6A7005DFB7C /* message_emoji@3x.png in Resources */,
 				C04D57A51E5D853000F75A64 /* Expression_76@2x.png in Resources */,
 				C000ABA41E67E2BC005DFB7C /* questionMessage@2x.png in Resources */,
@@ -1403,6 +1461,22 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		C0F328771E822A7F00AA557D /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "cd ${PROJECT_DIR}/../\nmkdir -p UIModel\ncd UIModel\n\ncp ${BUILD_DIR}/${CONFIGURATION}${EFFECTIVE_PLATFORM_NAME}/lib${PRODUCT_NAME}.a ./\ncp -r ${BUILD_DIR}/${CONFIGURATION}${EFFECTIVE_PLATFORM_NAME}/${PRODUCT_NAME}.bundle ./\n\niphoneosFile=${BUILD_DIR}/${CONFIGURATION}-iphoneos/lib${PRODUCT_NAME}.a\niphonesimulatorFile=${BUILD_DIR}/${CONFIGURATION}-iphonesimulator/lib${PRODUCT_NAME}.a\nif [ -f \"$iphoneosFile\" ] && [ -f \"$iphonesimulatorFile\" ]; then\nlipo -create \"$iphoneosFile\" \"$iphonesimulatorFile\" -output ./lib${PRODUCT_NAME}.a\nfi\ncp ${BUILD_DIR}/${CONFIGURATION}${EFFECTIVE_PLATFORM_NAME}/include/${PRODUCT_NAME}/*.* ./";
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		C0FC255A1E51A45D00B3D834 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -1432,6 +1506,7 @@
 				C04D56531E5D705500F75A64 /* BarrageFloatTextSprite.m in Sources */,
 				C04D56741E5D705500F75A64 /* UIImageView+HighlightedWebCache.m in Sources */,
 				C04D56711E5D705500F75A64 /* UIImage+GIF.m in Sources */,
+				2FB44D7C1E7A75B300460E1D /* UIImage+Tint.m in Sources */,
 				C04D56E71E5D736B00F75A64 /* VHMessageTextView.m in Sources */,
 				C04D56661E5D705500F75A64 /* Reachability.m in Sources */,
 				C04D56B01E5D718D00F75A64 /* WatchPlayBackViewController.m in Sources */,
@@ -1450,6 +1525,7 @@
 				C04D56E41E5D736B00F75A64 /* VHPullingRefreshTableView.m in Sources */,
 				C04D566C1E5D705500F75A64 /* SDWebImageDownloader.m in Sources */,
 				C04D56681E5D705500F75A64 /* NSData+ImageContentType.m in Sources */,
+				C0F328711E80CD3C00AA557D /* VHDrawView.m in Sources */,
 				84880C971E6D965A00D70114 /* SZQuestionCell.m in Sources */,
 				C04D56A81E5D718D00F75A64 /* SignView.m in Sources */,
 				C04D56581E5D705500F75A64 /* BarrageWalkSprite.m in Sources */,
@@ -1464,6 +1540,7 @@
 				C04D566A1E5D705500F75A64 /* SDWebImageCompat.m in Sources */,
 				C04D565C1E5D705500F75A64 /* UIAlertView+ITTAdditions.m in Sources */,
 				C04D56AD1E5D718D00F75A64 /* WatchLiveOnlineTableViewCell.m in Sources */,
+				C0F3286D1E80C47C00AA557D /* VHDocumentView.m in Sources */,
 				C04D56A31E5D718D00F75A64 /* LaunchLiveViewController.m in Sources */,
 				C04D564E1E5D705500F75A64 /* BarrageRenderer.m in Sources */,
 				C04D56501E5D705500F75A64 /* BarrageLoader.m in Sources */,

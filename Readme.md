@@ -9,12 +9,19 @@
 5、检查工程 `Bundle ID` 是否与`AppKey`对应 <br>
 
 ### 使用CocoaPods 引入SDK
-pod 'VHallSDK_Live' , :git => 'https://github.com/vhall20/vhallsdk_live_ios.git'<br>
+pod 'VHallSDK_Live' , :git => 'https://github.com/vhall/vhallsdk_live_ios.git'<br>
 使用美颜功能SDK<br>
-pod 'VHallSDK_LiveFilter' , :git => 'https://github.com/vhall20/vhallsdk_live_ios.git'<br>
+pod 'VHallSDK_LiveFilter' , :git => 'https://github.com/vhall/vhallsdk_live_ios.git'<br>
 
 
 ### 版本更新信息
+
+#### 版本 v2.7.1 更新时间：2017.03.31
+更新内容：<br>
+
+1：新增白板和画笔功能<br>
+
+
 #### 版本 v2.7.0 更新时间：2017.03.13
 更新内容：<br>
 
