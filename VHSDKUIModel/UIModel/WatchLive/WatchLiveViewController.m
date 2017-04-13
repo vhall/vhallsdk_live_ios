@@ -46,6 +46,9 @@ static AnnouncementView* announcementView = nil;
     BOOL _isAllScreen;
     BOOL _isReciveHistory;
     int  _bufferCount;
+    BOOL _fullScreentBtnClick;
+    BOOL _isVr;
+    BOOL _isRender;//
     NSMutableArray    *_chatDataArray;
     NSMutableArray    *_QADataArray;
     NSArray           *_videoLevePicArray;//视频质量等级图片
@@ -87,6 +90,7 @@ static AnnouncementView* announcementView = nil;
 @property (weak, nonatomic) IBOutlet UIButton *playModeBtn3;
 @property (weak, nonatomic) IBOutlet UILabel *modelLabel;
 @property (nonatomic,strong) VHMessageToolView * messageToolView;  //输入框
+    @property (weak, nonatomic) IBOutlet UIButton *GyroBtn;//陀螺仪开关
 
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *topConstraint;
 @property (weak, nonatomic) IBOutlet UIButton *fullscreenBtn;
@@ -131,7 +135,6 @@ static AnnouncementView* announcementView = nil;
 {
     //阻止iOS设备锁屏
     [[UIApplication sharedApplication] setIdleTimerDisabled:YES];
-    [self addPanGestureRecognizer];
     [self registerLiveNotification];
     // chat & QA 在播放之前初始化并设置代理
     _chat = [[VHallChat alloc] init];
@@ -149,6 +152,8 @@ static AnnouncementView* announcementView = nil;
     _moviePlayer.movieScalingMode = kRTMPMovieScalingModeAspectFit;
     _moviePlayer.bufferTime = (int)_bufferTimes;
     _moviePlayer.reConnectTimes = 2;
+    _moviePlayer.liveFormat = kLiveFormatRtmp;
+   // [_moviePlayer setRenderViewModel:kVHallRenderModelDewarpVR];
     _logView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"UIModel.bundle/vhallLogo.tiff"]];
     _logView.backgroundColor = [UIColor whiteColor];
     _logView.contentMode = UIViewContentModeCenter;
@@ -187,6 +192,7 @@ static AnnouncementView* announcementView = nil;
 - (void)destoryMoivePlayer
 {
     [_moviePlayer destroyMoivePlayer];
+
 }
 
 //调查问卷页面
@@ -329,7 +335,6 @@ static AnnouncementView* announcementView = nil;
      [_renderer stop];
     [self dismissViewControllerAnimated:YES completion:^{
         [weakSelf destoryMoivePlayer];
-        
     }];
 }
 
@@ -384,11 +389,23 @@ static AnnouncementView* announcementView = nil;
 
 -(BOOL)shouldAutorotate
 {
+    if (_fullScreentBtnClick) {
+        return YES;
+    }else if (_isVr)
+    {
+        return NO;
+    }
     return YES;
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation
 {
+    if (_fullScreentBtnClick) {
+        return YES;
+    }else if (_isVr)
+    {
+        return NO;
+    }
     return YES;
 }
 
@@ -442,6 +459,7 @@ static AnnouncementView* announcementView = nil;
         _topConstraint.constant = 0;
         _fullscreenBtn.selected = YES;
     }
+    _fullScreentBtnClick=NO;
 }
 
 - (void)viewDidLayoutSubviews
@@ -759,8 +777,31 @@ static AnnouncementView* announcementView = nil;
 
 
 
--(void)VideoPlayMode:(VHallMovieVideoPlayMode)playMode
+-(void)VideoPlayMode:(VHallMovieVideoPlayMode)playMode isVrVideo:(BOOL)isVrVideo
 {
+    _isVr = isVrVideo;
+    if (!_isRender)
+    {
+        if (isVrVideo)
+        {
+            _GyroBtn.hidden = NO;
+            _GyroBtn.selected = YES;
+            [_moviePlayer setRenderViewModel:kVHallRenderModelDewarpVR];
+            [_moviePlayer setUsingGyro:YES];
+        }else
+        {
+            _GyroBtn.hidden =YES;
+            _GyroBtn.selected = NO;
+            [_moviePlayer setRenderViewModel:kVHallRenderModelOrigin];
+            [_moviePlayer setUsingGyro:NO];
+            [self addPanGestureRecognizer];
+        }
+        _isRender =YES;
+    }
+    
+    
+    
+    
     VHLog(@"---%ld",(long)playMode);
     self.liveTypeLabel.text = @"";
     _playModelTemp = playMode;
@@ -1299,8 +1340,23 @@ static AnnouncementView* announcementView = nil;
     }
 }
 
+#pragma mark 陀螺开关
 
-#pragma mark messageToolViewDelegate 
+- (IBAction)startGyroClick:(id)sender
+{
+    UIButton *btn = (UIButton*)sender;
+    btn.selected = !btn.selected;
+    if (btn.selected)
+    {
+        [_moviePlayer setUsingGyro:YES];
+    }else
+    {
+        [_moviePlayer setUsingGyro:NO];
+    }
+    
+}
+
+#pragma mark messageToolViewDelegate
 - (void)didSendText:(NSString *)text
 {
     if (_chatBtn.selected == YES) {
@@ -1332,6 +1388,8 @@ static AnnouncementView* announcementView = nil;
 }
 
 - (IBAction)fullscreenBtnClicked:(UIButton*)sender {
+
+    _fullScreentBtnClick =YES;
     if(_fullscreenBtn.isSelected)
     {//退出全屏
         [self rotateScreen:NO];

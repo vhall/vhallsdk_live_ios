@@ -24,6 +24,14 @@ typedef NS_ENUM(int,DeviceOrgiation)
     kDeviceLandSpaceLeft
 };
 
+//直播流格式
+typedef NS_ENUM(int,LiveFormat)
+{
+   kLiveFormatNone = 0,
+   kLiveFormatRtmp,
+   kLiveFormatFlV
+};
+
 typedef NS_ENUM(int,VideoResolution)
 {
     kLowVideoResolution = 0,         //低分边率       352*288
@@ -34,6 +42,7 @@ typedef NS_ENUM(int,VideoResolution)
 
 typedef NS_ENUM(int,LiveStatus)
 {
+    kLiveStatusNone           = -1,
     kLiveStatusBufferingStart = 0,      //播放缓冲开始
     kLiveStatusBufferingStop  = 1,      //播放缓冲结束
     kLiveStatusPushConnectSucceed =2,   //直播连接成功
@@ -52,9 +61,8 @@ typedef NS_ENUM(int,LiveStatus)
     kLiveStatusAudioRecoderError  =15,  //音频采集失败，提示用户查看权限或者重新推流，切记此事件会回调多次，直到音频采集正常为止
     kLiveStatusUploadNetworkException=16,//发起端网络环境差
     kLiveStatusUploadNetworkOK = 17,     //发起端网络环境恢复正常
-    kLiveStatusCDNStartSwitch = 18,       //CDN切换
-    kLiveStatusRecvStreamType = 19        //接受流的类型
-   
+    kLiveStatusCDNStartSwitch = 18,      //CDN切换
+    kLiveStatusRecvStreamType = 19       //接受流的类型
 };
 
 typedef NS_ENUM(int,LivePlayErrorType)
@@ -62,8 +70,8 @@ typedef NS_ENUM(int,LivePlayErrorType)
     kLivePlayGetUrlError = kLiveStatusGetUrlError,        //获取服务器rtmpUrl错误
     kLivePlayParamError = kLiveStatusParamError,          //参数错误
     kLivePlayRecvError  = kLiveStatusRecvError,           //接受数据错误
-    kLivePlayCDNConnectError = kLiveStatusCDNConnectError, //CDN链接失败
-    kLivePlayJsonFormalError = 15                          //返回json格式错误
+    kLivePlayCDNConnectError = kLiveStatusCDNConnectError,//CDN链接失败
+    kLivePlayJsonFormalError = 15                         //返回json格式错误
 };
 
 //RTMP 播放器View的缩放状态
@@ -81,6 +89,12 @@ typedef NS_ENUM(int,VHallStreamType)
    kVHallStreamTypeVideoAndAudio,
    kVHallStreamTypeOnlyVideo,
    kVHallStreamTypeOnlyAudio,
+};
+
+typedef NS_ENUM(int,VHallRenderModel){
+   kVHallRenderModelNone = 0,
+   kVHallRenderModelOrigin,  //普通视图的渲染
+   kVHallRenderModelDewarpVR, //VR视图的渲染
 };
 
 @protocol CameraEngineRtmpDelegate <NSObject>

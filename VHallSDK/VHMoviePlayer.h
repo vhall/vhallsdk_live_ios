@@ -18,10 +18,14 @@
 }
 @property(nonatomic,assign)id <VHMoviePlayerDelegate> delegate;
 @property(nonatomic,strong,readonly)UIView * moviePlayerView;
-@property(nonatomic,assign)int timeout;     //RTMP链接的超时时间 默认2秒，单位为毫秒
+@property(nonatomic,assign)int timeout;     //RTMP链接的超时时间 默认5秒，单位为毫秒
 @property(nonatomic,assign)int reConnectTimes; //RTMP 断开后的重连次数 默认 2次
 @property(nonatomic,assign)int bufferTime; //RTMP 的缓冲时间 默认 2秒 单位为秒 必须>0 值越小延时越小,卡顿增加
 @property(assign,readonly)int realityBufferTime; //获取RTMP播放实际的缓冲时间
+/**
+ *  推流格式
+ */
+@property(assign,nonatomic)LiveFormat liveFormat;
 /**
  *  视频View的缩放比例 默认是自适应模式
  */
@@ -32,9 +36,13 @@
  *
  *  @param delegate
  *
- *  @return   返回VHMoviePlayer的一个实例
+ *  @return  返回VHMoviePlayer的一个实例
  */
 - (instancetype)initWithDelegate:(id <VHMoviePlayerDelegate>)delegate;
+/**
+ *  设置渲染视图 在startPlayWithUrl:之前设置，之后设置无效
+ */
+- (void)setRenderViewModel:(VHallRenderModel)renderModel;
 
 /**
  *  设置静音
@@ -58,7 +66,15 @@
 /**
  *  停止播放
  */
--(void)stopPlay;
+- (void)stopPlay;
+/**
+ *  清空视频剩余的最后一帧画面
+ */
+- (void)cleanLastFrame;
+/**
+ *  是否使用陀螺仪，仅VR播放时可用
+ */
+- (void)setUsingGyro:(BOOL)usingGyro;
 
 /**
  *  销毁播放器，异步销毁的
@@ -66,6 +82,6 @@
 - (void)destroyMoivePlayer;
 
 //直播状态的通知
--(void)liveStatues:(NSNotification*)notification;
+- (void)liveStatues:(NSNotification*)notification;
 
 @end
