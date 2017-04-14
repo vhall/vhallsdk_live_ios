@@ -223,27 +223,25 @@
 		C04D57B61E5D853000F75A64 /* Expression_9@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C04D56151E5D705400F75A64 /* Expression_9@2x.png */; };
 		C04D57B71E5D853000F75A64 /* faceExpression.plist in Resources */ = {isa = PBXBuildFile; fileRef = C04D56161E5D705400F75A64 /* faceExpression.plist */; };
 		C04D57B81E5D853000F75A64 /* faceDelete@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C04D56171E5D705400F75A64 /* faceDelete@2x.png */; };
+		C0A27F6D1E9616FB0031D3B4 /* kodak.inf in CopyFiles */ = {isa = PBXBuildFile; fileRef = C0A27F581E9616D30031D3B4 /* kodak.inf */; };
+		C0A27F6F1E9616FB0031D3B4 /* libVhallLiveApi.a in CopyFiles */ = {isa = PBXBuildFile; fileRef = C0A27F5A1E9616D30031D3B4 /* libVhallLiveApi.a */; };
+		C0A27F701E9616FB0031D3B4 /* libVHallSDK.a in CopyFiles */ = {isa = PBXBuildFile; fileRef = C0A27F5B1E9616D30031D3B4 /* libVHallSDK.a */; };
+		C0A27F711E9616FB0031D3B4 /* libVHLivePlay.a in CopyFiles */ = {isa = PBXBuildFile; fileRef = C0A27F5C1E9616D30031D3B4 /* libVHLivePlay.a */; };
+		C0A27F851E9617A80031D3B4 /* CameraEngineRtmp.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = C0A27F571E9616D30031D3B4 /* CameraEngineRtmp.h */; };
+		C0A27F861E9617A80031D3B4 /* OpenCONSTS.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = C0A27F5D1E9616D30031D3B4 /* OpenCONSTS.h */; };
+		C0A27F871E9617A80031D3B4 /* VHallApi.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = C0A27F5E1E9616D30031D3B4 /* VHallApi.h */; };
+		C0A27F881E9617A80031D3B4 /* VHallChat.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = C0A27F5F1E9616D30031D3B4 /* VHallChat.h */; };
+		C0A27F891E9617A80031D3B4 /* VHallComment.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = C0A27F601E9616D30031D3B4 /* VHallComment.h */; };
+		C0A27F8A1E9617A80031D3B4 /* VHallLivePublish.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = C0A27F611E9616D30031D3B4 /* VHallLivePublish.h */; };
+		C0A27F8B1E9617A80031D3B4 /* VHallLottery.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = C0A27F621E9616D30031D3B4 /* VHallLottery.h */; };
+		C0A27F8C1E9617A80031D3B4 /* VHallMoviePlayer.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = C0A27F631E9616D30031D3B4 /* VHallMoviePlayer.h */; };
+		C0A27F8D1E9617A80031D3B4 /* VHallMsgModels.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = C0A27F641E9616D30031D3B4 /* VHallMsgModels.h */; };
+		C0A27F8E1E9617A80031D3B4 /* VHallQAndA.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = C0A27F651E9616D30031D3B4 /* VHallQAndA.h */; };
+		C0A27F8F1E9617A80031D3B4 /* VHallSign.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = C0A27F661E9616D30031D3B4 /* VHallSign.h */; };
+		C0A27F901E9617A80031D3B4 /* VHallSurvey.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = C0A27F671E9616D30031D3B4 /* VHallSurvey.h */; };
+		C0A27F911E9617A80031D3B4 /* VHMoviePlayer.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = C0A27F681E9616D30031D3B4 /* VHMoviePlayer.h */; };
 		C0F3286D1E80C47C00AA557D /* VHDocumentView.m in Sources */ = {isa = PBXBuildFile; fileRef = C0F3286C1E80C47C00AA557D /* VHDocumentView.m */; };
 		C0F328711E80CD3C00AA557D /* VHDrawView.m in Sources */ = {isa = PBXBuildFile; fileRef = C0F328701E80CD3C00AA557D /* VHDrawView.m */; };
-		C0F328781E822AED00AA557D /* libVHallSDK.a in CopyFiles */ = {isa = PBXBuildFile; fileRef = C04D56B71E5D725C00F75A64 /* libVHallSDK.a */; };
-		C0F328791E822AED00AA557D /* libVHLivePlay.a in CopyFiles */ = {isa = PBXBuildFile; fileRef = C04D56B81E5D725C00F75A64 /* libVHLivePlay.a */; };
-		C0F3287A1E822AED00AA557D /* libVinnyLive.a in CopyFiles */ = {isa = PBXBuildFile; fileRef = C04D56B91E5D725C00F75A64 /* libVinnyLive.a */; };
-		C0F3287B1E822AED00AA557D /* libGPUImage.a in CopyFiles */ = {isa = PBXBuildFile; fileRef = C04D56C01E5D725C00F75A64 /* libGPUImage.a */; };
-		C0F3287C1E822AED00AA557D /* libVHallFilterSDK.a in CopyFiles */ = {isa = PBXBuildFile; fileRef = C04D56C11E5D725C00F75A64 /* libVHallFilterSDK.a */; };
-		C0F328921E82349F00AA557D /* CameraEngineRtmp.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = C04D56B21E5D725C00F75A64 /* CameraEngineRtmp.h */; };
-		C0F328931E82349F00AA557D /* OpenCONSTS.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = C04D56BB1E5D725C00F75A64 /* OpenCONSTS.h */; };
-		C0F328941E82349F00AA557D /* VHallApi.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = C04D56BC1E5D725C00F75A64 /* VHallApi.h */; };
-		C0F328951E82349F00AA557D /* VHallChat.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = C04D56BD1E5D725C00F75A64 /* VHallChat.h */; };
-		C0F328961E82349F00AA557D /* VHallComment.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = C04D56BE1E5D725C00F75A64 /* VHallComment.h */; };
-		C0F328971E82349F00AA557D /* VHallLivePublishFilter.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = C04D56C21E5D725C00F75A64 /* VHallLivePublishFilter.h */; };
-		C0F328981E82349F00AA557D /* VHallLivePublish.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = C04D56C31E5D725C00F75A64 /* VHallLivePublish.h */; };
-		C0F328991E82349F00AA557D /* VHallLottery.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = C04D56C41E5D725C00F75A64 /* VHallLottery.h */; };
-		C0F3289A1E82349F00AA557D /* VHallMoviePlayer.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = C04D56C51E5D725C00F75A64 /* VHallMoviePlayer.h */; };
-		C0F3289B1E82349F00AA557D /* VHallMsgModels.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = C04D56C61E5D725C00F75A64 /* VHallMsgModels.h */; };
-		C0F3289C1E82349F00AA557D /* VHallQAndA.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = C04D56C71E5D725C00F75A64 /* VHallQAndA.h */; };
-		C0F3289D1E82349F00AA557D /* VHallSign.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = C04D56C81E5D725C00F75A64 /* VHallSign.h */; };
-		C0F3289E1E82349F00AA557D /* VHMoviePlayer.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = C04D56C91E5D725C00F75A64 /* VHMoviePlayer.h */; };
-		C0F328C21E82368900AA557D /* VHallSurvey.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = C0F328C11E82368100AA557D /* VHallSurvey.h */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -263,25 +261,23 @@
 			dstPath = "include/$(PRODUCT_NAME)";
 			dstSubfolderSpec = 16;
 			files = (
-				C0F328C21E82368900AA557D /* VHallSurvey.h in CopyFiles */,
-				C0F328921E82349F00AA557D /* CameraEngineRtmp.h in CopyFiles */,
-				C0F328931E82349F00AA557D /* OpenCONSTS.h in CopyFiles */,
-				C0F328941E82349F00AA557D /* VHallApi.h in CopyFiles */,
-				C0F328951E82349F00AA557D /* VHallChat.h in CopyFiles */,
-				C0F328961E82349F00AA557D /* VHallComment.h in CopyFiles */,
-				C0F328971E82349F00AA557D /* VHallLivePublishFilter.h in CopyFiles */,
-				C0F328981E82349F00AA557D /* VHallLivePublish.h in CopyFiles */,
-				C0F328991E82349F00AA557D /* VHallLottery.h in CopyFiles */,
-				C0F3289A1E82349F00AA557D /* VHallMoviePlayer.h in CopyFiles */,
-				C0F3289B1E82349F00AA557D /* VHallMsgModels.h in CopyFiles */,
-				C0F3289C1E82349F00AA557D /* VHallQAndA.h in CopyFiles */,
-				C0F3289D1E82349F00AA557D /* VHallSign.h in CopyFiles */,
-				C0F3289E1E82349F00AA557D /* VHMoviePlayer.h in CopyFiles */,
-				C0F328781E822AED00AA557D /* libVHallSDK.a in CopyFiles */,
-				C0F328791E822AED00AA557D /* libVHLivePlay.a in CopyFiles */,
-				C0F3287A1E822AED00AA557D /* libVinnyLive.a in CopyFiles */,
-				C0F3287B1E822AED00AA557D /* libGPUImage.a in CopyFiles */,
-				C0F3287C1E822AED00AA557D /* libVHallFilterSDK.a in CopyFiles */,
+				C0A27F851E9617A80031D3B4 /* CameraEngineRtmp.h in CopyFiles */,
+				C0A27F861E9617A80031D3B4 /* OpenCONSTS.h in CopyFiles */,
+				C0A27F871E9617A80031D3B4 /* VHallApi.h in CopyFiles */,
+				C0A27F881E9617A80031D3B4 /* VHallChat.h in CopyFiles */,
+				C0A27F891E9617A80031D3B4 /* VHallComment.h in CopyFiles */,
+				C0A27F8A1E9617A80031D3B4 /* VHallLivePublish.h in CopyFiles */,
+				C0A27F8B1E9617A80031D3B4 /* VHallLottery.h in CopyFiles */,
+				C0A27F8C1E9617A80031D3B4 /* VHallMoviePlayer.h in CopyFiles */,
+				C0A27F8D1E9617A80031D3B4 /* VHallMsgModels.h in CopyFiles */,
+				C0A27F8E1E9617A80031D3B4 /* VHallQAndA.h in CopyFiles */,
+				C0A27F8F1E9617A80031D3B4 /* VHallSign.h in CopyFiles */,
+				C0A27F901E9617A80031D3B4 /* VHallSurvey.h in CopyFiles */,
+				C0A27F911E9617A80031D3B4 /* VHMoviePlayer.h in CopyFiles */,
+				C0A27F6D1E9616FB0031D3B4 /* kodak.inf in CopyFiles */,
+				C0A27F6F1E9616FB0031D3B4 /* libVhallLiveApi.a in CopyFiles */,
+				C0A27F701E9616FB0031D3B4 /* libVHallSDK.a in CopyFiles */,
+				C0A27F711E9616FB0031D3B4 /* libVHLivePlay.a in CopyFiles */,
 				C04D56EB1E5D790500F75A64 /* VHBaseViewController.h in CopyFiles */,
 				C04D56EC1E5D790500F75A64 /* LaunchLiveViewController.h in CopyFiles */,
 				C04D56ED1E5D790500F75A64 /* WatchLiveViewController.h in CopyFiles */,
@@ -565,24 +561,6 @@
 		C04D569F1E5D718D00F75A64 /* WatchPlayBackViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WatchPlayBackViewController.h; sourceTree = "<group>"; };
 		C04D56A01E5D718D00F75A64 /* WatchPlayBackViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WatchPlayBackViewController.m; sourceTree = "<group>"; };
 		C04D56A11E5D718D00F75A64 /* WatchPlayBackViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WatchPlayBackViewController.xib; sourceTree = "<group>"; };
-		C04D56B21E5D725C00F75A64 /* CameraEngineRtmp.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CameraEngineRtmp.h; sourceTree = "<group>"; };
-		C04D56B71E5D725C00F75A64 /* libVHallSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libVHallSDK.a; sourceTree = "<group>"; };
-		C04D56B81E5D725C00F75A64 /* libVHLivePlay.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libVHLivePlay.a; sourceTree = "<group>"; };
-		C04D56B91E5D725C00F75A64 /* libVinnyLive.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libVinnyLive.a; sourceTree = "<group>"; };
-		C04D56BB1E5D725C00F75A64 /* OpenCONSTS.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OpenCONSTS.h; sourceTree = "<group>"; };
-		C04D56BC1E5D725C00F75A64 /* VHallApi.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VHallApi.h; sourceTree = "<group>"; };
-		C04D56BD1E5D725C00F75A64 /* VHallChat.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VHallChat.h; sourceTree = "<group>"; };
-		C04D56BE1E5D725C00F75A64 /* VHallComment.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VHallComment.h; sourceTree = "<group>"; };
-		C04D56C01E5D725C00F75A64 /* libGPUImage.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libGPUImage.a; sourceTree = "<group>"; };
-		C04D56C11E5D725C00F75A64 /* libVHallFilterSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libVHallFilterSDK.a; sourceTree = "<group>"; };
-		C04D56C21E5D725C00F75A64 /* VHallLivePublishFilter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VHallLivePublishFilter.h; sourceTree = "<group>"; };
-		C04D56C31E5D725C00F75A64 /* VHallLivePublish.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VHallLivePublish.h; sourceTree = "<group>"; };
-		C04D56C41E5D725C00F75A64 /* VHallLottery.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VHallLottery.h; sourceTree = "<group>"; };
-		C04D56C51E5D725C00F75A64 /* VHallMoviePlayer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VHallMoviePlayer.h; sourceTree = "<group>"; };
-		C04D56C61E5D725C00F75A64 /* VHallMsgModels.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VHallMsgModels.h; sourceTree = "<group>"; };
-		C04D56C71E5D725C00F75A64 /* VHallQAndA.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VHallQAndA.h; sourceTree = "<group>"; };
-		C04D56C81E5D725C00F75A64 /* VHallSign.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VHallSign.h; sourceTree = "<group>"; };
-		C04D56C91E5D725C00F75A64 /* VHMoviePlayer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VHMoviePlayer.h; sourceTree = "<group>"; };
 		C04D56CB1E5D736B00F75A64 /* DXFaceView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DXFaceView.h; sourceTree = "<group>"; };
 		C04D56CC1E5D736B00F75A64 /* DXFaceView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DXFaceView.m; sourceTree = "<group>"; };
 		C04D56CD1E5D736B00F75A64 /* FacialView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FacialView.h; sourceTree = "<group>"; };
@@ -603,11 +581,27 @@
 		C04D57521E5D83B600F75A64 /* UIModel.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = UIModel.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
 		C04D57541E5D83B600F75A64 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C04D575B1E5D848C00F75A64 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = UIModel/Assets.xcassets; sourceTree = "<group>"; };
+		C0A27F571E9616D30031D3B4 /* CameraEngineRtmp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CameraEngineRtmp.h; sourceTree = "<group>"; };
+		C0A27F581E9616D30031D3B4 /* kodak.inf */ = {isa = PBXFileReference; lastKnownFileType = file; path = kodak.inf; sourceTree = "<group>"; };
+		C0A27F5A1E9616D30031D3B4 /* libVhallLiveApi.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libVhallLiveApi.a; sourceTree = "<group>"; };
+		C0A27F5B1E9616D30031D3B4 /* libVHallSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libVHallSDK.a; sourceTree = "<group>"; };
+		C0A27F5C1E9616D30031D3B4 /* libVHLivePlay.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libVHLivePlay.a; sourceTree = "<group>"; };
+		C0A27F5D1E9616D30031D3B4 /* OpenCONSTS.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OpenCONSTS.h; sourceTree = "<group>"; };
+		C0A27F5E1E9616D30031D3B4 /* VHallApi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VHallApi.h; sourceTree = "<group>"; };
+		C0A27F5F1E9616D30031D3B4 /* VHallChat.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VHallChat.h; sourceTree = "<group>"; };
+		C0A27F601E9616D30031D3B4 /* VHallComment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VHallComment.h; sourceTree = "<group>"; };
+		C0A27F611E9616D30031D3B4 /* VHallLivePublish.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VHallLivePublish.h; sourceTree = "<group>"; };
+		C0A27F621E9616D30031D3B4 /* VHallLottery.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VHallLottery.h; sourceTree = "<group>"; };
+		C0A27F631E9616D30031D3B4 /* VHallMoviePlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VHallMoviePlayer.h; sourceTree = "<group>"; };
+		C0A27F641E9616D30031D3B4 /* VHallMsgModels.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VHallMsgModels.h; sourceTree = "<group>"; };
+		C0A27F651E9616D30031D3B4 /* VHallQAndA.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VHallQAndA.h; sourceTree = "<group>"; };
+		C0A27F661E9616D30031D3B4 /* VHallSign.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VHallSign.h; sourceTree = "<group>"; };
+		C0A27F671E9616D30031D3B4 /* VHallSurvey.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VHallSurvey.h; sourceTree = "<group>"; };
+		C0A27F681E9616D30031D3B4 /* VHMoviePlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VHMoviePlayer.h; sourceTree = "<group>"; };
 		C0F3286B1E80C47C00AA557D /* VHDocumentView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VHDocumentView.h; sourceTree = "<group>"; };
 		C0F3286C1E80C47C00AA557D /* VHDocumentView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VHDocumentView.m; sourceTree = "<group>"; };
 		C0F3286F1E80CD3C00AA557D /* VHDrawView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VHDrawView.h; sourceTree = "<group>"; };
 		C0F328701E80CD3C00AA557D /* VHDrawView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VHDrawView.m; sourceTree = "<group>"; };
-		C0F328C11E82368100AA557D /* VHallSurvey.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VHallSurvey.h; sourceTree = "<group>"; };
 		C0FC255E1E51A45D00B3D834 /* libUIModel.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libUIModel.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -760,8 +754,8 @@
 		C04D55621E5D705400F75A64 /* libs */ = {
 			isa = PBXGroup;
 			children = (
+				C0A27F561E9616D30031D3B4 /* VHallSDK */,
 				C04D56CA1E5D736B00F75A64 /* View */,
-				C04D56B11E5D725C00F75A64 /* VHallSDK */,
 				C04D557D1E5D705400F75A64 /* BarrageRenderer */,
 				C04D55A51E5D705400F75A64 /* Common */,
 				C04D55B41E5D705400F75A64 /* MBProgressHUD */,
@@ -1107,41 +1101,6 @@
 			path = WatchPlayBack;
 			sourceTree = "<group>";
 		};
-		C04D56B11E5D725C00F75A64 /* VHallSDK */ = {
-			isa = PBXGroup;
-			children = (
-				C04D56BC1E5D725C00F75A64 /* VHallApi.h */,
-				C04D56B71E5D725C00F75A64 /* libVHallSDK.a */,
-				C04D56B81E5D725C00F75A64 /* libVHLivePlay.a */,
-				C04D56B91E5D725C00F75A64 /* libVinnyLive.a */,
-				C04D56BB1E5D725C00F75A64 /* OpenCONSTS.h */,
-				C04D56B21E5D725C00F75A64 /* CameraEngineRtmp.h */,
-				C04D56BD1E5D725C00F75A64 /* VHallChat.h */,
-				C04D56BE1E5D725C00F75A64 /* VHallComment.h */,
-				C04D56BF1E5D725C00F75A64 /* VHallFilterSDK */,
-				C04D56C31E5D725C00F75A64 /* VHallLivePublish.h */,
-				C04D56C41E5D725C00F75A64 /* VHallLottery.h */,
-				C04D56C51E5D725C00F75A64 /* VHallMoviePlayer.h */,
-				C04D56C61E5D725C00F75A64 /* VHallMsgModels.h */,
-				C04D56C71E5D725C00F75A64 /* VHallQAndA.h */,
-				C04D56C81E5D725C00F75A64 /* VHallSign.h */,
-				C04D56C91E5D725C00F75A64 /* VHMoviePlayer.h */,
-				C0F328C11E82368100AA557D /* VHallSurvey.h */,
-			);
-			name = VHallSDK;
-			path = ../../../VHallSDK;
-			sourceTree = "<group>";
-		};
-		C04D56BF1E5D725C00F75A64 /* VHallFilterSDK */ = {
-			isa = PBXGroup;
-			children = (
-				C04D56C01E5D725C00F75A64 /* libGPUImage.a */,
-				C04D56C11E5D725C00F75A64 /* libVHallFilterSDK.a */,
-				C04D56C21E5D725C00F75A64 /* VHallLivePublishFilter.h */,
-			);
-			path = VHallFilterSDK;
-			sourceTree = "<group>";
-		};
 		C04D56CA1E5D736B00F75A64 /* View */ = {
 			isa = PBXGroup;
 			children = (
@@ -1201,6 +1160,31 @@
 				C04D57541E5D83B600F75A64 /* Info.plist */,
 			);
 			path = UIModelResources;
+			sourceTree = "<group>";
+		};
+		C0A27F561E9616D30031D3B4 /* VHallSDK */ = {
+			isa = PBXGroup;
+			children = (
+				C0A27F571E9616D30031D3B4 /* CameraEngineRtmp.h */,
+				C0A27F581E9616D30031D3B4 /* kodak.inf */,
+				C0A27F5A1E9616D30031D3B4 /* libVhallLiveApi.a */,
+				C0A27F5B1E9616D30031D3B4 /* libVHallSDK.a */,
+				C0A27F5C1E9616D30031D3B4 /* libVHLivePlay.a */,
+				C0A27F5D1E9616D30031D3B4 /* OpenCONSTS.h */,
+				C0A27F5E1E9616D30031D3B4 /* VHallApi.h */,
+				C0A27F5F1E9616D30031D3B4 /* VHallChat.h */,
+				C0A27F601E9616D30031D3B4 /* VHallComment.h */,
+				C0A27F611E9616D30031D3B4 /* VHallLivePublish.h */,
+				C0A27F621E9616D30031D3B4 /* VHallLottery.h */,
+				C0A27F631E9616D30031D3B4 /* VHallMoviePlayer.h */,
+				C0A27F641E9616D30031D3B4 /* VHallMsgModels.h */,
+				C0A27F651E9616D30031D3B4 /* VHallQAndA.h */,
+				C0A27F661E9616D30031D3B4 /* VHallSign.h */,
+				C0A27F671E9616D30031D3B4 /* VHallSurvey.h */,
+				C0A27F681E9616D30031D3B4 /* VHMoviePlayer.h */,
+			);
+			name = VHallSDK;
+			path = ../../../VHallSDK;
 			sourceTree = "<group>";
 		};
 		C0FC25551E51A45D00B3D834 = {
@@ -1698,6 +1682,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				DEVELOPMENT_TEAM = S82ZX9394G;
+				ENABLE_BITCODE = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = UIModel/UIModel_PrefixHeader.pch;
 				OTHER_LDFLAGS = "-ObjC";
@@ -1710,6 +1695,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				DEVELOPMENT_TEAM = S82ZX9394G;
+				ENABLE_BITCODE = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = UIModel/UIModel_PrefixHeader.pch;
 				OTHER_LDFLAGS = "-ObjC";

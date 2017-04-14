@@ -410,7 +410,7 @@ static AnnouncementView* announcementView = nil;
     [_documentView drawDocHandList:docList whiteBoardHandList:boardList];
 }
 
--(void)VideoPlayMode:(VHallMovieVideoPlayMode)playMode
+-(void)VideoPlayMode:(VHallMovieVideoPlayMode)playMode isVrVideo:(BOOL)isVrVideo
 {
     VHLog(@"---%ld",(long)playMode);
     self.playModelTemp = playMode;

@@ -55,7 +55,6 @@
  *  判断用户使用是前置还是后置摄像头
  */
 @property(nonatomic,assign,readonly)AVCaptureDevicePosition captureDevicePosition;
-
 /**
  *  滤镜的回调，在此回调中做滤镜处理
  */
@@ -64,6 +63,10 @@
  *  当前推流状态
  */
 @property(assign,nonatomic,readonly)BOOL isPublishing;
+/**
+ *  推流格式
+ */
+@property(assign,nonatomic)LiveFormat liveFormat;
 
 //采集设备初始化
 - (id)initWithOrgiation:(DeviceOrgiation)orgiation;
@@ -86,7 +89,7 @@
 //停止视频采集
 - (BOOL)stopVideoCapture;
 
-//开启音频采集;
+//开启音频采集
 - (BOOL)startAudioCapture;
 
 //暂停音频采集
@@ -105,25 +108,21 @@
 - (BOOL)swapCameras:(AVCaptureDevicePosition)captureDevicePosition;
 
 //手动对焦
--(void)setFoucsFoint:(CGPoint)newPoint;
-
+-(void)setFoucsPoint:(CGPoint)newPoint;
 /**
  *  变焦
  *
  *  @param zoomSize 变焦的比例
  */
 - (void)captureDeviceZoom:(CGFloat)zoomSize;
-
 /**
  * 设置闪关灯的模式
  */
 - (BOOL)setDeviceTorchModel:(AVCaptureTorchMode)captureTorchMode;
-
 /**
  * 断网后重练
  */
 -(BOOL)reconnect;
-
 /**
  *  销毁初始化数据，同步销毁，如果感觉销毁太慢，可以开线程去销毁
  */
@@ -133,7 +132,6 @@
  *  断开推流的连接,注意app进入后台时要手动调用此方法
  */
 - (void)disconnect;
-
 /**
  *  推送视频数据
  *

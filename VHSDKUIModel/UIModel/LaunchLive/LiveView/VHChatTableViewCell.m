@@ -7,7 +7,7 @@
 //
 
 #import "VHChatTableViewCell.h"
-#import "MLEmojiLabel+atColor.h"
+#import "MLEmojiLabel.h"
 #import "UIButton+WebCache.h"
 #import "UIImageView+WebCache.h"
 #import "VHallApi.h"
@@ -698,7 +698,7 @@ static MLEmojiLabel  *g_textLabel;
         _textLabel.customEmojiBundleName = @"UIModel.bundle";
         _textLabel.userInteractionEnabled=NO;
         _textLabel.disableThreeCommon = YES;
-        _textLabel.atColor = [UIColor whiteColor];
+//        _textLabel.atColor = [UIColor whiteColor];
         [_bgView addSubview:_textLabel];
         _nameLabel = [[UILabel alloc]init];
         _nameLabel.font = TEXT_Font;

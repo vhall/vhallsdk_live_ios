@@ -16,6 +16,11 @@ pod 'VHallSDK_LiveFilter' , :git => 'https://github.com/vhall/vhallsdk_live_ios.
 
 ### 版本更新信息
 
+
+#### 版本 v2.8.0 更新时间：2017.04.14
+更新内容：<br>
+1:新增观看VR活动以及陀螺仪功能
+
 #### 版本 v2.7.1 更新时间：2017.03.31
 更新内容：<br>
 
