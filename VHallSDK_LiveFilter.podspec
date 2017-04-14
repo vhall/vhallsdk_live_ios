@@ -10,7 +10,7 @@ Pod::Spec.new do |s|
   s.source_files  = "VHallSDK/*" ,"VHallSDK/VHallFilterSDK/*"
   s.frameworks = "AVFoundation", "VideoToolbox","OpenAL","CoreMedia","CoreTelephony" ,"OpenGLES" ,"MediaPlayer" ,"AssetsLibrary","QuartzCore" ,"JavaScriptCore","Security"
   s.libraries = 'icucore' ,'iconv','bz2.1.0','z'
-  s.vendored_libraries = "VHallSDK/libVHallSDK.a", "VHallSDK/libVHLivePlay.a", "VHallSDK/libVinnyLive.a" ,"VHallSDK/VHallFilterSDK/libGPUImage.a","VHallSDK/VHallFilterSDK/libVHallFilterSDK.a","VHallSDK/libVhallLiveApi.a","VHallSDK/kodak.inf"
+  s.vendored_libraries = "VHallSDK/libVHallSDK.a", "VHallSDK/libVHLivePlay.a","VHallSDK/VHallFilterSDK/libGPUImage.a","VHallSDK/VHallFilterSDK/libVHallFilterSDK.a","VHallSDK/libVhallLiveApi.a"
   s.requires_arc = true
 end
 
