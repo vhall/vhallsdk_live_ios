@@ -66,7 +66,7 @@ typedef NS_ENUM(NSInteger,VHallMovieActiveState) {
  *
  *  @param playMode  视频播放模式
  */
-- (void)VideoPlayMode:(VHallMovieVideoPlayMode)playMode isVrVideo:(BOOL)isVrVideo;
+- (void)VideoPlayMode:(VHallMovieVideoPlayMode)playMode;
 /**
  *  获取当前视频支持的所有播放模式
  *
