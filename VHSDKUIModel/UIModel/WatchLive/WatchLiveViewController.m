@@ -459,6 +459,24 @@ static AnnouncementView* announcementView = nil;
         _topConstraint.constant = 0;
         _fullscreenBtn.selected = YES;
     }
+    
+    
+    
+    DeviceOrientation orientation;
+    UIDeviceOrientation duration = [[UIDevice currentDevice]orientation];
+    if (duration == UIDeviceOrientationPortrait) {
+        orientation = kDevicePortrait;
+    }else if (duration == UIDeviceOrientationLandscapeRight)
+    {
+        orientation=kDeviceLandSpaceRight;
+    }else if (duration == UIDeviceOrientationLandscapeLeft)
+    {
+        orientation=kDeviceLandSpaceLeft;
+    }
+    if (_isVr && _GyroBtn.selected) {
+        [_moviePlayer setUILayoutOrientation:orientation];
+    }
+
     _fullScreentBtnClick=NO;
 }
 
@@ -1265,12 +1283,12 @@ static AnnouncementView* announcementView = nil;
 - (IBAction)definitionBtnCLicked:(UIButton *)sender {
     
     ++_leve;
-    if (_leve==5) {
-        _leve=1;
+    if (_leve==4) {
+        _leve=0;
     }
     
     [MBProgressHUD showHUDAddedTo:_moviePlayer.moviePlayerView animated:YES];
-    [_moviePlayer setDefinition:_leve-1];
+    [_moviePlayer setDefinition:_leve];
     _playModeBtn0.selected = NO;
     switch (_moviePlayer.curDefinition) {
         case VHallMovieDefinitionOrigin:
@@ -1286,6 +1304,7 @@ static AnnouncementView* announcementView = nil;
             [_definitionBtn0 setImage:[UIImage imageNamed:_videoLevePicArray[1]] forState:UIControlStateNormal];
             break;
         default:
+            
             break;
     }
 }

@@ -55,11 +55,17 @@
 
 -(UIInterfaceOrientationMask)supportedInterfaceOrientations
 {
-    if (_interfaceOrientation == UIInterfaceOrientationPortrait) {
+    if (_interfaceOrientation == UIInterfaceOrientationPortrait)
+    {
         return UIInterfaceOrientationMaskPortrait;
-    }else{
-        return UIInterfaceOrientationMaskLandscape;
+    }else if(_interfaceOrientation == UIInterfaceOrientationLandscapeLeft)
+    {
+        return UIInterfaceOrientationMaskLandscapeLeft;
+    }else
+    {
+        return UIInterfaceOrientationMaskLandscapeRight;
     }
+
 }
 
 /*

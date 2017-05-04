@@ -11,7 +11,7 @@
 @interface VHallLivePublish : CameraEngineRtmp
 
 //采集设备初始化
-- (id)initWithOrgiation:(DeviceOrgiation)orgiation;
+- (id)initWithOrgiation:(DeviceOrientation)orgiation;
 /**
  *  初始化 CaptureVideo
  *

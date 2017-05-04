@@ -17,7 +17,7 @@
 extern void EnableVHallDebugModel(BOOL enable);
 
 //设置摄像头取景方向
-typedef NS_ENUM(int,DeviceOrgiation)
+typedef NS_ENUM(int,DeviceOrientation)
 {
     kDevicePortrait,
     kDeviceLandSpaceRight,

@@ -106,11 +106,7 @@
     if (_chat) {
         _chat = nil;
     }
-    
-    if (_engine) {
-        _engine = nil;
-    }
-    
+
     //允许iOS设备锁屏
     [[UIApplication sharedApplication] setIdleTimerDisabled:NO];
     [self.view removeObserver:self forKeyPath:kViewFramePath];
@@ -210,12 +206,15 @@
 
 - (void)initCameraEngine
 {
-    DeviceOrgiation deviceOrgiation;
+    DeviceOrientation deviceOrgiation;
     if (self.interfaceOrientation == UIInterfaceOrientationPortrait)
     {
         deviceOrgiation = kDevicePortrait;
-    }else{
+    }else if(self.interfaceOrientation ==UIInterfaceOrientationLandscapeRight){
         deviceOrgiation = kDeviceLandSpaceRight;
+    }else
+    {
+        deviceOrgiation = kDeviceLandSpaceLeft;
     }
 #if VHallFilterSDK_ENABLE
     self.engine = [[VHallLivePublishFilter alloc] initWithOrgiation:deviceOrgiation];
@@ -227,11 +226,18 @@
     BOOL ret = [_engine initCaptureVideo:AVCaptureDevicePositionBack];
 #endif
     if (!ret) {
-        VHLog(@"initCaptureVideo 调用失败！");
+        UIAlertView *alert=[[UIAlertView alloc] initWithTitle:@"提示" message:@"摄像头开启失败" delegate:nil cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
+        [alert show];
     }
     //音频初始化
-    [_engine initAudio];
+    BOOL openAudio =[self emCheckMicrophoneAvailability];
     
+    if(!openAudio)
+    {
+        UIAlertView *alert=[[UIAlertView alloc] initWithTitle:@"提示" message:@"麦克风开启失败" delegate:nil cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
+        [alert show];
+    }
+     [_engine initAudio];
     self.engine.displayView.frame = _perView.bounds;
     self.engine.publishConnectTimes = 2;
     self.engine.videoCaptureFPS = (int)_videoCaptureFPS;
@@ -741,4 +747,18 @@
     [self hideKey:nil];
 }
 
+#pragma mark 检测麦克风
+- (BOOL)emCheckMicrophoneAvailability{
+    __block BOOL ret = NO;
+    AVAudioSession *session = [AVAudioSession sharedInstance];
+    if ([session respondsToSelector:@selector(requestRecordPermission:)]) {
+        [session performSelector:@selector(requestRecordPermission:) withObject:^(BOOL granted) {
+            ret = granted;
+        }];
+    } else {
+        ret = YES;
+    }
+    
+    return ret;
+}
 @end

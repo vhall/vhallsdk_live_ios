@@ -43,6 +43,24 @@
  *  设置渲染视图 在startPlayWithUrl:之前设置，之后设置无效
  */
 - (void)setRenderViewModel:(VHallRenderModel)renderModel;
+/**
+ *  设置监控日志的参数 注意参数是json string,开始直播前设置，之后设置无效
+ *  param:{
+ *  "vid":"直播发起者账号",
+ *  "vfid":"直播发起者父账号",
+ *  "guid":"观众唯一标识",
+ *  "vtype":"直播视频类别",
+ *  "topic":"活动话题"
+ *  }
+ *  return 0设置成功，-1是json解析失败
+ */
+- (int)setMonitorLogParam:(NSString*)param;
+/**
+ *  开始观看
+ *
+ *  @param urls rtmpUrls(注意数组中的地址是完整地址)
+ */
+- (void)startPlayWithUrl:(NSArray *)urls;
 
 /**
  *  设置静音
@@ -75,6 +93,10 @@
  *  是否使用陀螺仪，仅VR播放时可用
  */
 - (void)setUsingGyro:(BOOL)usingGyro;
+/**
+ *  设置视频布局的方向，仅VR模式可用,切要开启陀螺仪
+ */
+- (void)setUILayoutOrientation:(DeviceOrientation)orientation;
 
 /**
  *  销毁播放器，异步销毁的

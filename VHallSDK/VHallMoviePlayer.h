@@ -200,6 +200,15 @@ typedef NS_ENUM(NSInteger,VHallMovieActiveState) {
 - (void)destroyMoivePlayer;
 
 
+
+
+/**
+ *  设置视频布局的方向，仅VR模式可用,切要开启陀螺仪
+ */
+- (void)setUILayoutOrientation:(DeviceOrientation)orientation;
+
+
+
 /**
  *  观看直播视频   (仅HLS可用) 已弃用 不再维护
  *

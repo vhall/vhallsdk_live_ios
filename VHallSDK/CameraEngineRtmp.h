@@ -69,8 +69,18 @@
 @property(assign,nonatomic)LiveFormat liveFormat;
 
 //采集设备初始化
-- (id)initWithOrgiation:(DeviceOrgiation)orgiation;
-
+- (id)initWithOrientation:(DeviceOrientation)orientation;
+/**
+ *  设置监控日志的参数 注意参数是json string,开始直播前设置，之后设置无效
+ *  param:{
+ *  "vid":"直播发起者账号",
+ *  "vfid":"直播发起者父账号",
+ *  "vtype":"直播视频类别",
+ *  "topic":"活动话题"
+ *  }
+ *  return 0设置成功，-1是json解析失败
+ */
+- (int)setMonitorLogParam:(NSString*)param;
 /**
  *  初始化 CaptureVideo
  *
@@ -99,6 +109,15 @@
 - (BOOL)stopAudioCapture;
 
 /**
+ *  开始直播
+ *
+ *  @param liveId  活动id
+ *  @param token   token
+ *  @param rtmpUrl 推流host
+ */
+- (void)setRoomId:(NSString *)liveId
+            token:(NSString *)token rtmpUrl:(NSString*)rtmpUrl pushType:(VHallStreamType)streamType;
+/**
  *  切换摄像头
  *
  *  @param captureDevicePosition
@@ -108,7 +127,7 @@
 - (BOOL)swapCameras:(AVCaptureDevicePosition)captureDevicePosition;
 
 //手动对焦
--(void)setFoucsPoint:(CGPoint)newPoint;
+- (void)setFoucsPoint:(CGPoint)newPoint;
 /**
  *  变焦
  *
@@ -122,12 +141,11 @@
 /**
  * 断网后重练
  */
--(BOOL)reconnect;
+- (BOOL)reconnect;
 /**
  *  销毁初始化数据，同步销毁，如果感觉销毁太慢，可以开线程去销毁
  */
 - (void)destoryObject;
-
 /**
  *  断开推流的连接,注意app进入后台时要手动调用此方法
  */
@@ -140,6 +158,6 @@
 - (void)pushVideoData:(CMSampleBufferRef)sampleBuffer;
 
 //直播状态
--(void)liveStatus:(NSNotification*)notification;
+- (void)liveStatus:(NSNotification*)notification;
 
 @end

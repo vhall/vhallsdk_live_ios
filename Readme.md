@@ -16,6 +16,9 @@ pod 'VHallSDK_LiveFilter' , :git => 'https://github.com/vhall/vhallsdk_live_ios.
 
 ### 版本更新信息
 
+#### 版本 v2.8.1 更新时间：2017.05.04
+更新内容：<br>
+1:修复发直播异常Bug
 
 #### 版本 v2.8.0 更新时间：2017.04.14
 更新内容：<br>
