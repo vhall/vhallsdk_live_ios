@@ -11,6 +11,5 @@
 @interface WatchLiveViewController : VHBaseViewController
 @property(nonatomic,copy)NSString * roomId;
 @property(nonatomic,copy)NSString * kValue;
-@property(nonatomic,assign)WatchVideoType  watchVideoType;
 @property(nonatomic,assign)NSInteger bufferTimes;
 @end

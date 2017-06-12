@@ -7,7 +7,7 @@
 //
 
 #import "AppDelegate.h"
-#import "MainViewController.h"
+#import "LoginViewController.h"
 #import <objc/message.h>
 
 @interface AppDelegate ()
@@ -26,8 +26,8 @@
     [VHallApi registerApp:DEMO_AppKey SecretKey:DEMO_AppSecretKey];
     
     self.window = [[UIWindow alloc]initWithFrame:bounds];
-    MainViewController * mainVC = [[MainViewController alloc]init];
-    self.window.rootViewController = mainVC;
+    LoginViewController * loginVC = [[LoginViewController alloc]init];
+    self.window.rootViewController = loginVC;
     
     [self.window makeKeyAndVisible];
 

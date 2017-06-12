@@ -48,18 +48,11 @@ typedef NS_ENUM(NSInteger,VHallMovieActiveState) {
 @optional
 
 /**
- *  包含文档 获取翻页图片路径
+ *  获取视频活动状态
  *
- *  @param changeImage  图片更新
+ *  @param playMode  视频活动状态
  */
-- (void)PPTScrollNextPagechangeImagePath:(NSString*)changeImagePath;
-
-/**
- *  画笔
- *
- *
- */
-- (void)docHandList:(NSArray*)docList whiteBoardHandList:(NSArray*)boardList;
+- (void)ActiveState:(VHallMovieActiveState)activeState;
 
 /**
  *  获取当前视频播放模式
@@ -67,18 +60,14 @@ typedef NS_ENUM(NSInteger,VHallMovieActiveState) {
  *  @param playMode  视频播放模式
  */
 - (void)VideoPlayMode:(VHallMovieVideoPlayMode)playMode isVrVideo:(BOOL)isVrVideo;
+
 /**
  *  获取当前视频支持的所有播放模式
  *
  *  @param playModeList 视频播放模式列表
  */
 - (void)VideoPlayModeList:(NSArray*)playModeList;
-/**
- *  获取视频活动状态
- *
- *  @param playMode  视频活动状态
- */
-- (void)ActiveState:(VHallMovieActiveState)activeState;
+
 /**
  *  该直播支持的清晰度列表
  *
@@ -98,6 +87,21 @@ typedef NS_ENUM(NSInteger,VHallMovieActiveState) {
  *  播主发布公告消息
  */
 - (void)Announcement:(NSString*)content publishTime:(NSString*)time;
+
+/**
+ *  包含文档 获取翻页图片路径
+ *
+ *  @param changeImage  图片更新
+ */
+- (void)PPTScrollNextPagechangeImagePath:(NSString*)changeImagePath;
+
+/**
+ *  画笔
+ *
+ *
+ */
+- (void)docHandList:(NSArray*)docList whiteBoardHandList:(NSArray*)boardList;
+
 @end
 @interface VHallMoviePlayer : VHMoviePlayer
 
@@ -107,7 +111,12 @@ typedef NS_ENUM(NSInteger,VHallMovieActiveState) {
 @property(nonatomic,assign)VHallMovieVideoPlayMode playMode;
 
 /**
- *  当前视频清晰度 观看直播允许切换清晰度(回放没有) 默认是原画播放
+ *  设置默认播放的清晰度 默认原画
+ */
+@property(nonatomic,assign)VHallMovieDefinition defaultDefinition;
+
+/**
+ *  当前视频清晰度 观看直播允许切换清晰度(回放没有) 默认是defaultDefinition
  */
 @property(nonatomic,assign,readonly)VHallMovieDefinition curDefinition;
 
@@ -133,37 +142,41 @@ typedef NS_ENUM(NSInteger,VHallMovieActiveState) {
  *
  *  @param param
  *  param[@"id"]    = 活动Id 必传
- *  param[@"name"]  = 如未登录SDK要传
- *  param[@"email"] = 如未登录SDK要传
+ *  param[@"name"]  = 如已登录可以不传
+ *  param[@"email"] = 如已登录可以不传
  *  param[@"pass"]  = 活动如果有K值或密码需要传
  *
  */
 -(BOOL)startPlay:(NSDictionary*)param;
 
-
-/**
- *  重连直播视频(直播功能)
- *
- *  @param param
- *  param[@"id"]    = 活动Id 必传
- *  param[@"name"]  = 如未登录SDK要传
- *  param[@"email"] = 如未登录SDK要传
- *  param[@"pass"]  = 活动如果有K值或密码需要传
- *
- */
--(BOOL)reconnectPlay:(NSDictionary*)param;
 /**
  *  观看回放视频   (仅HLS可用)
  *
  *  @param param
  *  param[@"id"]    = 活动Id 必传
- *  param[@"name"]  = 如未登录SDK要传
- *  param[@"email"] = 如未登录SDK要传
+ *  param[@"name"]  = 如已登录可以不传
+ *  param[@"email"] = 如已登录可以不传
  *  param[@"pass"]  = 活动如果有K值或密码需要传
  *
  *  @param moviePlayerController MPMoviePlayerController 对象
  */
--(void)startPlayback:(NSDictionary*)param moviePlayer:(MPMoviePlayerController *)moviePlayerController;
+-(BOOL)startPlayback:(NSDictionary*)param moviePlayer:(MPMoviePlayerController *)moviePlayerController;
+
+/**
+ *  暂停直播播放,不会停止接收聊天 ppt等事件(只用直播活动)
+ */
+-(void)pausePlay;
+
+/**
+ *  pausePlay后恢复直播播放(只用直播活动)
+ *  @return NO 播放器不是暂停状态 或者已经结束
+ */
+-(BOOL)reconnectPlay;
+
+/**
+ *  停止播放 和
+ */
+-(void)stopPlay;
 
 /**
  *  设置静音
@@ -185,40 +198,26 @@ typedef NS_ENUM(NSInteger,VHallMovieActiveState) {
 + (float)getSysVolumeSize;
 
 /**
- *  停止播放
- */
--(void)stopPlay;
-
-/**
- *  暂停直播播放(直播功能)
- */
--(void)pausePlay;
-
-/**
  *  销毁播放器
  */
 - (void)destroyMoivePlayer;
-
-
-
 
 /**
  *  设置视频布局的方向，仅VR模式可用,切要开启陀螺仪
  */
 - (void)setUILayoutOrientation:(DeviceOrientation)orientation;
 
-
-
 /**
  *  观看直播视频   (仅HLS可用) 已弃用 不再维护
  *
  *  @param param
  *  param[@"id"]    = 活动Id 必传
- *  param[@"name"]  = 如未登录SDK要传
- *  param[@"email"] = 如未登录SDK要传
+ *  param[@"name"]  = 如已登录可以不传
+ *  param[@"email"] = 如已登录可以不传
  *  param[@"pass"]  = 活动如果有K值或密码需要传）
  *
  *  @param moviePlayerController MPMoviePlayerController 对象
  */
 -(void)startPlay:(NSDictionary*)param moviePlayer:(MPMoviePlayerController *)moviePlayerController __attribute__ ((deprecated));
+
 @end

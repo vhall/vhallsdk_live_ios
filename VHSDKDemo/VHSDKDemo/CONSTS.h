@@ -1,40 +1,33 @@
 //
 //  CONSTS.h
-//  VhallRtmpDemo
+//  VHSDKDemo
 //
-//  Created by liwenlong on 15/10/10.
+//  Created by vhall on 15/10/10.
 //  Copyright © 2015年 vhall. All rights reserved.
 //
 
 #ifndef CONSTS_h
 #define CONSTS_h
 
+//1、AppDelegate.mm 修改为.mm
+//2、关闭bitcode
+//3、plist中 App Transport Security Settings -> Allow Arbitrary Loads 设置为YES
+//4、设置以下数据 检查 Bundle ID 即可观看直播
+
 //接口文档说明： http://e.vhall.com/home/vhallapi
-#define DEMO_AppKey         @"替换成您自己的AppKey"        //AppKey   详见： ▪ API&SDK权限申请
+#define DEMO_AppKey         @"替换成您自己的AppKey"        //详见：http://e.vhall.com/home/vhallapi/authlist
 #define DEMO_AppSecretKey   @"替换成您自己的AppSecretKey"  //AppSecretKey
-#define DEMO_ActivityId     @"" //活动id    详见：▪ 自助式网络直播API -> 活动管理
-#define DEMO_AccessToken    @"" //直播Token 详见：▪ 自助式网络直播API -> 观众管理 ->verify/access-token
+#define DEMO_ActivityId     @"" //活动id    详见：http://e.vhall.com/home/vhallapi/active   webinar/create 创建活动
+#define DEMO_AccessToken    @"" //直播Token 详见：http://e.vhall.com/home/vhallapi/audience verify/access-token 获取SDK直播操作token
 
-#define DEMO_account        @"" //账号 详见：▪ 自助式网络直播API -> 活动管理 ->user/register 创建用户
-#define DEMO_password       @"" //密码 详见：▪ 自助式网络直播API -> 活动管理 ->user/register 创建用户
-
-//////////////////////////////////////////////////////////发布要删除
-
-//////////////////////////////////////////////////////////发布要删除
+#define DEMO_account        @"" //账号 详见：http://e.vhall.com/home/vhallapi/user user/register创建用户 对应 third_user_id
+#define DEMO_password       @"" //密码 对应 pass字段
 
 //#if DEBUG  // 调试状态, 打开LOG功能
 #define VHLog(...) NSLog(__VA_ARGS__)
 //#else // 发布状态, 关闭LOG功能
 //#define VHLog(...)
 //#endif
-
-typedef NS_ENUM(int,WatchVideoType)
-{
-    kWatchVideoNone,
-    kWatchVideoRTMP,
-    kWatchVideoHLS,
-    kWatchVideoPlayback
-};
 
 #define kViewFramePath  @"frame"
 

@@ -25,6 +25,7 @@
 //#import "VHDrawView.h"
 #import "VHDocumentView.h"
 
+# define DebugLog(fmt, ...) NSLog((@"\n[文件名:%s]\n""[函数名:%s]\n""[行号:%d] \n" fmt), __FILE__, __FUNCTION__, __LINE__, ##__VA_ARGS__);
 
 static AnnouncementView* announcementView = nil;
 @interface WatchLiveViewController ()<VHallMoviePlayerDelegate, VHallChatDelegate, VHallQADelegate, VHallLotteryDelegate,VHallSignDelegate,VHallSurveyDelegate, UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate,VHMessageToolBarDelegate>
@@ -52,7 +53,6 @@ static AnnouncementView* announcementView = nil;
     NSMutableArray    *_chatDataArray;
     NSMutableArray    *_QADataArray;
     NSArray           *_videoLevePicArray;//视频质量等级图片
-    int                _leve;//
     NSMutableArray    *_videoPlayModel;//播放模式
 //    NSMutableArray    *_videoPlayModelPicArray;//单视频纯音频切换
      UIButton          *_toolViewBackView;//遮罩
@@ -119,7 +119,7 @@ static AnnouncementView* announcementView = nil;
     UIPanGestureRecognizer * panGesture = [[UIPanGestureRecognizer alloc]initWithTarget:self action:@selector(handlePan:)];
     panGesture.maximumNumberOfTouches = 1;
     panGesture.minimumNumberOfTouches = 1;
-    [self.view addGestureRecognizer:panGesture];
+    [_moviePlayer.moviePlayerView addGestureRecognizer:panGesture];
 }
 
 -(void)initDatas
@@ -153,6 +153,9 @@ static AnnouncementView* announcementView = nil;
     _moviePlayer.bufferTime = (int)_bufferTimes;
     _moviePlayer.reConnectTimes = 2;
     _moviePlayer.liveFormat = kLiveFormatRtmp;
+    
+//    _moviePlayer.defaultDefinition = VHallMovieDefinitionHD;
+    
    // [_moviePlayer setRenderViewModel:kVHallRenderModelDewarpVR];
     _logView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"UIModel.bundle/vhallLogo.tiff"]];
     _logView.backgroundColor = [UIColor whiteColor];
@@ -164,12 +167,10 @@ static AnnouncementView* announcementView = nil;
     [self.view bringSubviewToFront:self.backView];
     _textImageView.hidden = YES;
     _logView.hidden = YES;
-    _videoLevePicArray=@[@"UIModel.bundle/原画.tiff",@"UIModel.bundle/标清.tiff",@"UIModel.bundle/高清.tiff",@"UIModel.bundle/超清.tiff"];
+    _videoLevePicArray=@[@"UIModel.bundle/原画.tiff",@"UIModel.bundle/超清.tiff",@"UIModel.bundle/高清.tiff",@"UIModel.bundle/标清.tiff",@""];
 //    _videoPlayModelPicArray=@[@"UIModel.bundle/单视频",@"UIModel.bundle/单音频"];
     _videoPlayModel=[NSMutableArray array];
-    _leve=0;
-    
-    
+
     if ([self.chatView  respondsToSelector:@selector(setLayoutMargins:)]) {
         [self.chatView setLayoutMargins:UIEdgeInsetsZero];
     }
@@ -198,15 +199,14 @@ static AnnouncementView* announcementView = nil;
 //调查问卷页面
 -(void)showSurveyVCWithSruveyModel:(VHallSurvey*)survey
 {
-    __weak typeof(self) weakSelf =self;
+//    __weak typeof(self) weakSelf =self;
     NSMutableArray *titleArray=[[NSMutableArray alloc] init];
     NSMutableArray *optionArray=[[NSMutableArray alloc] init];
     NSMutableArray *typeArry  =[[NSMutableArray alloc] init];
     NSMutableArray *isMustSelectArray = [[NSMutableArray alloc] init];
     
     NSSortDescriptor *sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"_orderNum" ascending:NO];
-    NSMutableArray *questionArray = [survey.questionArray sortedArrayUsingDescriptors:[NSArray arrayWithObject:sortDescriptor]];
-    survey.questionArray =questionArray;
+    survey.questionArray =[survey.questionArray sortedArrayUsingDescriptors:[NSArray arrayWithObject:sortDescriptor]];
     
     for (VHallSurveyQuestion *question in survey.questionArray)
     {
@@ -239,7 +239,7 @@ static AnnouncementView* announcementView = nil;
             [isMustSelectArray addObject:@"0"];
         }
     }
-    NSArray *resultArray =[[NSMutableArray alloc] init];
+//    NSArray *resultArray =[[NSMutableArray alloc] init];
     SZQuestionItem *item = [[SZQuestionItem alloc] initWithTitleArray:titleArray andOptionArray:optionArray andResultArray:self.surveyResultArray andQuestonTypes:typeArry isMustSelectArray:isMustSelectArray];
    VHQuestionCheckBox *questionBox=[[VHQuestionCheckBox alloc] initWithItem:item];
     questionBox.survey = survey;
@@ -280,10 +280,11 @@ static AnnouncementView* announcementView = nil;
 - (IBAction)stopWatchBtnClick:(id)sender
 {
     _definitionBtn0.hidden = YES;
-
     if (_isStart) {
+        [MBProgressHUD hideHUDForView:_moviePlayer.moviePlayerView animated:NO];
          [MBProgressHUD showHUDAddedTo:_moviePlayer.moviePlayerView animated:YES];
         _bufferCount = 0;
+        _bufferCountLabel.text = [NSString stringWithFormat:@"卡顿：%d",_bufferCount];
         //todo
         NSMutableDictionary * param = [[NSMutableDictionary alloc]init];
         param[@"id"] =  _roomId;
@@ -299,10 +300,14 @@ static AnnouncementView* announcementView = nil;
             self.liveTypeLabel.text = @"";
         }
     }else{
+        [MBProgressHUD hideHUDForView:_moviePlayer.moviePlayerView animated:NO];
         _bitRateLabel.text = @"";
+        _bufferCount = 0;
+        _bufferCountLabel.text = [NSString stringWithFormat:@"卡顿：%d",_bufferCount];
        // [_startAndStopBtn setTitle:@"开始播放" forState:UIControlStateNormal];
         _startAndStopBtn.selected = NO;
         [_moviePlayer stopPlay];
+//        [_moviePlayer cleanLastFrame];
         if (self.playModelTemp == VHallMovieVideoPlayModeTextAndVoice || self.playModelTemp == VHallMovieVideoPlayModeVoice) {
             self.liveTypeLabel.text = @"已暂停语音直播";
         }
@@ -444,23 +449,27 @@ static AnnouncementView* announcementView = nil;
 -(void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
+    if(announcementView && !announcementView.hidden)
+    {
+        announcementView.content = announcementView.content;
+    }
 }
 
 -(void)viewWillLayoutSubviews
 {
+    
     if ([UIApplication sharedApplication].statusBarOrientation == UIDeviceOrientationPortrait)
         
     {
         _topConstraint.constant = 20;
         _fullscreenBtn.selected = NO;
+        
     }
     else
     {
         _topConstraint.constant = 0;
         _fullscreenBtn.selected = YES;
     }
-    
-    
     
     DeviceOrientation orientation;
     UIDeviceOrientation duration = [[UIDevice currentDevice]orientation];
@@ -476,7 +485,7 @@ static AnnouncementView* announcementView = nil;
     if (_isVr && _GyroBtn.selected) {
         [_moviePlayer setUILayoutOrientation:orientation];
     }
-
+    
     _fullScreentBtnClick=NO;
 }
 
@@ -489,9 +498,7 @@ static AnnouncementView* announcementView = nil;
     {
         _documentView.frame = self.textImageView.bounds;
         [_documentView layoutSubviews];
-        
     }
-    
 }
 
 - (void)didReceiveMemoryWarning
@@ -641,32 +648,16 @@ static AnnouncementView* announcementView = nil;
 
 -(void)connectSucceed:(VHMoviePlayer *)moviePlayer info:(NSDictionary *)info
 {
-    [MBProgressHUD hideHUDForView:_moviePlayer.moviePlayerView animated:YES];
   //  [_startAndStopBtn setTitle:@"停止播放" forState:UIControlStateNormal];
     _startAndStopBtn.selected = YES;
-
-    switch (_moviePlayer.curDefinition) {
-        case VHallMovieDefinitionOrigin:
-            [_definitionBtn0 setImage:[UIImage imageNamed:_videoLevePicArray[0]] forState:UIControlStateNormal];
-            break;
-        case VHallMovieDefinitionUHD:
-         [_definitionBtn0 setImage:[UIImage imageNamed:_videoLevePicArray[3]] forState:UIControlStateNormal];
-            break;
-        case VHallMovieDefinitionHD:
-             [_definitionBtn0 setImage:[UIImage imageNamed:_videoLevePicArray[2]] forState:UIControlStateNormal];
-            break;
-        case VHallMovieDefinitionSD:
-             [_definitionBtn0 setImage:[UIImage imageNamed:_videoLevePicArray[1]] forState:UIControlStateNormal];
-            break;
-        default:
-            break;
-    }
+    [_definitionBtn0 setImage:[UIImage imageNamed:_videoLevePicArray[_moviePlayer.curDefinition]] forState:UIControlStateNormal];
 }
 
 -(void)bufferStart:(VHMoviePlayer *)moviePlayer info:(NSDictionary *)info
 {
     _bufferCount++;
     _bufferCountLabel.text = [NSString stringWithFormat:@"卡顿：%d",_bufferCount];
+    [MBProgressHUD hideHUDForView:_moviePlayer.moviePlayerView animated:NO];
     [MBProgressHUD showHUDAddedTo:_moviePlayer.moviePlayerView animated:YES];
 }
 
@@ -678,11 +669,14 @@ static AnnouncementView* announcementView = nil;
 
 -(void)downloadSpeed:(VHMoviePlayer *)moviePlayer info:(NSDictionary *)info
 {
-    [MBProgressHUD hideHUDForView:_moviePlayer.moviePlayerView animated:YES];
-
     NSString * content = info[@"content"];
     _bitRateLabel.text = [NSString stringWithFormat:@"%@ kb/s",content];
 //    VHLog(@"downloadSpeed:%@",[info description]);
+}
+
+- (void)cdnSwitch:(VHMoviePlayer*)moviePlayer info:(NSDictionary*)info
+{
+    
 }
 
 - (void)recStreamtype:(VHMoviePlayer*)moviePlayer info:(NSDictionary*)info
@@ -701,7 +695,6 @@ static AnnouncementView* announcementView = nil;
     void (^resetStartPlay)(NSString * msg) = ^(NSString * msg){
         _isStart = YES;
         _bitRateLabel.text = @"";
-       // [_startAndStopBtn setTitle:@"开始播放" forState:UIControlStateNormal];
         _startAndStopBtn.selected = NO;
         dispatch_async(dispatch_get_main_queue(), ^{
             [self detailsButtonClick: nil];
@@ -741,11 +734,6 @@ static AnnouncementView* announcementView = nil;
         default:
             break;
     }
-}
-
-- (void)netWorkStatus:(VHMoviePlayer*)moviePlayer info:(NSDictionary*)info
-{
-    VHLog(@"netWorkStatus:%f",[info[@"content"]floatValue]);
 }
 
 #pragma mark - vhallMoviePlayerDelegate
@@ -797,6 +785,7 @@ static AnnouncementView* announcementView = nil;
 
 -(void)VideoPlayMode:(VHallMovieVideoPlayMode)playMode isVrVideo:(BOOL)isVrVideo
 {
+    [self chatButtonClick:nil];
     _isVr = isVrVideo;
     if (!_isRender)
     {
@@ -806,6 +795,7 @@ static AnnouncementView* announcementView = nil;
             _GyroBtn.selected = YES;
             [_moviePlayer setRenderViewModel:kVHallRenderModelDewarpVR];
             [_moviePlayer setUsingGyro:YES];
+            
         }else
         {
             _GyroBtn.hidden =YES;
@@ -874,34 +864,18 @@ static AnnouncementView* announcementView = nil;
 
 - (void)VideoDefinitionList: (NSArray*)definitionList
 {
-    NSLog(@"可用分辨率%@ 当前分辨率：%ld",definitionList,(long)_moviePlayer.curDefinition);
+    VHLog(@"可用分辨率%@ 当前分辨率：%ld",definitionList,(long)_moviePlayer.curDefinition);
     _definitionBtn0.hidden = NO;
-  
-    
-    for (NSNumber *num in definitionList) {
-        switch ([num intValue]) {
-            case VHallMovieDefinitionOrigin:
-                 [_definitionBtn0 setImage:[UIImage imageNamed:_videoLevePicArray[0]] forState:UIControlStateNormal];
-                
-                break;
-            case VHallMovieDefinitionUHD:
-                 [_definitionBtn0 setImage:[UIImage imageNamed:_videoLevePicArray[3]] forState:UIControlStateNormal];
-                break;
-            case VHallMovieDefinitionHD:
-                 [_definitionBtn0 setImage:[UIImage imageNamed:_videoLevePicArray[2]] forState:UIControlStateNormal];
-                break;
-            case VHallMovieDefinitionSD:
-                 [_definitionBtn0 setImage:[UIImage imageNamed:_videoLevePicArray[1]] forState:UIControlStateNormal];
-                break;
-            default:
-                break;
-        }
+    [_definitionBtn0 setImage:[UIImage imageNamed:_videoLevePicArray[_moviePlayer.curDefinition]] forState:UIControlStateNormal];
+    if (_moviePlayer.curDefinition == VHallMovieDefinitionAudio) {
+        _playModelTemp=VHallMovieVideoPlayModeVoice;
+        _playModeBtn0.selected = YES;
     }
 }
 
 - (void)LiveStoped
 {
-    NSLog(@"直播已结束");
+    VHLog(@"直播已结束");
     [MBProgressHUD hideHUDForView:_moviePlayer.moviePlayerView animated:YES];
     _isStart = NO;
     [self stopWatchBtnClick:nil];
@@ -912,7 +886,7 @@ static AnnouncementView* announcementView = nil;
 #pragma mark - Announcement
 - (void)Announcement:(NSString*)content publishTime:(NSString*)time
 {
-    NSLog(@"公告:%@",content);
+    VHLog(@"公告:%@",content);
     if (!announcementContentDic)
     {
         announcementContentDic =[[NSMutableDictionary alloc] init];
@@ -1151,7 +1125,6 @@ static AnnouncementView* announcementView = nil;
     
     if(announcementView !=nil)
     {
-        [announcementView endAnimation];
         [announcementView setContent:[content stringByAppendingString:time]];
         
     }
@@ -1282,31 +1255,16 @@ static AnnouncementView* announcementView = nil;
 
 - (IBAction)definitionBtnCLicked:(UIButton *)sender {
     
-    ++_leve;
+    int _leve = _moviePlayer.curDefinition + 1;
     if (_leve==4) {
         _leve=0;
     }
-    
+    [MBProgressHUD hideHUDForView:_moviePlayer.moviePlayerView animated:NO];
     [MBProgressHUD showHUDAddedTo:_moviePlayer.moviePlayerView animated:YES];
-    [_moviePlayer setDefinition:_leve];
+    _leve =  [_moviePlayer setDefinition:_leve];
     _playModeBtn0.selected = NO;
-    switch (_moviePlayer.curDefinition) {
-        case VHallMovieDefinitionOrigin:
-            [_definitionBtn0 setImage:[UIImage imageNamed:_videoLevePicArray[0]] forState:UIControlStateNormal];
-            break;
-        case VHallMovieDefinitionUHD:
-             [_definitionBtn0 setImage:[UIImage imageNamed:_videoLevePicArray[3]] forState:UIControlStateNormal];
-            break;
-        case VHallMovieDefinitionHD:
-             [_definitionBtn0 setImage:[UIImage imageNamed:_videoLevePicArray[2]] forState:UIControlStateNormal];
-            break;
-        case VHallMovieDefinitionSD:
-            [_definitionBtn0 setImage:[UIImage imageNamed:_videoLevePicArray[1]] forState:UIControlStateNormal];
-            break;
-        default:
-            
-            break;
-    }
+    [_definitionBtn0 setImage:[UIImage imageNamed:_videoLevePicArray[_moviePlayer.curDefinition]] forState:UIControlStateNormal];
+
 }
 
 - (IBAction)playModeBtnCLicked:(UIButton *)sender {
@@ -1326,7 +1284,7 @@ static AnnouncementView* announcementView = nil;
     }
     
     
-    
+    [MBProgressHUD hideHUDForView:_moviePlayer.moviePlayerView animated:NO];
     [MBProgressHUD showHUDAddedTo:_moviePlayer.moviePlayerView animated:YES];
     _moviePlayer.playMode = _playModelTemp;
     if (_playModelTemp == VHallMovieVideoPlayModeVoice ||_playModelTemp == VHallMovieVideoPlayModeTextAndVoice) {
@@ -1339,7 +1297,7 @@ static AnnouncementView* announcementView = nil;
         [_moviePlayer setDefinition:VHallMovieDefinitionOrigin];
         _logView.hidden=YES;
     }
-
+    [_definitionBtn0 setImage:[UIImage imageNamed:_videoLevePicArray[_moviePlayer.curDefinition]] forState:UIControlStateNormal];
 }
 
 #pragma mark 弹幕开关

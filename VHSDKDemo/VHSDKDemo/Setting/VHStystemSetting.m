@@ -101,7 +101,7 @@ static VHStystemSetting *pub_sharedSetting = nil;
         }
         if(_videoResolution == nil || _videoResolution.length == 0)
         {
-            _videoResolution = @"1";
+            _videoResolution = @"2";
         }
 
         if(_videoBitRate<=0)

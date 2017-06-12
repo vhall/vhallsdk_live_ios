@@ -12,7 +12,5 @@
 @property (nonatomic,strong)NSString* content;
 
 - (id)initWithFrame:(CGRect)frame content:(NSString*)content time:(NSString*)time;
-- (void)startAnimation;
--(void)endAnimation;
 - (void)hideView;
 @end

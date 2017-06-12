@@ -11,6 +11,8 @@
 #import <AVFoundation/AVFoundation.h>
 #import "OpenCONSTS.h"
 
+@class AudioCaptureInterface;
+
 @interface CameraEngineRtmp : NSObject
 {
     
@@ -90,8 +92,8 @@
  */
 - (BOOL)initCaptureVideo:(AVCaptureDevicePosition)captureDevicePosition;
 
-//初始化音频
-- (BOOL)initAudio;
+//设置音频采集对象
+- (void)setAudidoCapture:(AudioCaptureInterface*)audioCapture;
 
 //开始视频采集
 - (BOOL)startVideoCapture;
@@ -108,15 +110,6 @@
 //停止音频采集,此方法调用了，就要在调用initAudio方法初始化
 - (BOOL)stopAudioCapture;
 
-/**
- *  开始直播
- *
- *  @param liveId  活动id
- *  @param token   token
- *  @param rtmpUrl 推流host
- */
-- (void)setRoomId:(NSString *)liveId
-            token:(NSString *)token rtmpUrl:(NSString*)rtmpUrl pushType:(VHallStreamType)streamType;
 /**
  *  切换摄像头
  *

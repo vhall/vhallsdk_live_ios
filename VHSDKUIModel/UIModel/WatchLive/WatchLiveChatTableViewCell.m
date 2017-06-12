@@ -7,7 +7,8 @@
 //
 
 #import "WatchLiveChatTableViewCell.h"
-#import "MLEmojiLabel+atColor.h"
+#import "MLEmojiLabel.h"
+#import "UIImageView+WebCache.h"
 
 @implementation WatchLiveChatTableViewCell
 {
@@ -62,18 +63,7 @@
 
 - (void)layoutSubviews
 {
-    if ([_model.avatar isEqualToString:@"(null)"] || [_model.avatar isEqualToString:@""])
-    {
-        image = [UIImage imageNamed:@"UIModel.bundle/head50"];
-    
-    }
-    else
-    {
-        NSURL *url = [NSURL URLWithString:_model.avatar];
-        NSData *data = [NSData dataWithContentsOfURL:url];
-        image = [[UIImage alloc] initWithData:data];
-    }
-    [pic setImage:image];
+    [pic sd_setImageWithURL:[NSURL URLWithString:_model.avatar] placeholderImage:[UIImage imageNamed:@"UIModel.bundle/head50"]];
     
     lblNickName.text = _model.user_name;
     lblTime.text = _model.time;

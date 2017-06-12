@@ -58,9 +58,9 @@
     attend_count = _model.attend_count;
     
     if([_model.event isEqualToString:@"online"]) {
-        event = @"上线";
+        event = @"进入";
     }else if([_model.event isEqualToString:@"offline"]){
-        event = @"下线";
+        event = @"离开";
     }
     
     if([_model.role isEqualToString:@"host"]) {
@@ -73,15 +73,8 @@
         role = @"观众";
     }
 
-    if ([_model.event isEqualToString:@"online"]) {
-        lblShow.text = [NSString stringWithFormat:@"欢迎%@%@加入房间:%@(%@)", role, userName, room, event];
-        lblState.text = [NSString stringWithFormat:@"加入时间:%@ 当前用户数:%@ 参会人数:%@", time, concurrent_user, attend_count];
-    }else if ([_model.event isEqualToString:@"offline"])
-    {
-        lblShow.text = [NSString stringWithFormat:@"%@%@退出房间:%@(%@)", role, userName, room, event];
-        lblState.text = [NSString stringWithFormat:@"退出时间:%@ 当前用户数:%@ 参会人数:%@", time, concurrent_user, attend_count];
-    }
-    
+    lblShow.text = [NSString stringWithFormat:@"%@[%@] %@房间:%@", userName, role, event, room];
+    lblState.text = [NSString stringWithFormat:@"在线:%@ 参会:%@ %@", concurrent_user, attend_count, time];
 }
 
 @end

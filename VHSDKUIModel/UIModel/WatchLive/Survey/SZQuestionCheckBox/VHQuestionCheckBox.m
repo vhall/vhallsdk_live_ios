@@ -58,8 +58,47 @@
     return self;
 }
 
+
+
+
+- (void)keyboardWillShow:(NSNotification *)notification {
+    CGRect endFrame = [notification.userInfo[UIKeyboardFrameEndUserInfoKey] CGRectValue];
+    NSNumber *duration = [notification.userInfo objectForKey:UIKeyboardAnimationDurationUserInfoKey];
+    NSNumber *curve = [notification.userInfo objectForKey:UIKeyboardAnimationCurveUserInfoKey];
+    self.tableView.frame = CGRectMake(0, 0, self.tableView.frame.size.width, VHScreenHeight - endFrame.size.height);
+    [UIView animateWithDuration:duration.doubleValue animations:^{
+        [UIView setAnimationBeginsFromCurrentState:YES];
+        [UIView setAnimationCurve:[curve intValue]];
+        
+        if (self.tableView.contentSize.height > self.tableView.frame.size.height) {
+            CGPoint offset = CGPointMake(0, self.tableView.contentSize.height - self.tableView.frame.size.height);
+            [self.tableView setContentOffset:offset animated:NO];
+        }
+    }];
+}
+
+#pragma mark 键盘将要隐藏
+- (void)keyboardWillHide:(NSNotification *)notification {
+    self.tableView.frame = CGRectMake(0, 84, self.tableView.frame.size.width, [UIScreen mainScreen].bounds.size.height-84);
+}
+
+
+- (void)dealloc
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                    name:UIKeyboardWillShowNotification
+                                                  object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                    name:UIKeyboardWillHideNotification
+                                                  object:nil];
+
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
+
     self.view.backgroundColor=[UIColor whiteColor];
     _isHaveAnser=[[NSMutableArray alloc] init];
     _uploadArray =[[NSMutableArray alloc] init];

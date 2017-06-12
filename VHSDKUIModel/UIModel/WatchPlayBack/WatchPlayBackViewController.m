@@ -75,7 +75,7 @@ static AnnouncementView* announcementView = nil;
     UIPanGestureRecognizer * panGesture = [[UIPanGestureRecognizer alloc]initWithTarget:self action:@selector(handlePan:)];
     panGesture.maximumNumberOfTouches = 1;
     panGesture.minimumNumberOfTouches = 1;
-    [self.view addGestureRecognizer:panGesture];
+    [self.hlsMoviePlayer.view addGestureRecognizer:panGesture];
 }
 
 - (void)initViews
@@ -83,7 +83,6 @@ static AnnouncementView* announcementView = nil;
     _comment = [[VHallComment alloc] init];
     //阻止iOS设备锁屏
     [[UIApplication sharedApplication] setIdleTimerDisabled:YES];
-    [self addPanGestureRecognizer];
     [self registerLiveNotification];
     _moviePlayer = [[VHallMoviePlayer alloc]initWithDelegate:self];
     self.hlsMoviePlayer =[[MPMoviePlayerController alloc] init];
@@ -95,7 +94,7 @@ static AnnouncementView* announcementView = nil;
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(moviePlaybackStateDidChange:) name:MPMoviePlayerPlaybackStateDidChangeNotification object:self.hlsMoviePlayer];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(movieLoadStateDidChange:) name:MPMoviePlayerLoadStateDidChangeNotification object:self.hlsMoviePlayer];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(moviePlayeExitFullScreen:) name:MPMoviePlayerDidExitFullscreenNotification object:self.hlsMoviePlayer];
-    
+    [self addPanGestureRecognizer];
     _tableView = [[VHPullingRefreshTableView alloc] initWithFrame:CGRectMake(0, 0, VH_SW, _historyCommentTableView.height) pullingDelegate:self headView:YES  footView:YES];
     _tableView.backgroundColor = self.view.backgroundColor;
     _tableView.dataSource=self;
@@ -182,16 +181,10 @@ static AnnouncementView* announcementView = nil;
             //横屏
             frame = CGRectMake(0, 0, bounds.size.height, bounds.size.width);
         }
-        if (self.watchVideoType == kWatchVideoRTMP)
-        {
-            _moviePlayer.moviePlayerView.frame = frame;
 
-        }else if(self.watchVideoType == kWatchVideoHLS||self.watchVideoType == kWatchVideoPlayback)
-        {
-            _hlsMoviePlayer.view.frame = frame;
-            [self.backView addSubview:self.hlsMoviePlayer.view];
-            [self.backView sendSubviewToBack:_hlsMoviePlayer.view];
-        }
+        _hlsMoviePlayer.view.frame = frame;
+        [self.backView addSubview:self.hlsMoviePlayer.view];
+        [self.backView sendSubviewToBack:_hlsMoviePlayer.view];
     }
 }
 
@@ -221,8 +214,16 @@ static AnnouncementView* announcementView = nil;
     if (_documentView)
     {
         _documentView.frame = self.textImageView.bounds;
-        [_documentView layoutSubviews];
-        
+        _documentView.width = VH_SW;
+        if ([UIApplication sharedApplication].statusBarOrientation == UIDeviceOrientationPortrait)
+        {
+            _documentView.height = VH_SH-_backView.height-20-40;
+            [_documentView layoutSubviews];
+        }
+        else
+        {
+            _documentView.height = 0;
+        }
     }
 }
 
@@ -244,8 +245,8 @@ static AnnouncementView* announcementView = nil;
     param[@"name"] = [UIDevice currentDevice].name;
     param[@"email"] = [[[UIDevice currentDevice] identifierForVendor] UUIDString];
 //    param[@"record_id"] = DEMO_Setting.recordID;
-    if (_password&&_password.length) {
-        param[@"pass"] = _password;
+    if (_kValue&&_kValue.length) {
+        param[@"pass"] = _kValue;
     }
     [_moviePlayer startPlayback:param moviePlayer:self.hlsMoviePlayer];
 
@@ -296,44 +297,12 @@ static AnnouncementView* announcementView = nil;
 }
 
 #pragma mark - VHMoviePlayerDelegate
-
--(void)connectSucceed:(VHMoviePlayer *)moviePlayer info:(NSDictionary *)info
-{
-
-}
-
--(void)bufferStart:(VHMoviePlayer *)moviePlayer info:(NSDictionary *)info
-{
-    _bufferCount++;
-    _bufferCountLabel.text = [NSString stringWithFormat:@"卡顿次数： %d",_bufferCount];
-}
-
--(void)bufferStop:(VHMoviePlayer *)moviePlayer info:(NSDictionary *)info
-{
-
-}
-
--(void)downloadSpeed:(VHMoviePlayer *)moviePlayer info:(NSDictionary *)info
-{
-//    NSString * content = info[@"content"];
-    VHLog(@"downloadSpeed:%@",[info description]);
-}
-
 - (void)playError:(LivePlayErrorType)livePlayErrorType info:(NSDictionary *)info;
 {
-    if (self.hlsMoviePlayer.view) {
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [MBProgressHUD hideAllHUDsForView:self.hlsMoviePlayer.view animated:YES];
-        });
-    }
-    
+    [MBProgressHUD hideAllHUDsForView:self.hlsMoviePlayer.view animated:YES];
     void (^resetStartPlay)(NSString * msg) = ^(NSString * msg){
         dispatch_async(dispatch_get_main_queue(), ^{
-//            if (APPDELEGATE.isNetworkReachable) {
-                [UIAlertView popupAlertByDelegate:nil title:msg message:nil];
-//            }else{
-//                [UIAlertView popupAlertByDelegate:nil title:@"没有可以使用的网络" message:nil];
-//            }
+            [UIAlertView popupAlertByDelegate:nil title:msg message:nil];
         });
     };
     
@@ -360,21 +329,13 @@ static AnnouncementView* announcementView = nil;
         case kLivePlayGetUrlError:
         {
             msg = @"获取服务器地址报错";
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [MBHUDHelper showWarningWithText:info[@"content"]];
-            });
+            resetStartPlay(info[@"content"]);
         }
             break;
         default:
             break;
     }
 }
-
-- (void)netWorkStatus:(VHMoviePlayer*)moviePlayer info:(NSDictionary*)info
-{
-    VHLog(@"netWorkStatus:%f",[info[@"content"]floatValue]);
-}
-
 
 -(void)PPTScrollNextPagechangeImagePath:(NSString *)changeImagePath
 {
@@ -449,7 +410,7 @@ static AnnouncementView* announcementView = nil;
 
 - (void)Announcement:(NSString*)content publishTime:(NSString*)time
 {
-    NSLog(@"公告:%@",content);
+    VHLog(@"公告:%@",content);
     
     if(!announcementView)
     { //横屏时frame错误
@@ -582,11 +543,9 @@ static AnnouncementView* announcementView = nil;
 
 -(void)moviePlayeExitFullScreen:(NSNotification*)note
 {
-    if(announcementView !=nil)
+    if(announcementView && !announcementView.hidden)
     {
-        [announcementView endAnimation];
-        [announcementView startAnimation];
-        
+        announcementView.content = announcementView.content;
     }
 }
 
@@ -596,10 +555,9 @@ static AnnouncementView* announcementView = nil;
     [self.hlsMoviePlayer prepareToPlay];
     [self.hlsMoviePlayer play];
     
-    if(announcementView !=nil)
-    {   [announcementView endAnimation];
-        [announcementView startAnimation];
-        
+    if(announcementView && !announcementView.hidden)
+    {
+        announcementView.content = announcementView.content;
     }
 }
 

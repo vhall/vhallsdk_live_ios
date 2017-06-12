@@ -110,12 +110,20 @@ typedef NS_ENUM(int,VHallRenderModel){
  *  @param liveStatus 直播状态
  */
 -(void)publishStatus:(LiveStatus)liveStatus withInfo:(NSDictionary*)info;
+
 /**
- * code	含义
- * 10030	身份验证出错
- * 10401	活动开始失败
- * 10402	当前活动ID错误
- * 10403	活动不属于自己编辑
+ * 当liveStatus == kLiveStatusPushConnectError时，content代表出错原因
+ * 4001   握手失败
+ * 4002   链接vhost/app失败
+ * 4003   网络断开 （预留，暂时未使用）
+ * 4004   无效token
+ * 4005   不再白名单中
+ * 4006   在黑名单中
+ * 4007   流已经存在
+ * 4008   流被禁掉 （预留，暂时未使用）
+ * 4009   不支持的视频分辨率（预留，暂时未使用）
+ * 4010   不支持的音频采样率（预留，暂时未使用）
+ * 4011   欠费
  */
 @end
 
@@ -128,6 +136,7 @@ typedef NS_ENUM(int,VHallRenderModel){
  *  播放连接成功
  */
 - (void)connectSucceed:(VHMoviePlayer*)moviePlayer info:(NSDictionary*)info;
+
 /**
  *  缓冲开始回调
  */
@@ -169,14 +178,5 @@ typedef NS_ENUM(int,VHallRenderModel){
  */
 - (void)playError:(LivePlayErrorType)livePlayErrorType info:(NSDictionary*)info;
 
-/**
- *  code	   含义
- *  10030	身份验证出错
- *  10402	当前活动ID错误
- *  10404	KEY值验证出错
- *  10046	当前活动已结束
- *  10047	您已被踢出，请联系活动组织者
- *  10048	活动现场太火爆，已超过人数上限
- */
 @end
 #endif /* OpenCONSTS_h */

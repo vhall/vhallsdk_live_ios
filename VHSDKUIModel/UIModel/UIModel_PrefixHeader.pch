@@ -53,12 +53,4 @@
 #import "UIView+ITTAdditions.h"
 #import "MBHUDHelper.h"
 
-typedef NS_ENUM(int,WatchVideoType)
-{
-    kWatchVideoNone,
-    kWatchVideoRTMP,
-    kWatchVideoHLS,
-    kWatchVideoPlayback
-};
-
 #endif /* UIModel_PrefixHeader_pch */

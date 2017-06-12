@@ -55,12 +55,6 @@
  *  return 0设置成功，-1是json解析失败
  */
 - (int)setMonitorLogParam:(NSString*)param;
-/**
- *  开始观看
- *
- *  @param urls rtmpUrls(注意数组中的地址是完整地址)
- */
-- (void)startPlayWithUrl:(NSArray *)urls;
 
 /**
  *  设置静音
@@ -97,7 +91,6 @@
  *  设置视频布局的方向，仅VR模式可用,切要开启陀螺仪
  */
 - (void)setUILayoutOrientation:(DeviceOrientation)orientation;
-
 /**
  *  销毁播放器，异步销毁的
  */

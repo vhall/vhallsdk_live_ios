@@ -51,16 +51,15 @@
     if ([_model.type isEqualToString:@"question"])
     {
      //   lblRole.text = @"[--]";
-        lblType.titleLabel.text = @"问";
 //        lblQuestionID.text = [NSString stringWithFormat:@"问题 ID:%@", _model.question_id];
-        
+        [lblType setTitle:@"问" forState:UIControlStateNormal];
         lblType.layer.borderColor=[UIColor redColor].CGColor;
         [lblType setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
          [headImage sd_setImageWithURL:[NSURL URLWithString:[VHallApi currentUserHeadUrl]] placeholderImage:[UIImage imageNamed:@"UIModel.bundle/head50"]];
     }
     else if ([_model.type isEqualToString:@"answer"])
     {
-        lblType.titleLabel.text= @"答";
+        [lblType setTitle:@"答" forState:UIControlStateNormal];
         lblType.layer.borderColor=[UIColor blueColor].CGColor;
         [lblType setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
         VHallAnswerModel* answer = (VHallAnswerModel *)_model;

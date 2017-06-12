@@ -23,9 +23,7 @@
 
 /**
  *  提交个人中奖信息
- *  @param info   个人信息
- *         key:user_name 用户名
- *         key:phone     电话
+ *  @param info   个人信息 @{@"name":用户名,@"phone":电话}
  *  成功回调成功Block
  *  失败回调失败Block
  *  		失败Block中的字典结构如下：

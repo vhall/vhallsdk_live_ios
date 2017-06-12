@@ -10,6 +10,7 @@
 #import "VHallLivePublishFilter.h"
 #else
 #endif
+
 #import "LaunchLiveViewController.h"
 #import <AVFoundation/AVFoundation.h>
 #import "UIAlertView+ITTAdditions.h"
@@ -20,7 +21,6 @@
 
 #import "VHLiveChatView.h"
 #import "VHMessageToolView.h"
-
 
 #if VHallFilterSDK_ENABLE
 @interface LaunchLiveViewController ()<CameraEngineRtmpDelegate, VHallChatDelegate, VHallLivePublishFilterDelegate,VHMessageToolBarDelegate>
@@ -106,7 +106,11 @@
     if (_chat) {
         _chat = nil;
     }
-
+    
+    if (_engine) {
+        _engine = nil;
+    }
+    
     //允许iOS设备锁屏
     [[UIApplication sharedApplication] setIdleTimerDisabled:NO];
     [self.view removeObserver:self forKeyPath:kViewFramePath];
@@ -130,7 +134,9 @@
     {
          [_engine stopLive];//停止活动
     }
-   
+    [_engine destoryObject];
+    self.engine = nil;
+    
     [self dismissViewControllerAnimated:YES completion:^{
     }];
     [self.navigationController popViewControllerAnimated:NO];
@@ -206,46 +212,37 @@
 
 - (void)initCameraEngine
 {
-    DeviceOrientation deviceOrgiation;
+    DeviceOrientation deviceOrientation;
     if (self.interfaceOrientation == UIInterfaceOrientationPortrait)
     {
-        deviceOrgiation = kDevicePortrait;
-    }else if(self.interfaceOrientation ==UIInterfaceOrientationLandscapeRight){
-        deviceOrgiation = kDeviceLandSpaceRight;
-    }else
-    {
-        deviceOrgiation = kDeviceLandSpaceLeft;
+        deviceOrientation = kDevicePortrait;
+    }else{
+        deviceOrientation = kDeviceLandSpaceRight;
     }
 #if VHallFilterSDK_ENABLE
-    self.engine = [[VHallLivePublishFilter alloc] initWithOrgiation:deviceOrgiation];
+    self.engine = [[VHallLivePublishFilter alloc] initWithOrientation:deviceOrientation];
     BOOL ret = [_engine initCaptureVideo:AVCaptureDevicePositionFront];
     _torchBtn.hidden = YES;
     _isFontVideo = YES;
 #else
-    self.engine = [[VHallLivePublish alloc] initWithOrgiation:deviceOrgiation];
+    self.engine = [[VHallLivePublish alloc] initWithOrientation:deviceOrientation];
     BOOL ret = [_engine initCaptureVideo:AVCaptureDevicePositionBack];
 #endif
     if (!ret) {
         UIAlertView *alert=[[UIAlertView alloc] initWithTitle:@"提示" message:@"摄像头开启失败" delegate:nil cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
         [alert show];
+
     }
-    //音频初始化
-    BOOL openAudio =[self emCheckMicrophoneAvailability];
     
-    if(!openAudio)
-    {
-        UIAlertView *alert=[[UIAlertView alloc] initWithTitle:@"提示" message:@"麦克风开启失败" delegate:nil cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
-        [alert show];
-    }
-     [_engine initAudio];
-    self.engine.displayView.frame = _perView.bounds;
+    self.engine.delegate            = self;
+    self.engine.displayView.frame   = _perView.bounds;
     self.engine.publishConnectTimes = 2;
-    self.engine.videoCaptureFPS = (int)_videoCaptureFPS;
-    self.engine.delegate = self;
+    self.engine.videoCaptureFPS     = (int)_videoCaptureFPS;
+    self.engine.videoResolution     = (VideoResolution)_videoResolution;
+    [self.engine  initAudio];
     [self.perView insertSubview:_engine.displayView atIndex:0];
-    _engine.videoResolution = _videoResolution;
-    //开始视频采集
-    [_engine startVideoCapture];
+    //开始视频采集、并显示预览界面
+    [self.engine startVideoCapture];
     
 #if VHallFilterSDK_ENABLE
     _engine.openFilter = YES;
@@ -295,29 +292,15 @@
     UIButton *btn=(UIButton*)sender;
     btn.enabled=NO;
     _isFontVideo = !_isFontVideo;
-    
-    if (_isFontVideo)
+
+    BOOL success=  [_engine swapCameras:_isFontVideo ? AVCaptureDevicePositionFront : AVCaptureDevicePositionBack];
+    if(success)
     {
-      BOOL success=  [_engine swapCameras:AVCaptureDevicePositionFront];
-        if(success)
-        {
-             _torchBtn.hidden = YES;
-            //禁止快速切换摄像头
-            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                btn.enabled=YES;
-               
-            });
-        }
-    }else{
-       BOOL success=  [_engine swapCameras:AVCaptureDevicePositionBack];
-        if (success)
-        {
-            _torchBtn.hidden = NO;
-            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                btn.enabled=YES;
-                
-            });
-        }
+        _torchBtn.hidden = _isFontVideo;
+        //禁止快速切换摄像头
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            btn.enabled=YES;
+        });
     }
 }
 
@@ -325,29 +308,27 @@
 {
     _torchType = !_torchType;
     sender.selected = _torchType;
-    if (_torchType) {
-        [_engine setDeviceTorchModel:AVCaptureTorchModeOn];
-    }else{
-        [_engine setDeviceTorchModel:AVCaptureTorchModeOff];
-    }
+    [_engine setDeviceTorchModel:_torchType ? AVCaptureTorchModeOn : AVCaptureTorchModeOff];
 }
 
 - (IBAction)onlyVideoBtnClick:(UIButton*)sender
 {
     _onlyVideo = !_onlyVideo;
     sender.selected = _onlyVideo;
-    if (_onlyVideo)
-    {
-        //[_engine pauseAudioCapture];
-        _engine.isMute = YES;
-//        [UIAlertView popupAlertByDelegate:nil title:@"开始静音" message:nil cancel:@"知道了" others:nil];
+    _engine.isMute = _onlyVideo;
+}
+
+- (BOOL)emCheckMicrophoneAvailability{
+    __block BOOL ret = NO;
+    AVAudioSession *session = [AVAudioSession sharedInstance];
+    if ([session respondsToSelector:@selector(requestRecordPermission:)]) {
+        [session performSelector:@selector(requestRecordPermission:) withObject:^(BOOL granted) {
+            ret = granted;
+        }];
+    } else {
+        ret = YES;
     }
-    else
-    {
-        _engine.isMute = NO;
-        //[_engine pauseAudioCapture];
-//        [UIAlertView popupAlertByDelegate:nil title:@"结束静音" message:nil cancel:@"知道了" others:nil];
-    }
+    return ret;
 }
 
 - (IBAction)startVideoPlayer
@@ -359,9 +340,9 @@
     
     if (!_isVideoStart)
     {
-        //        _isAudioStart = YES;
-        //        [self startAudioPlayer];
-        //    self.engine.audioBitRate = _audioBitRate;
+    //        _isAudioStart = YES;
+    //        [self startAudioPlayer];
+    //    self.engine.audioBitRate = _audioBitRate;
 #if VHallFilterSDK_ENABLE
         _engine.videoBitRate = 1200 * 1000;
 #else
@@ -391,30 +372,30 @@
 
 - (IBAction)startAudioPlayer
 {
-    //    TODO:暂时不支持此功能，但保留。
-    //    if (!_isAudioStart)
-    //    {
-    //        _isVideoStart = YES;
-    //        [self startVideoPlayer];
-    //
-    //        _logView.hidden = NO;
-    //        _chatBtn.hidden = NO;
-    //        [_hud show:YES];
+//    TODO:暂时不支持此功能，但保留。
+//    if (!_isAudioStart)
+//    {
+//        _isVideoStart = YES;
+//        [self startVideoPlayer];
+//
+//        _logView.hidden = NO;
+//        _chatBtn.hidden = NO;
+//        [_hud show:YES];
 
-    //        NSMutableDictionary * param = [[NSMutableDictionary alloc]init];
-    //        param[@"id"] =  _roomId;
-    //        param[@"access_token"] = _token;
-    //        param[@"is_single_audio"] = @"1";   // 0 ：视频， 1：音频
-    //        [_engine startLive:param];
-    //    }else{
-    //        _logView.hidden = YES;
-    //        _bitRateLabel.text = @"";
-    //        _chatBtn.hidden = YES;
-    //        [_hud hide:YES];
-    //        [_audioStartAndStopBtn setTitle:@"音频直播" forState:UIControlStateNormal];
-    //        [_engine disconnect];//停止向服务器推流
-    //    }
-    //    _isAudioStart = !_isAudioStart;
+//        NSMutableDictionary * param = [[NSMutableDictionary alloc]init];
+//        param[@"id"] =  _roomId;
+//        param[@"access_token"] = _token;
+//        param[@"is_single_audio"] = @"1";   // 0 ：视频， 1：音频
+//        [_engine startLive:param];
+//    }else{
+//        _logView.hidden = YES;
+//        _bitRateLabel.text = @"";
+//        _chatBtn.hidden = YES;
+//        [_hud hide:YES];
+//        [_audioStartAndStopBtn setTitle:@"音频直播" forState:UIControlStateNormal];
+//        [_engine disconnect];//停止向服务器推流
+//    }
+//    _isAudioStart = !_isAudioStart;
 }
 
 #pragma mark - Camera(CameraEngineDelegate)
@@ -426,18 +407,17 @@
 
 -(void)publishStatus:(LiveStatus)liveStatus withInfo:(NSDictionary *)info
 {
+    __weak typeof(self) weakSelf = self;
     void (^resetStartPlay)(NSString * msg) = ^(NSString * msg){
-        _isVideoStart = NO;
-        _bitRateLabel.text = @"";
-        _videoStartAndStopBtn.selected = NO;
-        [self chatShow:NO];
         dispatch_async(dispatch_get_main_queue(), ^{
+            _isVideoStart = NO;
+            _bitRateLabel.text = @"";
+            _videoStartAndStopBtn.selected = NO;
+            [weakSelf chatShow:NO];
             [UIAlertView popupAlertByDelegate:nil title:msg message:nil];
         });
     };
 
-    [_hud hide:YES];
-    
     BOOL errorLiveStatus = NO;
     NSString * content = info[@"content"];
     switch (liveStatus)
@@ -449,7 +429,8 @@
             break;
         case kLiveStatusPushConnectSucceed:
         {
-            [self chatShow:YES];
+            [_hud hide:YES];
+            [weakSelf chatShow:YES];
             _isVideoStart=YES;
             if (_isVideoStart || _isAudioStart) {
                 _videoStartAndStopBtn.selected = YES;
@@ -458,27 +439,31 @@
             break;
         case kLiveStatusSendError:
         {
-            resetStartPlay(@"网断啦！不能再带你直播带你飞了");
+            resetStartPlay(@"流发送失败");
             errorLiveStatus = YES;
         }
             break;
         case kLiveStatusPushConnectError:
         {
-            resetStartPlay(@"服务器任性...连接失败");
+            [_hud hide:YES];
+            NSString *str =[NSString stringWithFormat:@"连接失败:%@",content];
+            resetStartPlay(str);
             errorLiveStatus = YES;
         }
             break;
         case kLiveStatusParamError:
         {
+            [_hud hide:YES];
             resetStartPlay(@"参数错误");
             errorLiveStatus = YES;
         }
             break;
         case kLiveStatusGetUrlError:
         {
+            [_hud hide:YES];
             _isVideoStart=NO;
             dispatch_async(dispatch_get_main_queue(), ^{
-                [self showMsg:content afterDelay:1.5];
+                [weakSelf showMsg:content afterDelay:1.5];
             });
             errorLiveStatus = YES;
         }
@@ -499,6 +484,17 @@
         case kLiveStatusRecvStreamType:
         {
             
+        }
+            break;
+        case  kLiveStatusAudioRecoderError :
+        {
+            [_hud hide:YES];
+            _isVideoStart=NO;
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [weakSelf showMsg:@"音频采集失败,可能是麦克风未授权使用" afterDelay:1.5];
+                [_engine stopLive];
+            });
+            errorLiveStatus = YES;
         }
             break;
         default:
@@ -660,7 +656,7 @@
                 role = @"观众";
             }
             
-            msg.text = [NSString stringWithFormat:@"%@\n[%@] %@房间:%@ 在线人数:%@ 参会人数:%@",m.time,role,event,m.room, m.concurrent_user, m.attend_count];
+            msg.text = [NSString stringWithFormat:@"%@\n[%@] %@房间:%@ 在线:%@ 参会:%@",m.time,role,event,m.room, m.concurrent_user, m.attend_count];
             [_chatDataArray addObject:msg];
         }
         [_chatView update];
@@ -684,7 +680,6 @@
         [_chatView update];
     }
 }
-
 
 -(void)showTimeInfo{
     if(_timer)
@@ -747,18 +742,4 @@
     [self hideKey:nil];
 }
 
-#pragma mark 检测麦克风
-- (BOOL)emCheckMicrophoneAvailability{
-    __block BOOL ret = NO;
-    AVAudioSession *session = [AVAudioSession sharedInstance];
-    if ([session respondsToSelector:@selector(requestRecordPermission:)]) {
-        [session performSelector:@selector(requestRecordPermission:) withObject:^(BOOL granted) {
-            ret = granted;
-        }];
-    } else {
-        ret = YES;
-    }
-    
-    return ret;
-}
 @end

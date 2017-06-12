@@ -44,7 +44,7 @@
         _contentLabel.left =  VH_SW-self.height;
          [self addSubview:_contentLabel];
         UIImageView *imageView=[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"UIModel.bundle/公告.tiff"]];
-        [imageView setFrame:CGRectMake(10, self.height/2-imageView.height/2, imageView.width, imageView.height)];
+        [imageView setFrame:CGRectMake(10, self.height/2-12, 24, 24)];
         UIButton *btn = [[UIButton alloc]initWithFrame:CGRectMake(self.width -30 , 5,30, 30)];
         [btn setImage:[UIImage imageNamed:@"UIModel.bundle/关闭.tiff"] forState:UIControlStateNormal];
         btn.layer.cornerRadius = (self.height-8)/2;
