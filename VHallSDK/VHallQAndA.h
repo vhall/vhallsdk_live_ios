@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "VHallBasePlugin.h"
 
 @protocol VHallQADelegate <NSObject>
 @optional
@@ -15,7 +16,7 @@
 
 @end
 
-@interface VHallQAndA : NSObject
+@interface VHallQAndA : VHallBasePlugin
 
 @property (nonatomic, assign) id <VHallQADelegate> delegate;
 

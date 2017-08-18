@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "VHallBasePlugin.h"
 
 @protocol VHallSurveyDelegate <NSObject>
 /**
@@ -16,7 +17,7 @@
  */
 -(void)receiveSurveryMsgs:(NSArray*)msg;
 @end
-@interface VHallSurvey : NSObject
+@interface VHallSurvey : VHallBasePlugin
 @property(nonatomic,assign) id<VHallSurveyDelegate> delegate;
 
 

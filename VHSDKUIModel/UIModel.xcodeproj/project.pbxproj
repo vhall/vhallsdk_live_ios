@@ -222,8 +222,8 @@
 		C04D57B61E5D853000F75A64 /* Expression_9@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C04D56151E5D705400F75A64 /* Expression_9@2x.png */; };
 		C04D57B71E5D853000F75A64 /* faceExpression.plist in Resources */ = {isa = PBXBuildFile; fileRef = C04D56161E5D705400F75A64 /* faceExpression.plist */; };
 		C04D57B81E5D853000F75A64 /* faceDelete@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C04D56171E5D705400F75A64 /* faceDelete@2x.png */; };
-		C0F3286D1E80C47C00AA557D /* VHDocumentView.m in Sources */ = {isa = PBXBuildFile; fileRef = C0F3286C1E80C47C00AA557D /* VHDocumentView.m */; };
-		C0F328711E80CD3C00AA557D /* VHDrawView.m in Sources */ = {isa = PBXBuildFile; fileRef = C0F328701E80CD3C00AA557D /* VHDrawView.m */; };
+		C0E2BEB01F286C3800E55B1F /* VHDocumentView.m in Sources */ = {isa = PBXBuildFile; fileRef = C0E2BEAD1F286C3800E55B1F /* VHDocumentView.m */; };
+		C0E2BEB11F286C3800E55B1F /* VHDrawView.m in Sources */ = {isa = PBXBuildFile; fileRef = C0E2BEAF1F286C3800E55B1F /* VHDrawView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -547,12 +547,10 @@
 		C04D57521E5D83B600F75A64 /* UIModel.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = UIModel.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
 		C04D57541E5D83B600F75A64 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C04D575B1E5D848C00F75A64 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = UIModel/Assets.xcassets; sourceTree = "<group>"; };
-		C0A27F571E9616D30031D3B4 /* CameraEngineRtmp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CameraEngineRtmp.h; sourceTree = "<group>"; };
 		C0A27F581E9616D30031D3B4 /* kodak.inf */ = {isa = PBXFileReference; lastKnownFileType = file; path = kodak.inf; sourceTree = "<group>"; };
 		C0A27F5A1E9616D30031D3B4 /* libVhallLiveApi.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libVhallLiveApi.a; sourceTree = "<group>"; };
 		C0A27F5B1E9616D30031D3B4 /* libVHallSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libVHallSDK.a; sourceTree = "<group>"; };
 		C0A27F5C1E9616D30031D3B4 /* libVHLivePlay.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libVHLivePlay.a; sourceTree = "<group>"; };
-		C0A27F5D1E9616D30031D3B4 /* OpenCONSTS.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OpenCONSTS.h; sourceTree = "<group>"; };
 		C0A27F5E1E9616D30031D3B4 /* VHallApi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VHallApi.h; sourceTree = "<group>"; };
 		C0A27F5F1E9616D30031D3B4 /* VHallChat.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VHallChat.h; sourceTree = "<group>"; };
 		C0A27F601E9616D30031D3B4 /* VHallComment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VHallComment.h; sourceTree = "<group>"; };
@@ -563,12 +561,14 @@
 		C0A27F651E9616D30031D3B4 /* VHallQAndA.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VHallQAndA.h; sourceTree = "<group>"; };
 		C0A27F661E9616D30031D3B4 /* VHallSign.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VHallSign.h; sourceTree = "<group>"; };
 		C0A27F671E9616D30031D3B4 /* VHallSurvey.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VHallSurvey.h; sourceTree = "<group>"; };
-		C0A27F681E9616D30031D3B4 /* VHMoviePlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VHMoviePlayer.h; sourceTree = "<group>"; };
-		C0F3286B1E80C47C00AA557D /* VHDocumentView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VHDocumentView.h; sourceTree = "<group>"; };
-		C0F3286C1E80C47C00AA557D /* VHDocumentView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VHDocumentView.m; sourceTree = "<group>"; };
-		C0F3286F1E80CD3C00AA557D /* VHDrawView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VHDrawView.h; sourceTree = "<group>"; };
-		C0F328701E80CD3C00AA557D /* VHDrawView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VHDrawView.m; sourceTree = "<group>"; };
+		C0AB64811EEFECF5002205FE /* libVhall3rdLib.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libVhall3rdLib.a; sourceTree = "<group>"; };
+		C0E2BEAA1F27374400E55B1F /* VHallBasePlugin.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VHallBasePlugin.h; sourceTree = "<group>"; };
+		C0E2BEAC1F286C3800E55B1F /* VHDocumentView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VHDocumentView.h; sourceTree = "<group>"; };
+		C0E2BEAD1F286C3800E55B1F /* VHDocumentView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VHDocumentView.m; sourceTree = "<group>"; };
+		C0E2BEAE1F286C3800E55B1F /* VHDrawView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VHDrawView.h; sourceTree = "<group>"; };
+		C0E2BEAF1F286C3800E55B1F /* VHDrawView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VHDrawView.m; sourceTree = "<group>"; };
 		C0FC255E1E51A45D00B3D834 /* libUIModel.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libUIModel.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		C0FE89381F43EF8200FE0409 /* VHallConst.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VHallConst.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1049,6 +1049,7 @@
 				C04D56851E5D718D00F75A64 /* Announcement */,
 				C000AB521E67B954005DFB7C /* Sign */,
 				84880C881E6D961900D70114 /* Survey */,
+				C0E2BEAB1F286C3800E55B1F /* Document */,
 			);
 			path = WatchLive;
 			sourceTree = "<group>";
@@ -1091,10 +1092,6 @@
 				C04D56DE1E5D736B00F75A64 /* VHMessageTextView.m */,
 				C04D56DF1E5D736B00F75A64 /* VHMessageToolView.h */,
 				C04D56E01E5D736B00F75A64 /* VHMessageToolView.m */,
-				C0F3286F1E80CD3C00AA557D /* VHDrawView.h */,
-				C0F328701E80CD3C00AA557D /* VHDrawView.m */,
-				C0F3286B1E80C47C00AA557D /* VHDocumentView.h */,
-				C0F3286C1E80C47C00AA557D /* VHDocumentView.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1138,9 +1135,10 @@
 			isa = PBXGroup;
 			children = (
 				C0A27F5E1E9616D30031D3B4 /* VHallApi.h */,
+				C0FE89381F43EF8200FE0409 /* VHallConst.h */,
 				C0A27F631E9616D30031D3B4 /* VHallMoviePlayer.h */,
 				C0A27F611E9616D30031D3B4 /* VHallLivePublish.h */,
-				C0A27F5D1E9616D30031D3B4 /* OpenCONSTS.h */,
+				C0E2BEAA1F27374400E55B1F /* VHallBasePlugin.h */,
 				C0A27F5F1E9616D30031D3B4 /* VHallChat.h */,
 				C0A27F601E9616D30031D3B4 /* VHallComment.h */,
 				C0A27F621E9616D30031D3B4 /* VHallLottery.h */,
@@ -1148,16 +1146,26 @@
 				C0A27F661E9616D30031D3B4 /* VHallSign.h */,
 				C0A27F671E9616D30031D3B4 /* VHallSurvey.h */,
 				C0A27F641E9616D30031D3B4 /* VHallMsgModels.h */,
-				C0A27F571E9616D30031D3B4 /* CameraEngineRtmp.h */,
-				C0A27F681E9616D30031D3B4 /* VHMoviePlayer.h */,
 				C0A27F5A1E9616D30031D3B4 /* libVhallLiveApi.a */,
 				C0A27F5B1E9616D30031D3B4 /* libVHallSDK.a */,
 				C0A27F5C1E9616D30031D3B4 /* libVHLivePlay.a */,
+				C0AB64811EEFECF5002205FE /* libVhall3rdLib.a */,
 				C0A27F581E9616D30031D3B4 /* kodak.inf */,
 				C0341E631ED835FD0016019C /* VHallFilterSDK */,
 			);
 			name = VHallSDK;
 			path = ../../../VHallSDK;
+			sourceTree = "<group>";
+		};
+		C0E2BEAB1F286C3800E55B1F /* Document */ = {
+			isa = PBXGroup;
+			children = (
+				C0E2BEAC1F286C3800E55B1F /* VHDocumentView.h */,
+				C0E2BEAD1F286C3800E55B1F /* VHDocumentView.m */,
+				C0E2BEAE1F286C3800E55B1F /* VHDrawView.h */,
+				C0E2BEAF1F286C3800E55B1F /* VHDrawView.m */,
+			);
+			path = Document;
 			sourceTree = "<group>";
 		};
 		C0FC25551E51A45D00B3D834 = {
@@ -1483,7 +1491,6 @@
 				C04D56E41E5D736B00F75A64 /* VHPullingRefreshTableView.m in Sources */,
 				C04D566C1E5D705500F75A64 /* SDWebImageDownloader.m in Sources */,
 				C04D56681E5D705500F75A64 /* NSData+ImageContentType.m in Sources */,
-				C0F328711E80CD3C00AA557D /* VHDrawView.m in Sources */,
 				84880C971E6D965A00D70114 /* SZQuestionCell.m in Sources */,
 				C04D56A81E5D718D00F75A64 /* SignView.m in Sources */,
 				C04D56581E5D705500F75A64 /* BarrageWalkSprite.m in Sources */,
@@ -1498,7 +1505,8 @@
 				C04D566A1E5D705500F75A64 /* SDWebImageCompat.m in Sources */,
 				C04D565C1E5D705500F75A64 /* UIAlertView+ITTAdditions.m in Sources */,
 				C04D56AD1E5D718D00F75A64 /* WatchLiveOnlineTableViewCell.m in Sources */,
-				C0F3286D1E80C47C00AA557D /* VHDocumentView.m in Sources */,
+				C0E2BEB11F286C3800E55B1F /* VHDrawView.m in Sources */,
+				C0E2BEB01F286C3800E55B1F /* VHDocumentView.m in Sources */,
 				C04D56A31E5D718D00F75A64 /* LaunchLiveViewController.m in Sources */,
 				C04D564E1E5D705500F75A64 /* BarrageRenderer.m in Sources */,
 				C04D56501E5D705500F75A64 /* BarrageLoader.m in Sources */,

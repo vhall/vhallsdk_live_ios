@@ -1,11 +1,11 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11542" systemVersion="15G1004" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12121" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11524"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -23,6 +23,8 @@
                 <outlet property="infoView" destination="kCO-VK-gMy" id="gJf-9Z-A2F"/>
                 <outlet property="logView" destination="1nD-5A-zuQ" id="rC3-wb-q1L"/>
                 <outlet property="msgTextField" destination="Ngw-Mj-Evc" id="daq-MG-puf"/>
+                <outlet property="noiseLabel" destination="b13-Ax-BUA" id="9qU-S1-LyY"/>
+                <outlet property="noiseView" destination="HfY-VC-dA9" id="61b-VN-Iky"/>
                 <outlet property="perView" destination="2b8-7E-grG" id="6ez-GJ-Gnr"/>
                 <outlet property="timeLabel" destination="WAk-3r-kd5" id="egJ-U7-uTp"/>
                 <outlet property="torchBtn" destination="21q-gG-MX0" id="1dw-go-nZt"/>
@@ -194,6 +196,39 @@
                                 <action selector="hideKey:" destination="-1" eventType="touchUpInside" id="m9h-VQ-I27"/>
                             </connections>
                         </button>
+                        <button opaque="NO" alpha="0.0" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mDN-RT-jVL">
+                            <rect key="frame" x="232" y="556" width="69" height="103"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="30"/>
+                            <state key="normal" image="bcStartLive">
+                                <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </state>
+                            <connections>
+                                <action selector="startAudioPlayer" destination="-1" eventType="touchUpInside" id="vdC-9f-ty7"/>
+                            </connections>
+                        </button>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HfY-VC-dA9">
+                            <rect key="frame" x="223" y="52" width="142" height="47"/>
+                            <subviews>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="音频增益: 0.0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="b13-Ax-BUA">
+                                    <rect key="frame" x="0.0" y="0.0" width="134" height="21"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="10"/>
+                                    <color key="textColor" red="0.0" green="1" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <slider opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="OFS-Ag-vxc">
+                                    <rect key="frame" x="-2" y="17" width="146" height="31"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <connections>
+                                        <action selector="noiseSliderValueVhange:" destination="-1" eventType="valueChanged" id="ETD-DT-AAg"/>
+                                    </connections>
+                                </slider>
+                            </subviews>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="47" id="A4m-P3-ArW"/>
+                                <constraint firstAttribute="width" constant="142" id="ayW-JZ-OtR"/>
+                            </constraints>
+                        </view>
                         <view alpha="0.0" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Upf-UN-Kou">
                             <rect key="frame" x="260" y="52" width="30" height="190"/>
                             <subviews>
@@ -287,16 +322,6 @@
                                 <constraint firstAttribute="width" constant="30" id="hk9-4R-iGA"/>
                             </constraints>
                         </view>
-                        <button opaque="NO" alpha="0.0" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mDN-RT-jVL">
-                            <rect key="frame" x="232" y="556" width="69" height="103"/>
-                            <fontDescription key="fontDescription" type="system" pointSize="30"/>
-                            <state key="normal" image="bcStartLive">
-                                <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                            </state>
-                            <connections>
-                                <action selector="startAudioPlayer" destination="-1" eventType="touchUpInside" id="vdC-9f-ty7"/>
-                            </connections>
-                        </button>
                     </subviews>
                     <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <constraints>
@@ -314,6 +339,7 @@
                         <constraint firstItem="kCO-VK-gMy" firstAttribute="top" secondItem="2b8-7E-grG" secondAttribute="top" constant="20" id="MPW-sR-Qcf"/>
                         <constraint firstItem="9dh-OI-54m" firstAttribute="leading" secondItem="IlL-nv-WK2" secondAttribute="trailing" constant="10" id="SLl-IG-LGX"/>
                         <constraint firstItem="1nD-5A-zuQ" firstAttribute="top" secondItem="2b8-7E-grG" secondAttribute="top" id="TjG-bZ-SXq"/>
+                        <constraint firstItem="HfY-VC-dA9" firstAttribute="top" secondItem="21q-gG-MX0" secondAttribute="bottom" constant="4" id="WbI-Tp-esh"/>
                         <constraint firstAttribute="bottom" secondItem="gUq-Kw-mgv" secondAttribute="bottom" constant="10" id="Wek-n1-aqx"/>
                         <constraint firstAttribute="bottom" secondItem="1nD-5A-zuQ" secondAttribute="bottom" id="X40-2j-eiT"/>
                         <constraint firstItem="PuD-Ul-jg4" firstAttribute="leading" secondItem="2b8-7E-grG" secondAttribute="leading" id="Z5j-8w-PBh"/>
@@ -329,6 +355,7 @@
                         <constraint firstItem="9dh-OI-54m" firstAttribute="top" secondItem="2b8-7E-grG" secondAttribute="top" constant="20" id="tCW-8a-J4R"/>
                         <constraint firstItem="x9e-gF-j7G" firstAttribute="leading" secondItem="2b8-7E-grG" secondAttribute="leading" constant="10" id="tYT-Jn-c1s"/>
                         <constraint firstItem="MOi-XC-KsP" firstAttribute="leading" secondItem="2b8-7E-grG" secondAttribute="leading" id="uPk-iE-GxI"/>
+                        <constraint firstAttribute="trailing" secondItem="HfY-VC-dA9" secondAttribute="trailing" constant="10" id="yir-49-hvD"/>
                         <constraint firstItem="IlL-nv-WK2" firstAttribute="leading" secondItem="21q-gG-MX0" secondAttribute="trailing" constant="10" id="zIb-QF-HYp"/>
                     </constraints>
                 </view>
@@ -340,7 +367,7 @@
                 <constraint firstItem="2b8-7E-grG" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="fI2-GJ-lf4"/>
                 <constraint firstAttribute="trailing" secondItem="2b8-7E-grG" secondAttribute="trailing" id="yA9-nB-bsQ"/>
             </constraints>
-            <point key="canvasLocation" x="-175" y="320"/>
+            <point key="canvasLocation" x="-175.5" y="319.5"/>
         </view>
         <swipeGestureRecognizer direction="left" id="iz6-cd-R8U" userLabel="Swipe View Left"/>
         <swipeGestureRecognizer direction="right" id="IoC-8W-dt2" userLabel="Swipe View Right"/>

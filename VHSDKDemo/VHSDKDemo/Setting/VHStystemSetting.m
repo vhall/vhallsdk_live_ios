@@ -7,6 +7,7 @@
 //
 
 #import "VHStystemSetting.h"
+#import <objc/message.h>
 
 @implementation VHStystemSetting
 
@@ -50,7 +51,7 @@ static VHStystemSetting *pub_sharedSetting = nil;
         NSUserDefaults *standardUserDefaults = [NSUserDefaults standardUserDefaults];
         //活动设置
         _activityID = [standardUserDefaults objectForKey:@"VHactivityID"];   //活动ID     必填
-        _recordID   = [standardUserDefaults objectForKey:@"VHrecordID"];     //片段ID     可以为空
+        _watchActivityID= [standardUserDefaults objectForKey:@"VHwatchActivityID"];   //观看活动ID
         _nickName   = [standardUserDefaults objectForKey:@"VHnickName"];     //参会昵称    为空默认随机字符串做昵称
         _email     = [standardUserDefaults objectForKey:@"VHuserID"];        //标示该游客用户唯一id 可填写用户邮箱  为空默认使用设备UUID做为唯一ID
         _kValue     = [standardUserDefaults objectForKey:@"VHkValue"];       //K值        可以为空
@@ -67,10 +68,17 @@ static VHStystemSetting *pub_sharedSetting = nil;
         
         _account        = [standardUserDefaults objectForKey:@"VHaccount"];      //账号
         _password       = [standardUserDefaults objectForKey:@"VHpassword"];     //密码
+        
+        _appKey         = [standardUserDefaults objectForKey:@"VHappKey"];
+        _appSecretKey   = [standardUserDefaults objectForKey:@"VHappSecretKey"];
 
         if(_activityID == nil)
         {
             _activityID = DEMO_ActivityId;
+        }
+        if(_watchActivityID == nil)
+        {
+            _watchActivityID = DEMO_ActivityId;
         }
         if(_liveToken  == nil)
         {
@@ -117,7 +125,26 @@ static VHStystemSetting *pub_sharedSetting = nil;
         if(_videoCaptureFPS >30)
             _videoCaptureFPS = 30;
         if(_bufferTimes <=0)
-            _bufferTimes = 2;
+            _bufferTimes = 6;
+        
+        if([standardUserDefaults valueForKey:@"VHisOpenNoiseSuppresion"])
+            self.isOpenNoiseSuppresion = [standardUserDefaults boolForKey:@"VHisOpenNoiseSuppresion"];
+        else
+            self.isOpenNoiseSuppresion = YES;
+        
+        if(_appKey.length>0 && _appSecretKey.length>0)
+        {
+            [VHallApi registerApp:_appKey SecretKey:_appSecretKey];
+        }
+        else
+        {
+            [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"VHappKey"];
+            [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"VHappSecretKey"];
+            [[NSUserDefaults standardUserDefaults] synchronize];
+            _appKey = nil;
+            _appSecretKey = nil;
+            [VHallApi registerApp:DEMO_AppKey SecretKey:DEMO_AppSecretKey];
+        }
     }
     return self;
 }
@@ -136,12 +163,22 @@ static VHStystemSetting *pub_sharedSetting = nil;
     [[NSUserDefaults standardUserDefaults] setObject:_activityID forKey:@"VHactivityID"];
     [[NSUserDefaults standardUserDefaults] synchronize];
 }
-- (void)setRecordID:(NSString *)recordID
+
+- (void)setWatchActivityID:(NSString*)watchActivityID
 {
-    _recordID = recordID;
-    [[NSUserDefaults standardUserDefaults] setObject:_recordID forKey:@"VHrecordID"];
+    _watchActivityID = watchActivityID;
+    if(watchActivityID == nil || watchActivityID.length == 0)
+    {
+        _watchActivityID = DEMO_ActivityId;
+        [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"VHwatchActivityID"];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+        return;
+    }
+    
+    [[NSUserDefaults standardUserDefaults] setObject:_watchActivityID forKey:@"VHwatchActivityID"];
     [[NSUserDefaults standardUserDefaults] synchronize];
 }
+
 - (void)setNickName:(NSString*)nickName
 {
     if(nickName == nil || nickName.length == 0)
@@ -189,6 +226,14 @@ static VHStystemSetting *pub_sharedSetting = nil;
     [[NSUserDefaults standardUserDefaults] setObject:_videoResolution forKey:@"VHvideoResolution"];
     [[NSUserDefaults standardUserDefaults] synchronize];
 }
+
+- (void)setIsOpenNoiseSuppresion:(BOOL)isOpenNoiseSuppresion
+{
+    _isOpenNoiseSuppresion = isOpenNoiseSuppresion;
+    [[NSUserDefaults standardUserDefaults] setBool:_isOpenNoiseSuppresion forKey:@"VHisOpenNoiseSuppresion"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+}
+
 - (void)setLiveToken:(NSString*)liveToken
 {
     _liveToken = liveToken;
@@ -242,5 +287,35 @@ static VHStystemSetting *pub_sharedSetting = nil;
     _bufferTimes = bufferTimes;
     [[NSUserDefaults standardUserDefaults] setInteger:bufferTimes forKey:@"VHbufferTimes"];
     [[NSUserDefaults standardUserDefaults] synchronize];
+}
+
+- (void)setAppKey:(NSString *)appKey
+{
+    _appKey = appKey;
+    [[NSUserDefaults standardUserDefaults] setObject:_appKey forKey:@"VHappKey"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+    if(_appKey.length>0 && _appSecretKey.length>0)
+    {
+        [VHallApi registerApp:_appKey SecretKey:_appSecretKey];
+    }
+    else
+    {
+        [VHallApi registerApp:DEMO_AppKey SecretKey:DEMO_AppSecretKey];
+    }
+}
+
+- (void)setAppSecretKey:(NSString *)appSecretKey
+{
+    _appSecretKey = appSecretKey;
+    [[NSUserDefaults standardUserDefaults] setObject:_appSecretKey forKey:@"VHappSecretKey"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+    if(_appKey.length>0 && _appSecretKey.length>0)
+    {
+        [VHallApi registerApp:_appKey SecretKey:_appSecretKey];
+    }
+    else
+    {
+        [VHallApi registerApp:DEMO_AppKey SecretKey:DEMO_AppSecretKey];
+    }
 }
 @end

@@ -24,7 +24,8 @@
 @interface VHallOnlineStateModel : VHallMsgModels
 @property (nonatomic, copy) NSString * event;          //online/offline:上下线消息
 @property (nonatomic, copy) NSString * concurrent_user;//房间内当前用户数
-@property (nonatomic, copy) NSString * attend_count;  //参会人数
+@property (nonatomic, copy) NSString * attend_count;   //参会人数
+@property (nonatomic, copy) NSString * tracksNum;      //PV
 @end
 
 /**
@@ -108,9 +109,6 @@
 /**
  *  调查问卷消息
  */
-
-
-
 @interface VHallSurveyModel : NSObject
 @property(nonatomic,copy) NSString * releaseTime;//发起时间
 @property(nonatomic,copy) NSString * surveyId;//问卷ID

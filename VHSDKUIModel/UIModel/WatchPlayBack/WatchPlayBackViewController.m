@@ -25,7 +25,7 @@ static AnnouncementView* announcementView = nil;
     VHallMoviePlayer  *_moviePlayer;//播放器
     VHallComment*_comment;
     int  _bufferCount;
-    NSMutableArray *_commentsArray;//评论
+
     VHPullingRefreshTableView* _tableView;
     UIButton              *_toolViewBackView;//遮罩
 //    VHDrawView *_pptHandView;//PPT
@@ -39,7 +39,7 @@ static AnnouncementView* announcementView = nil;
 @property (weak, nonatomic) IBOutlet UIView *backView;
 @property(nonatomic,strong) MPMoviePlayerController * hlsMoviePlayer;
 @property (weak, nonatomic) IBOutlet UIImageView *textImageView;
-@property (nonatomic,assign) VHallMovieVideoPlayMode playModelTemp;
+@property (nonatomic,assign) VHMovieVideoPlayMode playModelTemp;
 @property (nonatomic,strong) UILabel*textLabel;
 @property (weak, nonatomic) IBOutlet UITextField *commentTextField;
 
@@ -53,6 +53,8 @@ static AnnouncementView* announcementView = nil;
 @property (weak, nonatomic) IBOutlet UIButton *detalBtn;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *topConstraint;
 @property (weak, nonatomic) IBOutlet UIView *showView;
+
+@property (nonatomic,strong) NSMutableArray *commentsArray;//评论
 
 @end
 
@@ -80,7 +82,6 @@ static AnnouncementView* announcementView = nil;
 
 - (void)initViews
 {
-    _comment = [[VHallComment alloc] init];
     //阻止iOS设备锁屏
     [[UIApplication sharedApplication] setIdleTimerDisabled:YES];
     [self registerLiveNotification];
@@ -107,7 +108,9 @@ static AnnouncementView* announcementView = nil;
     _tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
     [_tableView tableViewDidFinishedLoading];
     [_historyCommentTableView addSubview:_tableView];
-
+    
+    
+    _comment = [[VHallComment alloc] initWithMoviePlayer:_moviePlayer];
 }
 
 - (void)destoryMoivePlayer
@@ -166,6 +169,16 @@ static AnnouncementView* announcementView = nil;
     return YES;
 }
 
+-(UIInterfaceOrientationMask)supportedInterfaceOrientations
+{
+    return UIInterfaceOrientationMaskPortrait|UIInterfaceOrientationMaskLandscapeLeft|UIInterfaceOrientationMaskLandscapeRight;
+}
+
+- (UIInterfaceOrientation)preferredInterfaceOrientationForPresentation
+{
+    return UIInterfaceOrientationPortrait;
+}
+
 - (void)willAnimateSecondHalfOfRotationFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation duration:(NSTimeInterval)duration
 {
     //如果是iosVersion  8.0之前，UI出现问题请在此调整
@@ -186,11 +199,6 @@ static AnnouncementView* announcementView = nil;
         [self.backView addSubview:self.hlsMoviePlayer.view];
         [self.backView sendSubviewToBack:_hlsMoviePlayer.view];
     }
-}
-
--(UIInterfaceOrientationMask)supportedInterfaceOrientations
-{
-    return UIInterfaceOrientationMaskPortrait|UIInterfaceOrientationMaskLandscapeLeft|UIInterfaceOrientationMaskLandscapeRight;
 }
 
 -(void)viewWillLayoutSubviews
@@ -244,7 +252,6 @@ static AnnouncementView* announcementView = nil;
     param[@"id"] =  _roomId;
     param[@"name"] = [UIDevice currentDevice].name;
     param[@"email"] = [[[UIDevice currentDevice] identifierForVendor] UUIDString];
-//    param[@"record_id"] = DEMO_Setting.recordID;
     if (_kValue&&_kValue.length) {
         param[@"pass"] = _kValue;
     }
@@ -255,7 +262,7 @@ static AnnouncementView* announcementView = nil;
     [self.backView addSubview:self.hlsMoviePlayer.view];
     [self.backView sendSubviewToBack:self.hlsMoviePlayer.view];
 
-    if (self.playModelTemp == VHallMovieVideoPlayModeTextAndVoice ) {
+    if (self.playModelTemp == VHMovieVideoPlayModeTextAndVoice ) {
         self.liveTypeLabel.text = @"语音回放中";
     }else{
         self.liveTypeLabel.text = @"";
@@ -297,7 +304,7 @@ static AnnouncementView* announcementView = nil;
 }
 
 #pragma mark - VHMoviePlayerDelegate
-- (void)playError:(LivePlayErrorType)livePlayErrorType info:(NSDictionary *)info;
+- (void)playError:(VHLivePlayErrorType)livePlayErrorType info:(NSDictionary *)info;
 {
     [MBProgressHUD hideAllHUDsForView:self.hlsMoviePlayer.view animated:YES];
     void (^resetStartPlay)(NSString * msg) = ^(NSString * msg){
@@ -308,25 +315,25 @@ static AnnouncementView* announcementView = nil;
     
     NSString * msg = @"";
     switch (livePlayErrorType) {
-        case kLivePlayParamError:
+        case VHLivePlayParamError:
         {
             msg = @"参数错误";
             resetStartPlay(msg);
         }
             break;
-        case kLivePlayRecvError:
+        case VHLivePlayRecvError:
         {
             msg = @"对方已经停止直播";
             resetStartPlay(msg);
         }
             break;
-        case kLivePlayCDNConnectError:
+        case VHLivePlayCDNConnectError:
         {
             msg = @"服务器任性...连接失败";
             resetStartPlay(msg);
         }
             break;
-        case kLivePlayGetUrlError:
+        case VHLivePlayGetUrlError:
         {
             msg = @"获取服务器地址报错";
             resetStartPlay(info[@"content"]);
@@ -371,7 +378,7 @@ static AnnouncementView* announcementView = nil;
     [_documentView drawDocHandList:docList whiteBoardHandList:boardList];
 }
 
--(void)VideoPlayMode:(VHallMovieVideoPlayMode)playMode isVrVideo:(BOOL)isVrVideo
+-(void)VideoPlayMode:(VHMovieVideoPlayMode)playMode isVrVideo:(BOOL)isVrVideo
 {
     VHLog(@"---%ld",(long)playMode);
     self.playModelTemp = playMode;
@@ -379,18 +386,18 @@ static AnnouncementView* announcementView = nil;
     _hlsMoviePlayer.controlStyle = MPMovieControlStyleEmbedded;
 
     switch (playMode) {
-        case VHallMovieVideoPlayModeNone:
-        case VHallMovieVideoPlayModeMedia:
+        case VHMovieVideoPlayModeNone:
+        case VHMovieVideoPlayModeMedia:
 
             break;
-        case VHallMovieVideoPlayModeTextAndVoice:
+        case VHMovieVideoPlayModeTextAndVoice:
         {
             self.liveTypeLabel.text = @"语音直播中";
         }
 
             break;
 
-        case VHallMovieVideoPlayModeTextAndMedia:
+        case VHMovieVideoPlayModeTextAndMedia:
             
             break;
         default:
@@ -401,7 +408,7 @@ static AnnouncementView* announcementView = nil;
     [self alertWithMessage:playMode];
 }
 
--(void)ActiveState:(VHallMovieActiveState)activeState
+-(void)ActiveState:(VHMovieActiveState)activeState
 {
     VHLog(@"activeState-%ld",(long)activeState);
 }
@@ -451,15 +458,15 @@ static AnnouncementView* announcementView = nil;
     if (pan.state == UIGestureRecognizerStateBegan)
     {
         translation = [pan translationInView:self.view];
-        volumeSize = [VHMoviePlayer getSysVolumeSize];
+        volumeSize = [VHallMoviePlayer getSysVolumeSize];
     }else if(pan.state == UIGestureRecognizerStateChanged)
     {
         float y = currentLocation.y-translation.y;
         float changeSize = ABS(y)/baseY;
         if (y>0){
-            [VHMoviePlayer setSysVolumeSize:volumeSize-changeSize];
+            [VHallMoviePlayer setSysVolumeSize:volumeSize-changeSize];
         }else{
-            [VHMoviePlayer setSysVolumeSize:volumeSize+changeSize];
+            [VHallMoviePlayer setSysVolumeSize:volumeSize+changeSize];
         }
     }
 }
@@ -484,7 +491,7 @@ static AnnouncementView* announcementView = nil;
         case MPMoviePlaybackStatePlaying:
         {
             VHLog(@"播放");
-            if (self.playModelTemp == VHallMovieVideoPlayModeTextAndVoice )
+            if (self.playModelTemp == VHMovieVideoPlayModeTextAndVoice )
             self.liveTypeLabel.text = @"语音回放中";
         }
             break;
@@ -505,7 +512,7 @@ static AnnouncementView* announcementView = nil;
             if (self.hlsMoviePlayer.view) {
                 [MBProgressHUD hideAllHUDsForView:self.hlsMoviePlayer.view animated:YES];
             }
-            if (self.playModelTemp == VHallMovieVideoPlayModeTextAndVoice )
+            if (self.playModelTemp == VHMovieVideoPlayModeTextAndVoice )
             self.liveTypeLabel.text = @"已暂停语音回放";
         }
             break;
@@ -515,7 +522,7 @@ static AnnouncementView* announcementView = nil;
             if (self.hlsMoviePlayer.view) {
                 [MBProgressHUD hideAllHUDsForView:self.hlsMoviePlayer.view animated:YES];
             }
-            if (self.playModelTemp == VHallMovieVideoPlayModeTextAndVoice )
+            if (self.playModelTemp == VHMovieVideoPlayModeTextAndVoice )
             self.liveTypeLabel.text = @"已暂停语音回放";
         }
             break;
@@ -683,29 +690,29 @@ static AnnouncementView* announcementView = nil;
 }
 
 #pragma mark - alertView
--(void)alertWithMessage : (VHallMovieVideoPlayMode)state
+-(void)alertWithMessage:(VHMovieVideoPlayMode)state
 {
     NSString*message = nil;
     switch (state) {
-        case 0:
+        case VHMovieVideoPlayModeNone:
             message = @"无内容";
             break;
-        case 1:
+        case VHMovieVideoPlayModeMedia:
             message = @"纯视频";
             break;
-        case 2:
+        case VHMovieVideoPlayModeTextAndVoice:
             message = @"文档＋声音";
             break;
-        case 3:
+        case VHMovieVideoPlayModeTextAndMedia:
             message = @"文档＋视频";
             break;
 
         default:
             break;
     }
-
-    UIAlertView*alert = [[UIAlertView alloc]initWithTitle:@"提示" message:message delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
-    [alert show];
+//    UIAlertView*alert = [[UIAlertView alloc]initWithTitle:@"提示" message:message delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+//    [alert show];
+    [self showMsg:message afterDelay:1];
 }
 
 
@@ -771,14 +778,15 @@ static AnnouncementView* announcementView = nil;
 - (void)loadData:(VHPullingRefreshTableView *)tableView
 {
 
+    __weak typeof(self) ws = self;
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     [_comment getHistoryCommentPageCountLimit:20 offSet:_commentsArray.count success:^(NSArray *msgs) {
-        [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
+        [MBProgressHUD hideAllHUDsForView:ws.view animated:YES];
         if (msgs.count > 0)
         {
-            [_commentsArray addObjectsFromArray:msgs];
+            [ws.commentsArray addObjectsFromArray:msgs];
             [tableView tableViewDidFinishedLoading];
-            tableView.reachedTheEnd = (msgs == nil || _commentsArray.count <= 5);
+            tableView.reachedTheEnd = (msgs == nil || ws.commentsArray.count <= 5);
             [tableView reloadData];
             
             
@@ -786,8 +794,9 @@ static AnnouncementView* announcementView = nil;
         
     } failed:^(NSDictionary *failedData) {
         [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
-        NSString* code = [NSString stringWithFormat:@"%@", failedData[@"code"]];
-        [UIAlertView popupAlertByDelegate:nil title:failedData[@"content"] message:code];
+        NSString* code = [NSString stringWithFormat:@"%@,%@",failedData[@"content"], failedData[@"code"]];
+        [ws showMsg:code afterDelay:1.5];
+//        [UIAlertView popupAlertByDelegate:nil title:failedData[@"content"] message:code];
     }];
 
     

@@ -24,6 +24,7 @@
     CGRect bounds = [[UIScreen mainScreen]bounds];
     
     [VHallApi registerApp:DEMO_AppKey SecretKey:DEMO_AppSecretKey];
+    [VHallApi setLogType:VHLogType_ON];
     
     self.window = [[UIWindow alloc]initWithFrame:bounds];
     LoginViewController * loginVC = [[LoginViewController alloc]init];

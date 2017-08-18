@@ -62,6 +62,10 @@
     }
 }
 
+- (UIInterfaceOrientation)preferredInterfaceOrientationForPresentation
+{
+    return _interfaceOrientation;
+}
 /*
 #pragma mark - Navigation
 

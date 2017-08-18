@@ -119,10 +119,14 @@
 {
     if(buttonIndex == 1)
     {
-        NSMutableString * str=[[NSMutableString alloc] initWithFormat:@"tel:%@",@"4006826882"];
-        UIWebView * callWebview = [[UIWebView alloc] init];
-        [callWebview loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:str]]];
-        [self.view addSubview:callWebview];
+//        NSMutableString * str=[[NSMutableString alloc] initWithFormat:@"tel:%@",@"4006826882"];
+//        WKWebView * callWebview = [[WKWebView alloc] init];
+//        [callWebview loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:str]]];
+//        [self.view addSubview:callWebview];
+        
+        NSMutableString* str=[[NSMutableString alloc] initWithFormat:@"telprompt://%@",@"4006826882"];
+        // NSLog(@"str======%@",str);
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:str]];
     }
 }
 

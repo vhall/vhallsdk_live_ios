@@ -6,8 +6,8 @@
 //  Copyright © 2017年 vhall. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+#import "BaseViewController.h"
 
-@interface VHSettingViewController : UIViewController
+@interface VHSettingViewController : BaseViewController
 
 @end

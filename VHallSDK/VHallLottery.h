@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "VHallMsgModels.h"
+#import "VHallBasePlugin.h"
 
 @protocol VHallLotteryDelegate <NSObject>
 @optional
@@ -17,7 +18,7 @@
 
 @end
 
-@interface VHallLottery : NSObject
+@interface VHallLottery : VHallBasePlugin
 
 @property (nonatomic, assign) id <VHallLotteryDelegate> delegate;
 

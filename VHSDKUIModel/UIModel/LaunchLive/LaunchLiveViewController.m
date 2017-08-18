@@ -23,9 +23,9 @@
 #import "VHMessageToolView.h"
 
 #if VHallFilterSDK_ENABLE
-@interface LaunchLiveViewController ()<CameraEngineRtmpDelegate, VHallChatDelegate, VHallLivePublishFilterDelegate,VHMessageToolBarDelegate>
+@interface LaunchLiveViewController ()<VHallLivePublishDelegate, VHallChatDelegate, VHallLivePublishFilterDelegate,VHMessageToolBarDelegate>
 #else
-@interface LaunchLiveViewController ()<CameraEngineRtmpDelegate, VHallChatDelegate,VHMessageToolBarDelegate>
+@interface LaunchLiveViewController ()<VHallLivePublishDelegate, VHallChatDelegate,VHMessageToolBarDelegate>
 #endif
 {
     BOOL  _isVideoStart;
@@ -66,11 +66,12 @@
 @property (nonatomic, strong) VHLiveChatView *chatView;
 @property (nonatomic, strong) NSMutableArray *chatDataArray;
 @property (nonatomic,strong) VHMessageToolView * messageToolView;  //输入框
+@property (weak, nonatomic) IBOutlet UIView *noiseView;
+@property (weak, nonatomic) IBOutlet UILabel *noiseLabel;
 @end
 
 @implementation LaunchLiveViewController
 
-#pragma mark -
 #pragma mark - Lifecycle
 - (id)init
 {
@@ -86,13 +87,13 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     [self initViews];
+    //初始化CameraEngine
+    [self initCameraEngine];
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    //初始化CameraEngine
-    [self initCameraEngine];
 }
 
 - (void)didReceiveMemoryWarning
@@ -142,6 +143,17 @@
     [self.navigationController popViewControllerAnimated:NO];
 }
 
+-(UIInterfaceOrientationMask)supportedInterfaceOrientations
+{
+    if (self.interfaceOrientation == UIInterfaceOrientationPortrait) {
+        return UIInterfaceOrientationMaskPortrait;
+    }else if (self.interfaceOrientation == UIInterfaceOrientationLandscapeRight) {
+        return UIInterfaceOrientationMaskLandscapeRight;
+    }else
+    {
+        return UIInterfaceOrientationMaskLandscapeLeft;
+    }
+}
 #pragma mark - Lifecycle(Private)
 
 - (void)registerLiveNotification
@@ -158,8 +170,7 @@
     _torchType = NO;
     _onlyVideo = NO;
     _isFontVideo = NO;
-    _videoResolution = kHVideoResolution;
-    _chat = [[VHallChat alloc] init];
+    _videoResolution = VHHVideoResolution;
     _chatDataArray = [NSMutableArray arrayWithCapacity:0];
 }
 
@@ -168,9 +179,10 @@
     //阻止iOS设备锁屏
     [[UIApplication sharedApplication] setIdleTimerDisabled:YES];
     [self registerLiveNotification];
-    _hud = [[MBProgressHUD alloc]initWithView:self.view];
-    [self.view addSubview:_hud];
+    _hud = [[MBProgressHUD alloc]initWithView:self.perView];
+    [self.perView addSubview:_hud];
     [_hud hide:YES];
+    [self.perView addSubview:_closeBtn];
     
     _chatMsgSend.layer.masksToBounds = YES;
     _chatMsgSend.layer.cornerRadius = 15;
@@ -181,9 +193,6 @@
     _msgTextField.layer.cornerRadius = 15;
     [_msgTextField setValue:[UIColor lightGrayColor] forKeyPath:@"_placeholderLabel.textColor"];
 
-    // chat在播放之前初始化并设置代理
-    _chat.delegate = self;
-    [self filterSettingBtnClick:_defaultFilterSelectBtn];
     // TODO:暂时不支持此功能，但保留。
     _audioStartAndStopBtn.hidden = YES;
     
@@ -210,47 +219,6 @@
     [_chatContainerView addSubview:_chatView];
 }
 
-- (void)initCameraEngine
-{
-    DeviceOrientation deviceOrientation;
-    if (self.interfaceOrientation == UIInterfaceOrientationPortrait)
-    {
-        deviceOrientation = kDevicePortrait;
-    }else{
-        deviceOrientation = kDeviceLandSpaceRight;
-    }
-#if VHallFilterSDK_ENABLE
-    self.engine = [[VHallLivePublishFilter alloc] initWithOrientation:deviceOrientation];
-    BOOL ret = [_engine initCaptureVideo:AVCaptureDevicePositionFront];
-    _torchBtn.hidden = YES;
-    _isFontVideo = YES;
-#else
-    self.engine = [[VHallLivePublish alloc] initWithOrientation:deviceOrientation];
-    BOOL ret = [_engine initCaptureVideo:AVCaptureDevicePositionBack];
-#endif
-    if (!ret) {
-        UIAlertView *alert=[[UIAlertView alloc] initWithTitle:@"提示" message:@"摄像头开启失败" delegate:nil cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
-        [alert show];
-
-    }
-    
-    self.engine.delegate            = self;
-    self.engine.displayView.frame   = _perView.bounds;
-    self.engine.publishConnectTimes = 2;
-    self.engine.videoCaptureFPS     = (int)_videoCaptureFPS;
-    self.engine.videoResolution     = (VideoResolution)_videoResolution;
-    [self.engine  initAudio];
-    [self.perView insertSubview:_engine.displayView atIndex:0];
-    //开始视频采集、并显示预览界面
-    [self.engine startVideoCapture];
-    
-#if VHallFilterSDK_ENABLE
-    _engine.openFilter = YES;
-    [_engine setBeautifyFilterWithBilateral:10.0f Brightness:1.0f Saturation:1.0f];
-#endif
-}
-
-#pragma mark - Lifecycle(ObserveValueForKeyPath)
 -(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
 {
     if([keyPath isEqualToString:kViewFramePath])
@@ -284,8 +252,54 @@
     }
 }
 
-#pragma mark -
 #pragma mark - Camera
+#pragma mark -
+- (void)initCameraEngine
+{
+    VHDeviceOrientation deviceOrientation;
+    if (self.interfaceOrientation == UIInterfaceOrientationPortrait)
+    {
+        deviceOrientation = VHDevicePortrait;
+    }else {
+        deviceOrientation = VHDeviceLandSpaceLeft;//设备左转，摄像头在左边
+    }
+#if VHallFilterSDK_ENABLE
+    self.engine = [[VHallLivePublishFilter alloc] initWithOrientation:deviceOrientation];
+    BOOL ret = [_engine initCaptureVideo:AVCaptureDevicePositionFront];
+//    BOOL ret = [_engine initCaptureVideo:AVCaptureDevicePositionBack];
+    _torchBtn.hidden = YES;
+    _isFontVideo = YES;
+#else
+    self.engine = [[VHallLivePublish alloc] initWithOrientation:deviceOrientation];
+    BOOL ret = [_engine initCaptureVideo:AVCaptureDevicePositionBack];
+#endif
+    if (!ret) {
+        UIAlertView *alert=[[UIAlertView alloc] initWithTitle:@"提示" message:@"摄像头开启失败" delegate:nil cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
+        [alert show];
+        
+    }
+    
+    _noiseView.hidden = !_isOpenNoiseSuppresion;
+    
+    self.engine.delegate            = self;
+    self.engine.displayView.frame   = _perView.bounds;
+    self.engine.publishConnectTimes = 2;
+    self.engine.videoCaptureFPS     = (int)_videoCaptureFPS;
+    self.engine.videoResolution     = (VHVideoResolution)_videoResolution;
+    self.engine.isOpenNoiseSuppresion = _isOpenNoiseSuppresion;
+    [self.engine  initAudio];
+    [self.perView insertSubview:_engine.displayView atIndex:0];
+    //开始视频采集、并显示预览界面
+    [self.engine startVideoCapture];
+    
+#if VHallFilterSDK_ENABLE
+    [self filterSettingBtnClick:_defaultFilterSelectBtn];
+#endif
+    
+    // chat 模块
+    _chat = [[VHallChat alloc] initWithLivePublish:self.engine];
+    _chat.delegate = self;
+}
 
 - (IBAction)swapBtnClick:(id)sender
 {
@@ -355,7 +369,7 @@
         NSMutableDictionary * param = [[NSMutableDictionary alloc]init];
         param[@"id"] =  _roomId;
         param[@"access_token"] = _token;
-        param[@"is_single_audio"] = @"0";    // 0 ：视频， 1：音频
+//        param[@"is_single_audio"] = @"0";    // 0 ：视频， 1：音频
         [_engine startLive:param];
     }else{
         _isVideoStart=NO;
@@ -398,14 +412,14 @@
 //    _isAudioStart = !_isAudioStart;
 }
 
-#pragma mark - Camera(CameraEngineDelegate)
+#pragma mark Camera(CameraEngineDelegate)
 
 -(void)firstCaptureImage:(UIImage *)image
 {
     VHLog(@"第一张图片");
 }
 
--(void)publishStatus:(LiveStatus)liveStatus withInfo:(NSDictionary *)info
+-(void)publishStatus:(VHLiveStatus)liveStatus withInfo:(NSDictionary *)info
 {
     __weak typeof(self) weakSelf = self;
     void (^resetStartPlay)(NSString * msg) = ^(NSString * msg){
@@ -422,12 +436,12 @@
     NSString * content = info[@"content"];
     switch (liveStatus)
     {
-        case kLiveStatusUploadSpeed:
+        case VHLiveStatusUploadSpeed:
         {
             _bitRateLabel.text = [NSString stringWithFormat:@"%@ kb/s",content];
         }
             break;
-        case kLiveStatusPushConnectSucceed:
+        case VHLiveStatusPushConnectSucceed:
         {
             [_hud hide:YES];
             [weakSelf chatShow:YES];
@@ -437,13 +451,13 @@
             }
         }
             break;
-        case kLiveStatusSendError:
+        case VHLiveStatusSendError:
         {
             resetStartPlay(@"流发送失败");
             errorLiveStatus = YES;
         }
             break;
-        case kLiveStatusPushConnectError:
+        case VHLiveStatusPushConnectError:
         {
             [_hud hide:YES];
             NSString *str =[NSString stringWithFormat:@"连接失败:%@",content];
@@ -451,14 +465,14 @@
             errorLiveStatus = YES;
         }
             break;
-        case kLiveStatusParamError:
+        case VHLiveStatusParamError:
         {
             [_hud hide:YES];
             resetStartPlay(@"参数错误");
             errorLiveStatus = YES;
         }
             break;
-        case kLiveStatusGetUrlError:
+        case VHLiveStatusGetUrlError:
         {
             [_hud hide:YES];
             _isVideoStart=NO;
@@ -468,31 +482,27 @@
             errorLiveStatus = YES;
         }
             break;
-        case kLiveStatusUploadNetworkOK:
+        case VHLiveStatusUploadNetworkOK:
         {
             _bitRateLabel.textColor = [UIColor greenColor];
             VHLog(@"kLiveStatusNetworkStatus:%@",content);
         }
             break;
-        case kLiveStatusUploadNetworkException:
+        case VHLiveStatusUploadNetworkException:
         {
             _bitRateLabel.textColor = [UIColor redColor];
             VHLog(@"kLiveStatusNetworkStatus:%@",content);
             errorLiveStatus = YES;
         }
             break;
-        case kLiveStatusRecvStreamType:
-        {
-            
-        }
-            break;
-        case  kLiveStatusAudioRecoderError :
+        case  VHLiveStatusAudioRecoderError :
         {
             [_hud hide:YES];
             _isVideoStart=NO;
             dispatch_async(dispatch_get_main_queue(), ^{
-                [weakSelf showMsg:@"音频采集失败,可能是麦克风未授权使用" afterDelay:1.5];
-                [_engine stopLive];
+//                [weakSelf showMsg:@"音频采集失败,可能是麦克风未授权使用" afterDelay:1.5];
+                [_engine disconnect];
+                resetStartPlay(@"音频采集失败,可能是麦克风未授权使用");
             });
             errorLiveStatus = YES;
         }
@@ -502,9 +512,10 @@
     }
 }
 
-#pragma mark -
-#pragma mark - Filter
 
+#if VHallFilterSDK_ENABLE
+#pragma mark - Filter
+#pragma mark -
 - (IBAction)filterBtnClick:(UIButton *)sender
 {
 //    [_chatMsgInput resignFirstResponder];
@@ -542,38 +553,20 @@
     [sender setBackgroundColor:MakeColorRGBA(0xfd3232,0.5)];
     _lastFilterSelectBtn = sender;
     
-#if VHallFilterSDK_ENABLE
+    _engine.openFilter = YES;
     switch (sender.tag) {
-        case 1:
-            _engine.openFilter = YES;
-            [_engine setBeautifyFilterWithBilateral:10.0f Brightness:1.0f Saturation:1.0f];
-            break;
-        case 2:
-            _engine.openFilter = YES;
-            [_engine setBeautifyFilterWithBilateral:8.0f Brightness:1.05f Saturation:1.0f];
-            break;
-        case 3:
-            _engine.openFilter = YES;
-            [_engine setBeautifyFilterWithBilateral:6.0f Brightness:1.10f Saturation:1.0f];
-            break;
-        case 4:
-            _engine.openFilter = YES;
-            [_engine setBeautifyFilterWithBilateral:4.0f Brightness:1.15f Saturation:1.0f];
-            break;
-        case 5:
-            _engine.openFilter = YES;
-            [_engine setBeautifyFilterWithBilateral:2.0f Brightness:1.20f Saturation:1.0f];
-            break;
-        default:
+        case 1:[_engine setBeautifyFilterWithBilateral:10.0f Brightness:1.0f  Saturation:1.0f];break;
+        case 2:[_engine setBeautifyFilterWithBilateral:8.0f  Brightness:1.05f Saturation:1.0f];break;
+        case 3:[_engine setBeautifyFilterWithBilateral:6.0f  Brightness:1.10f Saturation:1.0f];break;
+        case 4:[_engine setBeautifyFilterWithBilateral:4.0f  Brightness:1.15f Saturation:1.0f];break;
+        case 5:[_engine setBeautifyFilterWithBilateral:2.0f  Brightness:1.20f Saturation:1.0f];break;
         case 0:
-            _engine.openFilter = NO;
-            break;
+        default:_engine.openFilter = NO;break;
     }
-#endif
 }
 
-#pragma mark - Filter(LivePublishFilterDelegate)
-#if VHallFilterSDK_ENABLE
+#pragma mark Filter(LivePublishFilterDelegate)
+
 - (void)addGPUImageFilter:(GPUImageVideoCamera *)source Output:(GPUImageView *)output
 {
 //    GPUImageiOSBlurFilter *filter = [[GPUImageiOSBlurFilter alloc] init];
@@ -581,10 +574,13 @@
 //    [source addTarget:filter];
 //    [filter addTarget:output];
 }
+#else
+- (IBAction)filterBtnClick:(UIButton *)sender{}
+- (IBAction)filterSettingBtnClick:(UIButton *)sender{}
 #endif
 
-#pragma mark -
 #pragma mark - Chat && QA
+#pragma mark -
 
 - (void)chatShow:(BOOL)isShow
 {
@@ -625,7 +621,7 @@
     _hideKeyBtn.hidden = NO;
 }
 
-#pragma mark - Chat && QA(VHallChatDelegate)
+#pragma mark Chat && QA(VHallChatDelegate)
 - (void)reciveOnlineMsg:(NSArray *)msgs
 {
     if (msgs.count > 0) {
@@ -720,8 +716,12 @@
         [_messageToolView removeFromSuperview];
     });
 }
+- (IBAction)noiseSliderValueVhange:(UISlider *)sender {
+    _noiseLabel.text = [NSString stringWithFormat:@"音频增益：%f",sender.value];
+    [_engine setVolumeAmplificateSize:sender.value];
+}
 
-#pragma mark messageToolViewDelegate
+#pragma mark - messageToolViewDelegate
 - (void)didSendText:(NSString *)text
 {
     if(text == nil || text.length <= 0)

@@ -7,6 +7,7 @@
 3、plist 中 App Transport Security Settings -> Allow Arbitrary Loads 设置为YES<br>
 4、注册`AppKey`  [VHallApi registerApp:`AppKey` SecretKey:`AppSecretKey`]; <br>
 5、检查工程 `Bundle ID` 是否与`AppKey`对应 <br>
+6、plist中添加相机、麦克风权限 <br>
 
 ### 使用CocoaPods 引入SDK
 pod 'VHallSDK_Live' , :git => 'https://github.com/vhall/vhallsdk_live_ios.git'<br>
@@ -15,6 +16,12 @@ pod 'VHallSDK_LiveFilter' , :git => 'https://github.com/vhall/vhallsdk_live_ios.
 
 
 ### 版本更新信息
+
+#### 版本 v3.0 更新时间：2017.08.18
+更新内容：<br>
+1、性能优化<br>
+2、日志上报内容更新<br>
+3、滤镜模块优化，修复自定义滤镜bug<br>
 
 #### 版本 v2.9.0 更新时间：2017.06.12
 更新内容：<br>

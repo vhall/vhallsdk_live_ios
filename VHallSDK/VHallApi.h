@@ -8,22 +8,19 @@
 
 #ifndef VHallApi_h
 #define VHallApi_h
+
+#import "VHallConst.h"
 #import "VHallLivePublish.h"
 #import "VHallMoviePlayer.h"
+
+#import "VHallBasePlugin.h"
+#import "VHallMsgModels.h"
 #import "VHallChat.h"
 #import "VHallQAndA.h"
 #import "VHallLottery.h"
-#import "VHallMsgModels.h"
 #import "VHallComment.h"
 #import "VHallSign.h"
 #import "VHallSurvey.h"
-
-//日志类型
-typedef NS_ENUM(NSInteger,VHLogType) {
-    VHLogType_OFF   = 0,   //关闭日志 默认设置
-    VHLogType_ON    = 1,   //开启日志
-    VHLogType_ALL   = 2,   //开启全部日志
-};
 
 @interface VHallApi : NSObject 
 
@@ -69,7 +66,6 @@ typedef NS_ENUM(NSInteger,VHLogType) {
  *  @param aSuccessBlock    成功的回调
  *  @param aFailureBlock    失败的回调
  *
- *  @result 错误信息
  */
 + (void)logout:(void (^)())aSuccessBlock
               failure:(void (^)(NSError *error))aFailureBlock;
@@ -95,15 +91,12 @@ typedef NS_ENUM(NSInteger,VHLogType) {
  */
 + (NSString *)currentUserID;
 
-
-
 /*!
  *  获取当前登录用户头像
  *
  *  @result 当前登陆用户头像地址
  */
 +(NSString*)currentUserHeadUrl;
-
 
 /*!
  *  获取当前登录用户昵称
@@ -112,65 +105,12 @@ typedef NS_ENUM(NSInteger,VHLogType) {
  */
 +(NSString*)currentUserNickName;
 
-//以下是所有接口请求错误的错误码及错误内容
-/*
-| 10010 | 活动不存在                     |
-| 10011 | 不是该平台下的活动             |
-| 10017 | 活动id 不能为空                |
-| 10030 | 身份验证出错                   |
-| 10040 | 验证出错                       |
-| 10046 | 当前活动已结束                 |
-| 10047 | 您已被踢出，请联系活动组织者   |
-| 10048 | 活动现场太火爆，已超过人数上限 |
-| 10049 | 访客数据信息不全               |
-| 10401 | 活动开始失败                   |
-| 10401 | 活动结束失败                   |
-| 10402 | 当前活动ID错误                 |
-| 10403 | 活动不属于自己                 |
-| 10404 | KEY值验证出错                  |
-| 10405 | 录播不存在                     |
-| 10405 | 微吼用户ID错误                 |
-| 10407 | 查询数据为空                   |
-| 10408 | 当前活动非直播状态             |
-| 10409 | 参会ID不能为空                 |
-| 10410 | 抽奖ID不能为空                 |
-| 10410 | 活动开始时间不存在             |
-| 10410 | 用户信息不存在                 |
-| 10410 | 第三方用户对象不存在 【新】    |
-| 10411 | 用户名称不能为空               |
-| 10411 | 用户套餐余额不足    【新】     |
-| 10412 | 用户手机不能为空               |
-| 10412 | 直播中，获取失败               |
-| 10413 | 获取条目最多为50               |
-| 10501 | 用户不存在                     |
-| 10502 | 登陆密码不正确                 |
-| 10806 | 内容不能为空                   |
-| 10807 | 用户id不能为空                 |
-| 10808 | 当前用户未参会                 |
- 
- 20001  //AppKey 或 SecretKey 未设置
- 20002  //后台接口api错误
- 20003  //活动状态错误，如非正在直播活动调用直播接口
- 20004  //活动id为空
- 20005  //未参会
- 20006  //未登录状态下email name为空
- 20007  //发直播token为空
- 20008  //结束活动失败
- 20009  //未登录
- 20010  //未获取到抽奖ID
- 20011  //未获取到签到ID
- 20012  //签到已结束
- 20013  //未获取到问卷ID
- 20014  //请求参数错误
-
- 30001  //"请求参数错误",
- 30002  //"网络错误",
- 30003  //"请求错误",
- 30004  //"返回错误",
- 30005  //"Json格式错误",
- 30006  //"请求返回错误"
-*/
-
+/*!
+ *  查询错误码对应错误内容
+ *
+ *  @result 错误内容
+ */
++(NSString*)errorMsgWithCode:(NSInteger) errorCode;
 @end
 
 #endif /* VHApi_h */

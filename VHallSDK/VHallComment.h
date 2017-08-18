@@ -7,8 +7,9 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "VHallBasePlugin.h"
 
-@interface VHallComment : NSObject
+@interface VHallComment : VHallBasePlugin
 
 /**
  *  发表评论内容

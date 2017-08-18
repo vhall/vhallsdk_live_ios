@@ -5,61 +5,71 @@
 //  Created by liwenlong on 16/2/16.
 //  Copyright © 2016年 vhall. All rights reserved.
 //
-
-#import "VHMoviePlayer.h"
-/**
- *  视频播放模式
- */
-typedef NS_ENUM(NSInteger,VHallMovieVideoPlayMode) {
-    VHallMovieVideoPlayModeNone = 0,         //不存在
-    VHallMovieVideoPlayModeMedia = 1,        //单视频
-    VHallMovieVideoPlayModeTextAndVoice = 2, //文档＋声音
-    VHallMovieVideoPlayModeTextAndMedia = 3, //文档＋视频
-    VHallMovieVideoPlayModeVoice = 4,        //单音频
-};
-
-/**
- *  直播视频清晰度
- */
-typedef NS_ENUM(NSInteger,VHallMovieDefinition) {
-    VHallMovieDefinitionOrigin = 0,     //原画
-    VHallMovieDefinitionUHD = 1,        //超高清
-    VHallMovieDefinitionHD = 2,         //高清
-    VHallMovieDefinitionSD = 3,         //标清
-    VHallMovieDefinitionAudio = 4,      //无视频
-};
-
-/**
- *  活动状态
- */
-typedef NS_ENUM(NSInteger,VHallMovieActiveState) {
-    VHallMovieActiveStateNone = 0 ,
-    VHallMovieActiveStateLive = 1,           //直播
-    VHallMovieActiveStateReservation = 2,    //预约
-    VHallMovieActiveStateEnd = 3,            //结束
-    VHallMovieActiveStateReplay = 4,         //回放
-};
-
-
+#import <MediaPlayer/MPMoviePlayerController.h>
+#import "VHallConst.h"
 
 @class VHallMoviePlayer;
-
-@protocol VHallMoviePlayerDelegate <NSObject, VHMoviePlayerDelegate>
+@protocol VHallMoviePlayerDelegate <NSObject>
 @optional
+/**
+ *  播放连接成功
+ */
+- (void)connectSucceed:(VHallMoviePlayer*)moviePlayer info:(NSDictionary*)info;
+
+/**
+ *  缓冲开始回调
+ */
+- (void)bufferStart:(VHallMoviePlayer*)moviePlayer info:(NSDictionary*)info;
+
+/**
+ *  缓冲结束回调
+ */
+-(void)bufferStop:(VHallMoviePlayer*)moviePlayer info:(NSDictionary*)info;
+
+/**
+ *  下载速率的回调
+ *
+ *  @param moviePlayer
+ *  @param info        下载速率信息 单位kbps
+ */
+- (void)downloadSpeed:(VHallMoviePlayer*)moviePlayer info:(NSDictionary*)info;
+
+/**
+ *  cdn 发生切换时的回调
+ *
+ *  @param moviePlayer
+ *  @param info
+ */
+- (void)cdnSwitch:(VHallMoviePlayer*)moviePlayer info:(NSDictionary*)info;
+
+/**
+ *  Streamtype
+ *
+ *  @param moviePlayer moviePlayer
+ *  @param info        info
+ */
+- (void)recStreamtype:(VHallMoviePlayer*)moviePlayer info:(NSDictionary*)info;
+
+/**
+ *  播放时错误的回调
+ *
+ *  @param livePlayErrorType 直播错误类型
+ */
+- (void)playError:(VHLivePlayErrorType)livePlayErrorType info:(NSDictionary*)info;
 
 /**
  *  获取视频活动状态
  *
  *  @param playMode  视频活动状态
  */
-- (void)ActiveState:(VHallMovieActiveState)activeState;
+- (void)ActiveState:(VHMovieActiveState)activeState;
 
 /**
  *  获取当前视频播放模式
  *
  *  @param playMode  视频播放模式
  */
-- (void)VideoPlayMode:(VHallMovieVideoPlayMode)playMode isVrVideo:(BOOL)isVrVideo;
+- (void)VideoPlayMode:(VHMovieVideoPlayMode)playMode isVrVideo:(BOOL)isVrVideo;
 
 /**
  *  获取当前视频支持的所有播放模式
@@ -103,30 +113,42 @@ typedef NS_ENUM(NSInteger,VHallMovieActiveState) {
 - (void)docHandList:(NSArray*)docList whiteBoardHandList:(NSArray*)boardList;
 
 @end
-@interface VHallMoviePlayer : VHMoviePlayer
+@interface VHallMoviePlayer : NSObject
+
+@property(nonatomic,assign)id <VHallMoviePlayerDelegate> delegate;
+@property(nonatomic,strong,readonly)UIView * moviePlayerView;
+@property(nonatomic,assign)int timeout;             //RTMP链接的超时时间 默认5000毫秒，单位为毫秒
+@property(nonatomic,assign)int reConnectTimes;      //RTMP 断开后的重连次数 默认 2次
+@property(nonatomic,assign)int bufferTime;          //RTMP 的缓冲时间 默认 6秒 单位为秒 必须>0 值越小延时越小,卡顿增加
+@property(assign,readonly)int realityBufferTime;    //获取RTMP播放实际的缓冲时间
+@property(nonatomic,assign,readonly)VHPlayerState playerState;//播放器状态
+
+/**
+ *  视频View的缩放比例 默认是自适应模式
+ */
+@property(nonatomic,assign)VHRTMPMovieScalingMode movieScalingMode;
 
 /**
  *  当前视频观看模式 观看直播允许切换观看模式(回放没有)
  */
-@property(nonatomic,assign)VHallMovieVideoPlayMode playMode;
+@property(nonatomic,assign)VHMovieVideoPlayMode playMode;
 
 /**
  *  设置默认播放的清晰度 默认原画
  */
-@property(nonatomic,assign)VHallMovieDefinition defaultDefinition;
+@property(nonatomic,assign)VHMovieDefinition defaultDefinition;
+
+/*! @brief 直播视频清晰度 （只有直播有效）
+ *
+ *  @return 返回当前视频清晰度 如果和设置的不一致 设置无效保存原有清晰度 设置成功刷新直播，有可能设置失败，请再获取definition查看设置状态
+ *   当前视频清晰度 观看直播允许切换清晰度(回放没有) 默认是defaultDefinition
+ */
+@property(nonatomic,assign)VHMovieDefinition curDefinition;
 
 /**
- *  当前视频清晰度 观看直播允许切换清晰度(回放没有) 默认是defaultDefinition
+ *   设置渲染视图 在VideoPlayMode:isVrVideo: 中设置 默认VHRenderModelNone 必须设置否则会出现黑屏
  */
-@property(nonatomic,assign,readonly)VHallMovieDefinition curDefinition;
-
-/*! @brief 设置直播视频清晰度 （只有直播有效）
- *
- *  @return 返回当前视频清晰度 如果和设置的不一致 设置无效保存原有清晰度 设置成功刷新直播
- */
-
-- (VHallMovieDefinition)setDefinition:(VHallMovieDefinition)definition;
-
+@property(nonatomic,assign)VHRenderModel renderViewModel;
 
 /**
  *  初始化VHMoviePlayer对象
@@ -168,13 +190,13 @@ typedef NS_ENUM(NSInteger,VHallMovieActiveState) {
 -(void)pausePlay;
 
 /**
- *  pausePlay后恢复直播播放(只用直播活动)
+ *  播放出错/pausePlay后恢复直播播放(只用直播活动)
  *  @return NO 播放器不是暂停状态 或者已经结束
  */
 -(BOOL)reconnectPlay;
 
 /**
- *  停止播放 和
+ *  停止直播
  */
 -(void)stopPlay;
 
@@ -203,9 +225,18 @@ typedef NS_ENUM(NSInteger,VHallMovieActiveState) {
 - (void)destroyMoivePlayer;
 
 /**
+ *  清空视频剩余的最后一帧画面
+ */
+- (void)cleanLastFrame;
+
+/**
+ *  是否使用陀螺仪，仅VR播放时可用
+ */
+- (void)setUsingGyro:(BOOL)usingGyro;
+/**
  *  设置视频布局的方向，仅VR模式可用,切要开启陀螺仪
  */
-- (void)setUILayoutOrientation:(DeviceOrientation)orientation;
+- (void)setUILayoutOrientation:(UIDeviceOrientation)orientation;
 
 /**
  *  观看直播视频   (仅HLS可用) 已弃用 不再维护

@@ -11,29 +11,34 @@
 #import "VHSettingTextFieldItem.h"
 #import "VHSettingTableViewCell.h"
 #import "VHSettingArrowItem.h"
-#import "OpenCONSTS.h"
 #import "CustomPickerView.h"
 #import "VHallApi.h"
 #define MakeColorRGB(hex)  ([UIColor colorWithRed:((hex>>16)&0xff)/255.0 green:((hex>>8)&0xff)/255.0 blue:(hex&0xff)/255.0 alpha:1.0])
 @interface VHSettingViewController()<UITableViewDataSource,UITableViewDelegate,CustomPickerViewDataSource,CustomPickerViewDelegate,UITextFieldDelegate>
 {
-      NSArray * _selectArray;
-     CustomPickerView * _pickerView;//选择框控件
-      VHSettingTextFieldItem *item0;
-      VHSettingTextFieldItem *item1;
-      VHSettingTextFieldItem *item2;
-      VHSettingTextFieldItem *item3;
-      VHSettingTextFieldItem *item4;
-      VHSettingTextFieldItem *item5;
-      VHSettingTextFieldItem *item6;
-      VHSettingTextFieldItem *item7;
-      VHSettingTextFieldItem *item8;
-      VHSettingTextFieldItem *item9;
-      VHSettingTextFieldItem *item10;
-     UITableView             *tableView;
-     UITextField             *tempTextField;
+    NSArray * _selectArray;
+
+    VHSettingTextFieldItem *item0;
+    VHSettingTextFieldItem *item1;
+    VHSettingTextFieldItem *item2;
+    VHSettingTextFieldItem *item3;
+    VHSettingTextFieldItem *item4;
+    VHSettingTextFieldItem *item5;
+    VHSettingTextFieldItem *item6;
+    VHSettingTextFieldItem *item7;
+    VHSettingTextFieldItem *item8;
+    VHSettingTextFieldItem *item9;
+    VHSettingTextFieldItem *item10;
+    VHSettingTextFieldItem *item11;
+    VHSettingTextFieldItem *item12;
+    
+    UISwitch *_noiseSwitch;
 }
 @property(nonatomic,strong) NSMutableArray *groups;
+
+@property(nonatomic,strong) CustomPickerView    *pickerView;//选择框控件
+@property(nonatomic,strong) UITableView         *tableView;
+@property(nonatomic,strong) UITextField         *tempTextField;
 @end
 
 @implementation VHSettingViewController
@@ -86,9 +91,12 @@
     _pickerView.dataSource = self;
     [_pickerView setTitle:@"请选择分辨率"];
     
-    tableView=[[UITableView alloc] initWithFrame:CGRectMake(0, 64, self.view.width, [UIScreen mainScreen].bounds.size.height-64) style:UITableViewStyleGrouped];
+    _noiseSwitch = [[UISwitch alloc]init];
+    [_noiseSwitch addTarget:self action:@selector(noiseSwitch) forControlEvents:UIControlEventValueChanged];
+    
+    _tableView=[[UITableView alloc] initWithFrame:CGRectMake(0, 64, self.view.width, [UIScreen mainScreen].bounds.size.height-64) style:UITableViewStyleGrouped];
    // tableView.backgroundColor=[UIColor whiteColor];
-    tableView.userInteractionEnabled=YES;
+    _tableView.userInteractionEnabled=YES;
     UIView *header=[[UIView alloc] initWithFrame:CGRectMake(0, 0,  [UIScreen mainScreen].bounds.size.width, 30)];
     UILabel *text=[[UILabel alloc] init];
     
@@ -106,15 +114,15 @@
     [brast setFrame:CGRectMake(text.left , 10, brast.width, brast.height)];
     [header addSubview:brast];
     
-    [tableView setTableHeaderView:header];
-    tableView.dataSource= self;
-    tableView.delegate = self;
-    tableView.separatorStyle=UITableViewCellSeparatorStyleNone;
-    [self.view addSubview:tableView];
-    if ([tableView  respondsToSelector:@selector(setLayoutMargins:)]) {
-        [tableView setLayoutMargins:UIEdgeInsetsZero];
+    [_tableView setTableHeaderView:header];
+    _tableView.dataSource= self;
+    _tableView.delegate = self;
+    _tableView.separatorStyle=UITableViewCellSeparatorStyleNone;
+    [self.view addSubview:_tableView];
+    if ([_tableView  respondsToSelector:@selector(setLayoutMargins:)]) {
+        [_tableView setLayoutMargins:UIEdgeInsetsZero];
     }
-    [tableView reloadData];
+    [_tableView reloadData];
     
 }
 
@@ -126,8 +134,8 @@
     _selectArray = @[@"352X288",@"640X480",@"960X540",@"1280X720"];
     self.title = @"设置";
     [self setupGroup0];
-    [self  setupGroup1];
-    [self  setupGroup2];
+    [self setupGroup1];
+    [self setupGroup2];
     [self initWithView];
 }
 
@@ -154,7 +162,8 @@
 
 -(void)setupGroup0
 {
-     item0 = [VHSettingTextFieldItem  itemWithTitle:@"直播token"];
+    __weak typeof(self) weakSelf = self;
+    item0 = [VHSettingTextFieldItem  itemWithTitle:@"直播token"];
     item0.text = DEMO_Setting.liveToken;
     item1 = [VHSettingTextFieldItem  itemWithTitle:@"活动ID"];
     item1.text =  DEMO_Setting.activityID;
@@ -162,8 +171,8 @@
     item2.text = _selectArray[[DEMO_Setting.videoResolution intValue]];
     item2.operation=^(NSIndexPath *indexPath)
     {
-        [tempTextField endEditing:YES];
-          [_pickerView showPickerView:self.view];
+        [weakSelf.tempTextField endEditing:YES];
+        [weakSelf.pickerView showPickerView:weakSelf.view];
     };
     item3 = [VHSettingTextFieldItem  itemWithTitle:@"视频码率(kpbs)"];
     item3.text = [NSString stringWithFormat:@"%ld",(long)DEMO_Setting.videoBitRate];
@@ -181,8 +190,8 @@
 -(void)setupGroup1
 {
     item6 = [VHSettingTextFieldItem  itemWithTitle:@"活动ID"];
-    item6.text=DEMO_Setting.activityID;
-     item7 = [VHSettingTextFieldItem  itemWithTitle:@"k值"];
+    item6.text=DEMO_Setting.watchActivityID;
+    item7 = [VHSettingTextFieldItem  itemWithTitle:@"k值"];
     item7.text =  DEMO_Setting.kValue;
     item8 = [VHSettingTextFieldItem  itemWithTitle:@"缓冲时间"];
     item8.text = [NSString stringWithFormat:@"%ld",(long)DEMO_Setting.bufferTimes];
@@ -214,8 +223,12 @@
         item10.text = [UIDevice currentDevice].name;
     }
     
-   
-    VHSettingGroup *group= [VHSettingGroup groupWithItems:@[item9,item10]];
+    item11 = [VHSettingTextFieldItem  itemWithTitle:@"AppKey"];
+    item11.text = DEMO_Setting.appKey;
+    item12 = [VHSettingTextFieldItem  itemWithTitle:@"AppSecretKey"];
+    item12.text = DEMO_Setting.appSecretKey;
+
+    VHSettingGroup *group= [VHSettingGroup groupWithItems:@[item9,item10,item11,item12]];
     group.headerTitle = @"其他设置";
     [self.groups addObject:group];
 }
@@ -228,15 +241,33 @@
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     VHSettingGroup *group =self.groups[section];
+    if(section == 0)
+        return group.items.count+1;
     return group.items.count;
 }
 
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    VHSettingGroup *group=self.groups [indexPath.section];
+    if(indexPath.section == 0 && indexPath.row == group.items.count)
+    {
+        static   NSString *Identifier = @"noiseSwitchCell";
+        UITableViewCell *noiseSwitchcell =[tableView dequeueReusableCellWithIdentifier:Identifier];
+        if (noiseSwitchcell == nil)
+            noiseSwitchcell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:Identifier];
+        _noiseSwitch.on = DEMO_Setting.isOpenNoiseSuppresion;
+        noiseSwitchcell.textLabel.text = @"音频降噪";
+        noiseSwitchcell.textLabel.font = [UIFont systemFontOfSize:14];
+        _noiseSwitch.left = self.view.width - 60;
+        _noiseSwitch.top = 10;
+        [noiseSwitchcell.contentView addSubview:_noiseSwitch];
+        return noiseSwitchcell;
+    }
+    
+    
     __weak typeof(self) weakSelf=self;
     VHSettingTableViewCell *cell =[VHSettingTableViewCell  cellWithTableView:tableView];
-    VHSettingGroup         *group=self.groups[indexPath.section];
     VHSettingItem          *item = group.items[indexPath.row];
     item.indexPath=indexPath;
     cell.item  =item;
@@ -253,7 +284,7 @@
     
     cell.changePosition=^(UITextField *textField)
     {
-        tempTextField=textField;
+        weakSelf.tempTextField=textField;
     };
     return cell;
     
@@ -263,7 +294,12 @@
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    
     VHSettingGroup *group=self.groups [indexPath.section];
+    if(indexPath.section == 0 && indexPath.row == group.items.count)
+    {
+        return;
+    }
     VHSettingItem  *item = group.items[indexPath.row];
     if (item.operation)
     {
@@ -330,7 +366,7 @@
 - (void)showKeyboard:(NSNotification *)noti
 {
     self.view.transform = CGAffineTransformIdentity;
-    UIView *editView = tempTextField;
+    UIView *editView = _tempTextField;
     
     CGRect tfRect = [editView.superview convertRect:editView.frame toView:self.view];
     NSValue *value = noti.userInfo[@"UIKeyboardFrameEndUserInfoKey"];
@@ -386,7 +422,7 @@
     NSString * title =_selectArray[row];
     [item2 setText:title];
      DEMO_Setting.videoResolution =  [NSString stringWithFormat:@"%ld",(long)row];
-    [tableView reloadData];
+    [_tableView reloadData];
     
 }
 #pragma mark - CustomPickerViewDataSource
@@ -408,7 +444,10 @@
         switch (indexpath.row)
         {
             case 0:
-                 DEMO_Setting.liveToken = text;
+                if(text.length == 32 || text.length == 0)
+                    DEMO_Setting.liveToken = text;
+                else
+                    [self showMsg:@"Token长度错误" afterDelay:1.5];
                 break;
             case 1:
                 DEMO_Setting.activityID = text;
@@ -433,7 +472,7 @@
         switch (indexpath.row)
         {
             case 0:
-                DEMO_Setting.activityID = text;
+                DEMO_Setting.watchActivityID = text;
                 break;
             case 1:
                 DEMO_Setting.kValue = text;
@@ -452,7 +491,19 @@
                 DEMO_Setting.account =text;
                 break;
             case 1:
-                  DEMO_Setting.nickName =text;
+                DEMO_Setting.nickName =text;
+                break;
+            case 2:
+                if(text.length == 32 || [text hasSuffix:@"00"] || text.length == 0)
+                    DEMO_Setting.appKey  =text;
+                else
+                    [self showMsg:@"appKey 输入错误" afterDelay:1.5];
+                break;
+            case 3:
+                if(text.length == 32 || text.length == 0)
+                    DEMO_Setting.appSecretKey =text;
+                else
+                    [self showMsg:@"appSecretKey长度错误" afterDelay:1.5];
                 break;
             default:
                 break;
@@ -460,7 +511,10 @@
     }
 }
 
-
+- (void)noiseSwitch
+{
+    DEMO_Setting.isOpenNoiseSuppresion = _noiseSwitch.on;
+}
 
 -(void)scrollViewWillBeginDragging:(UIScrollView *)scrollView
 {

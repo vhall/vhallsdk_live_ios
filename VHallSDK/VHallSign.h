@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "VHallBasePlugin.h"
 
 @protocol VHallSignDelegate <NSObject>
 /**
@@ -32,7 +33,7 @@
 
 @end
 
-@interface VHallSign : NSObject
+@interface VHallSign : VHallBasePlugin
 
 @property (nonatomic, assign) id <VHallSignDelegate> delegate;
 /**

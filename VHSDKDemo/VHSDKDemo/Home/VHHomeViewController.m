@@ -86,6 +86,7 @@
     rtmpLivedemoVC.audioBitRate     = DEMO_Setting.audioBitRate*1000;
     rtmpLivedemoVC.videoCaptureFPS  = DEMO_Setting.videoCaptureFPS;
     rtmpLivedemoVC.interfaceOrientation = orientation;
+    rtmpLivedemoVC.isOpenNoiseSuppresion = DEMO_Setting.isOpenNoiseSuppresion;
     [self presentViewController:rtmpLivedemoVC animated:YES completion:nil];
 }
 
@@ -101,7 +102,7 @@
     switch (sender.tag) {
         case 0://横屏发直播
         {
-            [self startLive:UIInterfaceOrientationLandscapeRight];
+            [self startLive:UIInterfaceOrientationLandscapeRight];//设备左转，摄像头在左边
         }
             break;
         case 1://竖屏发直播
@@ -112,7 +113,7 @@
         case 2://观看直播
         {
             WatchLiveViewController * watchVC  =[[WatchLiveViewController alloc]init];
-            watchVC.roomId      = DEMO_Setting.activityID;
+            watchVC.roomId      = DEMO_Setting.watchActivityID;
             watchVC.kValue      = DEMO_Setting.kValue;
             watchVC.bufferTimes = DEMO_Setting.bufferTimes;
             [self presentViewController:watchVC animated:YES completion:nil];
@@ -121,7 +122,7 @@
         case 3://观看回放
         {
             WatchPlayBackViewController * watchVC  =[[WatchPlayBackViewController alloc]init];
-            watchVC.roomId = DEMO_Setting.activityID;
+            watchVC.roomId = DEMO_Setting.watchActivityID;
             watchVC.kValue = DEMO_Setting.kValue;
             [self presentViewController:watchVC animated:YES completion:nil];
         }

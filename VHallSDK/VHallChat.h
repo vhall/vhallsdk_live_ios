@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "VHallBasePlugin.h"
 
 @protocol VHallChatDelegate <NSObject>
 @optional
@@ -16,7 +17,7 @@
 
 @end
 
-@interface VHallChat : NSObject
+@interface VHallChat : VHallBasePlugin
 
 @property (nonatomic, assign) id <VHallChatDelegate> delegate;
 

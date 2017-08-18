@@ -65,13 +65,14 @@
     CGRect endFrame = [notification.userInfo[UIKeyboardFrameEndUserInfoKey] CGRectValue];
     NSNumber *duration = [notification.userInfo objectForKey:UIKeyboardAnimationDurationUserInfoKey];
     NSNumber *curve = [notification.userInfo objectForKey:UIKeyboardAnimationCurveUserInfoKey];
-    self.tableView.frame = CGRectMake(0, 0, self.tableView.frame.size.width, VHScreenHeight - endFrame.size.height);
+    self.tableView.frame = CGRectMake(0, 0, self.tableView.frame.size.width, VHScreenHeight - endFrame.size.height-20);
     [UIView animateWithDuration:duration.doubleValue animations:^{
         [UIView setAnimationBeginsFromCurrentState:YES];
         [UIView setAnimationCurve:[curve intValue]];
         
         if (self.tableView.contentSize.height > self.tableView.frame.size.height) {
-            CGPoint offset = CGPointMake(0, self.tableView.contentSize.height - self.tableView.frame.size.height);
+            //CGPoint offset = CGPointMake(0, self.tableView.contentSize.height - self.tableView.frame.size.height);
+                CGPoint offset = CGPointMake(0, -endFrame.size.height/4);
             [self.tableView setContentOffset:offset animated:NO];
         }
     }];
@@ -544,13 +545,6 @@
 {
     return NO;
 }
-
--(UIInterfaceOrientationMask)supportedInterfaceOrientations
-{
-    return UIInterfaceOrientationMaskPortraitUpsideDown;
-}
-
-
 
 - (void)viewDidLayoutSubviews
 {

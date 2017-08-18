@@ -69,29 +69,28 @@
 }
 
 
-+(instancetype)cellWithTableView:(UITableView *)tableView style:(UITableViewStyle)style
++(instancetype)cellWithTableView:(UITableView *)tableView style:(UITableViewCellStyle)style
 {
     static   NSString *ID = @"cell";
     VHSettingTableViewCell *cell =[tableView dequeueReusableCellWithIdentifier:ID];
     if (cell == nil)
     {
-        cell= [[ VHSettingTableViewCell alloc] initWithStyle:style reuseIdentifier:ID];
+        cell= [[VHSettingTableViewCell alloc] initWithStyle:style reuseIdentifier:ID];
     }
     return cell;
 }
 
 +(instancetype)cellWithTableView:(UITableView*)tableView
 {
-    return [self cellWithTableView:tableView style:UITableViewCellStyleValue1];
+    return [VHSettingTableViewCell cellWithTableView:tableView style:UITableViewCellStyleValue1];
 }
 
 -(void)setItem:(VHSettingItem *)item
 {
     _item = item;
-     self.titleLabel.text = item.title;
-     [self.titleLabel sizeToFit];
-     [self setupRightView];
-    
+    self.titleLabel.text = item.title;
+    [self.titleLabel sizeToFit];
+    [self setupRightView];
 }
 
 -(void)setupRightView
@@ -102,17 +101,20 @@
     }else if ([_item isKindOfClass:[VHSettingTextFieldItem class]])
     {
         VHSettingTextFieldItem *tempItem = (VHSettingTextFieldItem*)_item;
-      
-        _textField.text = tempItem.text;
-        
-        if ((_item.indexPath.section == 0 && _item.indexPath.row ==2)  || (_item.indexPath.section ==2))
+        if ((_item.indexPath.section == 0 && _item.indexPath.row ==2)  ||
+            (_item.indexPath.section == 2 && _item.indexPath.row ==0)   ||
+            (_item.indexPath.section == 2 && _item.indexPath.row ==1) )
         {
             [_textField removeFromSuperview];
             [self.contentView addSubview:_videoResulotionLabel];
             [_videoResulotionLabel setText:tempItem.text];
-            
         }
-        
+        else
+        {
+            _textField.text = tempItem.text;
+            [_videoResulotionLabel removeFromSuperview];
+            [self.contentView addSubview:_textField];
+        }
     }else
     {
         self.accessoryView = nil;
