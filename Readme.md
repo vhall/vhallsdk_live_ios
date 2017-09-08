@@ -2,7 +2,7 @@
 自助式网络直播SDK
 
 ### APP工程集成SDK基本设置
-1、工程中任意 *.m 文件修改为 *.mm<br>
+1、工程中AppDelegate.m 文件名修改为 AppDelegate.mm<br>
 2、关闭bitcode 设置<br>
 3、plist 中 App Transport Security Settings -> Allow Arbitrary Loads 设置为YES<br>
 4、注册`AppKey`  [VHallApi registerApp:`AppKey` SecretKey:`AppSecretKey`]; <br>
