@@ -11,10 +11,19 @@
 		2F6EAA401E6FEE2500085AD4 /* 单选空.png in Resources */ = {isa = PBXBuildFile; fileRef = 2F6EAA3F1E6FEE2500085AD4 /* 单选空.png */; };
 		2F6EAA421E6FEE2900085AD4 /* 多选.png in Resources */ = {isa = PBXBuildFile; fileRef = 2F6EAA411E6FEE2900085AD4 /* 多选.png */; };
 		2F6EAA441E6FEE2C00085AD4 /* 多选空.png in Resources */ = {isa = PBXBuildFile; fileRef = 2F6EAA431E6FEE2C00085AD4 /* 多选空.png */; };
+		2F77FCA01F74A79F00D5F7F6 /* libVHDLNA.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F77FC9F1F74A79F00D5F7F6 /* libVHDLNA.a */; };
+		2F77FCA71F74A7AE00D5F7F6 /* ControlService.h in Headers */ = {isa = PBXBuildFile; fileRef = 2F77FCA11F74A7AE00D5F7F6 /* ControlService.h */; };
+		2F77FCA81F74A7AE00D5F7F6 /* Device.h in Headers */ = {isa = PBXBuildFile; fileRef = 2F77FCA21F74A7AE00D5F7F6 /* Device.h */; };
+		2F77FCA91F74A7AE00D5F7F6 /* MediaControlService.h in Headers */ = {isa = PBXBuildFile; fileRef = 2F77FCA31F74A7AE00D5F7F6 /* MediaControlService.h */; };
+		2F77FCAA1F74A7AE00D5F7F6 /* RenderingControlService.h in Headers */ = {isa = PBXBuildFile; fileRef = 2F77FCA41F74A7AE00D5F7F6 /* RenderingControlService.h */; };
+		2F77FCAB1F74A7AE00D5F7F6 /* VHDLNAControl.h in Headers */ = {isa = PBXBuildFile; fileRef = 2F77FCA51F74A7AE00D5F7F6 /* VHDLNAControl.h */; };
+		2F77FCAC1F74A7AE00D5F7F6 /* VHDLNAControlDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = 2F77FCA61F74A7AE00D5F7F6 /* VHDLNAControlDelegate.h */; };
 		2F8E6C311E6D764A0097AE94 /* checked.png in Resources */ = {isa = PBXBuildFile; fileRef = 2F8E6C301E6D764A0097AE94 /* checked.png */; };
 		2F8E6C331E6D764E0097AE94 /* unchecked.png in Resources */ = {isa = PBXBuildFile; fileRef = 2F8E6C321E6D764E0097AE94 /* unchecked.png */; };
 		2FB44D7C1E7A75B300460E1D /* UIImage+Tint.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FB44D7B1E7A75B300460E1D /* UIImage+Tint.m */; };
 		2FB44D7E1E7A770C00460E1D /* point.png in Resources */ = {isa = PBXBuildFile; fileRef = 2FB44D7D1E7A770C00460E1D /* point.png */; };
+		2FF947131F61437A001A3D35 /* DLNAView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FF947111F61437A001A3D35 /* DLNAView.m */; };
+		2FF947161F6143CF001A3D35 /* DeviceTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FF947151F6143CF001A3D35 /* DeviceTableViewCell.m */; };
 		84880C551E6D933A00D70114 /* WatchLiveSurveyTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 84880C531E6D933A00D70114 /* WatchLiveSurveyTableViewCell.m */; };
 		84880C561E6D933A00D70114 /* WatchLiveSurveyTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84880C541E6D933A00D70114 /* WatchLiveSurveyTableViewCell.xib */; };
 		84880C951E6D965A00D70114 /* resource.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 84880C8A1E6D965A00D70114 /* resource.bundle */; };
@@ -257,11 +266,22 @@
 		2F6EAA3F1E6FEE2500085AD4 /* 单选空.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "单选空.png"; sourceTree = "<group>"; };
 		2F6EAA411E6FEE2900085AD4 /* 多选.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "多选.png"; sourceTree = "<group>"; };
 		2F6EAA431E6FEE2C00085AD4 /* 多选空.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "多选空.png"; sourceTree = "<group>"; };
+		2F77FC9F1F74A79F00D5F7F6 /* libVHDLNA.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libVHDLNA.a; sourceTree = "<group>"; };
+		2F77FCA11F74A7AE00D5F7F6 /* ControlService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ControlService.h; sourceTree = "<group>"; };
+		2F77FCA21F74A7AE00D5F7F6 /* Device.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Device.h; sourceTree = "<group>"; };
+		2F77FCA31F74A7AE00D5F7F6 /* MediaControlService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MediaControlService.h; sourceTree = "<group>"; };
+		2F77FCA41F74A7AE00D5F7F6 /* RenderingControlService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RenderingControlService.h; sourceTree = "<group>"; };
+		2F77FCA51F74A7AE00D5F7F6 /* VHDLNAControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VHDLNAControl.h; sourceTree = "<group>"; };
+		2F77FCA61F74A7AE00D5F7F6 /* VHDLNAControlDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VHDLNAControlDelegate.h; sourceTree = "<group>"; };
 		2F8E6C301E6D764A0097AE94 /* checked.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = checked.png; sourceTree = "<group>"; };
 		2F8E6C321E6D764E0097AE94 /* unchecked.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = unchecked.png; sourceTree = "<group>"; };
 		2FB44D7A1E7A75B300460E1D /* UIImage+Tint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Tint.h"; sourceTree = "<group>"; };
 		2FB44D7B1E7A75B300460E1D /* UIImage+Tint.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Tint.m"; sourceTree = "<group>"; };
 		2FB44D7D1E7A770C00460E1D /* point.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = point.png; sourceTree = "<group>"; };
+		2FF947101F61437A001A3D35 /* DLNAView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DLNAView.h; sourceTree = "<group>"; };
+		2FF947111F61437A001A3D35 /* DLNAView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DLNAView.m; sourceTree = "<group>"; };
+		2FF947141F6143CF001A3D35 /* DeviceTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DeviceTableViewCell.h; sourceTree = "<group>"; };
+		2FF947151F6143CF001A3D35 /* DeviceTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DeviceTableViewCell.m; sourceTree = "<group>"; };
 		84880C521E6D933A00D70114 /* WatchLiveSurveyTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WatchLiveSurveyTableViewCell.h; path = UIModel/WatchLive/WatchLiveSurveyTableViewCell.h; sourceTree = SOURCE_ROOT; };
 		84880C531E6D933A00D70114 /* WatchLiveSurveyTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WatchLiveSurveyTableViewCell.m; path = UIModel/WatchLive/WatchLiveSurveyTableViewCell.m; sourceTree = SOURCE_ROOT; };
 		84880C541E6D933A00D70114 /* WatchLiveSurveyTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = WatchLiveSurveyTableViewCell.xib; path = UIModel/WatchLive/WatchLiveSurveyTableViewCell.xib; sourceTree = SOURCE_ROOT; };
@@ -576,12 +596,46 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2F77FCA01F74A79F00D5F7F6 /* libVHDLNA.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2FE669AC1F622B3F0012FD80 /* DLNA */ = {
+			isa = PBXGroup;
+			children = (
+				2F77FCA11F74A7AE00D5F7F6 /* ControlService.h */,
+				2F77FCA21F74A7AE00D5F7F6 /* Device.h */,
+				2F77FCA31F74A7AE00D5F7F6 /* MediaControlService.h */,
+				2F77FCA41F74A7AE00D5F7F6 /* RenderingControlService.h */,
+				2F77FCA51F74A7AE00D5F7F6 /* VHDLNAControl.h */,
+				2F77FCA61F74A7AE00D5F7F6 /* VHDLNAControlDelegate.h */,
+				2F77FC9F1F74A79F00D5F7F6 /* libVHDLNA.a */,
+			);
+			path = DLNA;
+			sourceTree = "<group>";
+		};
+		2FF9470F1F61437A001A3D35 /* DLNA */ = {
+			isa = PBXGroup;
+			children = (
+				2FF947101F61437A001A3D35 /* DLNAView.h */,
+				2FF947111F61437A001A3D35 /* DLNAView.m */,
+				2FF947121F61437A001A3D35 /* TableViewCell */,
+			);
+			path = DLNA;
+			sourceTree = "<group>";
+		};
+		2FF947121F61437A001A3D35 /* TableViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				2FF947141F6143CF001A3D35 /* DeviceTableViewCell.h */,
+				2FF947151F6143CF001A3D35 /* DeviceTableViewCell.m */,
+			);
+			path = TableViewCell;
+			sourceTree = "<group>";
+		};
 		84880C881E6D961900D70114 /* Survey */ = {
 			isa = PBXGroup;
 			children = (
@@ -728,6 +782,7 @@
 		C04D55621E5D705400F75A64 /* libs */ = {
 			isa = PBXGroup;
 			children = (
+				2FE669AC1F622B3F0012FD80 /* DLNA */,
 				C0A27F561E9616D30031D3B4 /* VHallSDK */,
 				C04D557D1E5D705400F75A64 /* BarrageRenderer */,
 				C04D55B41E5D705400F75A64 /* MBProgressHUD */,
@@ -1039,6 +1094,7 @@
 		C04D56841E5D718D00F75A64 /* WatchLive */ = {
 			isa = PBXGroup;
 			children = (
+				2FF9470F1F61437A001A3D35 /* DLNA */,
 				C04D569B1E5D718D00F75A64 /* WatchLiveViewController.h */,
 				C04D569C1E5D718D00F75A64 /* WatchLiveViewController.m */,
 				C04D569D1E5D718D00F75A64 /* WatchLiveViewController.xib */,
@@ -1204,6 +1260,22 @@
 		};
 /* End PBXGroup section */
 
+/* Begin PBXHeadersBuildPhase section */
+		2F552F0D1F625B3F00218503 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2F77FCA91F74A7AE00D5F7F6 /* MediaControlService.h in Headers */,
+				2F77FCA81F74A7AE00D5F7F6 /* Device.h in Headers */,
+				2F77FCAC1F74A7AE00D5F7F6 /* VHDLNAControlDelegate.h in Headers */,
+				2F77FCAB1F74A7AE00D5F7F6 /* VHDLNAControl.h in Headers */,
+				2F77FCA71F74A7AE00D5F7F6 /* ControlService.h in Headers */,
+				2F77FCAA1F74A7AE00D5F7F6 /* RenderingControlService.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
 /* Begin PBXNativeTarget section */
 		C04D57511E5D83B600F75A64 /* UIModelResources */ = {
 			isa = PBXNativeTarget;
@@ -1228,6 +1300,7 @@
 				C0FC255B1E51A45D00B3D834 /* Frameworks */,
 				C0FC255C1E51A45D00B3D834 /* CopyFiles */,
 				C0F328771E822A7F00AA557D /* ShellScript */,
+				2F552F0D1F625B3F00218503 /* Headers */,
 			);
 			buildRules = (
 			);
@@ -1464,6 +1537,7 @@
 				C04D56511E5D705500F75A64 /* BarrageFloatImageSprite.m in Sources */,
 				C04D56541E5D705500F75A64 /* BarrageSprite.m in Sources */,
 				C04D56761E5D705500F75A64 /* UIView+WebCacheOperation.m in Sources */,
+				2FF947131F61437A001A3D35 /* DLNAView.m in Sources */,
 				C04D56AB1E5D718D00F75A64 /* WatchLiveLotteryTableViewCell.m in Sources */,
 				C04D566B1E5D705500F75A64 /* SDWebImageDecoder.m in Sources */,
 				C04D56571E5D705500F75A64 /* BarrageWalkImageTextSprite.m in Sources */,
@@ -1474,6 +1548,7 @@
 				C04D56711E5D705500F75A64 /* UIImage+GIF.m in Sources */,
 				2FB44D7C1E7A75B300460E1D /* UIImage+Tint.m in Sources */,
 				C04D56E71E5D736B00F75A64 /* VHMessageTextView.m in Sources */,
+				2FF947161F6143CF001A3D35 /* DeviceTableViewCell.m in Sources */,
 				C04D56661E5D705500F75A64 /* Reachability.m in Sources */,
 				C04D56B01E5D718D00F75A64 /* WatchPlayBackViewController.m in Sources */,
 				C04D56521E5D705500F75A64 /* BarrageFloatSprite.m in Sources */,
@@ -1615,6 +1690,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
+				OTHER_LDFLAGS = "";
 				SDKROOT = iphoneos;
 			};
 			name = Debug;
@@ -1655,6 +1731,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
+				OTHER_LDFLAGS = "";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -1667,7 +1744,12 @@
 				ENABLE_BITCODE = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = UIModel/UIModel_PrefixHeader.pch;
-				OTHER_LDFLAGS = "-ObjC";
+				HEADER_SEARCH_PATHS = "";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/UIModel/libs/DLNA",
+				);
+				OTHER_LDFLAGS = "";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 			};
@@ -1680,7 +1762,12 @@
 				ENABLE_BITCODE = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = UIModel/UIModel_PrefixHeader.pch;
-				OTHER_LDFLAGS = "-ObjC";
+				HEADER_SEARCH_PATHS = "";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/UIModel/libs/DLNA",
+				);
+				OTHER_LDFLAGS = "";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 			};

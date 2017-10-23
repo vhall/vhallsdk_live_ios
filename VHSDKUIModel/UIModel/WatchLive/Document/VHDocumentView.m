@@ -45,6 +45,7 @@
     self.image = nil;
     
     __weak typeof(self) ws = self;
+     [self drawDocHandList:nil whiteBoardHandList:nil];
     [self sd_setImageWithURL:[NSURL URLWithString:imagePath] placeholderImage:nil completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
         [[SDImageCache sharedImageCache]clearMemory];
         [ws loadImageCompleted:imageURL];
@@ -72,8 +73,9 @@
     
     
     self.completedImagePath = [imageURL absoluteString];
-    NSLog(@"url:%@ %fx%f %f",_completedImagePath,_boardWidth,_boardHeight,_boardScale);
+//    NSLog(@"url:%@ %fx%f %f",_completedImagePath,_boardWidth,_boardHeight,_boardScale);
     [self pptDrawPoint];
+   
 }
 //- (void)setFrame:(CGRect)frame
 //{

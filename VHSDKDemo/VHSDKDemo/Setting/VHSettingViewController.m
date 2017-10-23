@@ -133,8 +133,8 @@
 
     _selectArray = @[@"352X288",@"640X480",@"960X540",@"1280X720"];
     self.title = @"设置";
-    [self setupGroup0];
     [self setupGroup1];
+    [self setupGroup0];
     [self setupGroup2];
     [self initWithView];
 }
@@ -181,7 +181,7 @@
     item5 = [VHSettingTextFieldItem  itemWithTitle:@"音频码率(kpbs)"];
     item5.text = [NSString stringWithFormat:@"%ld",(long)DEMO_Setting.audioBitRate];
     VHSettingGroup *group= [VHSettingGroup groupWithItems:@[item0,item1,item2,item3,item4,item5]];
-    group.headerTitle = @"直播设置";
+    group.headerTitle = @"发直播设置";
     [self.groups addObject:group];
     
 }
@@ -241,7 +241,7 @@
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     VHSettingGroup *group =self.groups[section];
-    if(section == 0)
+    if(section == 1)
         return group.items.count+1;
     return group.items.count;
 }
@@ -250,7 +250,7 @@
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     VHSettingGroup *group=self.groups [indexPath.section];
-    if(indexPath.section == 0 && indexPath.row == group.items.count)
+    if(indexPath.section == 1 && indexPath.row == group.items.count)
     {
         static   NSString *Identifier = @"noiseSwitchCell";
         UITableViewCell *noiseSwitchcell =[tableView dequeueReusableCellWithIdentifier:Identifier];
@@ -296,7 +296,7 @@
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
     VHSettingGroup *group=self.groups [indexPath.section];
-    if(indexPath.section == 0 && indexPath.row == group.items.count)
+    if(indexPath.section == 1 && indexPath.row == group.items.count)
     {
         return;
     }
@@ -439,46 +439,70 @@
 
 -(void)value:(NSString*)text indexPath:(NSIndexPath*)indexpath
 {
-    if (indexpath.section == 0)
+    if (indexpath.section == 1)
     {
         switch (indexpath.row)
         {
             case 0:
+            {
                 if(text.length == 32 || text.length == 0)
                     DEMO_Setting.liveToken = text;
                 else
                     [self showMsg:@"Token长度错误" afterDelay:1.5];
+                item0.text = DEMO_Setting.liveToken;
+            }
                 break;
             case 1:
+            {
                 DEMO_Setting.activityID = text;
+                item1.text =  DEMO_Setting.activityID;
+            }
                 break;
             case 2:
                 
                 break;
             case 3:
+            {
                 DEMO_Setting.videoBitRate= [text integerValue];
+                item3.text = [NSString stringWithFormat:@"%ld",(long)DEMO_Setting.videoBitRate];
+            }
                 break;
             case 4:
+            {
                 DEMO_Setting.videoCaptureFPS = [text integerValue];
+                item4.text =  [NSString stringWithFormat:@"%ld",(long)DEMO_Setting.videoCaptureFPS];
+            }
                 break;
             case 5:
+            {
                  DEMO_Setting.audioBitRate = [text integerValue];
+                 item5.text = [NSString stringWithFormat:@"%ld",(long)DEMO_Setting.audioBitRate];
+            }
                 break;
             default:
                 break;
         }
-    }else if (indexpath.section ==1)
+    }else if (indexpath.section ==0)
     {
         switch (indexpath.row)
         {
             case 0:
+            {
                 DEMO_Setting.watchActivityID = text;
+                item6.text=DEMO_Setting.watchActivityID;
+            }
                 break;
             case 1:
+            {
                 DEMO_Setting.kValue = text;
+                item7.text =  DEMO_Setting.kValue;
+            }
                 break;
             case 2:
+            {
                 DEMO_Setting.bufferTimes = [text integerValue];
+                item8.text = [NSString stringWithFormat:@"%ld",(long)DEMO_Setting.bufferTimes];
+            }
                 break;
             default:
                 break;
@@ -494,16 +518,22 @@
                 DEMO_Setting.nickName =text;
                 break;
             case 2:
+            {
                 if(text.length == 32 || [text hasSuffix:@"00"] || text.length == 0)
                     DEMO_Setting.appKey  =text;
                 else
                     [self showMsg:@"appKey 输入错误" afterDelay:1.5];
+                item11.text = DEMO_Setting.appKey;
+            }
                 break;
             case 3:
+            {
                 if(text.length == 32 || text.length == 0)
                     DEMO_Setting.appSecretKey =text;
                 else
                     [self showMsg:@"appSecretKey长度错误" afterDelay:1.5];
+                item12.text = DEMO_Setting.appSecretKey;
+            }
                 break;
             default:
                 break;

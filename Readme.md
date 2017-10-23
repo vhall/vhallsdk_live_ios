@@ -17,6 +17,12 @@ pod 'VHallSDK_LiveFilter' , :git => 'https://github.com/vhall/vhallsdk_live_ios.
 
 ### 版本更新信息
 
+#### 版本 v3.0.1 更新时间：2017.10.23
+更新内容：<br>
+1、增加发送、接收自定义消息功能<br>
+2、PPT白板画笔优化<br>
+3、提供投屏二次开发基础模块<br>
+
 #### 版本 v3.0 更新时间：2017.08.18
 更新内容：<br>
 1、性能优化<br>

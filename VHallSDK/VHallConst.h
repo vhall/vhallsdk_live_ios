@@ -162,9 +162,9 @@ typedef NS_ENUM(NSInteger,VHLiveStatus)
  */
 typedef NS_ENUM(NSInteger,VHDeviceOrientation)
 {
-    VHDevicePortrait                    = kDevicePortrait,          //摄像头在上边
-    VHDeviceLandSpaceLeft               = kDeviceLandSpaceRight,    //摄像头在左边
-    VHDeviceLandSpaceRight              = kDeviceLandSpaceLeft      //摄像头在右边 暂不支持
+    VHDevicePortrait                    = 0,    //摄像头在上边
+    VHDeviceLandSpaceLeft               = 1,    //摄像头在左边
+    VHDeviceLandSpaceRight              = 2     //摄像头在右边 暂不支持
 };
 
 /**
@@ -172,10 +172,10 @@ typedef NS_ENUM(NSInteger,VHDeviceOrientation)
  */
 typedef NS_ENUM(NSInteger,VHVideoResolution)
 {
-    VHLowVideoResolution                = kLowVideoResolution,      //低分边率  352*288
-    VHGeneralVideoResolution            = kGeneralVideoResolution,  //普通分辨率 640*480
-    VHHVideoResolution                  = kHVideoResolution,        //高分辨率  960*540
-    VHHDVideoResolution                 = kHDVideoResolution        //超高分辨率 1280*720
+    VHLowVideoResolution                = 0,    //低分边率  352*288
+    VHGeneralVideoResolution            = 1,    //普通分辨率 640*480
+    VHHVideoResolution                  = 2,    //高分辨率  960*540
+    VHHDVideoResolution                 = 3     //超高分辨率 1280*720
 };
 
 #pragma mark - 观看端常量定义
@@ -197,9 +197,9 @@ typedef NS_ENUM(NSInteger,VHLivePlayErrorType)
  */
 typedef NS_ENUM(NSInteger,VHRTMPMovieScalingMode)
 {
-    VHRTMPMovieScalingModeNone          = kRTMPMovieScalingModeNone,        //填充满video显示view
-    VHRTMPMovieScalingModeAspectFit     = kRTMPMovieScalingModeAspectFit,   //在保持长宽比的前提下，缩放图片，使得图片在容器内完整显示出来 可能留有黑边
-    VHRTMPMovieScalingModeAspectFill    = kRTMPMovieScalingModeAspectFill,  //在保持长宽比的前提下，缩放图片，使图片充满容器
+    VHRTMPMovieScalingModeNone          = 0,    //填充满video显示view
+    VHRTMPMovieScalingModeAspectFit     = 1,    //在保持长宽比的前提下，缩放图片，使得图片在容器内完整显示出来 可能留有黑边
+    VHRTMPMovieScalingModeAspectFill    = 2,    //在保持长宽比的前提下，缩放图片，使图片充满容器
 };
 
 /**
@@ -207,19 +207,19 @@ typedef NS_ENUM(NSInteger,VHRTMPMovieScalingMode)
  */
 typedef NS_ENUM(NSInteger,VHStreamType)
 {
-    VHStreamTypeNone                    = kVHallStreamTypeNone,         //未知
-    VHStreamTypeVideoAndAudio           = kVHallStreamTypeVideoAndAudio,//音视频
-    VHStreamTypeOnlyVideo               = kVHallStreamTypeOnlyVideo,    //纯视频无音频
-    VHStreamTypeOnlyAudio               = kVHallStreamTypeOnlyAudio,    //纯音频
+    VHStreamTypeNone                    = 0,    //未知
+    VHStreamTypeVideoAndAudio           = 1,    //音视频
+    VHStreamTypeOnlyVideo               = 2,    //纯视频无音频
+    VHStreamTypeOnlyAudio               = 3,    //纯音频
 };
 
 /**
  *  视频渲染模式
  */
 typedef NS_ENUM(NSInteger,VHRenderModel){
-    VHRenderModelNone                   = kVHallRenderModelNone,
-    VHRenderModelOrigin                 = kVHallRenderModelOrigin,      //普通视图的渲染
-    VHRenderModelDewarpVR               = kVHallRenderModelDewarpVR,    //VR视图的渲染
+    VHRenderModelNone                   = 0,
+    VHRenderModelOrigin                 = 1,    //普通视图的渲染
+    VHRenderModelDewarpVR               = 2,    //VR视图的渲染
 };
 
 /**
@@ -339,6 +339,7 @@ typedef NS_ENUM(NSInteger,VHMovieActiveState) {
 20017 | 未获取到问卷ID
 20018 | 请求参数错误
 20019 | 正在结束活动请稍等
+20020 | 消息中含有禁用关键字
  
 以下是网络错误信息
 30001 | 请求参数错误
@@ -348,5 +349,6 @@ typedef NS_ENUM(NSInteger,VHMovieActiveState) {
 30005 | Json格式错误
 30006 | 请求返回错误
 */
+
 
 

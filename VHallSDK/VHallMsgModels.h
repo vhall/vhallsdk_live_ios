@@ -34,7 +34,12 @@
 @interface VHallChatModel : VHallMsgModels
 @property (nonatomic, copy) NSString * text;            //聊天消息
 @end
-
+/**
+ *  自定义消息
+ */
+@interface VHallCustomMsgModel : VHallMsgModels
+@property (nonatomic, copy) NSString * jsonstr;          //头像url，如果没有则为空字符串
+@end
 
 /**
  *  历史评论

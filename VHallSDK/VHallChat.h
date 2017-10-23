@@ -11,9 +11,18 @@
 
 @protocol VHallChatDelegate <NSObject>
 @optional
-
+/**
+ * 收到上下线消息
+ */
 - (void)reciveOnlineMsg:(NSArray *)msgs;
+/**
+ * 收到聊天消息
+ */
 - (void)reciveChatMsg:(NSArray *)msgs;
+/**
+ * 收到自定义消息
+ */
+- (void)reciveCustomMsg:(NSArray *)msgs;
 
 @end
 
@@ -45,4 +54,15 @@
  */
 - (void)getHistoryWithType:(BOOL)showAll success:(void(^)(NSArray* msgs))success failed:(void (^)(NSDictionary* failedData))reslutFailedCallback;
 
+
+/**
+ * 发送自定义消息
+ * 在进入直播活动后调用
+ * 成功回调成功Block
+ * 失败回调失败Block
+ *         失败Block中的字典结构如下：
+ *         key:code 表示错误码
+ *        value:content 表示错误信息
+ */
+- (void)sendCustomMsg:(NSString *)jsonStr success:(void(^)())success failed:(void (^)(NSDictionary* failedData))reslutFailedCallback;
 @end

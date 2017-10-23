@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12118" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12086"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13173"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -16,6 +16,7 @@
                 <outlet property="bufferCountLabel" destination="Z7f-xS-NdP" id="owh-F2-NqR"/>
                 <outlet property="commentBtn" destination="Onu-mp-z3A" id="PFW-eo-NOA"/>
                 <outlet property="detalBtn" destination="GZt-cP-41U" id="TYz-J4-KVB"/>
+                <outlet property="dlnaBtn" destination="Ggp-SD-oTX" id="oBQ-Lg-7v4"/>
                 <outlet property="docBtn" destination="Juj-J1-c6K" id="9Nj-Ps-y7P"/>
                 <outlet property="historyCommentTableView" destination="aon-zd-QHl" id="W4X-6A-Xqk"/>
                 <outlet property="liveTypeLabel" destination="3LA-sD-QBG" id="ebY-sK-cix"/>
@@ -220,15 +221,30 @@
                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ggp-SD-oTX">
+                            <rect key="frame" x="78" y="189" width="33" height="22"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="33" id="Naz-mF-aFT"/>
+                                <constraint firstAttribute="height" constant="22" id="o3f-Jl-Hdf"/>
+                            </constraints>
+                            <state key="normal" backgroundImage="投屏">
+                                <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                            </state>
+                            <connections>
+                                <action selector="dlnaClick:" destination="-1" eventType="touchUpInside" id="f3A-hs-5hq"/>
+                            </connections>
+                        </button>
                     </subviews>
                     <color key="backgroundColor" red="0.074509803920000006" green="0.074509803920000006" blue="0.074509803920000006" alpha="1" colorSpace="calibratedRGB"/>
                     <constraints>
+                        <constraint firstAttribute="bottom" secondItem="Ggp-SD-oTX" secondAttribute="bottom" id="BiQ-hn-AAS"/>
                         <constraint firstItem="3LA-sD-QBG" firstAttribute="leading" secondItem="Jzh-oH-Jp7" secondAttribute="leading" id="JNb-Ws-fSR"/>
                         <constraint firstAttribute="trailing" secondItem="Z7f-xS-NdP" secondAttribute="trailing" id="O6n-4O-tmW"/>
                         <constraint firstAttribute="trailing" secondItem="3LA-sD-QBG" secondAttribute="trailing" id="S6d-D0-pnX"/>
                         <constraint firstAttribute="trailing" secondItem="Zb9-aU-eP8" secondAttribute="trailing" constant="5" id="VWL-J5-gFg"/>
                         <constraint firstAttribute="width" secondItem="Jzh-oH-Jp7" secondAttribute="height" multiplier="16:9" id="bJ1-U9-4Vo"/>
                         <constraint firstItem="Zb9-aU-eP8" firstAttribute="top" secondItem="Jzh-oH-Jp7" secondAttribute="top" constant="10" id="gPj-Jr-dNh"/>
+                        <constraint firstItem="Ggp-SD-oTX" firstAttribute="leading" secondItem="Jzh-oH-Jp7" secondAttribute="leading" constant="78" id="hkl-A5-yXP"/>
                         <constraint firstItem="3LA-sD-QBG" firstAttribute="top" secondItem="Zb9-aU-eP8" secondAttribute="bottom" id="lBZ-FD-3MW"/>
                         <constraint firstItem="59B-GZ-j6h" firstAttribute="top" secondItem="Jzh-oH-Jp7" secondAttribute="top" constant="10" id="n5w-aD-Np0"/>
                         <constraint firstItem="Z7f-xS-NdP" firstAttribute="top" secondItem="Jzh-oH-Jp7" secondAttribute="top" id="xMK-Q1-zYy"/>
@@ -246,10 +262,11 @@
                 <constraint firstItem="Jzh-oH-Jp7" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="kPa-t5-sKG"/>
                 <constraint firstItem="Jzh-oH-Jp7" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="20" id="nwD-Xm-3yT"/>
             </constraints>
-            <point key="canvasLocation" x="-319" y="-240"/>
+            <point key="canvasLocation" x="-319.5" y="-240.5"/>
         </view>
     </objects>
     <resources>
+        <image name="投屏" width="44" height="41"/>
         <image name="返回" width="28" height="28"/>
         <image name="适应屏幕" width="30" height="30"/>
     </resources>

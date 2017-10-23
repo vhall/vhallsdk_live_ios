@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		2F6B05B71E94FF800010E0C7 /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F6B05B61E94FF800010E0C7 /* libc++.tbd */; };
+		2FA3F1A81F564C9900E2E436 /* libxml2.2.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 2FA3F1A71F564C9900E2E436 /* libxml2.2.tbd */; };
 		C000AA431E66E053005DFB7C /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = C000AA421E66E053005DFB7C /* main.m */; };
 		C000AA461E66E053005DFB7C /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = C000AA451E66E053005DFB7C /* AppDelegate.mm */; };
 		C000AA4E1E66E053005DFB7C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C000AA4D1E66E053005DFB7C /* Assets.xcassets */; };
@@ -79,6 +80,7 @@
 
 /* Begin PBXFileReference section */
 		2F6B05B61E94FF800010E0C7 /* libc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.tbd"; path = "usr/lib/libc++.tbd"; sourceTree = SDKROOT; };
+		2FA3F1A71F564C9900E2E436 /* libxml2.2.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libxml2.2.tbd; path = usr/lib/libxml2.2.tbd; sourceTree = SDKROOT; };
 		C000AA3E1E66E053005DFB7C /* VHSDKDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VHSDKDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C000AA421E66E053005DFB7C /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		C000AA441E66E053005DFB7C /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -210,6 +212,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2FA3F1A81F564C9900E2E436 /* libxml2.2.tbd in Frameworks */,
 				C06418031EE01E88000C9C58 /* libVHallFilterSDK.a in Frameworks */,
 				C0AB64831EEFED04002205FE /* libVhall3rdLib.a in Frameworks */,
 				C06418001EE01E88000C9C58 /* libVHallSDK.a in Frameworks */,
@@ -302,6 +305,7 @@
 		C000AA761E66E186005DFB7C /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				2FA3F1A71F564C9900E2E436 /* libxml2.2.tbd */,
 				2F6B05B61E94FF800010E0C7 /* libc++.tbd */,
 				C02AD56F1E67E7DA00173A99 /* libUIModel.a */,
 				C000AB241E66E7BC005DFB7C /* libbz2.1.0.tbd */,
@@ -674,6 +678,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
+				OTHER_LDFLAGS = "";
 				SDKROOT = iphoneos;
 			};
 			name = Debug;
@@ -714,6 +719,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
 				MTL_ENABLE_DEBUG_INFO = NO;
+				OTHER_LDFLAGS = "";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -738,7 +744,9 @@
 					"$(PROJECT_DIR)/../VHallSDK",
 					"$(PROJECT_DIR)/../VHallSDK/VHallFilterSDK",
 					"$(PROJECT_DIR)/../UIModel",
+					"$(PROJECT_DIR)",
 				);
+				OTHER_LDFLAGS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = com.vhall.VHallSDKDemo.VHSDKDemo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -763,7 +771,9 @@
 					"$(PROJECT_DIR)/../VHallSDK",
 					"$(PROJECT_DIR)/../VHallSDK/VHallFilterSDK",
 					"$(PROJECT_DIR)/../UIModel",
+					"$(PROJECT_DIR)",
 				);
+				OTHER_LDFLAGS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = com.vhall.VHallSDKDemo.VHSDKDemo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};

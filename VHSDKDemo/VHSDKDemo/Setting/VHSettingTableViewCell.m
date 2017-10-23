@@ -101,7 +101,7 @@
     }else if ([_item isKindOfClass:[VHSettingTextFieldItem class]])
     {
         VHSettingTextFieldItem *tempItem = (VHSettingTextFieldItem*)_item;
-        if ((_item.indexPath.section == 0 && _item.indexPath.row ==2)  ||
+        if ((_item.indexPath.section == 1 && _item.indexPath.row ==2)  ||
             (_item.indexPath.section == 2 && _item.indexPath.row ==0)   ||
             (_item.indexPath.section == 2 && _item.indexPath.row ==1) )
         {

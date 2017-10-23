@@ -22,9 +22,10 @@
 #import "NSSafeObject.h"
 #import "SZQuestionItem.h"
 #import "VHQuestionCheckBox.h"
+#import "Reachability.h"
 //#import "VHDrawView.h"
 #import "VHDocumentView.h"
-
+#import "DLNAView.h"
 # define DebugLog(fmt, ...) NSLog((@"\n[文件名:%s]\n""[函数名:%s]\n""[行号:%d] \n" fmt), __FILE__, __FUNCTION__, __LINE__, ##__VA_ARGS__);
 
 static AnnouncementView* announcementView = nil;
@@ -50,7 +51,6 @@ static AnnouncementView* announcementView = nil;
     BOOL _fullScreentBtnClick;
     BOOL _isVr;
     BOOL _isRender;//
-
     NSMutableArray    *_QADataArray;
     NSArray           *_videoLevePicArray;//视频质量等级图片
     NSMutableArray    *_videoPlayModel;//播放模式
@@ -71,15 +71,16 @@ static AnnouncementView* announcementView = nil;
 @property (weak, nonatomic) IBOutlet UIView *backView;
 @property (weak, nonatomic) IBOutlet UIImageView *textImageView;
 @property (weak, nonatomic) IBOutlet UILabel *liveTypeLabel;
-
+@property(nonatomic,assign) BOOL     connectedNetWork;
 @property (weak, nonatomic) IBOutlet UIButton *detailBtn;
 @property (weak, nonatomic) IBOutlet UIButton *docBtn;
 @property (weak, nonatomic) IBOutlet UIButton *chatBtn;
 @property (weak, nonatomic) IBOutlet UIButton *QABtn;
 @property (weak, nonatomic) IBOutlet UITableView *chatView;
+@property (weak, nonatomic) IBOutlet UIView *bottomView;
 @property (nonatomic,assign) VHMovieVideoPlayMode playModelTemp;
 @property (nonatomic,strong) UILabel*textLabel;
-
+@property(nonatomic,strong)  Reachability     *reachAbility;
 @property (weak, nonatomic) IBOutlet UIButton *definitionBtn0;
 @property (weak, nonatomic) IBOutlet UIButton *definitionBtn1;
 @property (weak, nonatomic) IBOutlet UIButton *definitionBtn2;
@@ -98,6 +99,8 @@ static AnnouncementView* announcementView = nil;
 @property (nonatomic, strong) NSArray *surveyResultArray;//问卷结果
 
 @property (nonatomic, strong)NSMutableArray    *chatDataArray;
+@property (weak, nonatomic) IBOutlet UIButton *dlnaBtn;
+@property(nonatomic,strong)   DLNAView           *dlnaView;
 @end
 
 @implementation WatchLiveViewController
@@ -178,6 +181,13 @@ static AnnouncementView* announcementView = nil;
     }
     
     [self initBarrageRenderer];
+    
+    
+    //监听网络变化
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(networkChange:) name:kReachabilityChangedNotification object:nil];
+    _reachAbility = [Reachability reachabilityForInternetConnection];
+    [_reachAbility startNotifier];
+
   
 }
 
@@ -212,15 +222,6 @@ static AnnouncementView* announcementView = nil;
     
     for (VHallSurveyQuestion *question in survey.questionArray)
     {
-            [titleArray addObject:question.questionTitle];
-        
-        if (question.quesionSelectArray !=nil)
-        {
-            [optionArray addObject:question.quesionSelectArray];
-        }else
-        {
-            [optionArray addObject:@[]];
-        }
         // 选项类型 （0问答 1单选 2多选）
         if (question.type == 0)
         {
@@ -231,6 +232,18 @@ static AnnouncementView* announcementView = nil;
         }else if (question.type ==2)
         {
             [typeArry addObject:@(2)];
+        }
+        else
+            continue;
+        
+        [titleArray addObject:question.questionTitle];
+        
+        if (question.quesionSelectArray !=nil)
+        {
+            [optionArray addObject:question.quesionSelectArray];
+        }else
+        {
+            [optionArray addObject:@[]];
         }
         
         if (question.isMustSelect)
@@ -475,12 +488,13 @@ static AnnouncementView* announcementView = nil;
     {
         _topConstraint.constant = 20;
         _fullscreenBtn.selected = NO;
-        
+        _dlnaBtn.hidden = NO;
     }
     else
     {
         _topConstraint.constant = 0;
         _fullscreenBtn.selected = YES;
+        _dlnaBtn.hidden = YES;
     }
     
     if (_isVr && _GyroBtn.selected) {
@@ -950,6 +964,17 @@ static AnnouncementView* announcementView = nil;
     }
 }
 
+- (void)reciveCustomMsg:(NSArray *)msgs
+{
+    if (msgs.count > 0) {
+        [_chatDataArray addObjectsFromArray:msgs];
+        if (_chatBtn.selected) {
+            [_chatView reloadData];
+            [_chatView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:_chatDataArray.count-1 inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:YES];
+        }
+    }
+}
+
 #pragma mark - VHallQAndADelegate
 - (void)reciveQAMsg:(NSArray *)msgs
 {
@@ -1139,6 +1164,8 @@ static AnnouncementView* announcementView = nil;
 - (IBAction)detailsButtonClick:(UIButton *)sender {
     self.textImageView.hidden = YES;
     self.chatView.hidden = YES;
+    self.bottomView.hidden = YES;
+    
     self.detailBtn.selected = YES;
     self.docBtn.selected = NO;
     self.chatBtn.selected = NO;
@@ -1156,6 +1183,7 @@ static AnnouncementView* announcementView = nil;
 - (IBAction)textButtonClick:(UIButton *)sender {
     self.textImageView.hidden = NO;
     self.chatView.hidden = YES;
+    self.bottomView.hidden = YES;
     self.detailBtn.selected = NO;
     self.docBtn.selected = YES;
     self.chatBtn.selected = NO;
@@ -1173,6 +1201,7 @@ static AnnouncementView* announcementView = nil;
 - (IBAction)chatButtonClick:(UIButton *)sender {
     self.textImageView.hidden = YES;
     self.chatView.hidden = NO;
+    self.bottomView.hidden = NO;
     self.detailBtn.selected = NO;
     self.docBtn.selected = NO;
     self.chatBtn.selected = YES;
@@ -1216,6 +1245,7 @@ static AnnouncementView* announcementView = nil;
 - (IBAction)QAButtonClick:(UIButton *)sender {
     self.textImageView.hidden = YES;
     self.chatView.hidden = NO;
+    self.bottomView.hidden = NO;
     self.detailBtn.selected = NO;
     self.docBtn.selected = NO;
     self.chatBtn.selected = NO;
@@ -1342,15 +1372,15 @@ static AnnouncementView* announcementView = nil;
 #pragma mark messageToolViewDelegate
 - (void)didSendText:(NSString *)text
 {
+    __weak typeof(self) wf = self;
     if (_chatBtn.selected == YES) {
-        
         [_chat sendMsg:text success:^{
             
         } failed:^(NSDictionary *failedData) {
             
-            NSString* code = [NSString stringWithFormat:@"%@", failedData[@"code"]];
-            [UIAlertView popupAlertByDelegate:nil title:failedData[@"content"] message:code];
-            
+            NSString* code = [NSString stringWithFormat:@"%@ %@", failedData[@"code"],failedData[@"content"]];
+//            [UIAlertView popupAlertByDelegate:nil title:failedData[@"content"] message:code];
+            [wf showMsg:code afterDelay:2];
         }];
         
         return;
@@ -1361,12 +1391,38 @@ static AnnouncementView* announcementView = nil;
         [_QA sendMsg:text success:^{
         } failed:^(NSDictionary *failedData) {
             
-            NSString* code = [NSString stringWithFormat:@"%@", failedData[@"code"]];
-            [UIAlertView popupAlertByDelegate:nil title:failedData[@"content"] message:code];
-            
+            NSString* code = [NSString stringWithFormat:@"%@ %@", failedData[@"code"],failedData[@"content"]];
+//            [UIAlertView popupAlertByDelegate:nil title:failedData[@"content"] message:code];
+            [wf showMsg:code afterDelay:2];
         }];
         
         return;
+    }
+}
+
+
+
+#pragma mark  网络变化
+
+
+- (void)networkChange:(NSNotification *)notification {
+    Reachability *currReach = [notification object];
+    NSParameterAssert([currReach isKindOfClass:[Reachability class]]);
+    
+    //对连接改变做出响应处理动作
+    NetworkStatus status = [currReach currentReachabilityStatus];
+    //如果没有连接到网络就弹出提醒实况
+    if(status == NotReachable)
+    {
+        _connectedNetWork =NO;
+        return;
+    }
+    if (status == ReachableViaWiFi || status == ReachableViaWWAN) {
+        if ((_connectedNetWork == NO) && _moviePlayer) {
+            [_moviePlayer reconnectSocket];
+        }
+        _connectedNetWork =YES;
+        
     }
 }
 
@@ -1404,6 +1460,41 @@ static AnnouncementView* announcementView = nil;
 
 -(UIStatusBarStyle)preferredStatusBarStyle
 {
-    return UIStatusBarStyleBlackTranslucent;
+    return UIStatusBarStyleLightContent;
+}
+
+
+
+-(DLNAView *)dlnaView
+{
+    if (!_dlnaView) {
+        _dlnaView = [[DLNAView alloc] init];
+        [_dlnaView setFrame:CGRectMake(0, 0, _showView.width, _showView.height)];
+    }
+    return _dlnaView;
+}
+- (IBAction)DlNAClick:(id)sender
+{
+    id control = self.dlnaView.control;
+    [_moviePlayer dlnaMappingObject:control];
+    [_showView insertSubview:self.dlnaView atIndex:10];
+    
+    
+    
+}
+- (IBAction)customMsgBtnClick:(id)sender
+{
+    NSString *text = @"{\"key\":\"value\",\"key1\":0.12,\"key2\":1,\"key3\":\"汉语\"}";
+    __weak typeof(self) wf = self;
+    if (_chatBtn.selected == YES) {
+        [_chat sendCustomMsg:text success:^{
+            [wf showMsg:@"发送成功" afterDelay:1];
+        } failed:^(NSDictionary *failedData) {
+            
+            NSString* code = [NSString stringWithFormat:@"%@ %@", failedData[@"code"],failedData[@"content"]];
+            //            [UIAlertView popupAlertByDelegate:nil title:failedData[@"content"] message:code];
+            [wf showMsg:code afterDelay:2];
+        }];
+    }
 }
 @end

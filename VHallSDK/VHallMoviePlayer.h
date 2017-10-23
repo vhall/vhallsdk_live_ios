@@ -110,6 +110,7 @@
  *
  *
  */
+
 - (void)docHandList:(NSArray*)docList whiteBoardHandList:(NSArray*)boardList;
 
 @end
@@ -207,6 +208,11 @@
  */
 - (void)setMute:(BOOL)mute;
 
+
+/**
+ *  重连socket
+ */
+-(BOOL)reconnectSocket;
 /**
  *  设置系统声音大小
  *
@@ -251,4 +257,9 @@
  */
 -(void)startPlay:(NSDictionary*)param moviePlayer:(MPMoviePlayerController *)moviePlayerController __attribute__ ((deprecated));
 
+/**
+ *  更新DLNA 播放地址
+ *  参数为 dlnaControl对象
+ */
+- (void)dlnaMappingObject:(id)DLNAobj;
 @end

@@ -63,17 +63,28 @@
 
 - (void)layoutSubviews
 {
-    [pic sd_setImageWithURL:[NSURL URLWithString:_model.avatar] placeholderImage:[UIImage imageNamed:@"UIModel.bundle/head50"]];
-    
-    lblNickName.text = _model.user_name;
-    lblTime.text = _model.time;
-    //内容
-    [_textLabel setText:_model.text];
-   
-    [_textLabel sizeToFit];
-    
-  
-    
+    if([_model isKindOfClass:[VHallCustomMsgModel class]])
+    {
+        VHallCustomMsgModel *model = (VHallCustomMsgModel *)_model;
+        pic.image = nil;
+        lblNickName.text = @"【用户自定义消息】";
+        lblNickName.textColor = [UIColor redColor];
+        lblTime.text = model.time;
+        //内容
+        _textLabel.text = [model.jsonstr stringByReplacingOccurrencesOfString:@"\n" withString:@""];
+        
+        [_textLabel sizeToFit];
+    }
+    else{
+        [pic sd_setImageWithURL:[NSURL URLWithString:_model.avatar] placeholderImage:[UIImage imageNamed:@"UIModel.bundle/head50"]];
+        lblNickName.text = _model.user_name;
+        lblTime.text = _model.time;
+        lblNickName.textColor = [UIColor blackColor];
+        //内容
+        [_textLabel setText:_model.text];
+        
+        [_textLabel sizeToFit];
+    }
 }
 
 @end

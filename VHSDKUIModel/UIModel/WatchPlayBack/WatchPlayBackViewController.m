@@ -17,7 +17,7 @@
 #import "AnnouncementView.h"
 //#import "VHDrawView.h"
 #import "VHDocumentView.h"
-
+#import "DLNAView.h"
 
 static AnnouncementView* announcementView = nil;
 @interface WatchPlayBackViewController ()<VHallMoviePlayerDelegate,UITableViewDelegate,UITableViewDataSource,VHPullingRefreshTableViewDelegate>
@@ -53,7 +53,8 @@ static AnnouncementView* announcementView = nil;
 @property (weak, nonatomic) IBOutlet UIButton *detalBtn;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *topConstraint;
 @property (weak, nonatomic) IBOutlet UIView *showView;
-
+@property(nonatomic,strong)   DLNAView           *dlnaView;
+@property (weak, nonatomic) IBOutlet UIButton *dlnaBtn;
 @property (nonatomic,strong) NSMutableArray *commentsArray;//评论
 
 @end
@@ -83,6 +84,7 @@ static AnnouncementView* announcementView = nil;
 - (void)initViews
 {
     //阻止iOS设备锁屏
+    self.view.backgroundColor=[UIColor blackColor];
     [[UIApplication sharedApplication] setIdleTimerDisabled:YES];
     [self registerLiveNotification];
     _moviePlayer = [[VHallMoviePlayer alloc]initWithDelegate:self];
@@ -97,14 +99,14 @@ static AnnouncementView* announcementView = nil;
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(moviePlayeExitFullScreen:) name:MPMoviePlayerDidExitFullscreenNotification object:self.hlsMoviePlayer];
     [self addPanGestureRecognizer];
     _tableView = [[VHPullingRefreshTableView alloc] initWithFrame:CGRectMake(0, 0, VH_SW, _historyCommentTableView.height) pullingDelegate:self headView:YES  footView:YES];
-    _tableView.backgroundColor = self.view.backgroundColor;
+    _tableView.backgroundColor = MakeColorRGB(0xe2e8eb);
     _tableView.dataSource=self;
     _tableView.delegate=self;
     _tableView.startPos = 0;
     _tableView.tag = -1;
     _tableView.dataArr = [NSMutableArray array];
     _tableView.showsVerticalScrollIndicator = NO;
-    _tableView.separatorColor = self.view.backgroundColor;
+    _tableView.separatorColor = MakeColorRGB(0xe2e8eb);
     _tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
     [_tableView tableViewDidFinishedLoading];
     [_historyCommentTableView addSubview:_tableView];
@@ -207,10 +209,12 @@ static AnnouncementView* announcementView = nil;
         
     {
         _topConstraint.constant = 20;
+        _dlnaBtn.hidden = NO;
     }
     else
     {
         _topConstraint.constant = 0;
+        _dlnaBtn.hidden = YES;
     }
 }
 
@@ -439,6 +443,13 @@ static AnnouncementView* announcementView = nil;
 {
 
 }
+
+
+-(UIStatusBarStyle)preferredStatusBarStyle
+{
+    return UIStatusBarStyleLightContent;
+}
+
 
 - (void)moviePlayerWillMoveFromWindow
 {
@@ -678,13 +689,15 @@ static AnnouncementView* announcementView = nil;
         [_comment sendComment:text success:^{
             [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
             _commentTextField.text = @"";
-            [UIAlertView popupAlertByDelegate:nil title:@"发表成功" message:nil];
+//            [UIAlertView popupAlertByDelegate:nil title:@"发表成功" message:nil];
+            [weakSelf showMsg:@"发表成功" afterDelay:1];
             [weakSelf getHistoryComment];
             
         } failed:^(NSDictionary *failedData) {
             [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
-            NSString* code = [NSString stringWithFormat:@"%@", failedData[@"code"]];
-            [UIAlertView popupAlertByDelegate:nil title:failedData[@"content"] message:code];
+            NSString* code = [NSString stringWithFormat:@"%@ %@", failedData[@"code"],failedData[@"content"]];
+//            [UIAlertView popupAlertByDelegate:nil title:failedData[@"content"] message:code];
+            [weakSelf showMsg:code afterDelay:2];
         }];
     }
 }
@@ -800,6 +813,21 @@ static AnnouncementView* announcementView = nil;
     }];
 
     
+}
+
+-(DLNAView *)dlnaView
+{
+    if (!_dlnaView) {
+        _dlnaView = [[DLNAView alloc] init];
+        [_dlnaView setFrame:CGRectMake(0, 0, _showView.width, _showView.height)];
+    }
+    return _dlnaView;
+}
+
+- (IBAction)dlnaClick:(id)sender {
+    id control = self.dlnaView.control;
+      [_moviePlayer dlnaMappingObject:control];
+      [_showView insertSubview:self.dlnaView atIndex:10];
 }
 
 @end
