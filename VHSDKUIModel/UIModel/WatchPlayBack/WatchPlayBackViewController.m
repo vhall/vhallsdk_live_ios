@@ -209,6 +209,8 @@ static AnnouncementView* announcementView = nil;
         
     {
         _topConstraint.constant = 20;
+        if(iPhoneX)
+            _topConstraint.constant = 35;
         _dlnaBtn.hidden = NO;
     }
     else
@@ -220,6 +222,8 @@ static AnnouncementView* announcementView = nil;
 
 - (void)viewDidLayoutSubviews
 {
+    if ([UIApplication sharedApplication].statusBarOrientation == UIDeviceOrientationPortrait)
+        _tableView.frame = _historyCommentTableView.bounds;
     _hlsMoviePlayer.view.frame = _backView.bounds;
     [self.backView addSubview:self.hlsMoviePlayer.view];
     [self.backView sendSubviewToBack:self.hlsMoviePlayer.view];
@@ -809,6 +813,7 @@ static AnnouncementView* announcementView = nil;
         [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
         NSString* code = [NSString stringWithFormat:@"%@,%@",failedData[@"content"], failedData[@"code"]];
         [ws showMsg:code afterDelay:1.5];
+        [tableView tableViewDidFinishedLoading];
 //        [UIAlertView popupAlertByDelegate:nil title:failedData[@"content"] message:code];
     }];
 

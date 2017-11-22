@@ -70,6 +70,7 @@
         
         
         _closeBtn = [[UIButton alloc] init];
+        [_closeBtn setBackgroundColor:[UIColor grayColor]];
         [_closeBtn addTarget:self action:@selector(close:) forControlEvents:UIControlEventTouchUpInside];
         [_closeBtn setTitle:@"关闭" forState:UIControlStateNormal];
         [_closeBtn setBackgroundColor:[UIColor blueColor]];
@@ -139,7 +140,7 @@
     
     [_showBtn setFrame:CGRectMake(50, self.height -50, self.width -100, 50)];
     
-    [_closeBtn setFrame:CGRectMake(self.width - 50, 10, 20, 20)];
+    [_closeBtn setFrame:CGRectMake(self.width - 60, 10, 50, 30)];
      // [_deviceTableView reloadData];
     
     

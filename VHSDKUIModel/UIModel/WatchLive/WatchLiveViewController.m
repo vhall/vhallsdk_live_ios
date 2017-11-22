@@ -487,6 +487,8 @@ static AnnouncementView* announcementView = nil;
         
     {
         _topConstraint.constant = 20;
+        if(iPhoneX)
+            _topConstraint.constant = 35;
         _fullscreenBtn.selected = NO;
         _dlnaBtn.hidden = NO;
     }
@@ -691,7 +693,6 @@ static AnnouncementView* announcementView = nil;
 
 - (void)cdnSwitch:(VHallMoviePlayer*)moviePlayer info:(NSDictionary*)info
 {
-    
 }
 
 - (void)recStreamtype:(VHallMoviePlayer*)moviePlayer info:(NSDictionary*)info
