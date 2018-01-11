@@ -119,7 +119,7 @@
 @property(nonatomic,assign)id <VHallMoviePlayerDelegate> delegate;
 @property(nonatomic,strong,readonly)UIView * moviePlayerView;
 @property(nonatomic,assign)int timeout;             //RTMP链接的超时时间 默认5000毫秒，单位为毫秒
-@property(nonatomic,assign)int reConnectTimes;      //RTMP 断开后的重连次数 默认 2次
+//@property(nonatomic,assign)int reConnectTimes;      //RTMP 断开后的重连次数 默认 2次
 @property(nonatomic,assign)int bufferTime;          //RTMP 的缓冲时间 默认 6秒 单位为秒 必须>0 值越小延时越小,卡顿增加
 @property(assign,readonly)int realityBufferTime;    //获取RTMP播放实际的缓冲时间
 @property(nonatomic,assign,readonly)VHPlayerState playerState;//播放器状态

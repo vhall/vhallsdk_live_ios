@@ -146,7 +146,7 @@ static AnnouncementView* announcementView = nil;
     self.view.clipsToBounds = YES;
     _moviePlayer.movieScalingMode = VHRTMPMovieScalingModeAspectFit;
     _moviePlayer.bufferTime = (int)_bufferTimes;
-    _moviePlayer.reConnectTimes = 2;
+//    _moviePlayer.reConnectTimes = 2;
 //    [_moviePlayer setRenderViewModel:VHRenderModelDewarpVR];
 //   _moviePlayer.defaultDefinition = VHMovieDefinitionHD;
 
@@ -693,6 +693,7 @@ static AnnouncementView* announcementView = nil;
 
 - (void)cdnSwitch:(VHallMoviePlayer*)moviePlayer info:(NSDictionary*)info
 {
+
 }
 
 - (void)recStreamtype:(VHallMoviePlayer*)moviePlayer info:(NSDictionary*)info

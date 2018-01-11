@@ -231,6 +231,10 @@
 		C04D57B61E5D853000F75A64 /* Expression_9@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C04D56151E5D705400F75A64 /* Expression_9@2x.png */; };
 		C04D57B71E5D853000F75A64 /* faceExpression.plist in Resources */ = {isa = PBXBuildFile; fileRef = C04D56161E5D705400F75A64 /* faceExpression.plist */; };
 		C04D57B81E5D853000F75A64 /* faceDelete@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C04D56171E5D705400F75A64 /* faceDelete@2x.png */; };
+		C0747B311FED258400766128 /* VHPlayerView.h in Headers */ = {isa = PBXBuildFile; fileRef = C0747B2F1FED258400766128 /* VHPlayerView.h */; };
+		C0747B321FED258400766128 /* VHPlayerView.m in Sources */ = {isa = PBXBuildFile; fileRef = C0747B301FED258400766128 /* VHPlayerView.m */; };
+		C09B36F11FFE2D620017AB0F /* VHPauseBtn.png in Resources */ = {isa = PBXBuildFile; fileRef = C09B36EF1FFE2D620017AB0F /* VHPauseBtn.png */; };
+		C09B36F21FFE2D620017AB0F /* VHPlayBtn.png in Resources */ = {isa = PBXBuildFile; fileRef = C09B36F01FFE2D620017AB0F /* VHPlayBtn.png */; };
 		C0E2BEB01F286C3800E55B1F /* VHDocumentView.m in Sources */ = {isa = PBXBuildFile; fileRef = C0E2BEAD1F286C3800E55B1F /* VHDocumentView.m */; };
 		C0E2BEB11F286C3800E55B1F /* VHDrawView.m in Sources */ = {isa = PBXBuildFile; fileRef = C0E2BEAF1F286C3800E55B1F /* VHDrawView.m */; };
 /* End PBXBuildFile section */
@@ -567,10 +571,13 @@
 		C04D57521E5D83B600F75A64 /* UIModel.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = UIModel.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
 		C04D57541E5D83B600F75A64 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C04D575B1E5D848C00F75A64 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = UIModel/Assets.xcassets; sourceTree = "<group>"; };
+		C0747B2F1FED258400766128 /* VHPlayerView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VHPlayerView.h; sourceTree = "<group>"; };
+		C0747B301FED258400766128 /* VHPlayerView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VHPlayerView.m; sourceTree = "<group>"; };
+		C09B36EF1FFE2D620017AB0F /* VHPauseBtn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = VHPauseBtn.png; sourceTree = "<group>"; };
+		C09B36F01FFE2D620017AB0F /* VHPlayBtn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = VHPlayBtn.png; sourceTree = "<group>"; };
 		C0A27F581E9616D30031D3B4 /* kodak.inf */ = {isa = PBXFileReference; lastKnownFileType = file; path = kodak.inf; sourceTree = "<group>"; };
 		C0A27F5A1E9616D30031D3B4 /* libVhallLiveApi.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libVhallLiveApi.a; sourceTree = "<group>"; };
 		C0A27F5B1E9616D30031D3B4 /* libVHallSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libVHallSDK.a; sourceTree = "<group>"; };
-		C0A27F5C1E9616D30031D3B4 /* libVHLivePlay.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libVHLivePlay.a; sourceTree = "<group>"; };
 		C0A27F5E1E9616D30031D3B4 /* VHallApi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VHallApi.h; sourceTree = "<group>"; };
 		C0A27F5F1E9616D30031D3B4 /* VHallChat.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VHallChat.h; sourceTree = "<group>"; };
 		C0A27F601E9616D30031D3B4 /* VHallComment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VHallComment.h; sourceTree = "<group>"; };
@@ -737,6 +744,8 @@
 			isa = PBXGroup;
 			children = (
 				2FB44D7D1E7A770C00460E1D /* point.png */,
+				C09B36EF1FFE2D620017AB0F /* VHPauseBtn.png */,
+				C09B36F01FFE2D620017AB0F /* VHPlayBtn.png */,
 				2F6EAA431E6FEE2C00085AD4 /* 多选空.png */,
 				2F6EAA411E6FEE2900085AD4 /* 多选.png */,
 				2F6EAA3F1E6FEE2500085AD4 /* 单选空.png */,
@@ -1123,6 +1132,8 @@
 		C04D569E1E5D718D00F75A64 /* WatchPlayBack */ = {
 			isa = PBXGroup;
 			children = (
+				C0747B2F1FED258400766128 /* VHPlayerView.h */,
+				C0747B301FED258400766128 /* VHPlayerView.m */,
 				C04D569F1E5D718D00F75A64 /* WatchPlayBackViewController.h */,
 				C04D56A01E5D718D00F75A64 /* WatchPlayBackViewController.m */,
 				C04D56A11E5D718D00F75A64 /* WatchPlayBackViewController.xib */,
@@ -1204,7 +1215,6 @@
 				C0A27F641E9616D30031D3B4 /* VHallMsgModels.h */,
 				C0A27F5A1E9616D30031D3B4 /* libVhallLiveApi.a */,
 				C0A27F5B1E9616D30031D3B4 /* libVHallSDK.a */,
-				C0A27F5C1E9616D30031D3B4 /* libVHLivePlay.a */,
 				C0AB64811EEFECF5002205FE /* libVhall3rdLib.a */,
 				C0A27F581E9616D30031D3B4 /* kodak.inf */,
 				C0341E631ED835FD0016019C /* VHallFilterSDK */,
@@ -1267,6 +1277,7 @@
 			files = (
 				2F77FCA91F74A7AE00D5F7F6 /* MediaControlService.h in Headers */,
 				2F77FCA81F74A7AE00D5F7F6 /* Device.h in Headers */,
+				C0747B311FED258400766128 /* VHPlayerView.h in Headers */,
 				2F77FCAC1F74A7AE00D5F7F6 /* VHDLNAControlDelegate.h in Headers */,
 				2F77FCAB1F74A7AE00D5F7F6 /* VHDLNAControl.h in Headers */,
 				2F77FCA71F74A7AE00D5F7F6 /* ControlService.h in Headers */,
@@ -1432,6 +1443,7 @@
 				84880C951E6D965A00D70114 /* resource.bundle in Resources */,
 				C000AB751E67C6B3005DFB7C /* loadingin@3x.png in Resources */,
 				C04D578B1E5D853000F75A64 /* Expression_52@2x.png in Resources */,
+				C09B36F21FFE2D620017AB0F /* VHPlayBtn.png in Resources */,
 				C04D578C1E5D853000F75A64 /* Expression_53@2x.png in Resources */,
 				C04D578D1E5D853000F75A64 /* Expression_54@2x.png in Resources */,
 				C04D578E1E5D853000F75A64 /* Expression_55@2x.png in Resources */,
@@ -1454,6 +1466,7 @@
 				C04D579A1E5D853000F75A64 /* Expression_66@2x.png in Resources */,
 				C04D579B1E5D853000F75A64 /* Expression_67@2x.png in Resources */,
 				C04D579C1E5D853000F75A64 /* Expression_68@2x.png in Resources */,
+				C09B36F11FFE2D620017AB0F /* VHPauseBtn.png in Resources */,
 				C04D579D1E5D853000F75A64 /* Expression_69@2x.png in Resources */,
 				C04D579E1E5D853000F75A64 /* Expression_6@2x.png in Resources */,
 				C04D579F1E5D853000F75A64 /* Expression_70@2x.png in Resources */,
@@ -1579,6 +1592,7 @@
 				C04D56721E5D705500F75A64 /* UIImage+MultiFormat.m in Sources */,
 				C04D566A1E5D705500F75A64 /* SDWebImageCompat.m in Sources */,
 				C04D565C1E5D705500F75A64 /* UIAlertView+ITTAdditions.m in Sources */,
+				C0747B321FED258400766128 /* VHPlayerView.m in Sources */,
 				C04D56AD1E5D718D00F75A64 /* WatchLiveOnlineTableViewCell.m in Sources */,
 				C0E2BEB11F286C3800E55B1F /* VHDrawView.m in Sources */,
 				C0E2BEB01F286C3800E55B1F /* VHDocumentView.m in Sources */,

@@ -17,10 +17,10 @@
 //接口文档说明： http://e.vhall.com/home/vhallapi
 #define DEMO_AppKey         @"替换成您自己的AppKey"        //详见：http://e.vhall.com/home/vhallapi/authlist
 #define DEMO_AppSecretKey   @"替换成您自己的AppSecretKey"  //AppSecretKey
-#define DEMO_ActivityId     @"" //活动id    详见：http://e.vhall.com/home/vhallapi/active   webinar/create 创建活动
-#define DEMO_AccessToken    @"" //直播Token 详见：http://e.vhall.com/home/vhallapi/audience verify/access-token 获取SDK直播操作token
+#define DEMO_ActivityId     @"" //活动id    详见：http://www.vhall.com/index.php?r=doc/detail/index&project_id=4&doc_id=27
+#define DEMO_AccessToken    @"" //直播Token 详见：http://www.vhall.com/index.php?r=doc/detail/index&project_id=4&doc_id=71
 
-#define DEMO_account        @"" //账号 详见：http://e.vhall.com/home/vhallapi/user user/register创建用户 对应 third_user_id
+#define DEMO_account        @"" //账号 详见：http://www.vhall.com/index.php?r=doc/detail/index&project_id=4&doc_id=73
 #define DEMO_password       @"" //密码 对应 pass字段
 
 //#if DEBUG  // 调试状态, 打开LOG功能

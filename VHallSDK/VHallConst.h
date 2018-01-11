@@ -35,30 +35,35 @@ typedef NS_ENUM(int,VideoResolution)
     kHDVideoResolution               //超高分辨率     1280*720
 }__attribute__((deprecated("please use VHVideoResolution")));
 
-typedef NS_ENUM(int,LiveStatus)
-{
+typedef NS_ENUM(int,LiveStatus){
     kLiveStatusNone           = -1,
-    kLiveStatusBufferingStart = 0,      //播放缓冲开始
-    kLiveStatusBufferingStop  = 1,      //播放缓冲结束
-    kLiveStatusPushConnectSucceed =2,   //直播连接成功
-    kLiveStatusPushConnectError =3,     //直播连接失败
-    kLiveStatusCDNConnectSucceed =4,    //播放CDN连接成功
-    kLiveStatusCDNConnectError =5,      //播放CDN连接失败
+    kLiveStatusPushConnectSucceed =0,   //直播连接成功
+    kLiveStatusPushConnectError =1,     //直播连接失败
+    kLiveStatusCDNConnectSucceed =2,    //播放CDN连接成功
+    kLiveStatusCDNConnectError =3,      //播放CDN连接失败
+    kLiveStatusBufferingStart = 4,      //播放缓冲开始
+    kLiveStatusBufferingStop  = 5,      //播放缓冲结束
     kLiveStatusParamError =6,           //参数错误
     kLiveStatusRecvError =7,            //播放接受数据错误
     kLiveStatusSendError =8,            //直播发送数据错误
-    kLiveStatusDownloadSpeed =9,        //播放下载速率
-    kLiveStatusUploadSpeed =10,         //直播上传速率
+    kLiveStatusUploadSpeed =9,          //直播上传速率
+    kLiveStatusDownloadSpeed =10,       //播放下载速率
     kLiveStatusNetworkStatus =11,       //保留字段，暂时无用
-    kLiveStatusGetUrlError =12,         //获取推流地址失败
-    kLiveStatusWidthAndHeight =13,      //返回播放视频的宽和高
-    kLiveStatusAudioInfo  =14,          //音频流的信息
-    kLiveStatusAudioRecoderError  =15,  //音频采集失败，提示用户查看权限或者重新推流，切记此事件会回调多次，直到音频采集正常为止
-    kLiveStatusUploadNetworkException=16,//发起端网络环境差
-    kLiveStatusUploadNetworkOK = 17,     //发起端网络环境恢复正常
-    kLiveStatusCDNStartSwitch = 18,      //CDN切换
-    kLiveStatusRecvStreamType = 19       //接受流的类型
-}__attribute__((deprecated("please use VHLiveStatus")));
+    kLiveStatusWidthAndHeight =12,      //返回播放视频的宽和高
+    kLiveStatusAudioInfo  = 13,          //音频流的信息
+    kLiveStatusUploadNetworkException=14,//发起端网络环境差
+    kLiveStatusUploadNetworkOK = 15,     //发起端网络环境恢复正常
+    kLiveStatusGetUrlError   = 16,       ////获取推流地址失败
+    kLiveStatusRecvStreamType = 17,      //接受流的类型
+    kLiveStatusVideoQueueFull = 18,
+    kLiveStatusAudioQueueFull = 19,
+    kLiveStatusVideoEncodeBusy = 20,
+    kLiveStatusVideoEncodeOk = 21,
+    kLiveStatusReconnecting = 22,
+    kLiveStatusLogReportMsg = 23,        //log上报信息
+    kLiveStatusAudioRecoderError  =24,  //音频采集失败，提示用户查看权限或者重新推流，切记此事件会回调多次，直到音频采集正常为止
+};
+
 
 typedef NS_ENUM(int,LivePlayErrorType)
 {

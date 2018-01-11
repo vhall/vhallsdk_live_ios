@@ -75,7 +75,6 @@
 		C064180B1EE01F44000C9C58 /* libUIModel.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C06418061EE01F44000C9C58 /* libUIModel.a */; };
 		C064180C1EE01F44000C9C58 /* UIModel.bundle in Resources */ = {isa = PBXBuildFile; fileRef = C06418071EE01F44000C9C58 /* UIModel.bundle */; };
 		C0AB64831EEFED04002205FE /* libVhall3rdLib.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C0AB64821EEFED04002205FE /* libVhall3rdLib.a */; };
-		C0CA0D351F39590600FE0148 /* libVHLivePlay.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C0CA0D341F39590600FE0148 /* libVHLivePlay.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -203,7 +202,6 @@
 		C06418091EE01F44000C9C58 /* WatchLiveViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WatchLiveViewController.h; sourceTree = "<group>"; };
 		C064180A1EE01F44000C9C58 /* WatchPlayBackViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WatchPlayBackViewController.h; sourceTree = "<group>"; };
 		C0AB64821EEFED04002205FE /* libVhall3rdLib.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libVhall3rdLib.a; sourceTree = "<group>"; };
-		C0CA0D341F39590600FE0148 /* libVHLivePlay.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libVHLivePlay.a; sourceTree = "<group>"; };
 		C0FE89391F43EFD600FE0409 /* VHallConst.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VHallConst.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -233,7 +231,6 @@
 				C000AA851E66E1CD005DFB7C /* OpenGLES.framework in Frameworks */,
 				C000AB191E66E769005DFB7C /* QuartzCore.framework in Frameworks */,
 				C000AB111E66E741005DFB7C /* CoreMedia.framework in Frameworks */,
-				C0CA0D351F39590600FE0148 /* libVHLivePlay.a in Frameworks */,
 				C000AB1B1E66E772005DFB7C /* Security.framework in Frameworks */,
 				C000AA811E66E1C4005DFB7C /* JavaScriptCore.framework in Frameworks */,
 			);
@@ -457,7 +454,6 @@
 				C06417EB1EE01E88000C9C58 /* libVhallLiveApi.a */,
 				C06417EC1EE01E88000C9C58 /* libVHallSDK.a */,
 				C0AB64821EEFED04002205FE /* libVhall3rdLib.a */,
-				C0CA0D341F39590600FE0148 /* libVHLivePlay.a */,
 				C06417EF1EE01E88000C9C58 /* VHallApi.h */,
 				C0FE89391F43EFD600FE0409 /* VHallConst.h */,
 				C06417F01EE01E88000C9C58 /* VHallChat.h */,

@@ -18,9 +18,10 @@
 //#import "VHDrawView.h"
 #import "VHDocumentView.h"
 #import "DLNAView.h"
+#import "VHPlayerView.h"
 
 static AnnouncementView* announcementView = nil;
-@interface WatchPlayBackViewController ()<VHallMoviePlayerDelegate,UITableViewDelegate,UITableViewDataSource,VHPullingRefreshTableViewDelegate>
+@interface WatchPlayBackViewController ()<VHallMoviePlayerDelegate,UITableViewDelegate,UITableViewDataSource,VHPullingRefreshTableViewDelegate,VHPlayerViewDelegate>
 {
     VHallMoviePlayer  *_moviePlayer;//播放器
     VHallComment*_comment;
@@ -41,6 +42,10 @@ static AnnouncementView* announcementView = nil;
 @property (weak, nonatomic) IBOutlet UIImageView *textImageView;
 @property (nonatomic,assign) VHMovieVideoPlayMode playModelTemp;
 @property (nonatomic,strong) UILabel*textLabel;
+@property (nonatomic,strong) VHPlayerView *playMaskView;
+@property (nonatomic,strong) NSTimer *durationTimer;
+@property (nonatomic,assign) CGRect originFrame;
+@property (nonatomic,strong) UIView *originView;
 @property (weak, nonatomic) IBOutlet UITextField *commentTextField;
 
 @property (weak, nonatomic) IBOutlet UIButton *getHistoryCommentBtn;
@@ -71,6 +76,16 @@ static AnnouncementView* announcementView = nil;
     }
     return _textLabel;
 }
+
+-(VHPlayerView *)playMaskView
+{
+    if (!_playMaskView) {
+        _playMaskView  = [[VHPlayerView alloc]init];
+        _playMaskView.delegate = self;
+    }
+    return _playMaskView;
+}
+
 #pragma mark - Private Method
 
 -(void)addPanGestureRecognizer
@@ -89,14 +104,22 @@ static AnnouncementView* announcementView = nil;
     [self registerLiveNotification];
     _moviePlayer = [[VHallMoviePlayer alloc]initWithDelegate:self];
     self.hlsMoviePlayer =[[MPMoviePlayerController alloc] init];
-    self.hlsMoviePlayer.controlStyle=MPMovieControlStyleDefault;
+    self.hlsMoviePlayer.controlStyle = MPMovieControlStyleFullscreen;
     [self.hlsMoviePlayer prepareToPlay];
     [self.hlsMoviePlayer.view setFrame:self.view.bounds];  // player的尺寸
     self.hlsMoviePlayer.shouldAutoplay=YES;
     self.hlsMoviePlayer.view.backgroundColor = [UIColor blackColor];
+  
+    [self setProgressSliderMaxMinValues];
+
+    
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(moviePlaybackStateDidChange:) name:MPMoviePlayerPlaybackStateDidChangeNotification object:self.hlsMoviePlayer];
+    
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(movieLoadStateDidChange:) name:MPMoviePlayerLoadStateDidChangeNotification object:self.hlsMoviePlayer];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(moviePlayeExitFullScreen:) name:MPMoviePlayerDidExitFullscreenNotification object:self.hlsMoviePlayer];
+    //确定了媒体播放时长后
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(movieDurationAvailableNotification:) name:MPMovieDurationAvailableNotification object:self.hlsMoviePlayer];
+ 
     [self addPanGestureRecognizer];
     _tableView = [[VHPullingRefreshTableView alloc] initWithFrame:CGRectMake(0, 0, VH_SW, _historyCommentTableView.height) pullingDelegate:self headView:YES  footView:YES];
     _tableView.backgroundColor = MakeColorRGB(0xe2e8eb);
@@ -120,6 +143,8 @@ static AnnouncementView* announcementView = nil;
     [_moviePlayer destroyMoivePlayer];
     
 }
+
+
 
 //注册通知
 - (void)registerLiveNotification
@@ -148,6 +173,7 @@ static AnnouncementView* announcementView = nil;
     NSInteger mode = self.hlsMoviePlayer.scalingMode+1;
     if(mode>3)
         mode = 0;
+//    VHLog(@"mode========%ld",(long)mode);
     self.hlsMoviePlayer.scalingMode = mode;
 
 }
@@ -225,6 +251,7 @@ static AnnouncementView* announcementView = nil;
     if ([UIApplication sharedApplication].statusBarOrientation == UIDeviceOrientationPortrait)
         _tableView.frame = _historyCommentTableView.bounds;
     _hlsMoviePlayer.view.frame = _backView.bounds;
+    _playMaskView.frame = _hlsMoviePlayer.view.bounds;
     [self.backView addSubview:self.hlsMoviePlayer.view];
     [self.backView sendSubviewToBack:self.hlsMoviePlayer.view];
     if (_documentView)
@@ -267,8 +294,14 @@ static AnnouncementView* announcementView = nil;
 
     //播放器
     _hlsMoviePlayer.view.frame = CGRectMake(0, 0, self.view.frame.size.width, self.backView.height);//self.view.bounds;
+    
+    //遮盖
+    self.playMaskView.frame = self.hlsMoviePlayer.view.bounds;
+    [self.hlsMoviePlayer.view addSubview:self.playMaskView];
+    
     [self.backView addSubview:self.hlsMoviePlayer.view];
     [self.backView sendSubviewToBack:self.hlsMoviePlayer.view];
+   
 
     if (self.playModelTemp == VHMovieVideoPlayModeTextAndVoice ) {
         self.liveTypeLabel.text = @"语音回放中";
@@ -310,6 +343,110 @@ static AnnouncementView* announcementView = nil;
     [[NSNotificationCenter defaultCenter]removeObserver:self];
     VHLog(@"%@ dealloc",[[self class]description]);
 }
+
+#pragma mark---lifeStycle
+
+//设置进度条最大最小值
+- (void)setProgressSliderMaxMinValues {
+    
+    CGFloat duration = self.hlsMoviePlayer.duration;
+    self.playMaskView.proSlider.minimumValue = 0.f;
+    self.playMaskView.proSlider.maximumValue = duration;
+}
+
+- (void)startDuration
+{
+    self.durationTimer = [NSTimer scheduledTimerWithTimeInterval:0.2 target:self selector:@selector(monitorVideoPlayback) userInfo:nil repeats:YES];
+    
+    [[NSRunLoop currentRunLoop] addTimer:self.durationTimer forMode:NSDefaultRunLoopMode];
+}
+
+- (void)monitorVideoPlayback
+{
+    double currentTime = floor(self.hlsMoviePlayer.currentPlaybackTime);
+    double totalTime = floor(self.hlsMoviePlayer.duration);
+    //设置时间
+    [self setTimeLabelValues:currentTime totalTime:totalTime];
+    self.playMaskView.proSlider.value = ceil(currentTime);
+}
+
+- (void)setTimeLabelValues:(double)currentTime totalTime:(double)totalTime {
+
+    self.playMaskView.currentTimeLabel.text = [self timeFormat:currentTime];
+    self.playMaskView.totalTimeLabel.text = [self timeFormat:totalTime];
+}
+
+- (NSString *)timeFormat:(NSTimeInterval)duration
+{
+    int minute = 0, hour = 0, secend = duration;
+    minute = (secend % 3600)/60;
+    hour = secend / 3600;
+    secend = secend % 60;
+    return [NSString stringWithFormat:@"%02d:%02d:%02d", hour, minute, secend];
+}
+
+
+#pragma mark ----VHPlayerViewDelegate
+//全屏播放
+- (void)Vh_fullScreenButtonAction:(UIButton *)button {
+   
+    [self setDeciceOrientationLanscapeRight:button.selected];
+}
+//电池栏在左屏
+- (void)setDeciceOrientationLanscapeRight:(BOOL)isLandscapeRight
+{
+    
+    if ([[UIDevice currentDevice] respondsToSelector:@selector(setOrientation:)])
+    {
+        NSNumber *num = [[NSNumber alloc] initWithInt:(isLandscapeRight?UIInterfaceOrientationLandscapeRight:UIInterfaceOrientationPortrait)];
+        [[UIDevice currentDevice] performSelector:@selector(setOrientation:) withObject:(id)num];
+        [UIViewController attemptRotationToDeviceOrientation];
+        //这行代码是关键
+    }
+    SEL selector=NSSelectorFromString(@"setOrientation:");
+    NSInvocation *invocation =[NSInvocation invocationWithMethodSignature:[UIDevice instanceMethodSignatureForSelector:selector]];
+    [invocation setSelector:selector];
+    [invocation setTarget:[UIDevice currentDevice]];
+    int val =isLandscapeRight?UIInterfaceOrientationLandscapeRight:UIInterfaceOrientationPortrait;
+    [invocation setArgument:&val atIndex:2];
+    [invocation invoke];
+    [[UIApplication sharedApplication] setStatusBarHidden:isLandscapeRight withAnimation:UIStatusBarAnimationSlide];
+    
+}
+
+- (void)Vh_playerButtonAction:(UIButton *)button {
+    
+    if (button.selected) {
+        
+        [self.hlsMoviePlayer play];
+    }else
+    {
+        [self.hlsMoviePlayer pause];
+    }
+}
+
+- (void)Vh_progressSliderTouchBegan:(UISlider *)slider {
+    
+    [self.hlsMoviePlayer pause];
+    [self.playMaskView cancelAutoFadeOutControlBar];
+}
+
+- (void)Vh_progressSliderValueChanged:(UISlider *)slider {
+    
+    double currentTime = floor(slider.value);
+    double totalTime = floor(self.hlsMoviePlayer.duration);
+    
+    [self setTimeLabelValues:currentTime totalTime:totalTime];
+    
+}
+
+- (void)Vh_progressSliderTouchEnded:(UISlider *)slider {
+    
+    [self.hlsMoviePlayer setCurrentPlaybackTime:floor(slider.value)];
+    [self.hlsMoviePlayer play];
+    [self.playMaskView autoFadeOutControlBar];
+}
+
 
 #pragma mark - VHMoviePlayerDelegate
 - (void)playError:(VHLivePlayErrorType)livePlayErrorType info:(NSDictionary *)info;
@@ -391,7 +528,7 @@ static AnnouncementView* announcementView = nil;
     VHLog(@"---%ld",(long)playMode);
     self.playModelTemp = playMode;
     self.liveTypeLabel.text = @"";
-    _hlsMoviePlayer.controlStyle = MPMovieControlStyleEmbedded;
+   _hlsMoviePlayer.controlStyle = MPMovieControlStyleNone;
 
     switch (playMode) {
         case VHMovieVideoPlayModeNone:
@@ -501,6 +638,22 @@ static AnnouncementView* announcementView = nil;
 
 - (void)moviePlaybackStateDidChange:(NSNotification *)note
 {
+
+     NSLog(@"%s %ld",__func__, (long)self.hlsMoviePlayer);
+    
+    if (self.hlsMoviePlayer.playbackState == MPMoviePlaybackStatePlaying) {
+        //监控回放时间
+         [self startDuration];
+         self.playMaskView.playButton.selected = YES;
+        [self.playMaskView autoFadeOutControlBar];
+    } else {
+        self.playMaskView.playButton.selected = NO;
+        [self stopDurationTimer];
+        if (self.hlsMoviePlayer.playbackState == MPMoviePlaybackStateStopped) {
+            [self.playMaskView animateShow];
+        }
+    }
+    
     switch (self.hlsMoviePlayer.playbackState)
     {
         case MPMoviePlaybackStatePlaying:
@@ -546,6 +699,18 @@ static AnnouncementView* announcementView = nil;
     }
 }
 
+-(void)stopDurationTimer
+{
+    [self.durationTimer invalidate];
+    self.durationTimer = nil;
+    self.playMaskView.playButton.selected = NO;
+}
+- (void)movieDurationAvailableNotification:(NSNotification *)note
+{
+    [self setProgressSliderMaxMinValues];
+    [self monitorVideoPlayback];
+}
+
 - (void)movieLoadStateDidChange:(NSNotification *)note
 {
     if (self.hlsMoviePlayer.loadState == MPMovieLoadStatePlayable)
@@ -553,13 +718,13 @@ static AnnouncementView* announcementView = nil;
         if (self.hlsMoviePlayer.view) {
             [MBProgressHUD showHUDAddedTo:self.hlsMoviePlayer.view animated:YES];
         }
-        VHLog(@"开始加载加载");
+        VHLog(@"wwww开始加载加载");
     }else if(self.hlsMoviePlayer.loadState == (MPMovieLoadStatePlaythroughOK|MPMovieLoadStatePlayable))
     {
         if (self.hlsMoviePlayer.view) {
             [MBProgressHUD hideAllHUDsForView:self.hlsMoviePlayer.view animated:YES];
         }
-        VHLog(@"加载完成");
+        VHLog(@"wwwww加载完成");
     }
 }
 
@@ -569,6 +734,7 @@ static AnnouncementView* announcementView = nil;
     {
         announcementView.content = announcementView.content;
     }
+  
 }
 
 - (void)didBecomeActive
@@ -646,8 +812,6 @@ static AnnouncementView* announcementView = nil;
     [self pullingTableViewDidStartRefreshing:_tableView];
     
   }
-
-
 
 #pragma mark -拉取前20条评论
 
