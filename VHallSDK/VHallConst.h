@@ -9,131 +9,6 @@
 #ifndef VHallConst_h
 #define VHallConst_h
 
-#pragma mark -
-#pragma mark - 以下定义在以后版本会被取消 使用这个的用户尽快更新到下边数据定义
-//设置摄像头取景方向
-typedef NS_ENUM(int,DeviceOrientation)
-{
-    kDevicePortrait,
-    kDeviceLandSpaceRight,
-    kDeviceLandSpaceLeft
-}__attribute__((deprecated("please use VHDeviceOrientation")));
-
-//直播流格式
-typedef NS_ENUM(int,LiveFormat)
-{
-    kLiveFormatNone = 0,
-    kLiveFormatRtmp,
-    kLiveFormatFlV
-};
-
-typedef NS_ENUM(int,VideoResolution)
-{
-    kLowVideoResolution = 0,         //低分边率       352*288
-    kGeneralVideoResolution,         //普通分辨率     640*480
-    kHVideoResolution,               //高分辨率       960*540
-    kHDVideoResolution               //超高分辨率     1280*720
-}__attribute__((deprecated("please use VHVideoResolution")));
-
-typedef NS_ENUM(int,LiveStatus){
-    kLiveStatusNone           = -1,
-    kLiveStatusPushConnectSucceed =0,   //直播连接成功
-    kLiveStatusPushConnectError =1,     //直播连接失败
-    kLiveStatusCDNConnectSucceed =2,    //播放CDN连接成功
-    kLiveStatusCDNConnectError =3,      //播放CDN连接失败
-    kLiveStatusBufferingStart = 4,      //播放缓冲开始
-    kLiveStatusBufferingStop  = 5,      //播放缓冲结束
-    kLiveStatusParamError =6,           //参数错误
-    kLiveStatusRecvError =7,            //播放接受数据错误
-    kLiveStatusSendError =8,            //直播发送数据错误
-    kLiveStatusUploadSpeed =9,          //直播上传速率
-    kLiveStatusDownloadSpeed =10,       //播放下载速率
-    kLiveStatusNetworkStatus =11,       //保留字段，暂时无用
-    kLiveStatusWidthAndHeight =12,      //返回播放视频的宽和高
-    kLiveStatusAudioInfo  = 13,          //音频流的信息
-    kLiveStatusUploadNetworkException=14,//发起端网络环境差
-    kLiveStatusUploadNetworkOK = 15,     //发起端网络环境恢复正常
-    kLiveStatusGetUrlError   = 16,       ////获取推流地址失败
-    kLiveStatusRecvStreamType = 17,      //接受流的类型
-    kLiveStatusVideoQueueFull = 18,
-    kLiveStatusAudioQueueFull = 19,
-    kLiveStatusVideoEncodeBusy = 20,
-    kLiveStatusVideoEncodeOk = 21,
-    kLiveStatusReconnecting = 22,
-    kLiveStatusLogReportMsg = 23,        //log上报信息
-    kLiveStatusAudioRecoderError  =24,  //音频采集失败，提示用户查看权限或者重新推流，切记此事件会回调多次，直到音频采集正常为止
-};
-
-
-typedef NS_ENUM(int,LivePlayErrorType)
-{
-    kLivePlayGetUrlError = kLiveStatusGetUrlError,        //获取服务器rtmpUrl错误
-    kLivePlayParamError = kLiveStatusParamError,          //参数错误
-    kLivePlayRecvError  = kLiveStatusRecvError,           //接受数据错误
-    kLivePlayCDNConnectError = kLiveStatusCDNConnectError,//CDN链接失败
-    kLivePlayJsonFormalError = 15                         //返回json格式错误
-}__attribute__((deprecated("please use VHLivePlayErrorType")));
-
-//RTMP 播放器View的缩放状态
-typedef NS_ENUM(int,RTMPMovieScalingMode)
-{
-    kRTMPMovieScalingModeNone,       // No scaling
-    kRTMPMovieScalingModeAspectFit,  // Uniform scale until one dimension fits
-    kRTMPMovieScalingModeAspectFill, // Uniform scale until the movie fills the visible bounds. One dimension may have clipped contents
-}__attribute__((deprecated("please use VHRTMPMovieScalingMode")));
-
-//流类型
-typedef NS_ENUM(int,VHallStreamType)
-{
-    kVHallStreamTypeNone = 0,
-    kVHallStreamTypeVideoAndAudio,
-    kVHallStreamTypeOnlyVideo,
-    kVHallStreamTypeOnlyAudio,
-}__attribute__((deprecated("please use VHStreamType")));
-
-typedef NS_ENUM(int,VHallRenderModel){
-    kVHallRenderModelNone = 0,
-    kVHallRenderModelOrigin,  //普通视图的渲染
-    kVHallRenderModelDewarpVR, //VR视图的渲染
-}__attribute__((deprecated("please use VHRenderModel")));
-
-/**
- *  活动布局模式
- */
-typedef NS_ENUM(NSInteger,VHallMovieVideoPlayMode) {
-    VHallMovieVideoPlayModeNone         = 0,    //不存在
-    VHallMovieVideoPlayModeMedia        = 1,    //单视频
-    VHallMovieVideoPlayModeTextAndVoice = 2,    //文档＋声音
-    VHallMovieVideoPlayModeTextAndMedia = 3,    //文档＋视频
-    VHallMovieVideoPlayModeVoice        = 4,    //单音频
-}__attribute__((deprecated("please use VHMovieVideoPlayMode")));
-
-/**
- *  直播视频清晰度
- */
-typedef NS_ENUM(NSInteger,VHallMovieDefinition) {
-    VHallMovieDefinitionOrigin          = 0,    //原画
-    VHallMovieDefinitionUHD             = 1,    //超高清
-    VHallMovieDefinitionHD              = 2,    //高清
-    VHallMovieDefinitionSD              = 3,    //标清
-    VHallMovieDefinitionAudio           = 4,    //纯音频
-}__attribute__((deprecated("please use VHMovieDefinition")));
-
-/**
- *  活动状态
- */
-typedef NS_ENUM(NSInteger,VHallMovieActiveState) {
-    VHallMovieActiveStateNone           = 0,
-    VHallMovieActiveStateLive           = 1,    //直播
-    VHallMovieActiveStateReservation    = 2,    //预约
-    VHallMovieActiveStateEnd            = 3,    //结束
-    VHallMovieActiveStateReplay         = 4,    //回放or点播
-}__attribute__((deprecated("please use VHMovieActiveState")));
-#pragma mark 以上定义在以后版本会被取消 使用这个的用户尽快更新到下边数据定义
-
-
-#pragma mark -
-#pragma mark - 新版版使用的常量定义如下
 //日志类型
 typedef NS_ENUM(NSInteger,VHLogType) {
     VHLogType_OFF   = 0,   //关闭日志 默认设置
@@ -150,16 +25,16 @@ typedef NS_ENUM(NSInteger,VHLogType) {
  */
 typedef NS_ENUM(NSInteger,VHLiveStatus)
 {
-    VHLiveStatusNone                    = kLiveStatusNone,
-    VHLiveStatusPushConnectSucceed      = kLiveStatusPushConnectSucceed,    //直播连接成功
-    VHLiveStatusPushConnectError        = kLiveStatusPushConnectError,      //直播连接失败
-    VHLiveStatusParamError              = kLiveStatusParamError,            //参数错误
-    VHLiveStatusSendError               = kLiveStatusSendError,             //直播发送数据错误
-    VHLiveStatusUploadSpeed             = kLiveStatusUploadSpeed,           //直播上传速率
-    VHLiveStatusAudioRecoderError       = kLiveStatusAudioRecoderError,     //音频采集失败，提示用户查看权限或者重新推流，切记此事件会回调多次，直到音频采集正常为止
-    VHLiveStatusUploadNetworkException  = kLiveStatusUploadNetworkException,//发起端网络环境差
-    VHLiveStatusUploadNetworkOK         = kLiveStatusUploadNetworkOK,       //发起端网络环境恢复正常
-    VHLiveStatusGetUrlError             = kLiveStatusGetUrlError,           //获取推流地址失败
+    VHLiveStatusNone                    = -1,
+    VHLiveStatusPushConnectSucceed      = 0,    //直播连接成功
+    VHLiveStatusPushConnectError        = 1,      //直播连接失败
+    VHLiveStatusParamError              = 6,            //参数错误
+    VHLiveStatusSendError               = 8,             //直播发送数据错误
+    VHLiveStatusUploadSpeed             = 9,           //直播上传速率
+    VHLiveStatusAudioRecoderError       = 24,     //音频采集失败，提示用户查看权限或者重新推流，切记此事件会回调多次，直到音频采集正常为止
+    VHLiveStatusUploadNetworkException  = 14,//发起端网络环境差
+    VHLiveStatusUploadNetworkOK         = 15,       //发起端网络环境恢复正常
+    VHLiveStatusGetUrlError             = 99,           //获取推流地址失败
 };
 
 /**
@@ -190,11 +65,11 @@ typedef NS_ENUM(NSInteger,VHVideoResolution)
  */
 typedef NS_ENUM(NSInteger,VHLivePlayErrorType)
 {
-    VHLivePlayErrorNone                 = kLiveStatusNone,
-    VHLivePlayGetUrlError               = kLivePlayGetUrlError,     //获取服务器rtmpUrl错误
-    VHLivePlayParamError                = kLivePlayParamError,      //参数错误
-    VHLivePlayRecvError                 = kLivePlayRecvError,       //接受数据错误
-    VHLivePlayCDNConnectError           = kLivePlayCDNConnectError, //CDN链接失败
+    VHLivePlayErrorNone                 = -1,
+    VHLivePlayParamError                = 6,      //参数错误
+    VHLivePlayRecvError                 = 7,       //接受数据错误
+    VHLivePlayCDNConnectError           = 3, //CDN链接失败
+    VHLivePlayGetUrlError               = 99,     //获取活动信息失败
 };
 
 /**

@@ -693,7 +693,6 @@ static AnnouncementView* announcementView = nil;
 
 - (void)cdnSwitch:(VHallMoviePlayer*)moviePlayer info:(NSDictionary*)info
 {
-
 }
 
 - (void)recStreamtype:(VHallMoviePlayer*)moviePlayer info:(NSDictionary*)info

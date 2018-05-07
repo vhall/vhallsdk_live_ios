@@ -741,6 +741,7 @@
 					"$(PROJECT_DIR)/../VHallSDK/VHallFilterSDK",
 					"$(PROJECT_DIR)/../UIModel",
 					"$(PROJECT_DIR)",
+					"$(PROJECT_DIR)/VHSDKDemo/VHallAnalyticSDK",
 				);
 				OTHER_LDFLAGS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = com.vhall.VHallSDKDemo.VHSDKDemo;
@@ -768,6 +769,7 @@
 					"$(PROJECT_DIR)/../VHallSDK/VHallFilterSDK",
 					"$(PROJECT_DIR)/../UIModel",
 					"$(PROJECT_DIR)",
+					"$(PROJECT_DIR)/VHSDKDemo/VHallAnalyticSDK",
 				);
 				OTHER_LDFLAGS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = com.vhall.VHallSDKDemo.VHSDKDemo;

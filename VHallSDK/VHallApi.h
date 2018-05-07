@@ -9,6 +9,9 @@
 #ifndef VHallApi_h
 #define VHallApi_h
 
+#import <UIKit/UIKit.h>
+#import <Foundation/Foundation.h>
+
 #import "VHallConst.h"
 #import "VHallLivePublish.h"
 #import "VHallMoviePlayer.h"

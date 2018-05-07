@@ -17,6 +17,11 @@ pod 'VHallSDK_LiveFilter' , :git => 'https://github.com/vhall/vhallsdk_live_ios.
 
 ### 版本更新信息
 
+#### 版本 v3.0.4 更新时间：2018.05.07
+更新内容：<br>
+1、底层优化<br>
+2、bug修复<br>
+
 #### 版本 v3.0.3 更新时间：2018.01.11
 更新内容：<br>
 1、观看调度，自动切换合适的CDN<br>

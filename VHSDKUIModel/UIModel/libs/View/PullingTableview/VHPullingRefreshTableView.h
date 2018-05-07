@@ -23,7 +23,7 @@
 @property(atomic)int  startPos;//数据开始位置
 @property(atomic)BOOL isFirstUpdate;//数据开始位置
 @property(strong,nonatomic)NSMutableArray* dataArr;//数据
-@property (assign,nonatomic) id <VHPullingRefreshTableViewDelegate> pullingDelegate;
+@property (weak,nonatomic) id <VHPullingRefreshTableViewDelegate> pullingDelegate;
 
 -(id)initWithFrame:(CGRect)frame pullingDelegate:(id<VHPullingRefreshTableViewDelegate>)pullingDelegate;
 -(id)initWithFrame:(CGRect)frame pullingDelegate:(id<VHPullingRefreshTableViewDelegate>)pullingDelegate headView:(BOOL)isHas footView:(BOOL)isHasfoot;

@@ -14,13 +14,13 @@
 //3、plist中 App Transport Security Settings -> Allow Arbitrary Loads 设置为YES
 //4、设置以下数据 检查 Bundle ID 即可观看直播
 
-//接口文档说明： http://e.vhall.com/home/vhallapi
+//接口文档说明： http://www.vhall.com/index.php?r=doc/index/index
 #define DEMO_AppKey         @"替换成您自己的AppKey"        //详见：http://e.vhall.com/home/vhallapi/authlist
 #define DEMO_AppSecretKey   @"替换成您自己的AppSecretKey"  //AppSecretKey
 #define DEMO_ActivityId     @"" //活动id    详见：http://www.vhall.com/index.php?r=doc/detail/index&project_id=4&doc_id=27
-#define DEMO_AccessToken    @"" //直播Token 详见：http://www.vhall.com/index.php?r=doc/detail/index&project_id=4&doc_id=71
+#define DEMO_AccessToken    @"" //发起直播Token 24小时有效 详见：http://www.vhall.com/index.php?r=doc/detail/index&project_id=4&doc_id=71
 
-#define DEMO_account        @"" //账号 详见：http://www.vhall.com/index.php?r=doc/detail/index&project_id=4&doc_id=73
+#define DEMO_account        @"" //api注册账号 对应 third_user_id 详见：http://www.vhall.com/index.php?r=doc/detail/index&project_id=4&doc_id=70
 #define DEMO_password       @"" //密码 对应 pass字段
 
 //#if DEBUG  // 调试状态, 打开LOG功能

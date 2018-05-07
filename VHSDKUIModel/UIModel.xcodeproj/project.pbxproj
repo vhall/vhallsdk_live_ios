@@ -1762,6 +1762,7 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/UIModel/libs/DLNA",
+					"$(PROJECT_DIR)/UIModel/libs/VHallAnalyticSDK",
 				);
 				OTHER_LDFLAGS = "";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1780,6 +1781,7 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/UIModel/libs/DLNA",
+					"$(PROJECT_DIR)/UIModel/libs/VHallAnalyticSDK",
 				);
 				OTHER_LDFLAGS = "";
 				PRODUCT_NAME = "$(TARGET_NAME)";
