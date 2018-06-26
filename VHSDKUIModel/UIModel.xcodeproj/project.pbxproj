@@ -237,6 +237,7 @@
 		C09B36F21FFE2D620017AB0F /* VHPlayBtn.png in Resources */ = {isa = PBXBuildFile; fileRef = C09B36F01FFE2D620017AB0F /* VHPlayBtn.png */; };
 		C0E2BEB01F286C3800E55B1F /* VHDocumentView.m in Sources */ = {isa = PBXBuildFile; fileRef = C0E2BEAD1F286C3800E55B1F /* VHDocumentView.m */; };
 		C0E2BEB11F286C3800E55B1F /* VHDrawView.m in Sources */ = {isa = PBXBuildFile; fileRef = C0E2BEAF1F286C3800E55B1F /* VHDrawView.m */; };
+		C0ECF63220D8FD2200ABDF93 /* 语音开启@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C0ECF63120D8FD2200ABDF93 /* 语音开启@2x.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -594,6 +595,7 @@
 		C0E2BEAD1F286C3800E55B1F /* VHDocumentView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VHDocumentView.m; sourceTree = "<group>"; };
 		C0E2BEAE1F286C3800E55B1F /* VHDrawView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VHDrawView.h; sourceTree = "<group>"; };
 		C0E2BEAF1F286C3800E55B1F /* VHDrawView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VHDrawView.m; sourceTree = "<group>"; };
+		C0ECF63120D8FD2200ABDF93 /* 语音开启@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "语音开启@2x.png"; sourceTree = "<group>"; };
 		C0FC255E1E51A45D00B3D834 /* libUIModel.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libUIModel.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		C0FE89381F43EF8200FE0409 /* VHallConst.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VHallConst.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -765,6 +767,7 @@
 				C000AB8D1E67E124005DFB7C /* 公告@3x.png */,
 				C000AB901E67E14D005DFB7C /* 关闭@2x.png */,
 				C000AB911E67E14D005DFB7C /* 关闭@3x.png */,
+				C0ECF63120D8FD2200ABDF93 /* 语音开启@2x.png */,
 				C000AB961E67E27D005DFB7C /* chat_other@2x.png */,
 				C000AB971E67E27D005DFB7C /* chat_other@3x.png */,
 				C000AB981E67E27D005DFB7C /* chat_self@2x.png */,
@@ -1468,6 +1471,7 @@
 				C04D579C1E5D853000F75A64 /* Expression_68@2x.png in Resources */,
 				C09B36F11FFE2D620017AB0F /* VHPauseBtn.png in Resources */,
 				C04D579D1E5D853000F75A64 /* Expression_69@2x.png in Resources */,
+				C0ECF63220D8FD2200ABDF93 /* 语音开启@2x.png in Resources */,
 				C04D579E1E5D853000F75A64 /* Expression_6@2x.png in Resources */,
 				C04D579F1E5D853000F75A64 /* Expression_70@2x.png in Resources */,
 				C04D57A01E5D853000F75A64 /* Expression_71@2x.png in Resources */,

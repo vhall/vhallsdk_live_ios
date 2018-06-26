@@ -13,6 +13,6 @@
 
 @property(nonatomic,copy)NSString       *roomId;
 @property(nonatomic,copy)NSString       *kValue;
-@property(nonatomic,assign)NSInteger    bufferTimes;
+@property(nonatomic,assign)NSInteger    timeOut;
 
 @end

@@ -69,6 +69,7 @@ typedef NS_ENUM(NSInteger,VHLivePlayErrorType)
     VHLivePlayParamError                = 6,      //参数错误
     VHLivePlayRecvError                 = 7,       //接受数据错误
     VHLivePlayCDNConnectError           = 3, //CDN链接失败
+    VHVodPlayError                      = 98,     //点播播放器错误信息
     VHLivePlayGetUrlError               = 99,     //获取活动信息失败
 };
 
@@ -110,6 +111,7 @@ typedef NS_ENUM(NSInteger,VHPlayerState) {
     VHPlayerStateStarting               = 1,    //启动中
     VHPlayerStatePlaying                = 2,    //播放中 可调用stopPlay pausePlay 状态转为VHallPlayerStateStoped/VHallPlayerStatePaused
     VHPlayerStateStreamStoped           = 3,    //直播流停止 暂停pausePlay/流连接错误触发 可调用stopPlay reconnectPlay状态转为VHallPlayerStateStoped/VHallPlayerStatePlaying
+    VHPlayerStatePause                  = 4,    //回放暂停状态
 };
 
 /**

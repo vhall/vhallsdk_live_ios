@@ -24,11 +24,11 @@
 {
     self = [super initWithFrame:frame];
     if (self) {
-        CGRect rect = {{0,frame.size.height},{frame.size.width,0}};
-        UITableView * view = [[UITableView alloc] initWithFrame:rect];
+//        CGRect rect = {{0,frame.size.height},{frame.size.width,0}};
+        UITableView * view = [[UITableView alloc] initWithFrame:self.bounds];
         view.separatorStyle = UITableViewCellSeparatorStyleNone;
         view.backgroundColor = [UIColor clearColor];
-        view.bounces = NO;
+//        view.bounces = NO;
         view.showsVerticalScrollIndicator = NO;
         view.delegate = self;
         view.dataSource = self;
@@ -49,13 +49,16 @@
 }
 - (void)update
 {
+    _tableView.estimatedRowHeight = 0;
     [_tableView reloadData];
+    [_tableView layoutIfNeeded];
     if (_tableView.contentSize.height<self.height) {
         [UIView animateWithDuration:0.2 animations:^{
             _tableView.height = _tableView.contentSize.height;
             _tableView.bottom = self.height;
         }];
-    }else{
+    }else
+    {
         _tableView.frame = self.bounds;
         [_tableView setContentOffset:CGPointMake(0, _tableView.contentSize.height - _tableView.height) animated:YES];
     }

@@ -65,6 +65,10 @@
 #pragma mark - 发直播
 - (void)startLive:(UIInterfaceOrientation)orientation
 {
+    if (DEMO_Setting.activityID.length<=0) {
+        [UIAlertView popupAlertByDelegate:nil title:@"请在设置中输入发直播活动ID" message:nil];
+        return;
+    }
     if (DEMO_Setting.liveToken == nil||DEMO_Setting.liveToken<=0) {
         [UIAlertView popupAlertByDelegate:nil title:@"请在设置中输入token" message:nil];
         return;
@@ -95,10 +99,7 @@
 {
     _btn0.selected = _btn1.selected = _btn2.selected = _btn3.selected =NO;
     sender.selected = YES;
-    if (DEMO_Setting.activityID == nil||DEMO_Setting.activityID.length<=0) {
-        [UIAlertView popupAlertByDelegate:nil title:@"请在设置中输入roomId" message:nil];
-        return;
-    }
+   
     switch (sender.tag) {
         case 0://横屏发直播
         {
@@ -112,6 +113,10 @@
             break;
         case 2://观看直播
         {
+            if (DEMO_Setting.watchActivityID.length<=0) {
+                [UIAlertView popupAlertByDelegate:nil title:@"请在设置中输入活动ID" message:nil];
+                return;
+            }
             WatchLiveViewController * watchVC  =[[WatchLiveViewController alloc]init];
             watchVC.roomId      = DEMO_Setting.watchActivityID;
             watchVC.kValue      = DEMO_Setting.kValue;
@@ -121,9 +126,14 @@
             break;
         case 3://观看回放
         {
+            if (DEMO_Setting.watchActivityID.length<=0) {
+                [UIAlertView popupAlertByDelegate:nil title:@"请在设置中输入活动ID" message:nil];
+                return;
+            }
             WatchPlayBackViewController * watchVC  =[[WatchPlayBackViewController alloc]init];
             watchVC.roomId = DEMO_Setting.watchActivityID;
             watchVC.kValue = DEMO_Setting.kValue;
+            watchVC.timeOut = DEMO_Setting.bufferTimes;
             [self presentViewController:watchVC animated:YES completion:nil];
         }
             break;

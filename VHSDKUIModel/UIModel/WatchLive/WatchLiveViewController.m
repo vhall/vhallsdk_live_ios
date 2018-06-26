@@ -61,6 +61,8 @@ static AnnouncementView* announcementView = nil;
 //    VHDrawView *_whiteBoardView;//白板
 //    UIView     *_whiteBoardContainer;//白板容器
     VHDocumentView* _documentView;
+    
+    NSArray* _definitionList;
 }
 
 @property (weak, nonatomic) IBOutlet UILabel *bufferCountLabel;
@@ -709,11 +711,11 @@ static AnnouncementView* announcementView = nil;
 {
     [MBProgressHUD hideHUDForView:_moviePlayer.moviePlayerView animated:YES];
     void (^resetStartPlay)(NSString * msg) = ^(NSString * msg){
-        _bitRateLabel.text = @"";
-        _startAndStopBtn.selected = NO;
         dispatch_async(dispatch_get_main_queue(), ^{
+            self.bitRateLabel.text = @"";
+            self.startAndStopBtn.selected = NO;
             [self detailsButtonClick: nil];
-            [UIAlertView popupAlertByDelegate:nil title:msg message:nil];
+            [self showMsg:msg afterDelay:2];
         });
     };
 
@@ -733,13 +735,13 @@ static AnnouncementView* announcementView = nil;
             break;
         case VHLivePlayCDNConnectError:
         {
-            msg = @"服务器任性...连接失败";
+            msg = @"CDNConnect Error";
             resetStartPlay(msg);
         }
             break;
         case VHLivePlayGetUrlError:
         {
-            msg = @"获取服务器地址报错";
+            msg = @"获取活动信息错误";
             [self detailsButtonClick: nil];
             dispatch_async(dispatch_get_main_queue(), ^{
                 [MBHUDHelper showWarningWithText:info[@"content"]];
@@ -882,6 +884,7 @@ static AnnouncementView* announcementView = nil;
 - (void)VideoDefinitionList: (NSArray*)definitionList
 {
     VHLog(@"可用分辨率%@ 当前分辨率：%ld",definitionList,(long)_moviePlayer.curDefinition);
+    _definitionList = definitionList;
     _definitionBtn0.hidden = NO;
     [_definitionBtn0 setImage:[UIImage imageNamed:_videoLevePicArray[_moviePlayer.curDefinition]] forState:UIControlStateNormal];
     if (_moviePlayer.curDefinition == VHMovieDefinitionAudio) {
@@ -1234,7 +1237,8 @@ static AnnouncementView* announcementView = nil;
         } failed:^(NSDictionary *failedData) {
             
             NSString* code = [NSString stringWithFormat:@"%@,%@", failedData[@"content"], failedData[@"code"]];
-            [ws showMsg:code afterDelay:1.5];
+            NSLog(@"%@",code);
+//            [ws showMsg:code afterDelay:1.5];
 //            [UIAlertView popupAlertByDelegate:nil title:failedData[@"content"] message:code];
             
         }];
@@ -1291,14 +1295,28 @@ static AnnouncementView* announcementView = nil;
 - (IBAction)definitionBtnCLicked:(UIButton *)sender {
     if(!_startAndStopBtn.selected)return;
     
-    int _leve = _moviePlayer.curDefinition + 1;
-    if (_leve==4) {
-        _leve=0;
+    int _leve = _moviePlayer.curDefinition;
+    BOOL isCanPlayDefinition = NO;
+    
+    while (!isCanPlayDefinition) {
+        _leve = _leve+1;
+        if(_leve>=4)
+            _leve = 0;
+        for (NSNumber* definition in _definitionList) {
+            if(definition.intValue == _leve)
+            {
+                isCanPlayDefinition = YES;
+                break;
+            }
+        }
     }
+    
+    if(_moviePlayer.curDefinition == _leve)
+        return;
+    
     [MBProgressHUD hideHUDForView:_moviePlayer.moviePlayerView animated:NO];
     [MBProgressHUD showHUDAddedTo:_moviePlayer.moviePlayerView animated:YES];
     [_moviePlayer setCurDefinition:_leve];
-    _leve = _moviePlayer.curDefinition;
     _playModeBtn0.selected = NO;
     [_definitionBtn0 setImage:[UIImage imageNamed:_videoLevePicArray[_moviePlayer.curDefinition]] forState:UIControlStateNormal];
     _playModelTemp=_moviePlayer.playMode;

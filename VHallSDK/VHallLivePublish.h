@@ -8,22 +8,7 @@
 #import <AVFoundation/AVFoundation.h>
 #import "VHallConst.h"
 
-@protocol VHallLivePublishDelegate <NSObject>
-
-/**
- *  发起直播时的状态
- *  @param liveStatus 直播状态
- */
--(void)publishStatus:(VHLiveStatus)liveStatus withInfo:(NSDictionary*)info;
-@optional
-/**
- *  采集到第一帧的回调
- *  @param image 第一帧的图片
- */
--(void)firstCaptureImage:(UIImage*)image;
-@end
-
-
+@protocol VHallLivePublishDelegate;
 @interface VHallLivePublish : NSObject
 /**
  *  推流连接的超时时间，单位为毫秒 默认5000
@@ -151,4 +136,21 @@
  */
 - (void)setVolumeAmplificateSize:(float)size;
 
+@end
+
+
+
+@protocol VHallLivePublishDelegate <NSObject>
+
+/**
+ *  发起直播时的状态
+ *  @param liveStatus 直播状态
+ */
+-(void)publishStatus:(VHLiveStatus)liveStatus withInfo:(NSDictionary*)info;
+@optional
+/**
+ *  采集到第一帧的回调
+ *  @param image 第一帧的图片
+ */
+-(void)firstCaptureImage:(UIImage*)image;
 @end

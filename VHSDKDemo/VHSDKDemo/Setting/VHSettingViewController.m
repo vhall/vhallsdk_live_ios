@@ -370,13 +370,13 @@
     
     CGRect tfRect = [editView.superview convertRect:editView.frame toView:self.view];
     NSValue *value = noti.userInfo[@"UIKeyboardFrameEndUserInfoKey"];
-    NSLog(@"%@", value);
+//    NSLog(@"%@", value);
     CGRect keyBoardF = [value CGRectValue];
     
     CGFloat animationTime = [noti.userInfo[@"UIKeyboardAnimationDurationUserInfoKey"] floatValue];
     CGFloat _editMaxY = CGRectGetMaxY(tfRect);
     CGFloat _keyBoardMinY = CGRectGetMinY(keyBoardF);
-    NSLog(@"%f %f", _editMaxY, _keyBoardMinY);
+//    NSLog(@"%f %f", _editMaxY, _keyBoardMinY);
     if (_keyBoardMinY < _editMaxY) {
         CGFloat moveDistance = _editMaxY - _keyBoardMinY;
         [UIView animateWithDuration:animationTime animations:^{
