@@ -1,6 +1,10 @@
 # vhallsdk-live-ios
 自助式网络直播SDK
 
+### 集成和调用方式
+
+参见官方文档：http://www.vhall.com/saas/doc/310.html <br>
+
 ### APP工程集成SDK基本设置
 1、工程中AppDelegate.m 文件名修改为 AppDelegate.mm<br>
 2、关闭bitcode 设置<br>
@@ -15,7 +19,13 @@ pod 'VHallSDK_Live' , :git => 'https://github.com/vhall/vhallsdk_live_ios.git'<b
 pod 'VHallSDK_LiveFilter' , :git => 'https://github.com/vhall/vhallsdk_live_ios.git'<br>
 
 
+
 ### 版本更新信息
+
+#### 版本 v3.1.1 更新时间：2018.07.27
+更新内容：<br>
+1、新增获取问答历史<br>
+2、bug修复<br>
 
 #### 版本 v3.1.0 更新时间：2018.06.26
 更新内容：<br>

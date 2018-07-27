@@ -588,7 +588,6 @@ static AnnouncementView* announcementView = nil;
               ((WatchLiveSurveyTableViewCell *)cell).clickSurveyItem=^(VHallSurveyModel *model)
             {
                 [weakSelf performSelector:@selector(clickSurvey:) withObject:model];
-
             };
         }
         else
@@ -695,6 +694,7 @@ static AnnouncementView* announcementView = nil;
 
 - (void)cdnSwitch:(VHallMoviePlayer*)moviePlayer info:(NSDictionary*)info
 {
+
 }
 
 - (void)recStreamtype:(VHallMoviePlayer*)moviePlayer info:(NSDictionary*)info
@@ -982,20 +982,16 @@ static AnnouncementView* announcementView = nil;
 #pragma mark - VHallQAndADelegate
 - (void)reciveQAMsg:(NSArray *)msgs
 {
-    if (msgs.count > 0)
-    {
-        VHallQAModel * qaModel = [msgs lastObject];
-        if (qaModel.questionModel) {
-            [_QADataArray addObject:qaModel.questionModel];
-        }
-        
-        if (qaModel.answerModels && qaModel.answerModels.count > 0) {
+    for (VHallQAModel * qaModel in msgs) {
+        [_QADataArray addObject:qaModel.questionModel];
+
+        if (qaModel.answerModels.count > 0) {
             [_QADataArray addObjectsFromArray:qaModel.answerModels];
         }
-        
-        if (_QABtn.selected) {
-            [_chatView reloadData];
-        }
+    }
+
+    if (_QABtn.selected) {
+        [_chatView reloadData];
     }
 }
 
@@ -1263,6 +1259,16 @@ static AnnouncementView* announcementView = nil;
     [self.QABtn setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
     
     [_chatView reloadData];
+
+    if(_QADataArray.count==0)
+    {
+        __weak typeof(self) weakself = self;
+        [_QA getQAndAHistoryWithType:YES success:^(NSArray *msgs) {
+            [weakself reciveQAMsg:msgs];
+        } failed:^(NSDictionary *failedData) {
+            
+        }];
+    }
 }
 
 #pragma mark -

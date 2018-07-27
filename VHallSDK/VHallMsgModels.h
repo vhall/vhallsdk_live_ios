@@ -60,6 +60,7 @@
 @property (nonatomic, copy) NSString * content;         //提问内容
 @property (nonatomic, copy) NSString * join_id;         //参会id
 @property (nonatomic, copy) NSString * created_at;      //提问时间
+@property (nonatomic, copy) NSString * avatar;          //头像
 @end
 
 /**

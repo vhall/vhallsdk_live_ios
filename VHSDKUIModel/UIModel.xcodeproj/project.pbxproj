@@ -331,8 +331,6 @@
 		C000ABA21E67E2BC005DFB7C /* questionMessage@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "questionMessage@2x.png"; sourceTree = "<group>"; };
 		C000ABA31E67E2BC005DFB7C /* questionMessage@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "questionMessage@3x.png"; sourceTree = "<group>"; };
 		C000ABA81E67E410005DFB7C /* head50.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = head50.png; sourceTree = "<group>"; };
-		C0341E641ED835FD0016019C /* libGPUImage.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libGPUImage.a; sourceTree = "<group>"; };
-		C0341E651ED835FD0016019C /* libVHallFilterSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libVHallFilterSDK.a; sourceTree = "<group>"; };
 		C0341E661ED835FD0016019C /* VHallLivePublishFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VHallLivePublishFilter.h; sourceTree = "<group>"; };
 		C04D557F1E5D705400F75A64 /* BarrageCanvas.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BarrageCanvas.h; sourceTree = "<group>"; };
 		C04D55801E5D705400F75A64 /* BarrageCanvas.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BarrageCanvas.m; sourceTree = "<group>"; };
@@ -576,9 +574,6 @@
 		C0747B301FED258400766128 /* VHPlayerView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VHPlayerView.m; sourceTree = "<group>"; };
 		C09B36EF1FFE2D620017AB0F /* VHPauseBtn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = VHPauseBtn.png; sourceTree = "<group>"; };
 		C09B36F01FFE2D620017AB0F /* VHPlayBtn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = VHPlayBtn.png; sourceTree = "<group>"; };
-		C0A27F581E9616D30031D3B4 /* kodak.inf */ = {isa = PBXFileReference; lastKnownFileType = file; path = kodak.inf; sourceTree = "<group>"; };
-		C0A27F5A1E9616D30031D3B4 /* libVhallLiveApi.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libVhallLiveApi.a; sourceTree = "<group>"; };
-		C0A27F5B1E9616D30031D3B4 /* libVHallSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libVHallSDK.a; sourceTree = "<group>"; };
 		C0A27F5E1E9616D30031D3B4 /* VHallApi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VHallApi.h; sourceTree = "<group>"; };
 		C0A27F5F1E9616D30031D3B4 /* VHallChat.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VHallChat.h; sourceTree = "<group>"; };
 		C0A27F601E9616D30031D3B4 /* VHallComment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VHallComment.h; sourceTree = "<group>"; };
@@ -589,7 +584,6 @@
 		C0A27F651E9616D30031D3B4 /* VHallQAndA.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VHallQAndA.h; sourceTree = "<group>"; };
 		C0A27F661E9616D30031D3B4 /* VHallSign.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VHallSign.h; sourceTree = "<group>"; };
 		C0A27F671E9616D30031D3B4 /* VHallSurvey.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VHallSurvey.h; sourceTree = "<group>"; };
-		C0AB64811EEFECF5002205FE /* libVhall3rdLib.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libVhall3rdLib.a; sourceTree = "<group>"; };
 		C0E2BEAA1F27374400E55B1F /* VHallBasePlugin.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VHallBasePlugin.h; sourceTree = "<group>"; };
 		C0E2BEAC1F286C3800E55B1F /* VHDocumentView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VHDocumentView.h; sourceTree = "<group>"; };
 		C0E2BEAD1F286C3800E55B1F /* VHDocumentView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VHDocumentView.m; sourceTree = "<group>"; };
@@ -784,8 +778,6 @@
 		C0341E631ED835FD0016019C /* VHallFilterSDK */ = {
 			isa = PBXGroup;
 			children = (
-				C0341E641ED835FD0016019C /* libGPUImage.a */,
-				C0341E651ED835FD0016019C /* libVHallFilterSDK.a */,
 				C0341E661ED835FD0016019C /* VHallLivePublishFilter.h */,
 			);
 			path = VHallFilterSDK;
@@ -1216,10 +1208,6 @@
 				C0A27F661E9616D30031D3B4 /* VHallSign.h */,
 				C0A27F671E9616D30031D3B4 /* VHallSurvey.h */,
 				C0A27F641E9616D30031D3B4 /* VHallMsgModels.h */,
-				C0A27F5A1E9616D30031D3B4 /* libVhallLiveApi.a */,
-				C0A27F5B1E9616D30031D3B4 /* libVHallSDK.a */,
-				C0AB64811EEFECF5002205FE /* libVhall3rdLib.a */,
-				C0A27F581E9616D30031D3B4 /* kodak.inf */,
 				C0341E631ED835FD0016019C /* VHallFilterSDK */,
 			);
 			name = VHallSDK;

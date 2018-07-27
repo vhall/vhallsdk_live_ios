@@ -814,23 +814,21 @@ static AnnouncementView* announcementView = nil;
 
 - (void)loadData:(VHPullingRefreshTableView *)tableView
 {
-
     __weak typeof(self) ws = self;
+    [MBProgressHUD hideAllHUDsForView:self.view animated:NO];
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     [_comment getHistoryCommentPageCountLimit:20 offSet:_commentsArray.count success:^(NSArray *msgs) {
-        [MBProgressHUD hideAllHUDsForView:ws.view animated:YES];
+        [MBProgressHUD hideAllHUDsForView:ws.view animated:NO];
         if (msgs.count > 0)
         {
             [ws.commentsArray addObjectsFromArray:msgs];
             [tableView tableViewDidFinishedLoading];
             tableView.reachedTheEnd = (msgs == nil || ws.commentsArray.count <= 5);
             [tableView reloadData];
-            
-            
         }
         
     } failed:^(NSDictionary *failedData) {
-        [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
+        [MBProgressHUD hideAllHUDsForView:self.view animated:NO];
         NSString* code = [NSString stringWithFormat:@"%@,%@",failedData[@"content"], failedData[@"code"]];
         NSLog(@"%@",code);
 //        [ws showMsg:code afterDelay:1.5];

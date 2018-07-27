@@ -55,7 +55,7 @@
         [lblType setTitle:@"问" forState:UIControlStateNormal];
         lblType.layer.borderColor=[UIColor redColor].CGColor;
         [lblType setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
-         [headImage sd_setImageWithURL:[NSURL URLWithString:[VHallApi currentUserHeadUrl]] placeholderImage:[UIImage imageNamed:@"UIModel.bundle/head50"]];
+         [headImage sd_setImageWithURL:[NSURL URLWithString:_model.avatar] placeholderImage:[UIImage imageNamed:@"UIModel.bundle/head50"]];
     }
     else if ([_model.type isEqualToString:@"answer"])
     {
