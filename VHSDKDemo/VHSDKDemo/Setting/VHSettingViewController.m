@@ -18,20 +18,11 @@
 {
     NSArray * _selectArray;
 
-    VHSettingTextFieldItem *item0;
-    VHSettingTextFieldItem *item1;
-    VHSettingTextFieldItem *item2;
-    VHSettingTextFieldItem *item3;
-    VHSettingTextFieldItem *item4;
-    VHSettingTextFieldItem *item5;
-    VHSettingTextFieldItem *item6;
-    VHSettingTextFieldItem *item7;
-    VHSettingTextFieldItem *item8;
-    VHSettingTextFieldItem *item9;
-    VHSettingTextFieldItem *item10;
-    VHSettingTextFieldItem *item11;
-    VHSettingTextFieldItem *item12;
-    
+    VHSettingTextFieldItem *item00,*item01,*item02,*item03;
+    VHSettingTextFieldItem *item10,*item11,*item12,*item13,*item14,*item15;
+    VHSettingTextFieldItem *item20,*item21,*item22,*item23;
+    VHSettingTextFieldItem *item30;
+
     UISwitch *_noiseSwitch;
 }
 @property(nonatomic,strong) NSMutableArray *groups;
@@ -132,10 +123,15 @@
     // Do any additional setup after loading the view from its nib.
 
     _selectArray = @[@"352X288",@"640X480",@"960X540",@"1280X720"];
+    
+    //0    1 VHPushTypeSD 2 VHPushTypeHD 3 VHPushTypeUHD
+    DEMO_Setting.pushResolution = @"1";//
+
     self.title = @"设置";
-    [self setupGroup1];
     [self setupGroup0];
+    [self setupGroup1];
     [self setupGroup2];
+    [self setupGroup3];
     [self initWithView];
 }
 
@@ -162,76 +158,90 @@
 
 -(void)setupGroup0
 {
+    item00 = [VHSettingTextFieldItem  itemWithTitle:@"活动ID"];
+    item00.text=DEMO_Setting.watchActivityID;
+    item01 = [VHSettingTextFieldItem  itemWithTitle:@"k值"];
+    item01.text =  DEMO_Setting.kValue;
+    item02 = [VHSettingTextFieldItem  itemWithTitle:@"缓冲时间"];
+    item02.text = [NSString stringWithFormat:@"%ld",(long)DEMO_Setting.bufferTimes];
+    item03 = [VHSettingTextFieldItem  itemWithTitle:@"超时时间"];
+    item03.text = [NSString stringWithFormat:@"%ld",(long)DEMO_Setting.timeOut];
+    VHSettingGroup *group= [VHSettingGroup groupWithItems:@[item00,item01,item02,item03]];
+    group.headerTitle = @"观看直播/回放";
+    [self.groups addObject:group];
+}
+
+-(void)setupGroup1
+{
     __weak typeof(self) weakSelf = self;
-    item0 = [VHSettingTextFieldItem  itemWithTitle:@"直播token"];
-    item0.text = DEMO_Setting.liveToken;
-    item1 = [VHSettingTextFieldItem  itemWithTitle:@"活动ID"];
-    item1.text =  DEMO_Setting.activityID;
-    item2 = [VHSettingTextFieldItem  itemWithTitle:@"分辨率"];
-    item2.text = _selectArray[[DEMO_Setting.videoResolution intValue]];
-    item2.operation=^(NSIndexPath *indexPath)
+    item10 = [VHSettingTextFieldItem  itemWithTitle:@"直播token"];
+    item10.text = DEMO_Setting.liveToken;
+    item11 = [VHSettingTextFieldItem  itemWithTitle:@"活动ID"];
+    item11.text =  DEMO_Setting.activityID;
+    item12 = [VHSettingTextFieldItem  itemWithTitle:@"分辨率"];
+    item12.text = _selectArray[[DEMO_Setting.videoResolution intValue]];
+    item12.operation=^(NSIndexPath *indexPath)
     {
         [weakSelf.tempTextField endEditing:YES];
         [weakSelf.pickerView showPickerView:weakSelf.view];
     };
-    item3 = [VHSettingTextFieldItem  itemWithTitle:@"视频码率(kpbs)"];
-    item3.text = [NSString stringWithFormat:@"%ld",(long)DEMO_Setting.videoBitRate];
-    item4 = [VHSettingTextFieldItem  itemWithTitle:@"视频帧率(fps)"];
-    item4.text =  [NSString stringWithFormat:@"%ld",(long)DEMO_Setting.videoCaptureFPS];
-    item5 = [VHSettingTextFieldItem  itemWithTitle:@"音频码率(kpbs)"];
-    item5.text = [NSString stringWithFormat:@"%ld",(long)DEMO_Setting.audioBitRate];
-    VHSettingGroup *group= [VHSettingGroup groupWithItems:@[item0,item1,item2,item3,item4,item5]];
+    item13 = [VHSettingTextFieldItem  itemWithTitle:@"视频码率(kpbs)"];
+    item13.text = [NSString stringWithFormat:@"%ld",(long)DEMO_Setting.videoBitRate];
+    item14 = [VHSettingTextFieldItem  itemWithTitle:@"视频帧率(fps)"];
+    item14.text =  [NSString stringWithFormat:@"%ld",(long)DEMO_Setting.videoCaptureFPS];
+    item15 = [VHSettingTextFieldItem  itemWithTitle:@"音频码率(kpbs)"];
+    item15.text = [NSString stringWithFormat:@"%ld",(long)DEMO_Setting.audioBitRate];
+    VHSettingGroup *group= [VHSettingGroup groupWithItems:@[item10,item11,item12,item13,item14,item15]];
     group.headerTitle = @"发直播设置";
     [self.groups addObject:group];
     
 }
 
-
--(void)setupGroup1
-{
-    item6 = [VHSettingTextFieldItem  itemWithTitle:@"活动ID"];
-    item6.text=DEMO_Setting.watchActivityID;
-    item7 = [VHSettingTextFieldItem  itemWithTitle:@"k值"];
-    item7.text =  DEMO_Setting.kValue;
-    item8 = [VHSettingTextFieldItem  itemWithTitle:@"缓冲时间"];
-    item8.text = [NSString stringWithFormat:@"%ld",(long)DEMO_Setting.bufferTimes];
-    VHSettingGroup *group= [VHSettingGroup groupWithItems:@[item6,item7,item8]];
-    group.headerTitle = @"观看直播/回放";
-    [self.groups addObject:group];
-}
-
-
 -(void)setupGroup2
 {
-    item9 = [VHSettingTextFieldItem  itemWithTitle:@"用户ID"];
+    item20 = [VHSettingTextFieldItem  itemWithTitle:@"用户ID"];
     
     if ([VHallApi isLoggedIn])
     {
-        item9.text =  DEMO_Setting.account;
+        item20.text =  DEMO_Setting.account;
     }else
     {
-        item9.text =  [[[UIDevice currentDevice] identifierForVendor] UUIDString];
+        item20.text =  [[[UIDevice currentDevice] identifierForVendor] UUIDString];
     }
     
-    item10 = [VHSettingTextFieldItem  itemWithTitle:@"昵称"];
+    item21 = [VHSettingTextFieldItem  itemWithTitle:@"昵称"];
     
     if ([VHallApi isLoggedIn])
     {
-         item10.text = DEMO_Setting.nickName;
+         item21.text = DEMO_Setting.nickName;
     }else
     {
-        item10.text = [UIDevice currentDevice].name;
+        item21.text = [UIDevice currentDevice].name;
     }
     
-    item11 = [VHSettingTextFieldItem  itemWithTitle:@"AppKey"];
-    item11.text = DEMO_Setting.appKey;
-    item12 = [VHSettingTextFieldItem  itemWithTitle:@"AppSecretKey"];
-    item12.text = DEMO_Setting.appSecretKey;
+    item22 = [VHSettingTextFieldItem  itemWithTitle:@"AppKey"];
+    item22.text = DEMO_Setting.appKey;
+    item23 = [VHSettingTextFieldItem  itemWithTitle:@"AppSecretKey"];
+    item23.text = DEMO_Setting.appSecretKey;
 
-    VHSettingGroup *group= [VHSettingGroup groupWithItems:@[item9,item10,item11,item12]];
+    VHSettingGroup *group= [VHSettingGroup groupWithItems:@[item20,item21,item22,item23]];
     group.headerTitle = @"其他设置";
     [self.groups addObject:group];
 }
+- (void)setupGroup3
+{
+    __weak typeof(self) weakSelf = self;
+    item30 = [VHSettingTextFieldItem  itemWithTitle:@"分辨率"];
+    item30.operation=^(NSIndexPath *indexPath)
+    {
+        [weakSelf.tempTextField endEditing:YES];
+    };
+
+    VHSettingGroup *group= [VHSettingGroup groupWithItems:@[item13]];
+    group.headerTitle = @"互动直播";
+    [self.groups addObject:group];
+}
+
 
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
@@ -262,9 +272,38 @@
         _noiseSwitch.left = self.view.width - 60;
         _noiseSwitch.top = 10;
         [noiseSwitchcell.contentView addSubview:_noiseSwitch];
+        
         return noiseSwitchcell;
     }
-    
+    else if(indexPath.section == 3 && indexPath.row == 0)
+    {
+        static   NSString *identifier1 = @"selectedResolutionCell";
+        UITableViewCell *resolutionCell = [tableView dequeueReusableCellWithIdentifier:identifier1];
+        if (resolutionCell == nil)
+            resolutionCell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier1];
+        resolutionCell.textLabel.text = @"分辨率";
+        resolutionCell.textLabel.font = [UIFont systemFontOfSize:14];
+
+        NSArray *titles = @[@"标清",@"清晰",@"流畅"];
+        for (int i = 0; i<3; i++) {
+            UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+            [button setTitle:titles[i] forState:UIControlStateNormal];
+            [button setImage:[UIImage imageNamed:@"resolution_normal"] forState:UIControlStateNormal];
+            [button setImage:[UIImage imageNamed:@"resolution_Selected"] forState:UIControlStateSelected];
+            [button setTitleColor:[UIColor lightGrayColor] forState:UIControlStateNormal];
+            button.frame = CGRectMake(80+i*80, 0, 80, 50);
+            [resolutionCell.contentView addSubview:button];
+            button.tag = 10010 + i;
+            [button addTarget:self action:@selector(selectedResolution:) forControlEvents:UIControlEventTouchUpInside];
+            
+            if (i == 2) {
+                button.selected = YES;
+            }
+        }
+        
+        return resolutionCell;
+    }
+ 
     
     __weak typeof(self) weakSelf=self;
     VHSettingTableViewCell *cell =[VHSettingTableViewCell  cellWithTableView:tableView];
@@ -300,6 +339,10 @@
     {
         return;
     }
+    if(indexPath.section == 3 && indexPath.row == 0) {
+        return;
+    }
+    
     VHSettingItem  *item = group.items[indexPath.row];
     if (item.operation)
     {
@@ -360,7 +403,30 @@
     
 }
 
+- (void)selectedResolution:(UIButton *)sender {
+    
+    UIButton *button0 = [self.view viewWithTag:10010];
+    button0.selected = NO;
+    UIButton *button1 = [self.view viewWithTag:10011];
+    button1.selected = NO;
+    UIButton *button2 = [self.view viewWithTag:10012];
+    button2.selected = NO;
 
+    sender.selected = YES;
+    
+    //0    1 VHPushTypeSD 2 VHPushTypeHD 3 VHPushTypeUHD
+    switch (sender.tag-10010) {
+        case 0:     //标清
+            DEMO_Setting.pushResolution = @"3";
+            break;
+        case 1:     //清晰
+            DEMO_Setting.pushResolution = @"2";
+            break;
+        case 2:     //流畅
+            DEMO_Setting.pushResolution = @"1";
+            break;
+    }
+}
 
 
 - (void)showKeyboard:(NSNotification *)noti
@@ -420,7 +486,7 @@
 - (void)customPickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row
 {
     NSString * title =_selectArray[row];
-    [item2 setText:title];
+    [item12 setText:title];
      DEMO_Setting.videoResolution =  [NSString stringWithFormat:@"%ld",(long)row];
     [_tableView reloadData];
     
@@ -449,13 +515,13 @@
                     DEMO_Setting.liveToken = text;
                 else
                     [self showMsg:@"Token长度错误" afterDelay:1.5];
-                item0.text = DEMO_Setting.liveToken;
+                item10.text = DEMO_Setting.liveToken;
             }
                 break;
             case 1:
             {
                 DEMO_Setting.activityID = text;
-                item1.text =  DEMO_Setting.activityID;
+                item11.text =  DEMO_Setting.activityID;
             }
                 break;
             case 2:
@@ -464,19 +530,19 @@
             case 3:
             {
                 DEMO_Setting.videoBitRate= [text integerValue];
-                item3.text = [NSString stringWithFormat:@"%ld",(long)DEMO_Setting.videoBitRate];
+                item13.text = [NSString stringWithFormat:@"%ld",(long)DEMO_Setting.videoBitRate];
             }
                 break;
             case 4:
             {
                 DEMO_Setting.videoCaptureFPS = [text integerValue];
-                item4.text =  [NSString stringWithFormat:@"%ld",(long)DEMO_Setting.videoCaptureFPS];
+                item14.text =  [NSString stringWithFormat:@"%ld",(long)DEMO_Setting.videoCaptureFPS];
             }
                 break;
             case 5:
             {
                  DEMO_Setting.audioBitRate = [text integerValue];
-                 item5.text = [NSString stringWithFormat:@"%ld",(long)DEMO_Setting.audioBitRate];
+                 item15.text = [NSString stringWithFormat:@"%ld",(long)DEMO_Setting.audioBitRate];
             }
                 break;
             default:
@@ -489,19 +555,25 @@
             case 0:
             {
                 DEMO_Setting.watchActivityID = text;
-                item6.text=DEMO_Setting.watchActivityID;
+                item00.text=DEMO_Setting.watchActivityID;
             }
                 break;
             case 1:
             {
                 DEMO_Setting.kValue = text;
-                item7.text =  DEMO_Setting.kValue;
+                item01.text =  DEMO_Setting.kValue;
             }
                 break;
             case 2:
             {
                 DEMO_Setting.bufferTimes = [text integerValue];
-                item8.text = [NSString stringWithFormat:@"%ld",(long)DEMO_Setting.bufferTimes];
+                item02.text = [NSString stringWithFormat:@"%ld",(long)DEMO_Setting.bufferTimes];
+            }
+                break;
+            case 3:
+            {
+                DEMO_Setting.timeOut = [text integerValue];
+                item03.text = [NSString stringWithFormat:@"%ld",(long)DEMO_Setting.timeOut];
             }
                 break;
             default:
@@ -523,7 +595,7 @@
                     DEMO_Setting.appKey  =text;
                 else
                     [self showMsg:@"appKey 输入错误" afterDelay:1.5];
-                item11.text = DEMO_Setting.appKey;
+                item22.text = DEMO_Setting.appKey;
             }
                 break;
             case 3:
@@ -532,7 +604,7 @@
                     DEMO_Setting.appSecretKey =text;
                 else
                     [self showMsg:@"appSecretKey长度错误" afterDelay:1.5];
-                item12.text = DEMO_Setting.appSecretKey;
+                item23.text = DEMO_Setting.appSecretKey;
             }
                 break;
             default:

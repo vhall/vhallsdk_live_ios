@@ -133,7 +133,7 @@
             WatchPlayBackViewController * watchVC  =[[WatchPlayBackViewController alloc]init];
             watchVC.roomId = DEMO_Setting.watchActivityID;
             watchVC.kValue = DEMO_Setting.kValue;
-            watchVC.timeOut = DEMO_Setting.bufferTimes;
+            watchVC.timeOut = DEMO_Setting.timeOut*1000;
             [self presentViewController:watchVC animated:YES completion:nil];
         }
             break;

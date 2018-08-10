@@ -91,7 +91,8 @@ static AnnouncementView* announcementView = nil;
     [self registerLiveNotification];
     _moviePlayer = [[VHallMoviePlayer alloc]initWithDelegate:self];
     _moviePlayer.moviePlayerView.frame = self.view.bounds;
-    _moviePlayer.timeout = _timeOut*1000;
+    _moviePlayer.timeout = (int)_timeOut;
+    _moviePlayer.defaultDefinition = VHMovieDefinitionSD;
     
     _tableView = [[VHPullingRefreshTableView alloc] initWithFrame:CGRectMake(0, 0, VH_SW, _historyCommentTableView.height) pullingDelegate:self headView:YES  footView:YES];
     _tableView.backgroundColor = MakeColorRGB(0xe2e8eb);
@@ -119,7 +120,7 @@ static AnnouncementView* announcementView = nil;
 //注册通知
 - (void)registerLiveNotification
 {
-    [self.view addObserver:self forKeyPath:kViewFramePath options:NSKeyValueObservingOptionNew context:nil];
+    [self.backView addObserver:self forKeyPath:kViewFramePath options:NSKeyValueObservingOptionNew context:nil];
     //已经进入活跃状态的通知
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didBecomeActive)name:UIApplicationDidBecomeActiveNotification object:nil];
     //监听耳机的插拔
@@ -306,7 +307,7 @@ static AnnouncementView* announcementView = nil;
 {
     //阻止iOS设备锁屏
     [[UIApplication sharedApplication] setIdleTimerDisabled:NO];
-    [self.view removeObserver:self forKeyPath:kViewFramePath];
+    [self.backView removeObserver:self forKeyPath:kViewFramePath];
     [[NSNotificationCenter defaultCenter]removeObserver:self];
     VHLog(@"%@ dealloc",[[self class]description]);
 }
@@ -579,7 +580,7 @@ static AnnouncementView* announcementView = nil;
     if([keyPath isEqualToString:kViewFramePath])
     {
 //        CGRect frame = [[change objectForKey:NSKeyValueChangeNewKey]CGRectValue];
-        _moviePlayer.moviePlayerView.frame = CGRectMake(0, 0, self.view.frame.size.width, self.backView.height);
+        _moviePlayer.moviePlayerView.frame = self.backView.bounds;
         //[self.backView addSubview:self.hlsMoviePlayer.view];
         [self.backView sendSubviewToBack:self.moviePlayer.moviePlayerView];
 

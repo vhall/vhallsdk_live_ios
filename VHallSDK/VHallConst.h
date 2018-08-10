@@ -147,6 +147,22 @@ typedef NS_ENUM(NSInteger,VHMovieActiveState) {
     VHMovieActiveStateReplay            = 4,    //回放or点播
 };
 
+/**
+ *  活动互动状态
+ */
+typedef NS_ENUM(NSInteger,VHInteractiveState) {
+    VHInteractiveStateWithOut           = 0,   //当前不允许互动
+    VHInteractiveStateHave              = 1,   //当前允许互动
+};
+
+/**
+ *  互动房间设备操作事件类型(1麦克风，2摄像头)
+ */
+typedef NS_ENUM(NSInteger,VHInteractiveEvent) {
+    VHInteractiveEventMic = 1,
+    VHInteractiveEventCamera
+};
+
 
 #endif /* VHallConst_h */
 

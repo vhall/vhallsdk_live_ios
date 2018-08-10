@@ -1,6 +1,0 @@
-framework module VhallLiveBaseApi {
-  umbrella header "VhallLiveBaseApi.h"
-
-  export *
-  module * { export * }
-}

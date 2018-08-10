@@ -15,12 +15,19 @@
 
 ### 使用CocoaPods 引入SDK
 pod 'VHallSDK_Live' , :git => 'https://github.com/vhall/vhallsdk_live_ios.git'<br>
+
 使用美颜功能SDK<br>
 pod 'VHallSDK_LiveFilter' , :git => 'https://github.com/vhall/vhallsdk_live_ios.git'<br>
 
-
+使用互动功能SDK<br>
+pod 'VHallSDK_Interactive' , :git => 'https://github.com/vhall/vhallsdk_live_ios.git'<br>
 
 ### 版本更新信息
+
+#### 版本 v3.2.0 更新时间：2018.08.10
+更新内容：<br>
+1、新增互动功能<br>
+2、优化点播播放器<br>
 
 #### 版本 v3.1.1 更新时间：2018.07.27
 更新内容：<br>

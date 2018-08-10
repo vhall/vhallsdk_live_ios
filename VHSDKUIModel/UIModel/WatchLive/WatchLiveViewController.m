@@ -26,12 +26,14 @@
 //#import "VHDrawView.h"
 #import "VHDocumentView.h"
 #import "DLNAView.h"
+#import "MicCountDownView.h"
+#import "VHinteractiveViewController.h"
+
 # define DebugLog(fmt, ...) NSLog((@"\n[文件名:%s]\n""[函数名:%s]\n""[行号:%d] \n" fmt), __FILE__, __FUNCTION__, __LINE__, ##__VA_ARGS__);
 
 static AnnouncementView* announcementView = nil;
-@interface WatchLiveViewController ()<VHallMoviePlayerDelegate, VHallChatDelegate, VHallQADelegate, VHallLotteryDelegate,VHallSignDelegate,VHallSurveyDelegate, UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate,VHMessageToolBarDelegate>
+@interface WatchLiveViewController ()<VHallMoviePlayerDelegate, VHallChatDelegate, VHallQADelegate, VHallLotteryDelegate,VHallSignDelegate,VHallSurveyDelegate, UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate,VHMessageToolBarDelegate,MicCountDownViewDelegate>
 {
-    VHallMoviePlayer  *_moviePlayer;//播放器
     __weak IBOutlet UIView *_showView;
 
     VHallChat         *_chat;       //聊天
@@ -93,7 +95,7 @@ static AnnouncementView* announcementView = nil;
 @property (weak, nonatomic) IBOutlet UIButton *playModeBtn3;
 @property (weak, nonatomic) IBOutlet UILabel *modelLabel;
 @property (nonatomic,strong) VHMessageToolView * messageToolView;  //输入框
-    @property (weak, nonatomic) IBOutlet UIButton *GyroBtn;//陀螺仪开关
+@property (weak, nonatomic) IBOutlet UIButton *GyroBtn;//陀螺仪开关
 
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *topConstraint;
 @property (weak, nonatomic) IBOutlet UIButton *fullscreenBtn;
@@ -103,6 +105,12 @@ static AnnouncementView* announcementView = nil;
 @property (nonatomic, strong)NSMutableArray    *chatDataArray;
 @property (weak, nonatomic) IBOutlet UIButton *dlnaBtn;
 @property(nonatomic,strong)   DLNAView           *dlnaView;
+
+
+@property (nonatomic, strong) VHallMoviePlayer  *moviePlayer;//播放器
+
+@property (nonatomic, strong) MicCountDownView *countDowwnView;
+
 @end
 
 @implementation WatchLiveViewController
@@ -163,15 +171,17 @@ static AnnouncementView* announcementView = nil;
     _sign.delegate = self;
     _survey=[[VHallSurvey alloc] initWithMoviePlayer:_moviePlayer];
     _survey.delegate= self;
-
+    
     _logView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"UIModel.bundle/vhallLogo.tiff"]];
     _logView.backgroundColor = [UIColor whiteColor];
     _logView.contentMode = UIViewContentModeCenter;
+    
     self.view.backgroundColor=[UIColor blackColor];
     [self.backView addSubview:_moviePlayer.moviePlayerView];
     [self.backView sendSubviewToBack:_moviePlayer.moviePlayerView];
     [_moviePlayer.moviePlayerView addSubview:_logView];    
     [self.view bringSubviewToFront:self.backView];
+    
     _textImageView.hidden = YES;
     _logView.hidden = YES;
     _videoLevePicArray=@[@"UIModel.bundle/原画.tiff",@"UIModel.bundle/超清.tiff",@"UIModel.bundle/高清.tiff",@"UIModel.bundle/标清.tiff",@""];
@@ -183,6 +193,12 @@ static AnnouncementView* announcementView = nil;
     }
     
     [self initBarrageRenderer];
+    
+    //申请上麦视图
+    _countDowwnView = [[MicCountDownView alloc] initWithFrame:CGRectMake(KIScreenWidth-48, KIScreenHeight-200, 40, 40)];
+    [_countDowwnView.button addTarget:self action:@selector(micUpClick:) forControlEvents:UIControlEventTouchUpInside];
+    _countDowwnView.delegate = self;
+    [self.view addSubview:_countDowwnView];
     
     
     //监听网络变化
@@ -207,7 +223,20 @@ static AnnouncementView* announcementView = nil;
 - (void)destoryMoivePlayer
 {
     [_moviePlayer destroyMoivePlayer];
+//    [_moviePlayer.moviePlayerView removeFromSuperview];
+//    _moviePlayer = nil;
+}
 
+- (void)startPlayer {
+
+    NSMutableDictionary * param = [[NSMutableDictionary alloc]init];
+    param[@"id"] =  _roomId;
+    param[@"name"] = [UIDevice currentDevice].name;
+    param[@"email"] = [[[UIDevice currentDevice] identifierForVendor] UUIDString];
+    if (_kValue&&_kValue.length>0) {
+        param[@"pass"] = _kValue;
+    }
+    [_moviePlayer startPlay:param];
 }
 
 //调查问卷页面
@@ -290,10 +319,27 @@ static AnnouncementView* announcementView = nil;
     //监听耳机的插拔
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(outputDeviceChanged:)name:AVAudioSessionRouteChangeNotification object:[AVAudioSession sharedInstance]];
     
-   }
+}
 
 
 #pragma mark - UIButton Event
+//申请上麦按钮事件
+- (void)micUpClick:(UIButton *)sender {
+    sender.selected = !sender.selected;
+    if (sender.selected) {
+        //开启上麦倒计时
+        [_countDowwnView countdDown:30];
+        //申请上麦
+        [_moviePlayer microApplyWithType:1];
+    }
+    else {
+        //停止倒计时
+        [_countDowwnView stopCountDown];
+        //取消上麦申请
+        [_moviePlayer microApplyWithType:0];
+    }
+}
+
 - (IBAction)stopWatchBtnClick:(id)sender
 {
     _definitionBtn0.hidden = YES;
@@ -315,14 +361,15 @@ static AnnouncementView* announcementView = nil;
         }
         else
         {
-            NSMutableDictionary * param = [[NSMutableDictionary alloc]init];
-            param[@"id"] =  _roomId;
-            param[@"name"] = [UIDevice currentDevice].name;
-            param[@"email"] = [[[UIDevice currentDevice] identifierForVendor] UUIDString];
-            if (_kValue&&_kValue.length>0) {
-                param[@"pass"] = _kValue;
-            }
-            [_moviePlayer startPlay:param];
+//            NSMutableDictionary * param = [[NSMutableDictionary alloc]init];
+//            param[@"id"] =  _roomId;
+//            param[@"name"] = [UIDevice currentDevice].name;
+//            param[@"email"] = [[[UIDevice currentDevice] identifierForVendor] UUIDString];
+//            if (_kValue&&_kValue.length>0) {
+//                param[@"pass"] = _kValue;
+//            }
+//            [_moviePlayer startPlay:param];
+            [self startPlayer];
         }
     }
     else if (_moviePlayer.playerState == VHPlayerStatePlaying)//暂停
@@ -470,7 +517,22 @@ static AnnouncementView* announcementView = nil;
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+    
     [self initViews];
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    
+    [self startPlayer];
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    
+    [_moviePlayer pausePlay];
+
+    [_countDowwnView stopCountDown];
 }
 
 -(void)viewDidAppear:(BOOL)animated
@@ -692,11 +754,6 @@ static AnnouncementView* announcementView = nil;
 //    VHLog(@"downloadSpeed:%@",[info description]);
 }
 
-- (void)cdnSwitch:(VHallMoviePlayer*)moviePlayer info:(NSDictionary*)info
-{
-
-}
-
 - (void)recStreamtype:(VHallMoviePlayer*)moviePlayer info:(NSDictionary*)info
 {
     VHStreamType streamType = (VHStreamType)[info[@"content"] intValue];
@@ -901,6 +958,40 @@ static AnnouncementView* announcementView = nil;
     [_moviePlayer stopPlay];
     UIAlertView*alert = [[UIAlertView alloc]initWithTitle:@"提示" message:@"直播已结束" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
     [alert show];
+}
+
+- (void)moviePlayer:(VHallMoviePlayer *)player isInteractiveActivity:(BOOL)isInteractive interactivePermission:(VHInteractiveState)state
+{
+    //显示举手按钮
+    if (isInteractive && (state == VHInteractiveStateHave)) {
+        //[_countDowwnView showCountView];
+    }
+    //隐藏举手按钮
+    else {
+        //[_countDowwnView hiddenCountView];
+    }
+}
+// 同意上麦回调
+- (void)moviePlayer:(VHallMoviePlayer *)player microInvitationWithAttributes:(NSDictionary *)attributes error:(NSError *)error {
+    
+    if (error) {
+        VHLog(@"上麦error：%@",error.description);
+        [self showMsg:error.description afterDelay:3];
+        return;
+    }
+    
+    //进入互动
+    VHinteractiveViewController *controller = [[VHinteractiveViewController alloc] init];
+    controller.roomId = self.roomId;
+    [self presentViewController:controller animated:YES completion:^{
+        
+    }];
+}
+#pragma mark - MicCountDownViewDelegate
+//举手倒计时结束回调
+- (void)countDownViewDidEndCountDown:(MicCountDownView *)view {
+    //取消上麦申请
+    [_moviePlayer microApplyWithType:0];
 }
 
 #pragma mark - Announcement

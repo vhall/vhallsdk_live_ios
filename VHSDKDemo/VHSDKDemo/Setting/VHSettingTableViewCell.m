@@ -26,7 +26,7 @@
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
-
+    
     // Configure the view for the selected state
 }
 
@@ -134,7 +134,7 @@
 
 -(void)textFieldDidEndEditing:(UITextField *)textField
 {
-     _inputText([NSString stringWithFormat:@"%@",textField.text]);
+    _inputText([NSString stringWithFormat:@"%@",textField.text]);
 }
 
 

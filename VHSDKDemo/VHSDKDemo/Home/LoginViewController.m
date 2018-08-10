@@ -8,6 +8,7 @@
 
 #import "LoginViewController.h"
 #import "VHHomeViewController.h"
+#import "WHDebugToolManager.h"
 
 @interface LoginViewController ()<UIAlertViewDelegate>
 @property (weak, nonatomic) IBOutlet UILabel *versionLabel;
@@ -54,12 +55,14 @@
     __weak typeof(self) weekself = self;
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     [VHallApi loginWithAccount:DEMO_Setting.account password:DEMO_Setting.password success:^{
+        
         weekself.loginBtn.selected = [VHallApi isLoggedIn];
         [MBProgressHUD hideAllHUDsForView:weekself.view animated:YES];
         VHLog(@"Account: %@ userID:%@",[VHallApi currentAccount],[VHallApi currentUserID]);
         [weekself showMsg:@"登录成功" afterDelay:1.5];
         VHHomeViewController *homeVC=[[VHHomeViewController alloc] init];
         [weekself presentViewController:homeVC animated:YES completion:nil];
+        
     } failure:^(NSError * error) {
         weekself.loginBtn.selected = [VHallApi isLoggedIn];
         VHLog(@"登录失败%@",error);
@@ -103,6 +106,15 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     [self initViews];
+    
+    
+#ifdef DEBUG
+    //测试工具
+    [[WHDebugToolManager sharedInstance] toggleWith:DebugToolTypeMemory | DebugToolTypeCPU | DebugToolTypeFPS];
+#else
+    
+#endif
+
 }
 
 - (void)didReceiveMemoryWarning {

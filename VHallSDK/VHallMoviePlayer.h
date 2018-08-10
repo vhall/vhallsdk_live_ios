@@ -13,7 +13,7 @@
 
 @property(nonatomic,assign)id <VHallMoviePlayerDelegate> delegate;
 @property(nonatomic,strong,readonly)UIView * moviePlayerView;
-@property(nonatomic,assign)int timeout;                         //链接的超时时间 默认5000毫秒，单位为毫秒
+@property(nonatomic,assign)int timeout;                         //链接的超时时间 默认6000毫秒，单位为毫秒  MP4点播 最小10000毫秒
 //@property(nonatomic,assign)int reConnectTimes;                //RTMP 断开后的重连次数 默认 2次
 @property(nonatomic,assign)int bufferTime;                      //RTMP 的缓冲时间 默认 6秒 单位为秒 必须>0 值越小延时越小,卡顿增加
 @property(assign,readonly)int realityBufferTime;                //获取RTMP播放实际的缓冲时间
@@ -71,6 +71,15 @@
  *
  */
 -(BOOL)startPlay:(NSDictionary*)param;
+
+/**
+ *  观看直播上麦申请/取消申请
+ *
+ *  @param type
+ *  param[@"type"]        = 1举手，0取消举手
+ */
+- (BOOL)microApplyWithType:(NSInteger)type;
+
 
 /**
  *  观看回放视频   (仅HLS可用)
@@ -177,14 +186,6 @@
 - (void)downloadSpeed:(VHallMoviePlayer*)moviePlayer info:(NSDictionary*)info;
 
 /**
- *  cdn 发生切换时的回调
- *
- *  @param moviePlayer
- *  @param info
- */
-- (void)cdnSwitch:(VHallMoviePlayer*)moviePlayer info:(NSDictionary*)info;
-
-/**
  *  Streamtype
  *
  *  @param moviePlayer moviePlayer
@@ -253,6 +254,22 @@
  *  @param boardList  白板画笔
  */
 - (void)docHandList:(NSArray*)docList whiteBoardHandList:(NSArray*)boardList;
+
+/**
+ *  观看直播，互动权限变更回调。
+ *  @param player         VHallMoviePlayer实例
+ *  @param isInteractive  当前活动是否是互动活动
+ *  @param state          互动权限
+ */
+- (void)moviePlayer:(VHallMoviePlayer *)player isInteractiveActivity:(BOOL)isInteractive interactivePermission:(VHInteractiveState)state;
+
+/**
+ *  上麦回调
+ *  @param player       VHallMoviePlayer实例
+ *  @param attributes   参数
+ *  @param error        错误回调
+ */
+- (void)moviePlayer:(VHallMoviePlayer *)player microInvitationWithAttributes:(NSDictionary *)attributes error:(NSError *)error;
 
 #pragma mark - 点播
 /**

@@ -65,6 +65,9 @@ static VHStystemSetting *pub_sharedSetting = nil;
         
         //观看设置
         _bufferTimes    = [standardUserDefaults integerForKey:@"VHbufferTimes"];          //RTMP观看缓冲时间
+        _timeOut        = [standardUserDefaults integerForKey:@"VHtimeOut"];          //观看超时时间
+        if(_timeOut<=0)
+            _timeOut = 10;
         
         _account        = [standardUserDefaults objectForKey:@"VHaccount"];      //账号
         _password       = [standardUserDefaults objectForKey:@"VHpassword"];     //密码
@@ -144,6 +147,10 @@ static VHStystemSetting *pub_sharedSetting = nil;
             _appKey = nil;
             _appSecretKey = nil;
             [VHallApi registerApp:DEMO_AppKey SecretKey:DEMO_AppSecretKey];
+         
+            
+            NSString *pushRe = [standardUserDefaults objectForKey:@"VHInteractivePushResolution"];
+            _pushResolution = (pushRe)?pushRe:@"3";
         }
     }
     return self;
@@ -161,6 +168,16 @@ static VHStystemSetting *pub_sharedSetting = nil;
     }
     
     [[NSUserDefaults standardUserDefaults] setObject:_activityID forKey:@"VHactivityID"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+}
+
+- (void)setTimeOut:(NSInteger)timeOut
+{
+    if(timeOut<=0)
+        timeOut = 10;
+    
+    _timeOut = timeOut;
+    [[NSUserDefaults standardUserDefaults] setInteger:timeOut forKey:@"VHtimeOut"];
     [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
@@ -318,4 +335,14 @@ static VHStystemSetting *pub_sharedSetting = nil;
         [VHallApi registerApp:DEMO_AppKey SecretKey:DEMO_AppSecretKey];
     }
 }
+
+
+- (void)setPushResolution:(NSString *)pushResolution {
+    _pushResolution = pushResolution;
+    
+    [[NSUserDefaults standardUserDefaults] setObject:_pushResolution forKey:@"VHInteractivePushResolution"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+}
+
+
 @end
