@@ -258,6 +258,9 @@ static AnnouncementView* announcementView = nil;
     if (_kValue&&_kValue.length) {
         param[@"pass"] = _kValue;
     }
+    
+    VHLog(@"开始=== %f",[[NSDate date] timeIntervalSince1970]);
+    
     [_moviePlayer startPlayback:param];
 
     //播放器
@@ -486,7 +489,6 @@ static AnnouncementView* announcementView = nil;
             break;
     }
 
-    
     [self alertWithMessage:playMode];
 }
 
@@ -557,6 +559,9 @@ static AnnouncementView* announcementView = nil;
         case VHPlayerStatePlaying:
             [MBProgressHUD hideAllHUDsForView:self.moviePlayer.moviePlayerView animated:YES];
             _playMaskView.playButton.selected  = YES;
+            
+            VHLog(@"播放中=== %f",[[NSDate date] timeIntervalSince1970]);
+            
             break;
         case VHPlayerStatePause:
             _playMaskView.playButton.selected  = NO;

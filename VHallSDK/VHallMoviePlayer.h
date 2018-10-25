@@ -82,7 +82,7 @@
 
 
 /**
- *  观看回放视频   (仅HLS可用)
+ *  观看回放/点播视频
  *
  *  @param param
  *  param[@"id"]    = 活动Id 必传
@@ -94,18 +94,18 @@
 -(BOOL)startPlayback:(NSDictionary*)param;
 
 /**
- *  暂停直播播放,不会停止接收聊天 ppt等事件(只用直播活动)
+ *  暂停播放 （如果是直播，等同于stopPlay）
  */
 -(void)pausePlay;
 
 /**
- *  播放出错/pausePlay后恢复直播播放(只用直播活动)
+ *  播放出错/pausePlay后恢复播放
  *  @return NO 播放器不是暂停状态 或者已经结束
  */
 -(BOOL)reconnectPlay;
 
 /**
- *  停止直播
+ *  停止播放
  */
 -(void)stopPlay;
 

@@ -279,14 +279,6 @@
     [_cameraView switchCamera];
 }
 
-/**
- 关闭麦克风/摄像头两种处理方式：
- 1、直接关闭：直接关闭本地摄像头/麦克风，直接操作_cameraView即可实现
- 2、间接关闭：通过interactiveRoom，操作自己的设备开关，再接收到“消息”后，在消息中再处理本地摄像头/麦克风
- 
- 比较：1是直接操作本地摄像头/麦克风;2是通过SDK广播关闭设备的消息。
- */
-
 //麦克风按钮事件
 - (void)micBtnStatusChanged:(UIButton *)sender {
     //麦克风按钮图标变更

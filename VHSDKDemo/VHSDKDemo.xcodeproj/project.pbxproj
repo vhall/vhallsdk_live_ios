@@ -68,12 +68,9 @@
 		C012B64221199FB200F643E7 /* VhallSignalingDynamic.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C012B64121199FB200F643E7 /* VhallSignalingDynamic.framework */; };
 		C012B64321199FBD00F643E7 /* VhallSignalingDynamic.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C012B64121199FB200F643E7 /* VhallSignalingDynamic.framework */; };
 		C012B64421199FBD00F643E7 /* VhallSignalingDynamic.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C012B64121199FB200F643E7 /* VhallSignalingDynamic.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		C04637781EF77260002E70DE /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C04637771EF77260002E70DE /* Info.plist */; };
 		C064180B1EE01F44000C9C58 /* libUIModel.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C06418061EE01F44000C9C58 /* libUIModel.a */; };
 		C064180C1EE01F44000C9C58 /* UIModel.bundle in Resources */ = {isa = PBXBuildFile; fileRef = C06418071EE01F44000C9C58 /* UIModel.bundle */; };
 		C06BCC63211183FB0045EB04 /* VHSettingTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C06BCC62211183FB0045EB04 /* VHSettingTableViewCell.m */; };
-		C0A3E4E52109E10500C31A43 /* libVHallInteractive.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C0A3E4DF2109E10500C31A43 /* libVHallInteractive.a */; };
-		C0A3E4E62109E10500C31A43 /* libVhallSignaling.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C0A3E4E02109E10500C31A43 /* libVhallSignaling.a */; };
 		C0B945A8211AE2E0004D93FA /* WHDebugConsoleLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = C0B9459B211AE2E0004D93FA /* WHDebugConsoleLabel.m */; };
 		C0B945A9211AE2E0004D93FA /* WHDebugCpuMonitor.m in Sources */ = {isa = PBXBuildFile; fileRef = C0B9459D211AE2E0004D93FA /* WHDebugCpuMonitor.m */; };
 		C0B945AA211AE2E0004D93FA /* WHDebugFPSMonitor.m in Sources */ = {isa = PBXBuildFile; fileRef = C0B9459F211AE2E0004D93FA /* WHDebugFPSMonitor.m */; };
@@ -220,10 +217,6 @@
 		C064180A1EE01F44000C9C58 /* WatchPlayBackViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WatchPlayBackViewController.h; sourceTree = "<group>"; };
 		C06BCC61211183FB0045EB04 /* VHSettingTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VHSettingTableViewCell.h; sourceTree = "<group>"; };
 		C06BCC62211183FB0045EB04 /* VHSettingTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VHSettingTableViewCell.m; sourceTree = "<group>"; };
-		C0A3E4DF2109E10500C31A43 /* libVHallInteractive.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libVHallInteractive.a; sourceTree = "<group>"; };
-		C0A3E4E02109E10500C31A43 /* libVhallSignaling.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libVhallSignaling.a; sourceTree = "<group>"; };
-		C0A3E4E22109E10500C31A43 /* VHRenderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VHRenderView.h; sourceTree = "<group>"; };
-		C0A3E4E32109E10500C31A43 /* VHRoom.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VHRoom.h; sourceTree = "<group>"; };
 		C0B9459A211AE2E0004D93FA /* WHDebugConsoleLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WHDebugConsoleLabel.h; sourceTree = "<group>"; };
 		C0B9459B211AE2E0004D93FA /* WHDebugConsoleLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WHDebugConsoleLabel.m; sourceTree = "<group>"; };
 		C0B9459C211AE2E0004D93FA /* WHDebugCpuMonitor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WHDebugCpuMonitor.h; sourceTree = "<group>"; };
@@ -526,18 +519,6 @@
 			path = ../../UIModel;
 			sourceTree = "<group>";
 		};
-		C0A3E4DE2109E10500C31A43 /* VHallInteractive */ = {
-			isa = PBXGroup;
-			children = (
-				C06BCC23211014F30045EB04 /* VHInteractiveManager.h */,
-				C0A3E4DF2109E10500C31A43 /* libVHallInteractive.a */,
-				C0A3E4E02109E10500C31A43 /* libVhallSignaling.a */,
-				C0A3E4E22109E10500C31A43 /* VHRenderView.h */,
-				C0A3E4E32109E10500C31A43 /* VHRoom.h */,
-			);
-			path = VHallInteractive;
-			sourceTree = "<group>";
-		};
 		C0B94599211AE2E0004D93FA /* WHDebugTool */ = {
 			isa = PBXGroup;
 			children = (
@@ -674,7 +655,6 @@
 			files = (
 				C000AA511E66E053005DFB7C /* LaunchScreen.storyboard in Resources */,
 				C000AB2E1E66E893005DFB7C /* LoginViewController.xib in Resources */,
-				C04637781EF77260002E70DE /* Info.plist in Resources */,
 				C000AB0A1E66E66B005DFB7C /* CustomPickerView.xib in Resources */,
 				C0FABCE220EF101F003947C6 /* kodak.inf in Resources */,
 				C000AAAC1E66E546005DFB7C /* VHSettingViewController.xib in Resources */,

@@ -24,6 +24,12 @@ pod 'VHallSDK_Interactive' , :git => 'https://github.com/vhall/vhallsdk_live_ios
 
 ### 版本更新信息
 
+#### 版本 v3.2.1 更新时间：2018.10.25
+更新内容：<br>
+1、互动功能优化<br>
+2、解决流类型bug<br>
+3、新增swiftDemo<br>
+
 #### 版本 v3.2.0 更新时间：2018.08.10
 更新内容：<br>
 1、新增互动功能<br>

@@ -1,11 +1,11 @@
 Pod::Spec.new do |s|
   s.name         = "VHallSDK_Live"
-  s.version      = "3.2.0"
+  s.version      = "3.2.1"
   s.summary      = "VHallSDK for IOS"
   s.homepage     = "https://github.com/vhall/vhallsdk_live_ios"
   s.license      = "MIT"
   s.author       = { 'vhall' => 'xiaoxiang.wang@vhall.com' }
-  s.platform     = :ios, "7.0"
+  s.platform     = :ios, "8.0"
   s.source       = { :git => "https://github.com/vhall/vhallsdk_live_ios.git", :tag => s.version }
   s.source_files  = "VHallSDK/*"
   s.frameworks = "AVFoundation", "VideoToolbox","OpenAL","CoreMedia","CoreTelephony" ,"OpenGLES" ,"MediaPlayer" ,"AssetsLibrary","QuartzCore" ,"JavaScriptCore","Security"

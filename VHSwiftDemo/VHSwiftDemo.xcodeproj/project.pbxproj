@@ -1,0 +1,583 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 48;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		C049E38D2068986800A41801 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C049E38C2068986800A41801 /* AppDelegate.swift */; };
+		C049E38F2068986800A41801 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C049E38E2068986800A41801 /* ViewController.swift */; };
+		C049E3922068986800A41801 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C049E3902068986800A41801 /* Main.storyboard */; };
+		C049E3942068986800A41801 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C049E3932068986800A41801 /* Assets.xcassets */; };
+		C049E3972068986800A41801 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C049E3952068986800A41801 /* LaunchScreen.storyboard */; };
+		C049E3BE20689DF000A41801 /* JavaScriptCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C049E3BD20689DF000A41801 /* JavaScriptCore.framework */; };
+		C049E3C020689DFA00A41801 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C049E3BF20689DFA00A41801 /* Security.framework */; };
+		C049E3C220689E0500A41801 /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C049E3C120689E0500A41801 /* CoreMedia.framework */; };
+		C049E3C420689E0D00A41801 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C049E3C320689E0D00A41801 /* QuartzCore.framework */; };
+		C049E3C620689E1600A41801 /* OpenAL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C049E3C520689E1600A41801 /* OpenAL.framework */; };
+		C049E3C820689E2900A41801 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C049E3C720689E2900A41801 /* OpenGLES.framework */; };
+		C049E3CA20689E3200A41801 /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C049E3C920689E3200A41801 /* AssetsLibrary.framework */; };
+		C049E3CC20689E3A00A41801 /* VideoToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C049E3CB20689E3A00A41801 /* VideoToolbox.framework */; };
+		C049E3CE20689E4300A41801 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C049E3CD20689E4300A41801 /* AVFoundation.framework */; };
+		C049E3D020689E4C00A41801 /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C049E3CF20689E4C00A41801 /* MediaPlayer.framework */; };
+		C049E3D220689E5600A41801 /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C049E3D120689E5600A41801 /* CoreTelephony.framework */; };
+		C049E3D420689E6100A41801 /* libiconv.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = C049E3D320689E6100A41801 /* libiconv.tbd */; };
+		C049E3D620689E6A00A41801 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = C049E3D520689E6A00A41801 /* libz.tbd */; };
+		C049E3D820689E7700A41801 /* libicucore.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = C049E3D720689E7700A41801 /* libicucore.tbd */; };
+		C049E3DA20689E8300A41801 /* libbz2.1.0.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = C049E3D920689E8300A41801 /* libbz2.1.0.tbd */; };
+		C049E3DC20689E8D00A41801 /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = C049E3DB20689E8D00A41801 /* libc++.tbd */; };
+		C049E3F42068D36400A41801 /* libVHallFilterSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C049E3E42068D36400A41801 /* libVHallFilterSDK.a */; };
+		C049E3F52068D36400A41801 /* libGPUImage.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C049E3E62068D36400A41801 /* libGPUImage.a */; };
+		C049E3F72068D36400A41801 /* kodak.inf in Resources */ = {isa = PBXBuildFile; fileRef = C049E3EA2068D36400A41801 /* kodak.inf */; };
+		C049E3F92068D36400A41801 /* libVHallSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C049E3F22068D36400A41801 /* libVHallSDK.a */; };
+		C0967FBD2125485A00F75082 /* VhallLiveBaseApi.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C0967FBC2125485A00F75082 /* VhallLiveBaseApi.framework */; };
+		C0967FC52125486700F75082 /* libVHallInteractive.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C0967FBF2125486700F75082 /* libVHallInteractive.a */; };
+		C0967FC62125486700F75082 /* VhallSignalingDynamic.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C0967FC12125486700F75082 /* VhallSignalingDynamic.framework */; };
+		C0967FC72125486700F75082 /* WebRTC.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C0967FC42125486700F75082 /* WebRTC.framework */; };
+		C0967FC82125488200F75082 /* VhallSignalingDynamic.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C0967FC12125486700F75082 /* VhallSignalingDynamic.framework */; };
+		C0967FC92125488200F75082 /* VhallSignalingDynamic.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C0967FC12125486700F75082 /* VhallSignalingDynamic.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		C0967FCA2125488200F75082 /* WebRTC.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C0967FC42125486700F75082 /* WebRTC.framework */; };
+		C0967FCB2125488200F75082 /* WebRTC.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C0967FC42125486700F75082 /* WebRTC.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		C0967FCC2125488200F75082 /* VhallLiveBaseApi.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C0967FBC2125485A00F75082 /* VhallLiveBaseApi.framework */; };
+		C0967FCD2125488200F75082 /* VhallLiveBaseApi.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C0967FBC2125485A00F75082 /* VhallLiveBaseApi.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		C0967FD72125491D00F75082 /* libUIModel.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C0967FD12125491C00F75082 /* libUIModel.a */; };
+		C0967FD82125491D00F75082 /* UIModel.bundle in Resources */ = {isa = PBXBuildFile; fileRef = C0967FD22125491C00F75082 /* UIModel.bundle */; };
+		C0967FDA212553E900F75082 /* libxml2.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = C0967FD9212553E900F75082 /* libxml2.tbd */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		C0967FCE2125488200F75082 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				C0967FC92125488200F75082 /* VhallSignalingDynamic.framework in Embed Frameworks */,
+				C0967FCB2125488200F75082 /* WebRTC.framework in Embed Frameworks */,
+				C0967FCD2125488200F75082 /* VhallLiveBaseApi.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		C049E3892068986800A41801 /* VHSwiftDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VHSwiftDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		C049E38C2068986800A41801 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		C049E38E2068986800A41801 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		C049E3912068986800A41801 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		C049E3932068986800A41801 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		C049E3962068986800A41801 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		C049E3982068986800A41801 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C049E3BB20689C6700A41801 /* VHSwiftDemo-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "VHSwiftDemo-Bridging-Header.h"; sourceTree = "<group>"; };
+		C049E3BD20689DF000A41801 /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
+		C049E3BF20689DFA00A41801 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
+		C049E3C120689E0500A41801 /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
+		C049E3C320689E0D00A41801 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		C049E3C520689E1600A41801 /* OpenAL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenAL.framework; path = System/Library/Frameworks/OpenAL.framework; sourceTree = SDKROOT; };
+		C049E3C720689E2900A41801 /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
+		C049E3C920689E3200A41801 /* AssetsLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AssetsLibrary.framework; path = System/Library/Frameworks/AssetsLibrary.framework; sourceTree = SDKROOT; };
+		C049E3CB20689E3A00A41801 /* VideoToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = VideoToolbox.framework; path = System/Library/Frameworks/VideoToolbox.framework; sourceTree = SDKROOT; };
+		C049E3CD20689E4300A41801 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		C049E3CF20689E4C00A41801 /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
+		C049E3D120689E5600A41801 /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
+		C049E3D320689E6100A41801 /* libiconv.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libiconv.tbd; path = usr/lib/libiconv.tbd; sourceTree = SDKROOT; };
+		C049E3D520689E6A00A41801 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
+		C049E3D720689E7700A41801 /* libicucore.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libicucore.tbd; path = usr/lib/libicucore.tbd; sourceTree = SDKROOT; };
+		C049E3D920689E8300A41801 /* libbz2.1.0.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libbz2.1.0.tbd; path = usr/lib/libbz2.1.0.tbd; sourceTree = SDKROOT; };
+		C049E3DB20689E8D00A41801 /* libc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.tbd"; path = "usr/lib/libc++.tbd"; sourceTree = SDKROOT; };
+		C049E3DE2068D36400A41801 /* VHallComment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VHallComment.h; sourceTree = "<group>"; };
+		C049E3DF2068D36400A41801 /* VHallBasePlugin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VHallBasePlugin.h; sourceTree = "<group>"; };
+		C049E3E02068D36400A41801 /* VHallMoviePlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VHallMoviePlayer.h; sourceTree = "<group>"; };
+		C049E3E22068D36400A41801 /* VHallSign.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VHallSign.h; sourceTree = "<group>"; };
+		C049E3E42068D36400A41801 /* libVHallFilterSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libVHallFilterSDK.a; sourceTree = "<group>"; };
+		C049E3E52068D36400A41801 /* VHallLivePublishFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VHallLivePublishFilter.h; sourceTree = "<group>"; };
+		C049E3E62068D36400A41801 /* libGPUImage.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libGPUImage.a; sourceTree = "<group>"; };
+		C049E3E72068D36400A41801 /* VHallMsgModels.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VHallMsgModels.h; sourceTree = "<group>"; };
+		C049E3E82068D36400A41801 /* VHallApi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VHallApi.h; sourceTree = "<group>"; };
+		C049E3EA2068D36400A41801 /* kodak.inf */ = {isa = PBXFileReference; lastKnownFileType = file; path = kodak.inf; sourceTree = "<group>"; };
+		C049E3EB2068D36400A41801 /* VHallSurvey.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VHallSurvey.h; sourceTree = "<group>"; };
+		C049E3EC2068D36400A41801 /* VHallConst.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VHallConst.h; sourceTree = "<group>"; };
+		C049E3EE2068D36400A41801 /* VHallChat.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VHallChat.h; sourceTree = "<group>"; };
+		C049E3EF2068D36400A41801 /* VHallLivePublish.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VHallLivePublish.h; sourceTree = "<group>"; };
+		C049E3F02068D36400A41801 /* VHallQAndA.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VHallQAndA.h; sourceTree = "<group>"; };
+		C049E3F12068D36400A41801 /* VHallLottery.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VHallLottery.h; sourceTree = "<group>"; };
+		C049E3F22068D36400A41801 /* libVHallSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libVHallSDK.a; sourceTree = "<group>"; };
+		C0967FBC2125485A00F75082 /* VhallLiveBaseApi.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = VhallLiveBaseApi.framework; sourceTree = "<group>"; };
+		C0967FBF2125486700F75082 /* libVHallInteractive.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libVHallInteractive.a; sourceTree = "<group>"; };
+		C0967FC02125486700F75082 /* VHallInteractive.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VHallInteractive.h; sourceTree = "<group>"; };
+		C0967FC12125486700F75082 /* VhallSignalingDynamic.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = VhallSignalingDynamic.framework; sourceTree = "<group>"; };
+		C0967FC22125486700F75082 /* VHRenderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VHRenderView.h; sourceTree = "<group>"; };
+		C0967FC32125486700F75082 /* VHRoom.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VHRoom.h; sourceTree = "<group>"; };
+		C0967FC42125486700F75082 /* WebRTC.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = WebRTC.framework; sourceTree = "<group>"; };
+		C0967FD02125491C00F75082 /* LaunchLiveViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LaunchLiveViewController.h; sourceTree = "<group>"; };
+		C0967FD12125491C00F75082 /* libUIModel.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libUIModel.a; sourceTree = "<group>"; };
+		C0967FD22125491C00F75082 /* UIModel.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = UIModel.bundle; sourceTree = "<group>"; };
+		C0967FD32125491C00F75082 /* VHBaseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VHBaseViewController.h; sourceTree = "<group>"; };
+		C0967FD42125491C00F75082 /* VHinteractiveViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VHinteractiveViewController.h; sourceTree = "<group>"; };
+		C0967FD52125491C00F75082 /* WatchLiveViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WatchLiveViewController.h; sourceTree = "<group>"; };
+		C0967FD62125491C00F75082 /* WatchPlayBackViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WatchPlayBackViewController.h; sourceTree = "<group>"; };
+		C0967FD9212553E900F75082 /* libxml2.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libxml2.tbd; path = usr/lib/libxml2.tbd; sourceTree = SDKROOT; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		C049E3862068986800A41801 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C0967FDA212553E900F75082 /* libxml2.tbd in Frameworks */,
+				C049E3DC20689E8D00A41801 /* libc++.tbd in Frameworks */,
+				C049E3DA20689E8300A41801 /* libbz2.1.0.tbd in Frameworks */,
+				C0967FC52125486700F75082 /* libVHallInteractive.a in Frameworks */,
+				C0967FC82125488200F75082 /* VhallSignalingDynamic.framework in Frameworks */,
+				C049E3D820689E7700A41801 /* libicucore.tbd in Frameworks */,
+				C049E3D620689E6A00A41801 /* libz.tbd in Frameworks */,
+				C049E3D420689E6100A41801 /* libiconv.tbd in Frameworks */,
+				C0967FD72125491D00F75082 /* libUIModel.a in Frameworks */,
+				C049E3D220689E5600A41801 /* CoreTelephony.framework in Frameworks */,
+				C0967FCA2125488200F75082 /* WebRTC.framework in Frameworks */,
+				C049E3D020689E4C00A41801 /* MediaPlayer.framework in Frameworks */,
+				C049E3CE20689E4300A41801 /* AVFoundation.framework in Frameworks */,
+				C0967FC62125486700F75082 /* VhallSignalingDynamic.framework in Frameworks */,
+				C049E3CC20689E3A00A41801 /* VideoToolbox.framework in Frameworks */,
+				C049E3CA20689E3200A41801 /* AssetsLibrary.framework in Frameworks */,
+				C0967FCC2125488200F75082 /* VhallLiveBaseApi.framework in Frameworks */,
+				C0967FBD2125485A00F75082 /* VhallLiveBaseApi.framework in Frameworks */,
+				C049E3F92068D36400A41801 /* libVHallSDK.a in Frameworks */,
+				C0967FC72125486700F75082 /* WebRTC.framework in Frameworks */,
+				C049E3C820689E2900A41801 /* OpenGLES.framework in Frameworks */,
+				C049E3F42068D36400A41801 /* libVHallFilterSDK.a in Frameworks */,
+				C049E3C620689E1600A41801 /* OpenAL.framework in Frameworks */,
+				C049E3C420689E0D00A41801 /* QuartzCore.framework in Frameworks */,
+				C049E3F52068D36400A41801 /* libGPUImage.a in Frameworks */,
+				C049E3C220689E0500A41801 /* CoreMedia.framework in Frameworks */,
+				C049E3C020689DFA00A41801 /* Security.framework in Frameworks */,
+				C049E3BE20689DF000A41801 /* JavaScriptCore.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		C049E3802068986800A41801 = {
+			isa = PBXGroup;
+			children = (
+				C049E38B2068986800A41801 /* VHSwiftDemo */,
+				C049E38A2068986800A41801 /* Products */,
+				C049E3BC20689DEF00A41801 /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		C049E38A2068986800A41801 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				C049E3892068986800A41801 /* VHSwiftDemo.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		C049E38B2068986800A41801 /* VHSwiftDemo */ = {
+			isa = PBXGroup;
+			children = (
+				C0967FCF2125491C00F75082 /* UIModel */,
+				C049E3DD2068D36400A41801 /* VHallSDK */,
+				C049E38C2068986800A41801 /* AppDelegate.swift */,
+				C049E38E2068986800A41801 /* ViewController.swift */,
+				C049E3902068986800A41801 /* Main.storyboard */,
+				C049E3932068986800A41801 /* Assets.xcassets */,
+				C049E3952068986800A41801 /* LaunchScreen.storyboard */,
+				C049E3982068986800A41801 /* Info.plist */,
+				C049E3BB20689C6700A41801 /* VHSwiftDemo-Bridging-Header.h */,
+			);
+			path = VHSwiftDemo;
+			sourceTree = "<group>";
+		};
+		C049E3BC20689DEF00A41801 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				C0967FD9212553E900F75082 /* libxml2.tbd */,
+				C049E3DB20689E8D00A41801 /* libc++.tbd */,
+				C049E3D920689E8300A41801 /* libbz2.1.0.tbd */,
+				C049E3D720689E7700A41801 /* libicucore.tbd */,
+				C049E3D520689E6A00A41801 /* libz.tbd */,
+				C049E3D320689E6100A41801 /* libiconv.tbd */,
+				C049E3D120689E5600A41801 /* CoreTelephony.framework */,
+				C049E3CF20689E4C00A41801 /* MediaPlayer.framework */,
+				C049E3CD20689E4300A41801 /* AVFoundation.framework */,
+				C049E3CB20689E3A00A41801 /* VideoToolbox.framework */,
+				C049E3C920689E3200A41801 /* AssetsLibrary.framework */,
+				C049E3C720689E2900A41801 /* OpenGLES.framework */,
+				C049E3C520689E1600A41801 /* OpenAL.framework */,
+				C049E3C320689E0D00A41801 /* QuartzCore.framework */,
+				C049E3C120689E0500A41801 /* CoreMedia.framework */,
+				C049E3BF20689DFA00A41801 /* Security.framework */,
+				C049E3BD20689DF000A41801 /* JavaScriptCore.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		C049E3DD2068D36400A41801 /* VHallSDK */ = {
+			isa = PBXGroup;
+			children = (
+				C049E3DE2068D36400A41801 /* VHallComment.h */,
+				C049E3DF2068D36400A41801 /* VHallBasePlugin.h */,
+				C049E3E02068D36400A41801 /* VHallMoviePlayer.h */,
+				C049E3E22068D36400A41801 /* VHallSign.h */,
+				C0967FBE2125486700F75082 /* VHallInteractive */,
+				C0967FBC2125485A00F75082 /* VhallLiveBaseApi.framework */,
+				C049E3E32068D36400A41801 /* VHallFilterSDK */,
+				C049E3E72068D36400A41801 /* VHallMsgModels.h */,
+				C049E3E82068D36400A41801 /* VHallApi.h */,
+				C049E3EA2068D36400A41801 /* kodak.inf */,
+				C049E3EB2068D36400A41801 /* VHallSurvey.h */,
+				C049E3EC2068D36400A41801 /* VHallConst.h */,
+				C049E3EE2068D36400A41801 /* VHallChat.h */,
+				C049E3EF2068D36400A41801 /* VHallLivePublish.h */,
+				C049E3F02068D36400A41801 /* VHallQAndA.h */,
+				C049E3F12068D36400A41801 /* VHallLottery.h */,
+				C049E3F22068D36400A41801 /* libVHallSDK.a */,
+			);
+			name = VHallSDK;
+			path = ../../VHallSDK;
+			sourceTree = "<group>";
+		};
+		C049E3E32068D36400A41801 /* VHallFilterSDK */ = {
+			isa = PBXGroup;
+			children = (
+				C049E3E42068D36400A41801 /* libVHallFilterSDK.a */,
+				C049E3E52068D36400A41801 /* VHallLivePublishFilter.h */,
+				C049E3E62068D36400A41801 /* libGPUImage.a */,
+			);
+			path = VHallFilterSDK;
+			sourceTree = "<group>";
+		};
+		C0967FBE2125486700F75082 /* VHallInteractive */ = {
+			isa = PBXGroup;
+			children = (
+				C0967FBF2125486700F75082 /* libVHallInteractive.a */,
+				C0967FC02125486700F75082 /* VHallInteractive.h */,
+				C0967FC12125486700F75082 /* VhallSignalingDynamic.framework */,
+				C0967FC22125486700F75082 /* VHRenderView.h */,
+				C0967FC32125486700F75082 /* VHRoom.h */,
+				C0967FC42125486700F75082 /* WebRTC.framework */,
+			);
+			path = VHallInteractive;
+			sourceTree = "<group>";
+		};
+		C0967FCF2125491C00F75082 /* UIModel */ = {
+			isa = PBXGroup;
+			children = (
+				C0967FD02125491C00F75082 /* LaunchLiveViewController.h */,
+				C0967FD12125491C00F75082 /* libUIModel.a */,
+				C0967FD22125491C00F75082 /* UIModel.bundle */,
+				C0967FD32125491C00F75082 /* VHBaseViewController.h */,
+				C0967FD42125491C00F75082 /* VHinteractiveViewController.h */,
+				C0967FD52125491C00F75082 /* WatchLiveViewController.h */,
+				C0967FD62125491C00F75082 /* WatchPlayBackViewController.h */,
+			);
+			name = UIModel;
+			path = ../../UIModel;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		C049E3882068986800A41801 /* VHSwiftDemo */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C049E39B2068986800A41801 /* Build configuration list for PBXNativeTarget "VHSwiftDemo" */;
+			buildPhases = (
+				C049E3852068986800A41801 /* Sources */,
+				C049E3862068986800A41801 /* Frameworks */,
+				C049E3872068986800A41801 /* Resources */,
+				C0967FCE2125488200F75082 /* Embed Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = VHSwiftDemo;
+			productName = VHSwiftDemo;
+			productReference = C049E3892068986800A41801 /* VHSwiftDemo.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		C049E3812068986800A41801 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 0920;
+				LastUpgradeCheck = 0920;
+				ORGANIZATIONNAME = vhall;
+				TargetAttributes = {
+					C049E3882068986800A41801 = {
+						CreatedOnToolsVersion = 9.2;
+						ProvisioningStyle = Automatic;
+					};
+				};
+			};
+			buildConfigurationList = C049E3842068986800A41801 /* Build configuration list for PBXProject "VHSwiftDemo" */;
+			compatibilityVersion = "Xcode 8.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = C049E3802068986800A41801;
+			productRefGroup = C049E38A2068986800A41801 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				C049E3882068986800A41801 /* VHSwiftDemo */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		C049E3872068986800A41801 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C049E3972068986800A41801 /* LaunchScreen.storyboard in Resources */,
+				C049E3942068986800A41801 /* Assets.xcassets in Resources */,
+				C049E3F72068D36400A41801 /* kodak.inf in Resources */,
+				C0967FD82125491D00F75082 /* UIModel.bundle in Resources */,
+				C049E3922068986800A41801 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		C049E3852068986800A41801 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C049E38F2068986800A41801 /* ViewController.swift in Sources */,
+				C049E38D2068986800A41801 /* AppDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		C049E3902068986800A41801 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				C049E3912068986800A41801 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		C049E3952068986800A41801 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				C049E3962068986800A41801 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		C049E3992068986800A41801 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		C049E39A2068986800A41801 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		C049E39C2068986800A41801 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = S82ZX9394G;
+				ENABLE_BITCODE = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/VHSwiftDemo/../../VHallSDK",
+					"$(PROJECT_DIR)/VHSwiftDemo/../../VHallSDK/VHallInteractive",
+				);
+				HEADER_SEARCH_PATHS = "";
+				INFOPLIST_FILE = VHSwiftDemo/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/VHSwiftDemo/../../VHallSDK",
+					"$(PROJECT_DIR)/VHSwiftDemo/../../VHallSDK/VHallFilterSDK",
+					"$(PROJECT_DIR)/VHSwiftDemo/../../VHallSDK/VHallInteractive",
+					"$(PROJECT_DIR)/VHSwiftDemo/../../UIModel",
+				);
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_BUNDLE_IDENTIFIER = com.vhall.VHallSDKDemo;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "VHSwiftDemo/VHSwiftDemo-Bridging-Header.h";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = 1;
+				USER_HEADER_SEARCH_PATHS = "$(PROJECT_DIR)/VHSwiftDemo/VHallSDK/*.*";
+			};
+			name = Debug;
+		};
+		C049E39D2068986800A41801 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = S82ZX9394G;
+				ENABLE_BITCODE = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/VHSwiftDemo/../../VHallSDK",
+					"$(PROJECT_DIR)/VHSwiftDemo/../../VHallSDK/VHallInteractive",
+				);
+				HEADER_SEARCH_PATHS = "";
+				INFOPLIST_FILE = VHSwiftDemo/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/VHSwiftDemo/../../VHallSDK",
+					"$(PROJECT_DIR)/VHSwiftDemo/../../VHallSDK/VHallFilterSDK",
+					"$(PROJECT_DIR)/VHSwiftDemo/../../VHallSDK/VHallInteractive",
+					"$(PROJECT_DIR)/VHSwiftDemo/../../UIModel",
+				);
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_BUNDLE_IDENTIFIER = com.vhall.VHallSDKDemo;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "VHSwiftDemo/VHSwiftDemo-Bridging-Header.h";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = 1;
+				USER_HEADER_SEARCH_PATHS = "$(PROJECT_DIR)/VHSwiftDemo/VHallSDK/*.*";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		C049E3842068986800A41801 /* Build configuration list for PBXProject "VHSwiftDemo" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C049E3992068986800A41801 /* Debug */,
+				C049E39A2068986800A41801 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		C049E39B2068986800A41801 /* Build configuration list for PBXNativeTarget "VHSwiftDemo" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C049E39C2068986800A41801 /* Debug */,
+				C049E39D2068986800A41801 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = C049E3812068986800A41801 /* Project object */;
+}
