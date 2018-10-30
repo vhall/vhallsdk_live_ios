@@ -72,6 +72,11 @@ typedef void(^StatsCallback)(NSString* mediaType, long kbps, NSDictionary<NSStri
 - (instancetype)initCameraViewWithFrame:(CGRect)frame options:(NSDictionary*)options;
 
 /*
+ * 设置摄像头方向
+ *
+ */
+- (BOOL)setDeviceOrientation:(UIDeviceOrientation)deviceOrientation;
+/*
  * 画面填充模式
  * 默认 VHRenderViewScalingModeAspectFit
  */
