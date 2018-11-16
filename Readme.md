@@ -23,6 +23,10 @@ pod 'VHallSDK_LiveFilter' , :git => 'https://github.com/vhall/vhallsdk_live_ios.
 pod 'VHallSDK_Interactive' , :git => 'https://github.com/vhall/vhallsdk_live_ios.git'<br>
 
 ### 版本更新信息
+#### 版本 v3.2.2 更新时间：2018.11.16
+更新内容：<br>
+1、互动功能优化<br>
+2、互动支持iOS8.0<br>
 
 #### 版本 v3.2.1 更新时间：2018.10.25
 更新内容：<br>

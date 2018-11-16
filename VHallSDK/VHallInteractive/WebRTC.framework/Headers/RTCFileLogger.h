@@ -69,7 +69,7 @@ RTC_EXPORT
 
 // Returns the current contents of the logs, or nil if start has been called
 // without a stop.
-- (nullable NSData *)logData;
+- (NSData *)logData;
 
 @end
 

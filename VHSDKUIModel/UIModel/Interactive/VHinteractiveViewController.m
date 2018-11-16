@@ -344,6 +344,8 @@
         
         _cameraView = [[VHRenderView alloc] initCameraViewWithFrame:CGRectZero pushType:[re intValue] options:nil];
         _cameraView.scalingMode = VHRenderViewScalingModeAspectFill;
+        //设置摄像头旋转方向，注意：如需要转屏请自行监听屏转，设置摄像头orientation。
+        [_cameraView setDeviceOrientation:[UIDevice currentDevice].orientation];
     }
     return _cameraView;
 }

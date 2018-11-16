@@ -17,8 +17,7 @@
  * Enables gathering of metrics (which can be fetched with
  * RTCGetAndResetMetrics). Must be called before any other call into WebRTC.
  */
-RTC_EXTERN void RTCEnableMetrics(void);
+RTC_EXTERN void RTCEnableMetrics();
 
 /** Gets and clears native histograms. */
-RTC_EXTERN NSArray<RTCMetricsSampleInfo *> *RTCGetAndResetMetrics(void);
-
+RTC_EXTERN NSArray<RTCMetricsSampleInfo *> *RTCGetAndResetMetrics();

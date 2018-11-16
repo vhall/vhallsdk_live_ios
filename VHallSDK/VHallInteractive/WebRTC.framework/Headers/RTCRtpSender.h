@@ -10,7 +10,6 @@
 
 #import <Foundation/Foundation.h>
 
-#import <WebRTC/RTCDtmfSender.h>
 #import <WebRTC/RTCMacros.h>
 #import <WebRTC/RTCMediaStreamTrack.h>
 #import <WebRTC/RTCRtpParameters.h>
@@ -34,9 +33,6 @@ RTC_EXPORT
  *  RTCMediaStreamTrack instances.
  */
 @property(nonatomic, copy, nullable) RTCMediaStreamTrack *track;
-
-/** The RTCDtmfSender accociated with the RTP sender. */
-@property(nonatomic, readonly, nullable) id<RTCDtmfSender> dtmfSender;
 
 @end
 

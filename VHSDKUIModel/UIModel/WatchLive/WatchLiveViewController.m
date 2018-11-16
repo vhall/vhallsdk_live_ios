@@ -590,6 +590,8 @@ static AnnouncementView* announcementView = nil;
 
 - (void)dealloc
 {
+    [self destoryMoivePlayer];
+    
     if (_chat) {
         _chat = nil;
     }
@@ -964,11 +966,11 @@ static AnnouncementView* announcementView = nil;
 {
     //显示举手按钮
     if (isInteractive && (state == VHInteractiveStateHave)) {
-        //[_countDowwnView showCountView];
+        [_countDowwnView showCountView];
     }
     //隐藏举手按钮
     else {
-        //[_countDowwnView hiddenCountView];
+        [_countDowwnView hiddenCountView];
     }
 }
 // 同意上麦回调
