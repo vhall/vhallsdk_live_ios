@@ -206,7 +206,6 @@
 		C000AB2B1E66E893005DFB7C /* VHHomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VHHomeViewController.m; sourceTree = "<group>"; };
 		C000AB2C1E66E893005DFB7C /* VHHomeViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = VHHomeViewController.xib; sourceTree = "<group>"; };
 		C012B64121199FB200F643E7 /* VhallSignalingDynamic.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = VhallSignalingDynamic.framework; sourceTree = "<group>"; };
-		C02769AC210B1E0B002AEE46 /* libVHallAnalytics.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libVHallAnalytics.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		C02AD56F1E67E7DA00173A99 /* libUIModel.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libUIModel.a; path = "../../../../../Library/Developer/Xcode/DerivedData/VHSDKDemo-abkzzrcrxstqnodkpgwjdjpgmldz/Build/Products/Debug-iphoneos/libUIModel.a"; sourceTree = "<group>"; };
 		C04637771EF77260002E70DE /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C06418051EE01F44000C9C58 /* LaunchLiveViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LaunchLiveViewController.h; sourceTree = "<group>"; };
@@ -245,7 +244,6 @@
 		C0B952F020E384AE007E9E61 /* VHallSign.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VHallSign.h; sourceTree = "<group>"; };
 		C0B952F120E384AE007E9E61 /* VHallSurvey.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VHallSurvey.h; sourceTree = "<group>"; };
 		C0EDA41321183E1600021602 /* libVHallInteractive.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libVHallInteractive.a; sourceTree = "<group>"; };
-		C0EDA41521183E1600021602 /* VHallInteractive.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VHallInteractive.h; sourceTree = "<group>"; };
 		C0EDA41621183E1600021602 /* VHRenderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VHRenderView.h; sourceTree = "<group>"; };
 		C0EDA41721183E1600021602 /* VHRoom.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VHRoom.h; sourceTree = "<group>"; };
 		C0EDA41821183E1600021602 /* WebRTC.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = WebRTC.framework; sourceTree = "<group>"; };
@@ -359,7 +357,6 @@
 		C000AA761E66E186005DFB7C /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				C02769AC210B1E0B002AEE46 /* libVHallAnalytics.a */,
 				2FA3F1A71F564C9900E2E436 /* libxml2.2.tbd */,
 				2F6B05B61E94FF800010E0C7 /* libc++.tbd */,
 				C02AD56F1E67E7DA00173A99 /* libUIModel.a */,
@@ -569,7 +566,6 @@
 			isa = PBXGroup;
 			children = (
 				C0EDA41321183E1600021602 /* libVHallInteractive.a */,
-				C0EDA41521183E1600021602 /* VHallInteractive.h */,
 				C0EDA41621183E1600021602 /* VHRenderView.h */,
 				C0EDA41721183E1600021602 /* VHRoom.h */,
 				C012B64121199FB200F643E7 /* VhallSignalingDynamic.framework */,

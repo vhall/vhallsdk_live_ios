@@ -24,11 +24,26 @@
  */
 - (void)reciveCustomMsg:(NSArray *)msgs;
 
+/**
+ * 收到被禁言/取消禁言
+ */
+- (void)forbidChat:(BOOL)forbidChat;
+
+/**
+ * 收到全体禁言/取消全体禁言
+ */
+- (void)allForbidChat:(BOOL)allForbidChat;
+
 @end
 
 @interface VHallChat : VHallBasePlugin
 
 @property (nonatomic, assign) id <VHallChatDelegate> delegate;
+
+/**
+ * 是否被禁言
+ */
+@property (nonatomic, assign,readonly) BOOL isSpeakBlocked;
 
 /**
  * 发送聊天内容

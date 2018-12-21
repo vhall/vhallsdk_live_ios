@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name         = "VHallSDK_LiveFilter"
-  s.version      = "3.2.2"
+  s.version      = "3.2.3"
   s.summary      = "VHallSDK for IOS"
   s.homepage     = "https://github.com/vhall/vhallsdk_live_ios"
   s.license      = "MIT"

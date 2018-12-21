@@ -141,4 +141,19 @@ typedef NS_ENUM(NSInteger, VHRoomDevice) {
  */
 - (void)room:(VHRoom *)room interactiveMsgWithEventName:(NSString *)eventName attribute:(id)attributes;
 
+/*
+ * iskickout 被踢出房间
+ */
+- (void)room:(VHRoom *)room iskickout:(BOOL)iskickout;
+
+/**
+ * 收到被禁言/取消禁言
+ */
+- (void)room:(VHRoom *)room forbidChat:(BOOL)forbidChat;
+
+/**
+ * 收到全体禁言/取消全体禁言
+ */
+- (void)room:(VHRoom *)room allForbidChat:(BOOL)allForbidChat;
+
 @end

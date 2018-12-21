@@ -16,7 +16,7 @@
 /**
  * 活动Model 活动正常开始后 才会有值
  */
-@property (nonatomic,strong,readonly) VHallActivityModel *activityModel;
+@property (nonatomic,weak,readonly) VHallActivityModel *activityModel;
 
 /**
  * 初始化功能模块

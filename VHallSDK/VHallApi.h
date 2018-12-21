@@ -43,6 +43,15 @@
 + (void)registerApp:(NSString *)appKey SecretKey:(NSString *)secretKey;
 
 /*！
+ *  注册app
+ *  需要在 application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions 中调用
+ *  @param appKey       vhall后台注册生成的appkey
+ *  @param secretKey    vhall后台注册生成的appsecretKey
+ *  @param host  微吼服务所在域名 原vhall客户可以不填
+ */
++ (void)registerApp:(NSString *)appKey SecretKey:(NSString *)secretKey host:(NSString*)host;
+
+/*！
  *  设置日志类型
  *  @param type 日志类型
  */

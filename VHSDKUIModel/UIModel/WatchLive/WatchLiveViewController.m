@@ -437,6 +437,11 @@ static AnnouncementView* announcementView = nil;
 #pragma mark 发送聊天按钮
 - (IBAction)sendChatBtnClick:(id)sender
 {
+    if(_chat.isSpeakBlocked)
+    {
+        [self showMsg:@"您已被禁言" afterDelay:1];
+        return;
+    }
     
     _toolViewBackView=[[UIButton alloc] initWithFrame:CGRectMake(0, 0, VH_SW, VH_SH)];
     _toolViewBackView.backgroundColor=[UIColor clearColor];
@@ -989,6 +994,13 @@ static AnnouncementView* announcementView = nil;
         
     }];
 }
+- (void)moviePlayer:(VHallMoviePlayer*)player isKickout:(BOOL)isKickout
+{
+    VHLog(@"您已被踢出");
+    _startAndStopBtn.selected = NO;
+    UIAlertView*alert = [[UIAlertView alloc]initWithTitle:@"提示" message:@"您已被踢出" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+    [alert show];
+}
 #pragma mark - MicCountDownViewDelegate
 //举手倒计时结束回调
 - (void)countDownViewDidEndCountDown:(MicCountDownView *)view {
@@ -1072,6 +1084,14 @@ static AnnouncementView* announcementView = nil;
     }
 }
 
+- (void)forbidChat:(BOOL) forbidChat
+{
+    [self showMsg:forbidChat?@"被禁言":@"取消禁言" afterDelay:2];
+}
+- (void)allForbidChat:(BOOL) allForbidChat
+{
+    [self showMsg:allForbidChat?@"全体禁言":@"取消全体禁言" afterDelay:2];
+}
 #pragma mark - VHallQAndADelegate
 - (void)reciveQAMsg:(NSArray *)msgs
 {

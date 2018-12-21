@@ -23,6 +23,7 @@
 #define DEMO_account        @"" //api注册账号 对应 third_user_id 详见：http://www.vhall.com/index.php?r=doc/detail/index&project_id=4&doc_id=70
 #define DEMO_password       @"" //密码 对应 pass字段
 
+
 //#if DEBUG  // 调试状态, 打开LOG功能
 #define VHLog(...) NSLog(__VA_ARGS__)
 //#else // 发布状态, 关闭LOG功能

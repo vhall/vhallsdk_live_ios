@@ -271,6 +271,13 @@
  */
 - (void)moviePlayer:(VHallMoviePlayer *)player microInvitationWithAttributes:(NSDictionary *)attributes error:(NSError *)error;
 
+/**
+ *  被踢出
+ *
+ *  @param player player
+ *  @param isKickout 被踢出 取消踢出后需要重新进入
+ */
+- (void)moviePlayer:(VHallMoviePlayer*)player isKickout:(BOOL)isKickout;
 #pragma mark - 点播
 /**
  *  statusDidChange

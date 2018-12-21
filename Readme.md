@@ -23,6 +23,11 @@ pod 'VHallSDK_LiveFilter' , :git => 'https://github.com/vhall/vhallsdk_live_ios.
 pod 'VHallSDK_Interactive' , :git => 'https://github.com/vhall/vhallsdk_live_ios.git'<br>
 
 ### 版本更新信息
+#### 版本 v3.2.3 更新时间：2018.12.21
+更新内容：<br>
+1、观看直播新增禁言、取消禁言<br>
+2、观看直播新增踢出<br>
+
 #### 版本 v3.2.2 更新时间：2018.11.16
 更新内容：<br>
 1、互动功能优化<br>
