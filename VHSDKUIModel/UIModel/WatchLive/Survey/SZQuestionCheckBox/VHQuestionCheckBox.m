@@ -211,20 +211,20 @@
             NSString *str = dict[@"marked"];
             if (str.length > 0)
             {
-                [tempDic setValue:@"1" forKey:[NSString stringWithFormat:@"%ld",i]];
+                [tempDic setValue:@"1" forKey:[NSString stringWithFormat:@"%d",i]];
             }else
             {
-                [tempDic setValue:@"0" forKey:[NSString stringWithFormat:@"%ld",i]];
+                [tempDic setValue:@"0" forKey:[NSString stringWithFormat:@"%d",i]];
             }
         }else
         {
             NSArray *array = dict[@"marked"];
             if ([array containsObject:@"YES"] || [array containsObject:@"yes"] || [array containsObject:@(1)] || [array containsObject:@"1"])
             {
-                [tempDic setValue:@"1" forKey:[NSString stringWithFormat:@"%ld",i]];
+                [tempDic setValue:@"1" forKey:[NSString stringWithFormat:@"%d",i]];
             }else
             {
-              [tempDic setValue:@"0" forKey:[NSString stringWithFormat:@"%ld",i]];
+              [tempDic setValue:@"0" forKey:[NSString stringWithFormat:@"%d",i]];
                
             }
         }

@@ -38,18 +38,18 @@ typedef NS_ENUM(NSInteger,VHLiveStatus)
 };
 
 /**
- * 摄像头取景方向
- */
+ * 摄像头取景方向 迁移到 VHPublishConfig.h
+ *
 typedef NS_ENUM(NSInteger,VHDeviceOrientation)
 {
     VHDevicePortrait                    = 0,    //摄像头在上边
     VHDeviceLandSpaceLeft               = 1,    //摄像头在左边
     VHDeviceLandSpaceRight              = 2     //摄像头在右边 暂不支持
 };
-
+*/
 /**
- * 推流视频分辨率
- */
+ * 推流视频分辨率 迁移到 VHPublishConfig.h
+ *
 typedef NS_ENUM(NSInteger,VHVideoResolution)
 {
     VHLowVideoResolution                = 0,    //低分边率  352*288
@@ -57,7 +57,7 @@ typedef NS_ENUM(NSInteger,VHVideoResolution)
     VHHVideoResolution                  = 2,    //高分辨率  960*540
     VHHDVideoResolution                 = 3     //超高分辨率 1280*720
 };
-
+ */
 #pragma mark - 观看端常量定义
 /**
  * 观看端错误事件
@@ -84,8 +84,8 @@ typedef NS_ENUM(NSInteger,VHRTMPMovieScalingMode)
 };
 
 /**
- * 直播流类型
- */
+ * 直播流类型  迁移到 VHPublishConfig.h
+ 
 typedef NS_ENUM(NSInteger,VHStreamType)
 {
     VHStreamTypeNone                    = 0,    //未知
@@ -93,6 +93,7 @@ typedef NS_ENUM(NSInteger,VHStreamType)
     VHStreamTypeOnlyVideo               = 2,    //纯视频无音频
     VHStreamTypeOnlyAudio               = 3,    //纯音频
 };
+ */
 
 /**
  *  视频渲染模式

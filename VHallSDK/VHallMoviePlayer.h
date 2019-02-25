@@ -47,9 +47,10 @@
 @property(nonatomic,assign)VHMovieDefinition curDefinition;
 
 /**
+ *   注意 已废弃内部会自行设置
  *   设置渲染视图 在VideoPlayMode:isVrVideo: 中设置 默认VHRenderModelNone 必须设置否则会出现黑屏
  */
-@property(nonatomic,assign)VHRenderModel renderViewModel;
+//@property(nonatomic,assign)VHRenderModel renderViewModel;
 
 /**
  *  初始化VHMoviePlayer对象
@@ -73,12 +74,17 @@
 -(BOOL)startPlay:(NSDictionary*)param;
 
 /**
- *  观看直播上麦申请/取消申请
- *
- *  @param type
- *  param[@"type"]        = 1举手，0取消举手
+ *  发送 申请上麦/取消申请 消息
+ *  @param type 1举手，0取消举手
  */
 - (BOOL)microApplyWithType:(NSInteger)type;
+
+/**
+ *  发送 申请上麦/取消申请 消息
+ *  @param type 1举手，0取消举手
+ *  @param finishBlock 消息发送结果
+ */
+- (BOOL)microApplyWithType:(NSInteger)type finish:(void(^)(NSError *error))finishBlock;
 
 
 /**
@@ -256,20 +262,27 @@
 - (void)docHandList:(NSArray*)docList whiteBoardHandList:(NSArray*)boardList;
 
 /**
- *  观看直播，互动权限变更回调。
+ *  是否允许举手申请上麦 回调。
  *  @param player         VHallMoviePlayer实例
- *  @param isInteractive  当前活动是否是互动活动
- *  @param state          互动权限
+ *  @param isInteractive  当前活动是否支持互动功能
+ *  @param state          主持人是否允许举手
  */
 - (void)moviePlayer:(VHallMoviePlayer *)player isInteractiveActivity:(BOOL)isInteractive interactivePermission:(VHInteractiveState)state;
 
 /**
- *  上麦回调
+ *  主持人是否同意上麦申请回调
  *  @param player       VHallMoviePlayer实例
- *  @param attributes   参数
- *  @param error        错误回调
+ *  @param attributes   参数 收到的数据
+ *  @param error        错误回调 nil 同意上麦 不为空为不同意上麦
  */
 - (void)moviePlayer:(VHallMoviePlayer *)player microInvitationWithAttributes:(NSDictionary *)attributes error:(NSError *)error;
+
+/**
+ *  主持人邀请你上麦
+ *  @param player       VHallMoviePlayer实例
+ *  @param attributes   参数 收到的数据
+ */
+- (void)moviePlayer:(VHallMoviePlayer *)player microInvitation:(NSDictionary *)attributes;
 
 /**
  *  被踢出

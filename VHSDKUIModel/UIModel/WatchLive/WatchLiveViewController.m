@@ -19,7 +19,6 @@
 #import "AnnouncementView.h"
 #import "SignView.h"
 #import "BarrageRenderer.h"
-#import "NSSafeObject.h"
 #import "SZQuestionItem.h"
 #import "VHQuestionCheckBox.h"
 #import "Reachability.h"
@@ -29,10 +28,12 @@
 #import "MicCountDownView.h"
 #import "VHinteractiveViewController.h"
 
+#import "VHInvitationAlert.h"
+
 # define DebugLog(fmt, ...) NSLog((@"\n[文件名:%s]\n""[函数名:%s]\n""[行号:%d] \n" fmt), __FILE__, __FUNCTION__, __LINE__, ##__VA_ARGS__);
 
 static AnnouncementView* announcementView = nil;
-@interface WatchLiveViewController ()<VHallMoviePlayerDelegate, VHallChatDelegate, VHallQADelegate, VHallLotteryDelegate,VHallSignDelegate,VHallSurveyDelegate, UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate,VHMessageToolBarDelegate,MicCountDownViewDelegate>
+@interface WatchLiveViewController ()<VHallMoviePlayerDelegate, VHallChatDelegate, VHallQADelegate, VHallLotteryDelegate,VHallSignDelegate,VHallSurveyDelegate, UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate,VHMessageToolBarDelegate,MicCountDownViewDelegate,VHInvitationAlertDelegate>
 {
     __weak IBOutlet UIView *_showView;
 
@@ -110,6 +111,8 @@ static AnnouncementView* announcementView = nil;
 @property (nonatomic, strong) VHallMoviePlayer  *moviePlayer;//播放器
 
 @property (nonatomic, strong) MicCountDownView *countDowwnView;
+@property (nonatomic, strong) VHInvitationAlert *invitationAlertView;
+
 
 @end
 
@@ -177,6 +180,7 @@ static AnnouncementView* announcementView = nil;
     _logView.contentMode = UIViewContentModeCenter;
     
     self.view.backgroundColor=[UIColor blackColor];
+    _moviePlayer.moviePlayerView.frame = self.backView.bounds;
     [self.backView addSubview:_moviePlayer.moviePlayerView];
     [self.backView sendSubviewToBack:_moviePlayer.moviePlayerView];
     [_moviePlayer.moviePlayerView addSubview:_logView];    
@@ -330,13 +334,19 @@ static AnnouncementView* announcementView = nil;
         //开启上麦倒计时
         [_countDowwnView countdDown:30];
         //申请上麦
-        [_moviePlayer microApplyWithType:1];
+        [_moviePlayer microApplyWithType:1 finish:^(NSError *error) {
+            if(error)
+                NSLog(@"申请上麦失败 %@",error.domain);
+        }];
     }
     else {
         //停止倒计时
         [_countDowwnView stopCountDown];
         //取消上麦申请
-        [_moviePlayer microApplyWithType:0];
+        [_moviePlayer microApplyWithType:0 finish:^(NSError *error) {
+            if(error)
+                NSLog(@"取消申请上麦失败 %@",error.domain);
+        }];
     }
 }
 
@@ -729,10 +739,10 @@ static AnnouncementView* announcementView = nil;
 
 
 #pragma mark - VHMoviePlayerDelegate
--(void)moviePlayerWillMoveFromWindow
+- (void)moviePlayer:(VHallMoviePlayer *)player statusDidChange:(int)state
 {
+    
 }
-
 -(void)connectSucceed:(VHallMoviePlayer *)moviePlayer info:(NSDictionary *)info
 {
   //  [_startAndStopBtn setTitle:@"停止播放" forState:UIControlStateNormal];
@@ -876,14 +886,14 @@ static AnnouncementView* announcementView = nil;
         {
             _GyroBtn.hidden = NO;
             _GyroBtn.selected = YES;
-            [_moviePlayer setRenderViewModel:VHRenderModelDewarpVR];
+//            [_moviePlayer setRenderViewModel:VHRenderModelDewarpVR];
             [_moviePlayer setUsingGyro:YES];
             
         }else
         {
             _GyroBtn.hidden =YES;
             _GyroBtn.selected = NO;
-            [_moviePlayer setRenderViewModel:VHRenderModelOrigin];
+//            [_moviePlayer setRenderViewModel:VHRenderModelOrigin];
             [_moviePlayer setUsingGyro:NO];
             [self addPanGestureRecognizer];
         }
@@ -966,7 +976,7 @@ static AnnouncementView* announcementView = nil;
     UIAlertView*alert = [[UIAlertView alloc]initWithTitle:@"提示" message:@"直播已结束" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
     [alert show];
 }
-
+// 主持人是否允许举手
 - (void)moviePlayer:(VHallMoviePlayer *)player isInteractiveActivity:(BOOL)isInteractive interactivePermission:(VHInteractiveState)state
 {
     //显示举手按钮
@@ -978,21 +988,23 @@ static AnnouncementView* announcementView = nil;
         [_countDowwnView hiddenCountView];
     }
 }
-// 同意上麦回调
+// 主持人同意上麦回调
 - (void)moviePlayer:(VHallMoviePlayer *)player microInvitationWithAttributes:(NSDictionary *)attributes error:(NSError *)error {
     
-    if (error) {
-        VHLog(@"上麦error：%@",error.description);
-        [self showMsg:error.description afterDelay:3];
-        return;
+    if (!error) {
+        //进入互动
+        VHinteractiveViewController *controller = [[VHinteractiveViewController alloc] init];
+        controller.roomId = self.roomId;
+        [self presentViewController:controller animated:YES completion:^{
+            
+        }];
     }
-    
-    //进入互动
-    VHinteractiveViewController *controller = [[VHinteractiveViewController alloc] init];
-    controller.roomId = self.roomId;
-    [self presentViewController:controller animated:YES completion:^{
-        
-    }];
+}
+// 主持人邀请你上麦
+- (void)moviePlayer:(VHallMoviePlayer *)player microInvitation:(NSDictionary *)attributes
+{
+    _invitationAlertView = [[VHInvitationAlert alloc]initWithDelegate:self tag:1000 title:@"上麦邀请" content:@"主持人邀请您上麦，是否接受？"];
+    [self.view addSubview:_invitationAlertView];
 }
 - (void)moviePlayer:(VHallMoviePlayer*)player isKickout:(BOOL)isKickout
 {
@@ -1001,11 +1013,30 @@ static AnnouncementView* announcementView = nil;
     UIAlertView*alert = [[UIAlertView alloc]initWithTitle:@"提示" message:@"您已被踢出" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
     [alert show];
 }
+
+#pragma mark - VHInvitationAlertDelegate
+- (void)alert:(VHInvitationAlert *)alert clickAtIndex:(NSInteger)index
+{
+    [alert removeFromSuperview];
+    alert = nil;
+    if(index == 1)
+    {
+        //进入互动
+        VHinteractiveViewController *controller = [[VHinteractiveViewController alloc] init];
+        controller.roomId = self.roomId;
+        [self presentViewController:controller animated:YES completion:^{
+            
+        }];
+    }
+}
 #pragma mark - MicCountDownViewDelegate
 //举手倒计时结束回调
 - (void)countDownViewDidEndCountDown:(MicCountDownView *)view {
     //取消上麦申请
-    [_moviePlayer microApplyWithType:0];
+    [_moviePlayer microApplyWithType:0 finish:^(NSError *error) {
+        if(error)
+            NSLog(@"取消申请上麦失败 %@",error.domain);
+    }];
 }
 
 #pragma mark - Announcement

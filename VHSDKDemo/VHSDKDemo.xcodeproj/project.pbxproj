@@ -68,8 +68,11 @@
 		C012B64221199FB200F643E7 /* VhallSignalingDynamic.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C012B64121199FB200F643E7 /* VhallSignalingDynamic.framework */; };
 		C012B64321199FBD00F643E7 /* VhallSignalingDynamic.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C012B64121199FB200F643E7 /* VhallSignalingDynamic.framework */; };
 		C012B64421199FBD00F643E7 /* VhallSignalingDynamic.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C012B64121199FB200F643E7 /* VhallSignalingDynamic.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		C064180B1EE01F44000C9C58 /* libUIModel.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C06418061EE01F44000C9C58 /* libUIModel.a */; };
-		C064180C1EE01F44000C9C58 /* UIModel.bundle in Resources */ = {isa = PBXBuildFile; fileRef = C06418071EE01F44000C9C58 /* UIModel.bundle */; };
+		C016EC2C21D0EE4200139DDD /* libBarrageRenderer.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C016EC2221D0EE4200139DDD /* libBarrageRenderer.a */; };
+		C016EC2D21D0EE4200139DDD /* libMasonry.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C016EC2321D0EE4200139DDD /* libMasonry.a */; };
+		C016EC3021D0EE4200139DDD /* libUIModel.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C016EC2621D0EE4200139DDD /* libUIModel.a */; };
+		C016EC3121D0EE4200139DDD /* UIModel.bundle in Resources */ = {isa = PBXBuildFile; fileRef = C016EC2721D0EE4200139DDD /* UIModel.bundle */; };
+		C016EC4D21D0FCD000139DDD /* libReachability.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C016EC4C21D0FCD000139DDD /* libReachability.a */; };
 		C06BCC63211183FB0045EB04 /* VHSettingTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C06BCC62211183FB0045EB04 /* VHSettingTableViewCell.m */; };
 		C0B945A8211AE2E0004D93FA /* WHDebugConsoleLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = C0B9459B211AE2E0004D93FA /* WHDebugConsoleLabel.m */; };
 		C0B945A9211AE2E0004D93FA /* WHDebugCpuMonitor.m in Sources */ = {isa = PBXBuildFile; fileRef = C0B9459D211AE2E0004D93FA /* WHDebugCpuMonitor.m */; };
@@ -206,14 +209,18 @@
 		C000AB2B1E66E893005DFB7C /* VHHomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VHHomeViewController.m; sourceTree = "<group>"; };
 		C000AB2C1E66E893005DFB7C /* VHHomeViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = VHHomeViewController.xib; sourceTree = "<group>"; };
 		C012B64121199FB200F643E7 /* VhallSignalingDynamic.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = VhallSignalingDynamic.framework; sourceTree = "<group>"; };
+		C016EC2021D0EE4200139DDD /* LaunchLiveViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LaunchLiveViewController.h; sourceTree = "<group>"; };
+		C016EC2221D0EE4200139DDD /* libBarrageRenderer.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libBarrageRenderer.a; sourceTree = "<group>"; };
+		C016EC2321D0EE4200139DDD /* libMasonry.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libMasonry.a; sourceTree = "<group>"; };
+		C016EC2621D0EE4200139DDD /* libUIModel.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libUIModel.a; sourceTree = "<group>"; };
+		C016EC2721D0EE4200139DDD /* UIModel.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = UIModel.bundle; sourceTree = "<group>"; };
+		C016EC2821D0EE4200139DDD /* VHBaseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VHBaseViewController.h; sourceTree = "<group>"; };
+		C016EC2921D0EE4200139DDD /* VHinteractiveViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VHinteractiveViewController.h; sourceTree = "<group>"; };
+		C016EC2A21D0EE4200139DDD /* WatchLiveViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WatchLiveViewController.h; sourceTree = "<group>"; };
+		C016EC2B21D0EE4200139DDD /* WatchPlayBackViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WatchPlayBackViewController.h; sourceTree = "<group>"; };
+		C016EC4C21D0FCD000139DDD /* libReachability.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libReachability.a; sourceTree = "<group>"; };
 		C02AD56F1E67E7DA00173A99 /* libUIModel.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libUIModel.a; path = "../../../../../Library/Developer/Xcode/DerivedData/VHSDKDemo-abkzzrcrxstqnodkpgwjdjpgmldz/Build/Products/Debug-iphoneos/libUIModel.a"; sourceTree = "<group>"; };
 		C04637771EF77260002E70DE /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		C06418051EE01F44000C9C58 /* LaunchLiveViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LaunchLiveViewController.h; sourceTree = "<group>"; };
-		C06418061EE01F44000C9C58 /* libUIModel.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libUIModel.a; sourceTree = "<group>"; };
-		C06418071EE01F44000C9C58 /* UIModel.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = UIModel.bundle; sourceTree = "<group>"; };
-		C06418081EE01F44000C9C58 /* VHBaseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VHBaseViewController.h; sourceTree = "<group>"; };
-		C06418091EE01F44000C9C58 /* WatchLiveViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WatchLiveViewController.h; sourceTree = "<group>"; };
-		C064180A1EE01F44000C9C58 /* WatchPlayBackViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WatchPlayBackViewController.h; sourceTree = "<group>"; };
 		C06BCC61211183FB0045EB04 /* VHSettingTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VHSettingTableViewCell.h; sourceTree = "<group>"; };
 		C06BCC62211183FB0045EB04 /* VHSettingTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VHSettingTableViewCell.m; sourceTree = "<group>"; };
 		C0B9459A211AE2E0004D93FA /* WHDebugConsoleLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WHDebugConsoleLabel.h; sourceTree = "<group>"; };
@@ -259,9 +266,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C016EC2D21D0EE4200139DDD /* libMasonry.a in Frameworks */,
+				C016EC3021D0EE4200139DDD /* libUIModel.a in Frameworks */,
+				C016EC4D21D0FCD000139DDD /* libReachability.a in Frameworks */,
 				C0FABCE420EF1031003947C6 /* VhallLiveBaseApi.framework in Frameworks */,
 				2FA3F1A81F564C9900E2E436 /* libxml2.2.tbd in Frameworks */,
-				C064180B1EE01F44000C9C58 /* libUIModel.a in Frameworks */,
 				C0B952FB20E384AF007E9E61 /* libVHallSDK.a in Frameworks */,
 				2F6B05B71E94FF800010E0C7 /* libc++.tbd in Frameworks */,
 				C000AB251E66E7BC005DFB7C /* libbz2.1.0.tbd in Frameworks */,
@@ -281,6 +290,7 @@
 				C012B64221199FB200F643E7 /* VhallSignalingDynamic.framework in Frameworks */,
 				C000AA841E66E1CD005DFB7C /* OpenAL.framework in Frameworks */,
 				C000AA851E66E1CD005DFB7C /* OpenGLES.framework in Frameworks */,
+				C016EC2C21D0EE4200139DDD /* libBarrageRenderer.a in Frameworks */,
 				C0FABCF220EF11FF003947C6 /* libVHallFilterSDK.a in Frameworks */,
 				C000AB191E66E769005DFB7C /* QuartzCore.framework in Frameworks */,
 				C0EDA41C21183E1A00021602 /* WebRTC.framework in Frameworks */,
@@ -342,12 +352,12 @@
 		C000AA5A1E66E15C005DFB7C /* Lib */ = {
 			isa = PBXGroup;
 			children = (
-				C0B94599211AE2E0004D93FA /* WHDebugTool */,
+				C016EC1F21D0EE4200139DDD /* UIModel */,
 				C0B952E020E384AE007E9E61 /* VHallSDK */,
-				C06418041EE01F44000C9C58 /* UIModel */,
 				C000AAFA1E66E66B005DFB7C /* Common */,
 				C000AAC81E66E646005DFB7C /* SDWebImage */,
 				C000AA8E1E66E49A005DFB7C /* MBProgressHUD */,
+				C0B94599211AE2E0004D93FA /* WHDebugTool */,
 				C000AA861E66E41C005DFB7C /* BaseViewController.h */,
 				C000AA871E66E41C005DFB7C /* BaseViewController.m */,
 			);
@@ -502,18 +512,30 @@
 			path = Home;
 			sourceTree = "<group>";
 		};
-		C06418041EE01F44000C9C58 /* UIModel */ = {
+		C016EC1F21D0EE4200139DDD /* UIModel */ = {
 			isa = PBXGroup;
 			children = (
-				C06418061EE01F44000C9C58 /* libUIModel.a */,
-				C06418071EE01F44000C9C58 /* UIModel.bundle */,
-				C06418081EE01F44000C9C58 /* VHBaseViewController.h */,
-				C06418051EE01F44000C9C58 /* LaunchLiveViewController.h */,
-				C06418091EE01F44000C9C58 /* WatchLiveViewController.h */,
-				C064180A1EE01F44000C9C58 /* WatchPlayBackViewController.h */,
+				C016EC2021D0EE4200139DDD /* LaunchLiveViewController.h */,
+				C016EC2121D0EE4200139DDD /* libs_third */,
+				C016EC2621D0EE4200139DDD /* libUIModel.a */,
+				C016EC2721D0EE4200139DDD /* UIModel.bundle */,
+				C016EC2821D0EE4200139DDD /* VHBaseViewController.h */,
+				C016EC2921D0EE4200139DDD /* VHinteractiveViewController.h */,
+				C016EC2A21D0EE4200139DDD /* WatchLiveViewController.h */,
+				C016EC2B21D0EE4200139DDD /* WatchPlayBackViewController.h */,
 			);
 			name = UIModel;
 			path = ../../UIModel;
+			sourceTree = "<group>";
+		};
+		C016EC2121D0EE4200139DDD /* libs_third */ = {
+			isa = PBXGroup;
+			children = (
+				C016EC2221D0EE4200139DDD /* libBarrageRenderer.a */,
+				C016EC2321D0EE4200139DDD /* libMasonry.a */,
+				C016EC4C21D0FCD000139DDD /* libReachability.a */,
+			);
+			path = libs_third;
 			sourceTree = "<group>";
 		};
 		C0B94599211AE2E0004D93FA /* WHDebugTool */ = {
@@ -654,7 +676,7 @@
 				C000AB0A1E66E66B005DFB7C /* CustomPickerView.xib in Resources */,
 				C0FABCE220EF101F003947C6 /* kodak.inf in Resources */,
 				C000AAAC1E66E546005DFB7C /* VHSettingViewController.xib in Resources */,
-				C064180C1EE01F44000C9C58 /* UIModel.bundle in Resources */,
+				C016EC3121D0EE4200139DDD /* UIModel.bundle in Resources */,
 				C000AA4E1E66E053005DFB7C /* Assets.xcassets in Resources */,
 				C000AB301E66E893005DFB7C /* VHHomeViewController.xib in Resources */,
 			);
@@ -841,9 +863,10 @@
 					"$(PROJECT_DIR)/../VHallSDK/VHallInteractive",
 					"$(PROJECT_DIR)/../VHallSDK/VHallFilterSDK",
 					"$(PROJECT_DIR)/../UIModel",
+					"$(PROJECT_DIR)/../UIModel/libs_third",
 					"$(PROJECT_DIR)",
 				);
-				OTHER_LDFLAGS = "";
+				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = com.vhall.VHallSDKDemo.VHSDKDemo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -873,9 +896,10 @@
 					"$(PROJECT_DIR)/../VHallSDK/VHallInteractive",
 					"$(PROJECT_DIR)/../VHallSDK/VHallFilterSDK",
 					"$(PROJECT_DIR)/../UIModel",
+					"$(PROJECT_DIR)/../UIModel/libs_third",
 					"$(PROJECT_DIR)",
 				);
-				OTHER_LDFLAGS = "";
+				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = com.vhall.VHallSDKDemo.VHSDKDemo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};

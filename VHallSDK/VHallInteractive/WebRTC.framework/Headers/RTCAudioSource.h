@@ -14,21 +14,19 @@
 #import <WebRTC/RTCMediaSource.h>
 
 NS_ASSUME_NONNULL_BEGIN
-@class RTCAudioSource;
-RTC_EXPORT
-
-@protocol RTCAudioSourceRenderDelegate
-//int bits_per_sample, int sample_rate, size_t number_of_channels, size_t number_of_frames
-- (void)audioSource:(RTCAudioSource *)source render:(void *)audio_data bits_per_sample:(int)bits_per_sample sample_rate:(int)sample_rate number_of_channel:(int)num_of_channel number_of_frames:(int)number_of_frames;
-@end
 
 RTC_EXPORT
 @interface RTCAudioSource : RTCMediaSource
 
-- (void)setObserVer:(id<RTCAudioSourceRenderDelegate>)observer;
 - (instancetype)init NS_UNAVAILABLE;
 
+// Sets the volume for the RTCMediaSource. |volume| is a gain value in the range
+// [0, 10].
+// Temporary fix to be able to modify volume of remote audio tracks.
+// TODO(kthelgason): Property stays here temporarily until a proper volume-api
+// is available on the surface exposed by webrtc.
+@property(nonatomic, assign) double volume;
+
 @end
+
 NS_ASSUME_NONNULL_END
-
-

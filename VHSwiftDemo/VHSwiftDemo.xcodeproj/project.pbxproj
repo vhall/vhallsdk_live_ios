@@ -45,6 +45,11 @@
 		C0967FD72125491D00F75082 /* libUIModel.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C0967FD12125491C00F75082 /* libUIModel.a */; };
 		C0967FD82125491D00F75082 /* UIModel.bundle in Resources */ = {isa = PBXBuildFile; fileRef = C0967FD22125491C00F75082 /* UIModel.bundle */; };
 		C0967FDA212553E900F75082 /* libxml2.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = C0967FD9212553E900F75082 /* libxml2.tbd */; };
+		C097E98F2223FC5300C846ED /* libBarrageRenderer.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C097E98A2223FC5300C846ED /* libBarrageRenderer.a */; };
+		C097E9902223FC5300C846ED /* libMasonry.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C097E98B2223FC5300C846ED /* libMasonry.a */; };
+		C097E9912223FC5300C846ED /* libMBProgressHUD.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C097E98C2223FC5300C846ED /* libMBProgressHUD.a */; };
+		C097E9922223FC5300C846ED /* libReachability.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C097E98D2223FC5300C846ED /* libReachability.a */; };
+		C097E9932223FC5300C846ED /* libSDWebImage.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C097E98E2223FC5300C846ED /* libSDWebImage.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -120,6 +125,11 @@
 		C0967FD52125491C00F75082 /* WatchLiveViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WatchLiveViewController.h; sourceTree = "<group>"; };
 		C0967FD62125491C00F75082 /* WatchPlayBackViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WatchPlayBackViewController.h; sourceTree = "<group>"; };
 		C0967FD9212553E900F75082 /* libxml2.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libxml2.tbd; path = usr/lib/libxml2.tbd; sourceTree = SDKROOT; };
+		C097E98A2223FC5300C846ED /* libBarrageRenderer.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libBarrageRenderer.a; sourceTree = "<group>"; };
+		C097E98B2223FC5300C846ED /* libMasonry.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libMasonry.a; sourceTree = "<group>"; };
+		C097E98C2223FC5300C846ED /* libMBProgressHUD.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libMBProgressHUD.a; sourceTree = "<group>"; };
+		C097E98D2223FC5300C846ED /* libReachability.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libReachability.a; sourceTree = "<group>"; };
+		C097E98E2223FC5300C846ED /* libSDWebImage.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libSDWebImage.a; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -127,6 +137,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C097E98F2223FC5300C846ED /* libBarrageRenderer.a in Frameworks */,
 				C0967FDA212553E900F75082 /* libxml2.tbd in Frameworks */,
 				C049E3DC20689E8D00A41801 /* libc++.tbd in Frameworks */,
 				C049E3DA20689E8300A41801 /* libbz2.1.0.tbd in Frameworks */,
@@ -134,6 +145,7 @@
 				C0967FC82125488200F75082 /* VhallSignalingDynamic.framework in Frameworks */,
 				C049E3D820689E7700A41801 /* libicucore.tbd in Frameworks */,
 				C049E3D620689E6A00A41801 /* libz.tbd in Frameworks */,
+				C097E9922223FC5300C846ED /* libReachability.a in Frameworks */,
 				C049E3D420689E6100A41801 /* libiconv.tbd in Frameworks */,
 				C0967FD72125491D00F75082 /* libUIModel.a in Frameworks */,
 				C049E3D220689E5600A41801 /* CoreTelephony.framework in Frameworks */,
@@ -143,10 +155,13 @@
 				C0967FC62125486700F75082 /* VhallSignalingDynamic.framework in Frameworks */,
 				C049E3CC20689E3A00A41801 /* VideoToolbox.framework in Frameworks */,
 				C049E3CA20689E3200A41801 /* AssetsLibrary.framework in Frameworks */,
+				C097E9912223FC5300C846ED /* libMBProgressHUD.a in Frameworks */,
+				C097E9932223FC5300C846ED /* libSDWebImage.a in Frameworks */,
 				C0967FCC2125488200F75082 /* VhallLiveBaseApi.framework in Frameworks */,
 				C0967FBD2125485A00F75082 /* VhallLiveBaseApi.framework in Frameworks */,
 				C049E3F92068D36400A41801 /* libVHallSDK.a in Frameworks */,
 				C0967FC72125486700F75082 /* WebRTC.framework in Frameworks */,
+				C097E9902223FC5300C846ED /* libMasonry.a in Frameworks */,
 				C049E3C820689E2900A41801 /* OpenGLES.framework in Frameworks */,
 				C049E3F42068D36400A41801 /* libVHallFilterSDK.a in Frameworks */,
 				C049E3C620689E1600A41801 /* OpenAL.framework in Frameworks */,
@@ -269,6 +284,7 @@
 		C0967FCF2125491C00F75082 /* UIModel */ = {
 			isa = PBXGroup;
 			children = (
+				C097E9892223FC5300C846ED /* libs_third */,
 				C0967FD02125491C00F75082 /* LaunchLiveViewController.h */,
 				C0967FD12125491C00F75082 /* libUIModel.a */,
 				C0967FD22125491C00F75082 /* UIModel.bundle */,
@@ -279,6 +295,18 @@
 			);
 			name = UIModel;
 			path = ../../UIModel;
+			sourceTree = "<group>";
+		};
+		C097E9892223FC5300C846ED /* libs_third */ = {
+			isa = PBXGroup;
+			children = (
+				C097E98A2223FC5300C846ED /* libBarrageRenderer.a */,
+				C097E98B2223FC5300C846ED /* libMasonry.a */,
+				C097E98C2223FC5300C846ED /* libMBProgressHUD.a */,
+				C097E98D2223FC5300C846ED /* libReachability.a */,
+				C097E98E2223FC5300C846ED /* libSDWebImage.a */,
+			);
+			path = libs_third;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -512,6 +540,7 @@
 					"$(PROJECT_DIR)/VHSwiftDemo/../../VHallSDK/VHallFilterSDK",
 					"$(PROJECT_DIR)/VHSwiftDemo/../../VHallSDK/VHallInteractive",
 					"$(PROJECT_DIR)/VHSwiftDemo/../../UIModel",
+					"$(PROJECT_DIR)/VHSwiftDemo/../../UIModel/libs_third",
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = com.vhall.VHallSDKDemo;
@@ -545,6 +574,7 @@
 					"$(PROJECT_DIR)/VHSwiftDemo/../../VHallSDK/VHallFilterSDK",
 					"$(PROJECT_DIR)/VHSwiftDemo/../../VHallSDK/VHallInteractive",
 					"$(PROJECT_DIR)/VHSwiftDemo/../../UIModel",
+					"$(PROJECT_DIR)/VHSwiftDemo/../../UIModel/libs_third",
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = com.vhall.VHallSDKDemo;

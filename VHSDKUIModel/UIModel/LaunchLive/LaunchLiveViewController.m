@@ -13,7 +13,6 @@
 
 #import "LaunchLiveViewController.h"
 #import <AVFoundation/AVFoundation.h>
-#import "UIAlertView+ITTAdditions.h"
 #import "MBProgressHUD.h"
 #import "WatchLiveOnlineTableViewCell.h"
 #import "WatchLiveChatTableViewCell.h"
@@ -22,11 +21,7 @@
 #import "VHLiveChatView.h"
 #import "VHMessageToolView.h"
 
-#if VHallFilterSDK_ENABLE
-@interface LaunchLiveViewController ()<VHallLivePublishDelegate, VHallChatDelegate, VHallLivePublishFilterDelegate,VHMessageToolBarDelegate>
-#else
 @interface LaunchLiveViewController ()<VHallLivePublishDelegate, VHallChatDelegate,VHMessageToolBarDelegate>
-#endif
 {
     BOOL  _isVideoStart;
     BOOL  _isAudioStart;
@@ -263,39 +258,40 @@
     }else {
         deviceOrientation = VHDeviceLandSpaceLeft;//设备左转，摄像头在左边
     }
+    
+    
+    VHPublishConfig* config = [VHPublishConfig configWithType:VHPublishConfigTypeDefault];
+    config.orientation = deviceOrientation;
+    config.publishConnectTimes = 2;
+    config.videoBitRate = self.videoBitRate;
+    config.videoCaptureFPS = self.videoCaptureFPS;
+    config.isOpenNoiseSuppresion = _isOpenNoiseSuppresion;
+    config.videoResolution = _videoResolution;
+    config.audioBitRate = _audioBitRate;
 #if VHallFilterSDK_ENABLE
-    self.engine = [[VHallLivePublishFilter alloc] initWithOrientation:deviceOrientation];
-    BOOL ret = [_engine initCaptureVideo:AVCaptureDevicePositionFront];
-//    BOOL ret = [_engine initCaptureVideo:AVCaptureDevicePositionBack];
+    config.videoBitRate = 1200 * 1000;
+    config.captureDevicePosition = AVCaptureDevicePositionFront;
+    self.engine = [[VHallLivePublishFilter alloc] initWithConfig:config];
+
     _torchBtn.hidden = YES;
     _isFontVideo = YES;
+    [self filterSettingBtnClick:_defaultFilterSelectBtn];
 #else
-    self.engine = [[VHallLivePublish alloc] initWithOrientation:deviceOrientation];
-    BOOL ret = [_engine initCaptureVideo:AVCaptureDevicePositionBack];
+    config.videoBitRate = _videoBitRate;
+    config.captureDevicePosition = AVCaptureDevicePositionBack;
+    self.engine = [[VHallLivePublish alloc] initWithConfig:config];
 #endif
-    if (!ret) {
-        UIAlertView *alert=[[UIAlertView alloc] initWithTitle:@"提示" message:@"摄像头开启失败" delegate:nil cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
-        [alert show];
-        
-    }
-    
-    _noiseView.hidden = !_isOpenNoiseSuppresion;
-    
+
     self.engine.delegate            = self;
     self.engine.displayView.frame   = _perView.bounds;
-    self.engine.publishConnectTimes = 2;
-    self.engine.videoCaptureFPS     = (int)_videoCaptureFPS;
-    self.engine.videoResolution     = (VHVideoResolution)_videoResolution;
-    self.engine.isOpenNoiseSuppresion = _isOpenNoiseSuppresion;
-    [self.engine  initAudio];
+
     [self.perView insertSubview:_engine.displayView atIndex:0];
     //开始视频采集、并显示预览界面
     [self.engine startVideoCapture];
     
-#if VHallFilterSDK_ENABLE
-    [self filterSettingBtnClick:_defaultFilterSelectBtn];
-#endif
     
+    _noiseView.hidden = !_isOpenNoiseSuppresion;
+
     // chat 模块
     _chat = [[VHallChat alloc] initWithLivePublish:self.engine];
     _chat.delegate = self;
@@ -357,12 +353,6 @@
     //        _isAudioStart = YES;
     //        [self startAudioPlayer];
     //    self.engine.audioBitRate = _audioBitRate;
-#if VHallFilterSDK_ENABLE
-        _engine.videoBitRate = 1200 * 1000;
-#else
-        _engine.videoBitRate = _videoBitRate;
-#endif
-        _engine.audioBitRate = _audioBitRate;
         [_chatDataArray removeAllObjects];
         [_chatView update];
         [_hud show:YES];
@@ -552,27 +542,15 @@
     sender.selected = YES;
     [sender setBackgroundColor:MakeColorRGBA(0xfd3232,0.5)];
     _lastFilterSelectBtn = sender;
-    
-    _engine.openFilter = YES;
+
     switch (sender.tag) {
         case 1:[_engine setBeautifyFilterWithBilateral:10.0f Brightness:1.0f  Saturation:1.0f];break;
         case 2:[_engine setBeautifyFilterWithBilateral:8.0f  Brightness:1.05f Saturation:1.0f];break;
         case 3:[_engine setBeautifyFilterWithBilateral:6.0f  Brightness:1.10f Saturation:1.0f];break;
         case 4:[_engine setBeautifyFilterWithBilateral:4.0f  Brightness:1.15f Saturation:1.0f];break;
         case 5:[_engine setBeautifyFilterWithBilateral:2.0f  Brightness:1.20f Saturation:1.0f];break;
-        case 0:
-        default:_engine.openFilter = NO;break;
+        default:break;
     }
-}
-
-#pragma mark Filter(LivePublishFilterDelegate)
-
-- (void)addGPUImageFilter:(GPUImageVideoCamera *)source Output:(GPUImageView *)output
-{
-//    GPUImageiOSBlurFilter *filter = [[GPUImageiOSBlurFilter alloc] init];
-//    filter.saturation = 2.0f;
-//    [source addTarget:filter];
-//    [filter addTarget:output];
 }
 #else
 - (IBAction)filterBtnClick:(UIButton *)sender{}

@@ -5,74 +5,44 @@
 //  Created by liwenlong on 16/2/3.
 //  Copyright © 2016年 vhall. All rights reserved.
 //
+#import <UIKit/UIKit.h>
 #import <AVFoundation/AVFoundation.h>
 #import "VHallConst.h"
+#import "VHPublishConfig.h"
 
 @protocol VHallLivePublishDelegate;
 @interface VHallLivePublish : NSObject
-/**
- *  推流连接的超时时间，单位为毫秒 默认5000
- */
-@property (nonatomic,assign)int publishConnectTimeout;
-/**
- *  推流断开重连的次数 默认为 5
- */
-@property (nonatomic,assign)int publishConnectTimes;
+
 /**
  *  用来显示摄像头拍摄内容的View
  */
 @property (nonatomic,strong,readonly)UIView * displayView;
-/**
- *  视频采集的帧率 范围［10～30］
- */
-@property (nonatomic,assign)int videoCaptureFPS;
+
 /**
  *  代理
  */
 @property (nonatomic,assign)id <VHallLivePublishDelegate> delegate;
-/**
- *  视频分辨率 默认值是kGeneralViodeResolution 960*540
- */
-@property (nonatomic,assign)VHVideoResolution videoResolution;
-/**
- *  视频码率设置
- */
-@property (nonatomic,assign)NSInteger videoBitRate;
-/**
- *  音频码率设置
- */
-@property (nonatomic,assign)NSInteger audioBitRate;
+
 /**
  *  设置静音
  */
 @property (assign,nonatomic)BOOL isMute;
+
 /**
  *  判断用户使用是前置还是后置摄像头
  */
 @property (nonatomic,assign,readonly)AVCaptureDevicePosition captureDevicePosition;
+
 /**
  *  当前推流状态
  */
 @property (assign,nonatomic,readonly)BOOL isPublishing;
 
 /**
- * 是否开启噪声消除，默认开启，最高支持32k的音频采样率,直播前设置，当采样率大于32k时，自动关闭噪声消除
- * 注：开始直播后调用无效
+ *  初始化
+ *  @param config  config参数
  */
-@property(assign,nonatomic)BOOL isOpenNoiseSuppresion;
-
-
-//初始化
-- (id)initWithOrientation:(VHDeviceOrientation)orientation;
-/**
- *  初始化 CaptureVideo
- *  @param captureDevicePosition AVCaptureDevicePositionBack 代表后置摄像头 AVCaptureDevicePositionFront 代表前置摄像头
- *  @return 是否成功
- */
-- (BOOL)initCaptureVideo:(AVCaptureDevicePosition)captureDevicePosition;
-
-//初始化音频
-- (BOOL)initAudio;
+- (instancetype)initWithConfig:(VHPublishConfig*)config;
 
 //开始视频采集 显示视频预览
 - (BOOL)startVideoCapture;

@@ -50,7 +50,7 @@
         //进入互动房间
         [self.interactiveRoom enterRoomWithRoomId:self.roomId];
     }
-    
+    [[UIApplication sharedApplication] setIdleTimerDisabled:YES];
     //程序进入前后台监听
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appBecomeActive) name:UIApplicationDidBecomeActiveNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appEnterBackground) name:UIApplicationDidEnterBackgroundNotification object:nil];
@@ -70,7 +70,7 @@
     
     _interactiveRoom = nil;
     _cameraView = nil;
-    
+    [[UIApplication sharedApplication] setIdleTimerDisabled:NO];
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
@@ -182,23 +182,8 @@
 //互动房间互动消息处理
 - (void)room:(VHRoom *)room interactiveMsgWithEventName:(NSString *)eventName attribute:(id)attributes
 {
-    //禁言
-    if ([attributes[@"type"] isEqualToString:@"*disablechat"]) {
-        /*
-         type = "*disablechat";
-         "user_id" = 1167475;   //被禁言用户参会id
-         */
-    }
-    //取消禁言
-    else if ([attributes[@"type"] isEqualToString:@"*permitchat"]) {
-        /*
-         type = "*permitchat";
-         "user_id" = 1167475;   //被取消禁言用户参会id
-         */
-        
-    }
     //麦克风/摄像头操作
-    else if ([attributes[@"type"] isEqualToString:@"*switchDevice"]) {
+    if ([attributes[@"type"] isEqualToString:@"*switchDevice"]) {
         /*
          device = 1;            // 1 麦克风 2 摄像头
          "join_uid" = 1167475;  //被操作用户参会id
@@ -247,7 +232,28 @@
     //...其他消息
     //Code...
 }
-
+/*
+ * iskickout 被踢出房间
+ */
+- (void)room:(VHRoom *)room iskickout:(BOOL)iskickout
+{
+    //离开互动房间
+    [self closeButtonClick:nil];
+}
+/**
+ * 收到被禁言/取消禁言
+ */
+- (void)room:(VHRoom *)room forbidChat:(BOOL)forbidChat
+{
+    
+}
+/**
+ * 收到全体禁言/取消全体禁言
+ */
+- (void)room:(VHRoom *)room allForbidChat:(BOOL)allForbidChat
+{
+//    收到全体禁言/取消全体禁言
+}
 #pragma mark - UIAlertViewDelegate
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
@@ -260,19 +266,17 @@
 #pragma mark - button click
 //退出
 - (void)closeButtonClick:(UIButton *)sender {
-    //停止推流
-    [_interactiveRoom unpublish];
-    //离开互动房间
-    [_interactiveRoom leaveRoom];
     //移除互动视频
     [self removeAllViews];
-    //释放camera
-    [_cameraView removeFromSuperview];
-    _cameraView = nil;
+
+    [_cameraView stopStats];
     
+    //离开互动房间
+    [_interactiveRoom leaveRoom];
+    _interactiveRoom = nil;
     //返回上级页面
-    //[self dismissViewControllerAnimated:YES completion:^{}];
-    [self.presentingViewController.presentingViewController dismissViewControllerAnimated:YES completion:nil];
+    [self dismissViewControllerAnimated:YES completion:^{}];
+//    [self.presentingViewController.presentingViewController dismissViewControllerAnimated:YES completion:nil];
 }
 //摄像头切换
 - (void)swapStatusChanged:(UIButton *)sender {
@@ -317,7 +321,6 @@
         [v removeFromSuperview];
     }
     [self.views removeAllObjects];
-    //[self updateUI];
 }
 - (void)updateUI
 {

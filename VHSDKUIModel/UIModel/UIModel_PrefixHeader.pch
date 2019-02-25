@@ -51,8 +51,8 @@
 
 #import <UIKit/UIKit.h>
 #import <Foundation/Foundation.h>
-#import "UIAlertView+ITTAdditions.h"
-#import "UIView+ITTAdditions.h"
+#import "UIAlertView+ITTAdditionsUIModel.h"
+#import "UIView+ITTAdditionsUIModel.h"
 #import "MBHUDHelper.h"
 
 #endif /* UIModel_PrefixHeader_pch */

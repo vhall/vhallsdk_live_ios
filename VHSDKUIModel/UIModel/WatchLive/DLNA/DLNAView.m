@@ -13,7 +13,7 @@
 #import "DeviceTableViewCell.h"
 #import "Device.h"
 #define DEVICE_CELL_ID @"DeviceCell"
-#import "VHallConst.h"
+//#import "VHallConst.h"
 @interface DLNAView ()<UITableViewDataSource,UITableViewDelegate>
 {
     

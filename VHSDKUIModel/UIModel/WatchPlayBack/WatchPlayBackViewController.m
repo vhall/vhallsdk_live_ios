@@ -12,7 +12,6 @@
 #import "VHallApi.h"
 #import "VHMessageToolView.h"
 #import "VHPullingRefreshTableView.h"
-#import "UIView+ITTAdditions.h"
 #import "AnnouncementView.h"
 #import "VHDocumentView.h"
 #import "DLNAView.h"
