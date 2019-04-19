@@ -8,9 +8,15 @@
 
 #import <UIKit/UIKit.h>
 
-extern NSString * const VHStreamOptionStreamType;//推流类型
-extern NSString * const VHFrameResolutionTypeKey;//推流分辨率
+extern NSString * const VHSimulcastLayersKey;   //推流参数-同时推流数  默认:1 只推1路流   2，发起端推送大小两路流，用于超多人互动场景
 
+extern NSString * const VHStreamOptionStreamType;//推流类型   VHInteractiveStreamType VHInteractiveStreamTypeAudioAndVideo 音视频
+extern NSString * const VHFrameResolutionTypeKey;//推流分辨率 VHFrameResolutionValue VHFrameResolution192x144
+
+extern NSString * const VHStreamOptionVideo;  //视频
+extern NSString * const VHStreamOptionAudio;  //音频
+
+//如果设置VHFrameResolutionTypeKey 以下参数可以不用设置
 extern NSString * const VHVideoWidthKey;        //推流视频宽度 默认192
 extern NSString * const VHVideoHeightKey;       //推流视频高度 默认144
 extern NSString * const VHVideoFpsKey;          //推流视频帧率 默认30
@@ -45,8 +51,8 @@ typedef NS_ENUM(int, VHInteractiveStreamType) {
     VHInteractiveStreamTypeOnlyAudio       = 0,//纯音频
     VHInteractiveStreamTypeOnlyVideo       = 1,//纯视频
     VHInteractiveStreamTypeAudioAndVideo   = 2,//音视频 默认
-    VHInteractiveStreamTypeScreen          = 3,//共享桌面
-    VHInteractiveStreamTypeFile            = 4 //插播
+    VHInteractiveStreamTypeScreen          = 3,//共享桌面 暂不支持
+    VHInteractiveStreamTypeFile            = 4 //插播  暂不支持
 };
 
 typedef NS_ENUM(int, VHFrameResolutionValue) {
@@ -61,7 +67,7 @@ typedef NS_ENUM(int, VHFrameResolutionValue) {
  * 流状态监听回调block定义
  */
 typedef void(^StatsCallback)(NSString* mediaType, long kbps, NSDictionary<NSString *, NSString *> * values);
-
+typedef void(^FinishBlock)(int code, NSString * _Nullable message);//code 200 成功
 
 @class VHRenderView;
 
@@ -123,6 +129,11 @@ typedef void(^StatsCallback)(NSString* mediaType, long kbps, NSDictionary<NSStri
 @property (nonatomic, copy, readonly) NSString      *userData;
 
 /*
+ * 用户推流上麦时所传数据
+ */
+@property (nonatomic, copy, readonly) NSString      *streamAttributes;
+
+/*
  * 设置的音视频参数
  */
 @property (nonatomic, copy, readonly) NSDictionary  *options;
@@ -149,6 +160,25 @@ typedef void(^StatsCallback)(NSString* mediaType, long kbps, NSDictionary<NSStri
 @property (nonatomic,assign) int voiceChangeType;
 
 /*
+ * 此流是否是支持大小流切换，支持几路切换
+ * 1 一路流  2两路流
+ */
+@property (nonatomic, assign, readonly) int simulcastLayers;
+
+/*
+ * 此流的 流音视频开启情况
+ * 数据结构 @{@"video":@(NO),@"audio":@(NO)} YES代表禁止，NO代表不禁止 可以用来更新ui状态
+ */
+@property (strong, nonatomic) NSDictionary * remoteMuteStream;//推流端
+@property (nonatomic,strong, readonly) NSDictionary *muteStream;//订阅端 本地相机view 只有这一个属性
+
+/*
+ * 此流视频宽高
+ */
+@property (nonatomic,assign, readonly) CGSize videoSize;
+
+
+/*
  * 是否有音频
  */
 - (BOOL) hasAudio;
@@ -159,24 +189,28 @@ typedef void(^StatsCallback)(NSString* mediaType, long kbps, NSDictionary<NSStri
 - (BOOL) hasVideo;
 
 /*
- * 静音
+ * 关闭音频
  */
 - (void) muteAudio;
+- (void) muteAudioWithFinish:(FinishBlock _Nullable)finish;
 
 /*
- * 取消静音
+ * 取消关闭音频
  */
 - (void) unmuteAudio;
+- (void) unmuteAudioWithFinish:(FinishBlock _Nullable)finish;
 
 /*
  * 关闭视频
  */
 - (void) muteVideo;
+- (void) muteVideoWithFinish:(FinishBlock _Nullable)finish;
 
 /*
  * 取消关闭视频
  */
 - (void) unmuteVideo;
+- (void) unmuteVideoWithFinish:(FinishBlock _Nullable)finish;
 
 /*
  * 切换前后摄像头

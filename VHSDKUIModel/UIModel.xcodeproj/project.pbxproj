@@ -69,7 +69,6 @@
 		C000ABA91E67E410005DFB7C /* head50.png in Resources */ = {isa = PBXBuildFile; fileRef = C000ABA81E67E410005DFB7C /* head50.png */; };
 		C005D35021DF0A56004A6EF3 /* VHInvitationAlert.h in Headers */ = {isa = PBXBuildFile; fileRef = C005D34E21DF0A55004A6EF3 /* VHInvitationAlert.h */; };
 		C005D35121DF0A56004A6EF3 /* VHInvitationAlert.m in Sources */ = {isa = PBXBuildFile; fileRef = C005D34F21DF0A56004A6EF3 /* VHInvitationAlert.m */; };
-		C013C4F521D765230042DE3F /* VHPlayerController.h in Headers */ = {isa = PBXBuildFile; fileRef = C013C4F421D765230042DE3F /* VHPlayerController.h */; };
 		C01602D821130A28003BC68F /* icon_video_lowerwheat@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C01602D621130A27003BC68F /* icon_video_lowerwheat@2x.png */; };
 		C01602D921130A28003BC68F /* icon_video_lowerwheat@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = C01602D721130A27003BC68F /* icon_video_lowerwheat@3x.png */; };
 		C01602DC21130C3A003BC68F /* icon_video_upper wheat@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C01602DA21130C38003BC68F /* icon_video_upper wheat@2x.png */; };
@@ -219,6 +218,7 @@
 		C0747B321FED258400766128 /* VHPlayerView.m in Sources */ = {isa = PBXBuildFile; fileRef = C0747B301FED258400766128 /* VHPlayerView.m */; };
 		C09B36F11FFE2D620017AB0F /* VHPauseBtn.png in Resources */ = {isa = PBXBuildFile; fileRef = C09B36EF1FFE2D620017AB0F /* VHPauseBtn.png */; };
 		C09B36F21FFE2D620017AB0F /* VHPlayBtn.png in Resources */ = {isa = PBXBuildFile; fileRef = C09B36F01FFE2D620017AB0F /* VHPlayBtn.png */; };
+		C0C38E5F22645C7700D94738 /* VHLocalRenderView.h in Headers */ = {isa = PBXBuildFile; fileRef = C0C38E5E22645C7700D94738 /* VHLocalRenderView.h */; };
 		C0E2BEB01F286C3800E55B1F /* VHDocumentView.m in Sources */ = {isa = PBXBuildFile; fileRef = C0E2BEAD1F286C3800E55B1F /* VHDocumentView.m */; };
 		C0E2BEB11F286C3800E55B1F /* VHDrawView.m in Sources */ = {isa = PBXBuildFile; fileRef = C0E2BEAF1F286C3800E55B1F /* VHDrawView.m */; };
 		C0ECF63220D8FD2200ABDF93 /* 语音开启@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C0ECF63120D8FD2200ABDF93 /* 语音开启@2x.png */; };
@@ -320,7 +320,6 @@
 		C000ABA81E67E410005DFB7C /* head50.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = head50.png; sourceTree = "<group>"; };
 		C005D34E21DF0A55004A6EF3 /* VHInvitationAlert.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VHInvitationAlert.h; sourceTree = "<group>"; };
 		C005D34F21DF0A56004A6EF3 /* VHInvitationAlert.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VHInvitationAlert.m; sourceTree = "<group>"; };
-		C013C4F421D765230042DE3F /* VHPlayerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VHPlayerController.h; sourceTree = "<group>"; };
 		C01602D621130A27003BC68F /* icon_video_lowerwheat@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_video_lowerwheat@2x.png"; sourceTree = "<group>"; };
 		C01602D721130A27003BC68F /* icon_video_lowerwheat@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_video_lowerwheat@3x.png"; sourceTree = "<group>"; };
 		C01602DA21130C38003BC68F /* icon_video_upper wheat@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_video_upper wheat@2x.png"; sourceTree = "<group>"; };
@@ -569,6 +568,7 @@
 		C0A27F651E9616D30031D3B4 /* VHallQAndA.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VHallQAndA.h; sourceTree = "<group>"; };
 		C0A27F661E9616D30031D3B4 /* VHallSign.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VHallSign.h; sourceTree = "<group>"; };
 		C0A27F671E9616D30031D3B4 /* VHallSurvey.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VHallSurvey.h; sourceTree = "<group>"; };
+		C0C38E5E22645C7700D94738 /* VHLocalRenderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VHLocalRenderView.h; sourceTree = "<group>"; };
 		C0E2BEAA1F27374400E55B1F /* VHallBasePlugin.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VHallBasePlugin.h; sourceTree = "<group>"; };
 		C0E2BEAC1F286C3800E55B1F /* VHDocumentView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VHDocumentView.h; sourceTree = "<group>"; };
 		C0E2BEAD1F286C3800E55B1F /* VHDocumentView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VHDocumentView.m; sourceTree = "<group>"; };
@@ -1176,7 +1176,6 @@
 				C0A27F651E9616D30031D3B4 /* VHallQAndA.h */,
 				C0A27F661E9616D30031D3B4 /* VHallSign.h */,
 				C0A27F671E9616D30031D3B4 /* VHallSurvey.h */,
-				C013C4F421D765230042DE3F /* VHPlayerController.h */,
 				C0A27F641E9616D30031D3B4 /* VHallMsgModels.h */,
 			);
 			name = VHallSDK;
@@ -1197,6 +1196,7 @@
 		C0F84F37210EFB5C0093C395 /* VHallInteractive */ = {
 			isa = PBXGroup;
 			children = (
+				C0C38E5E22645C7700D94738 /* VHLocalRenderView.h */,
 				C0F84F3A210EFB5C0093C395 /* VHRenderView.h */,
 				C0F84F3B210EFB5C0093C395 /* VHRoom.h */,
 			);
@@ -1254,8 +1254,8 @@
 				C06F36EA210EC03800D105E3 /* VHinteractiveViewController.h in Headers */,
 				2F77FCAB1F74A7AE00D5F7F6 /* VHDLNAControl.h in Headers */,
 				C02769B3210B2DD8002AEE46 /* MicCountDownView.h in Headers */,
+				C0C38E5F22645C7700D94738 /* VHLocalRenderView.h in Headers */,
 				2F77FCA71F74A7AE00D5F7F6 /* ControlService.h in Headers */,
-				C013C4F521D765230042DE3F /* VHPlayerController.h in Headers */,
 				2F77FCAA1F74A7AE00D5F7F6 /* RenderingControlService.h in Headers */,
 				C0F84F40210EFB5C0093C395 /* VHRoom.h in Headers */,
 			);
@@ -1535,7 +1535,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "cd ${PROJECT_DIR}/../\nmkdir -p UIModel\ncd UIModel\n\ncp ${BUILD_DIR}/${CONFIGURATION}${EFFECTIVE_PLATFORM_NAME}/lib${PRODUCT_NAME}.a ./\ncp -r ${BUILD_DIR}/${CONFIGURATION}${EFFECTIVE_PLATFORM_NAME}/${PRODUCT_NAME}.bundle ./\n\niphoneosFile=${BUILD_DIR}/${CONFIGURATION}-iphoneos/lib${PRODUCT_NAME}.a\niphonesimulatorFile=${BUILD_DIR}/${CONFIGURATION}-iphonesimulator/lib${PRODUCT_NAME}.a\nif [ -f \"$iphoneosFile\" ] && [ -f \"$iphonesimulatorFile\" ]; then\nlipo -create \"$iphoneosFile\" \"$iphonesimulatorFile\" -output ./lib${PRODUCT_NAME}.a\nfi\ncp ${BUILD_DIR}/${CONFIGURATION}${EFFECTIVE_PLATFORM_NAME}/include/${PRODUCT_NAME}/*.* ./\n";
+			shellScript = "cd ${PROJECT_DIR}/../\nmkdir -p UIModel\ncd UIModel\n\ncp ${BUILD_DIR}/${CONFIGURATION}${EFFECTIVE_PLATFORM_NAME}/lib${PRODUCT_NAME}.a ./\ncp -rf ${BUILD_DIR}/${CONFIGURATION}${EFFECTIVE_PLATFORM_NAME}/${PRODUCT_NAME}.bundle ./\n\niphoneosFile=${BUILD_DIR}/${CONFIGURATION}-iphoneos/lib${PRODUCT_NAME}.a\niphonesimulatorFile=${BUILD_DIR}/${CONFIGURATION}-iphonesimulator/lib${PRODUCT_NAME}.a\nif [ -f \"$iphoneosFile\" ] && [ -f \"$iphonesimulatorFile\" ]; then\nlipo -create \"$iphoneosFile\" \"$iphonesimulatorFile\" -output ./lib${PRODUCT_NAME}.a\nfi\ncp ${BUILD_DIR}/${CONFIGURATION}${EFFECTIVE_PLATFORM_NAME}/include/${PRODUCT_NAME}/*.* ./\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 

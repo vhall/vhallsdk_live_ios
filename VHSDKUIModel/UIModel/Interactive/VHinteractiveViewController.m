@@ -8,7 +8,6 @@
 
 #import "VHinteractiveViewController.h"
 #import "VHRoom.h"
-#import "VHRenderView.h"
 #import "VHallApi.h"
 
 #define iconSize 34
@@ -19,7 +18,7 @@
     UIButton *_cameraBtn;//摄像头按钮
 }
 @property (nonatomic, strong) VHRoom *interactiveRoom;//互动房间
-@property (nonatomic, strong) VHRenderView *cameraView;//本地摄像头
+@property (nonatomic, strong) VHLocalRenderView *cameraView;//本地摄像头
 
 @property (nonatomic, strong) NSMutableArray *views;
 
@@ -339,13 +338,13 @@
     }
     return _interactiveRoom;
 }
-- (VHRenderView *)cameraView {
+- (VHLocalRenderView *)cameraView {
     if (!_cameraView) {
         
         //设置中设置的推流分辨率
         NSString *re = [[NSUserDefaults standardUserDefaults] objectForKey:@"VHInteractivePushResolution"];
         
-        _cameraView = [[VHRenderView alloc] initCameraViewWithFrame:CGRectZero pushType:[re intValue] options:nil];
+        _cameraView = [[VHLocalRenderView alloc] initCameraViewWithFrame:CGRectZero pushType:[re intValue] options:nil];
         _cameraView.scalingMode = VHRenderViewScalingModeAspectFill;
         //设置摄像头旋转方向，注意：如需要转屏请自行监听屏转，设置摄像头orientation。
         [_cameraView setDeviceOrientation:[UIDevice currentDevice].orientation];

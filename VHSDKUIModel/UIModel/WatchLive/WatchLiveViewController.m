@@ -1021,12 +1021,17 @@ static AnnouncementView* announcementView = nil;
     alert = nil;
     if(index == 1)
     {
+        [self.moviePlayer replyInvitationWithType:1 finish:nil];
         //进入互动
         VHinteractiveViewController *controller = [[VHinteractiveViewController alloc] init];
         controller.roomId = self.roomId;
         [self presentViewController:controller animated:YES completion:^{
             
         }];
+    }
+    else if(index == 0)
+    {
+        [self.moviePlayer replyInvitationWithType:2 finish:nil];
     }
 }
 #pragma mark - MicCountDownViewDelegate

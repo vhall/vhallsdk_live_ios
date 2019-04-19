@@ -86,8 +86,8 @@
     rtmpLivedemoVC.videoResolution  = [DEMO_Setting.videoResolution intValue];
     rtmpLivedemoVC.roomId           = DEMO_Setting.activityID;
     rtmpLivedemoVC.token            = DEMO_Setting.liveToken;
-    rtmpLivedemoVC.videoBitRate     = DEMO_Setting.videoBitRate*1000;
-    rtmpLivedemoVC.audioBitRate     = DEMO_Setting.audioBitRate*1000;
+    rtmpLivedemoVC.videoBitRate     = DEMO_Setting.videoBitRate;
+    rtmpLivedemoVC.audioBitRate     = DEMO_Setting.audioBitRate;
     rtmpLivedemoVC.videoCaptureFPS  = DEMO_Setting.videoCaptureFPS;
     rtmpLivedemoVC.interfaceOrientation = orientation;
     rtmpLivedemoVC.isOpenNoiseSuppresion = DEMO_Setting.isOpenNoiseSuppresion;

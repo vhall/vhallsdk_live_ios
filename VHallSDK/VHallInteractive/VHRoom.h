@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-
+#import "VHLocalRenderView.h"
 /*
  * 互动房间状态
  */
@@ -78,18 +78,12 @@ typedef NS_ENUM(NSInteger, VHRoomDevice) {
  * @param roomId 加入房间id
  */
 - (void)enterRoomWithRoomId:(NSString *)roomId;
-/*
- * 加入房间
- * @param roomId 加入房间id
- * @param userData  用户数据可以携带不超过255字符的字符串 可在VHRenderView中获取此值
- */
-- (void)enterRoomWithRoomId:(NSString *)roomId userData:(NSString*)userData;
 
 /*
  * 上麦推流
  * @param camera 本地摄像头view
  */
-- (BOOL)publishWithCameraView:(VHRenderView * ) cameraView;
+- (BOOL)publishWithCameraView:(VHLocalRenderView * ) cameraView;
 
 /*
  * 停止推流

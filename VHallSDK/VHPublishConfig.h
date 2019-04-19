@@ -81,16 +81,6 @@ typedef NS_ENUM(NSInteger,VHPublishConfigType)
 };
 
 /**
- * 摄像头取景方向
- */
-typedef NS_ENUM(NSInteger,VHDeviceOrientation)
-{
-    VHDevicePortrait                    = 0,    //摄像头在上边
-    VHDeviceLandSpaceLeft               = 1,    //摄像头在左边
-    VHDeviceLandSpaceRight              = 2     //摄像头在右边 暂不支持
-};
-
-/**
  * 推流视频分辨率
  */
 typedef NS_ENUM(NSInteger,VHVideoResolution)
@@ -107,9 +97,9 @@ typedef NS_ENUM(NSInteger,VHVideoResolution)
 + (VHPublishConfig*)configWithType:(VHPublishConfigType)type;
 
 /**
- *  采集画面方向 默认VHDevicePortrait
+ *  采集画面方向 默认AVCaptureVideoOrientationPortrait
  */
-@property (nonatomic,assign)VHDeviceOrientation orientation;
+@property (nonatomic,assign)AVCaptureVideoOrientation orientation;
 
 /**
  *  mic 音频采样率
@@ -142,12 +132,12 @@ typedef NS_ENUM(NSInteger,VHVideoResolution)
 @property (nonatomic,assign)VHVideoResolution videoResolution;
 
 /**
- *  视频码率设置
+ *  视频码率设置 取值范围 [100 - 1024]
  */
 @property (nonatomic,assign)NSInteger videoBitRate;
 
 /**
- *  音频码率设置
+ *  音频码率设置 取值范围 [16 - 100]
  */
 @property (nonatomic,assign)NSInteger audioBitRate;
 
@@ -183,6 +173,13 @@ typedef NS_ENUM(NSInteger,VHVideoResolution)
  * 默认不打印 NO
  */
 @property (nonatomic,assign)BOOL isPrintLog;
+
+
+/**
+ * 自定义视频宽高,默认为 0 ，若设置此项后 videoResolution 属性自动失效
+ */
+@property(nonatomic,assign)int customVideoWidth;
+@property(nonatomic,assign)int customVideoHeight;
 
 /**
  * 自定义参数 用于高级自定义采集模块

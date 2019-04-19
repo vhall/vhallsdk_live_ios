@@ -106,6 +106,11 @@
  */
 - (void)setVolumeAmplificateSize:(float)size;
 
+/**
+ *  本地相机预览填充模式
+ */
+- (void)setContentMode:(VHRTMPMovieScalingMode)contentMode;
+
 @end
 
 

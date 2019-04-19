@@ -251,25 +251,24 @@
 #pragma mark -
 - (void)initCameraEngine
 {
-    VHDeviceOrientation deviceOrientation;
+    AVCaptureVideoOrientation captureVideoOrientation;
     if (self.interfaceOrientation == UIInterfaceOrientationPortrait)
     {
-        deviceOrientation = VHDevicePortrait;
+        captureVideoOrientation = AVCaptureVideoOrientationPortrait;
     }else {
-        deviceOrientation = VHDeviceLandSpaceLeft;//设备左转，摄像头在左边
+        captureVideoOrientation = AVCaptureVideoOrientationLandscapeRight;//设备左转，摄像头在左边
     }
     
-    
     VHPublishConfig* config = [VHPublishConfig configWithType:VHPublishConfigTypeDefault];
-    config.orientation = deviceOrientation;
+    config.orientation = captureVideoOrientation;
     config.publishConnectTimes = 2;
     config.videoBitRate = self.videoBitRate;
     config.videoCaptureFPS = self.videoCaptureFPS;
-    config.isOpenNoiseSuppresion = _isOpenNoiseSuppresion;
-    config.videoResolution = _videoResolution;
-    config.audioBitRate = _audioBitRate;
+    config.isOpenNoiseSuppresion = self.isOpenNoiseSuppresion;
+    config.videoResolution = self.videoResolution;
+    config.audioBitRate = self.audioBitRate;
 #if VHallFilterSDK_ENABLE
-    config.videoBitRate = 1200 * 1000;
+    config.videoBitRate = self.videoBitRate*2;//开启美颜时建议调高码率
     config.captureDevicePosition = AVCaptureDevicePositionFront;
     self.engine = [[VHallLivePublishFilter alloc] initWithConfig:config];
 
@@ -277,7 +276,7 @@
     _isFontVideo = YES;
     [self filterSettingBtnClick:_defaultFilterSelectBtn];
 #else
-    config.videoBitRate = _videoBitRate;
+    config.videoBitRate = self.videoBitRate;
     config.captureDevicePosition = AVCaptureDevicePositionBack;
     self.engine = [[VHallLivePublish alloc] initWithConfig:config];
 #endif

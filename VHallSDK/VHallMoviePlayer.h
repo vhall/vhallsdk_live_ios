@@ -86,6 +86,13 @@
  */
 - (BOOL)microApplyWithType:(NSInteger)type finish:(void(^)(NSError *error))finishBlock;
 
+/**
+ *  收到邀请后 是否同意上麦
+ *  @param type 1接受，2拒绝，3超时失败
+ *  @param finishBlock 结果回调
+ */
+- (BOOL)replyInvitationWithType:(NSInteger)type finish:(void(^)(NSError *error))finishBlock;
+
 
 /**
  *  观看回放/点播视频

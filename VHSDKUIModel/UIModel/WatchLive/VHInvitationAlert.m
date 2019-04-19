@@ -27,8 +27,6 @@
                            title:(NSString *)title
                          content:(NSString *)content
 {
-
-    curCnt = 10;
     VHInvitationAlert *alertView = [[VHInvitationAlert alloc] initWithFrame:[UIScreen mainScreen].bounds title:title content:content];
     alertView.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.5];
     alertView.tag = tag;
@@ -50,6 +48,7 @@
                       content:(NSString *)content
 {
     if (self = [super initWithFrame:frame]) {
+        curCnt = 30;
         //320 170
         self.alert = [[UIView alloc] init];
         self.alert.frame = CGRectMake(self.width*0.5-155, 180, 310, 304);
@@ -102,7 +101,6 @@
         [self.closeButton addTarget:self action:@selector(btnClicked:) forControlEvents:UIControlEventTouchUpInside];
         [self.alert addSubview:self.closeButton];
 
-        curCnt = 10;
         [self startTimer];
     }
     return self;
