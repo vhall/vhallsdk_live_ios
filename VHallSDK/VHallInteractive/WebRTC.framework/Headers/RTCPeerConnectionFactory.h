@@ -81,6 +81,13 @@ RTC_EXPORT
 /* Stop an active AecDump recording */
 - (void)stopAecDump;
 
+//modify by vhall ilong on 2019.1.7
+- (void)setVoiceChangeType:(int)type;
+
+- (int)getVoiceChangeType;
+
+- (void)setPitchChange:(double)value;
+
 @end
 
 NS_ASSUME_NONNULL_END

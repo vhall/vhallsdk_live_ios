@@ -17,6 +17,8 @@
 #import "DLNAView.h"
 #import "VHPlayerView.h"
 
+#define RATEARR @[@1.0,@1.25,@1.5,@2.0,@0.5,@0.67,@0.8]//倍速播放循环顺序
+
 static AnnouncementView* announcementView = nil;
 @interface WatchPlayBackViewController ()<VHallMoviePlayerDelegate,UITableViewDelegate,UITableViewDataSource,VHPullingRefreshTableViewDelegate,VHPlayerViewDelegate>
 {
@@ -57,6 +59,8 @@ static AnnouncementView* announcementView = nil;
 @property (nonatomic,strong) NSMutableArray *commentsArray;//评论
 
 @property (weak, nonatomic) IBOutlet UIButton *definitionBtn;
+@property (weak, nonatomic) IBOutlet UIButton *rateBtn;
+
 @end
 
 @implementation WatchPlayBackViewController
@@ -80,7 +84,99 @@ static AnnouncementView* announcementView = nil;
     }
     return _playMaskView;
 }
+#pragma mark - Lifecycle Method
+- (void)dealloc
+{
+    //阻止iOS设备锁屏
+    [[UIApplication sharedApplication] setIdleTimerDisabled:NO];
+    [self.backView removeObserver:self forKeyPath:kViewFramePath];
+    [[NSNotificationCenter defaultCenter]removeObserver:self];
+    VHLog(@"%@ dealloc",[[self class]description]);
+}
 
+- (id)init
+{
+    self = [super initWithNibName:NSStringFromClass([self class]) bundle:meetingResourcesBundle];
+    if (self) {
+    }
+    return self;
+}
+
+-(void)viewWillLayoutSubviews
+{
+    if ([UIApplication sharedApplication].statusBarOrientation == UIDeviceOrientationPortrait)
+        
+    {
+        _topConstraint.constant = 20;
+        if(iPhoneX)
+            _topConstraint.constant = 35;
+        _dlnaBtn.hidden = NO;
+    }
+    else
+    {
+        _topConstraint.constant = 0;
+        _dlnaBtn.hidden = YES;
+    }
+}
+
+- (void)viewDidLayoutSubviews
+{
+    if ([UIApplication sharedApplication].statusBarOrientation == UIDeviceOrientationPortrait)
+        _tableView.frame = _historyCommentTableView.bounds;
+    _moviePlayer.moviePlayerView.frame = _backView.bounds;
+    _playMaskView.frame = _moviePlayer.moviePlayerView.bounds;
+    [self.backView addSubview:_moviePlayer.moviePlayerView];
+    [self.backView sendSubviewToBack:_moviePlayer.moviePlayerView];
+    if (_documentView)
+    {
+        _documentView.frame = self.textImageView.bounds;
+        _documentView.width = VH_SW;
+        if ([UIApplication sharedApplication].statusBarOrientation == UIDeviceOrientationPortrait)
+        {
+            _documentView.height = VH_SH-_backView.height-20-40;
+            [_documentView layoutSubviews];
+        }
+        else
+        {
+            _documentView.height = 0;
+        }
+    }
+}
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    // Do any additional setup after loading the view from its nib.
+    
+    [self initViews];
+    _commentsArray=[NSMutableArray array];//初始化评论数组
+    
+    [self play];
+    
+    //播放器
+    _moviePlayer.moviePlayerView.frame = CGRectMake(0, 0, self.view.frame.size.width, self.backView.height);//self.view.bounds;
+    
+    //遮盖
+    self.playMaskView.frame = _moviePlayer.moviePlayerView.bounds;
+    [_moviePlayer.moviePlayerView addSubview:self.playMaskView];
+    
+    [self.backView addSubview:_moviePlayer.moviePlayerView];
+    [self.backView sendSubviewToBack:_moviePlayer.moviePlayerView];
+    
+    
+    if (self.playModelTemp == VHMovieVideoPlayModeTextAndVoice ) {
+        self.liveTypeLabel.text = @"语音回放中";
+    }else{
+        self.liveTypeLabel.text = @"";
+    }
+    
+    if (self.textImageView.image == nil) {
+        [self.textImageView addSubview:self.textLabel];
+    }else{
+        [self.textLabel removeFromSuperview];
+        self.textLabel = nil;
+    }
+    
+}
 #pragma mark - Private Method
 - (void)initViews
 {
@@ -126,7 +222,27 @@ static AnnouncementView* announcementView = nil;
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(outputDeviceChanged:)name:AVAudioSessionRouteChangeNotification object:[AVAudioSession sharedInstance]];
 }
 
-#pragma mark - 返回上层界面
+- (void)play
+{
+    if (_moviePlayer.moviePlayerView) {
+        [MBProgressHUD showHUDAddedTo:_moviePlayer.moviePlayerView animated:YES];
+    }
+    //todo
+    NSMutableDictionary * param = [[NSMutableDictionary alloc]init];
+    param[@"id"] =  _roomId;
+    param[@"name"] = [UIDevice currentDevice].name;
+    param[@"email"] = [[[UIDevice currentDevice] identifierForVendor] UUIDString];
+    if (_kValue&&_kValue.length) {
+        param[@"pass"] = _kValue;
+    }
+    
+    VHLog(@"开始=== %f",[[NSDate date] timeIntervalSince1970]);
+    _moviePlayer.currentPlaybackTime = 0.0;
+    [_moviePlayer startPlayback:param];
+}
+
+
+#pragma mark - 关闭
 - (IBAction)closeBtnClick:(id)sender
 {
     __weak typeof(self) weakSelf = self;
@@ -144,177 +260,102 @@ static AnnouncementView* announcementView = nil;
     self.moviePlayer.movieScalingMode = mode;
 
 }
-
-#pragma mark - Lifecycle Method
-- (id)init
+#pragma mark - 倍速播放
+- (IBAction)rateBtnClick:(UIButton*)sender
 {
-    self = [super initWithNibName:NSStringFromClass([self class]) bundle:meetingResourcesBundle];
-    if (self) {
-    }
-    return self;
-}
-
--(BOOL)shouldAutorotate
-{
-    return YES;
-}
-
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation
-{
-    return YES;
-}
-
--(UIInterfaceOrientationMask)supportedInterfaceOrientations
-{
-    return UIInterfaceOrientationMaskPortrait|UIInterfaceOrientationMaskLandscapeLeft|UIInterfaceOrientationMaskLandscapeRight;
-}
-
-- (UIInterfaceOrientation)preferredInterfaceOrientationForPresentation
-{
-    return UIInterfaceOrientationPortrait;
-}
-
-- (void)willAnimateSecondHalfOfRotationFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation duration:(NSTimeInterval)duration
-{
-    //如果是iosVersion  8.0之前，UI出现问题请在此调整
-    if (IOSVersion<8.0)
+    if(self.moviePlayer.playerState == VHPlayerStatePlaying || self.moviePlayer.playerState == VHPlayerStatePause)
     {
-        CGRect frame = self.view.frame;
-        CGRect bounds = [[UIScreen mainScreen]bounds];
-        if ([[UIDevice currentDevice] orientation] == UIDeviceOrientationPortrait// UIInterfaceOrientationPortrait
-            || [[UIDevice currentDevice] orientation] == UIDeviceOrientationPortraitUpsideDown) { //UIInterfaceOrientationPortraitUpsideDown
-            //竖屏
-            frame = _backView.bounds;
-        } else {
-            //横屏
-            frame = CGRectMake(0, 0, bounds.size.height, bounds.size.width);
-        }
-
-        _moviePlayer.moviePlayerView.frame = frame;
-        [self.backView addSubview:_moviePlayer.moviePlayerView];
-        [self.backView sendSubviewToBack:_moviePlayer.moviePlayerView];
-    }
-}
-
--(void)viewWillLayoutSubviews
-{
-    if ([UIApplication sharedApplication].statusBarOrientation == UIDeviceOrientationPortrait)
+        sender.tag++;
+        if( sender.tag >= 7)
+            sender.tag = 0;
         
-    {
-        _topConstraint.constant = 20;
-        if(iPhoneX)
-            _topConstraint.constant = 35;
-        _dlnaBtn.hidden = NO;
-    }
-    else
-    {
-        _topConstraint.constant = 0;
-        _dlnaBtn.hidden = YES;
+        [sender setTitle:[NSString stringWithFormat:@"%.2f",[RATEARR[sender.tag] floatValue]] forState:UIControlStateNormal];
+        
+        self.moviePlayer.rate = [RATEARR[sender.tag] floatValue];
     }
 }
-
-- (void)viewDidLayoutSubviews
-{
-    if ([UIApplication sharedApplication].statusBarOrientation == UIDeviceOrientationPortrait)
-        _tableView.frame = _historyCommentTableView.bounds;
-    _moviePlayer.moviePlayerView.frame = _backView.bounds;
-    _playMaskView.frame = _moviePlayer.moviePlayerView.bounds;
-    [self.backView addSubview:_moviePlayer.moviePlayerView];
-    [self.backView sendSubviewToBack:_moviePlayer.moviePlayerView];
-    if (_documentView)
-    {
-        _documentView.frame = self.textImageView.bounds;
-        _documentView.width = VH_SW;
-        if ([UIApplication sharedApplication].statusBarOrientation == UIDeviceOrientationPortrait)
-        {
-            _documentView.height = VH_SH-_backView.height-20-40;
-            [_documentView layoutSubviews];
-        }
-        else
-        {
-            _documentView.height = 0;
+#pragma mark - 码率选择
+- (IBAction)definitionBtnCLicked:(UIButton *)sender {
+    
+    int _leve = _moviePlayer.curDefinition;
+    BOOL isCanPlayDefinition = NO;
+    
+    while (!isCanPlayDefinition) {
+        _leve = _leve+1;
+        if(_leve>4)
+            _leve = 0;
+        for (NSNumber* definition in _definitionList) {
+            if(definition.intValue == _leve)
+            {
+                isCanPlayDefinition = YES;
+                break;
+            }
         }
     }
+    
+    if(_moviePlayer.curDefinition == _leve)
+        return;
+    
+    [MBProgressHUD hideHUDForView:_moviePlayer.moviePlayerView animated:NO];
+    [MBProgressHUD showHUDAddedTo:_moviePlayer.moviePlayerView animated:YES];
+    [_moviePlayer setCurDefinition:_leve];
+    [_definitionBtn setImage:[UIImage imageNamed:_videoLevePicArray[_moviePlayer.curDefinition]] forState:UIControlStateNormal];
+    _playModelTemp=_moviePlayer.playMode;
 }
 
-
-#pragma mark - viewDidLoad
-- (void)viewDidLoad {
-    [super viewDidLoad];
-    // Do any additional setup after loading the view from its nib.
+#pragma mark - 详情
+- (IBAction)detailsButtonClick:(UIButton *)sender {
+    self.textImageView.hidden = YES;
+    [_commentBtn setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
+    [_docBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    [_detalBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    [self getHistoryComment];
     
-    [self initViews];
-    _commentsArray=[NSMutableArray array];//初始化评论数组
-    
-    if (_moviePlayer.moviePlayerView) {
-        [MBProgressHUD showHUDAddedTo:_moviePlayer.moviePlayerView animated:YES];
-    }
-    //todo
-    NSMutableDictionary * param = [[NSMutableDictionary alloc]init];
-    param[@"id"] =  _roomId;
-    param[@"name"] = [UIDevice currentDevice].name;
-    param[@"email"] = [[[UIDevice currentDevice] identifierForVendor] UUIDString];
-    if (_kValue&&_kValue.length) {
-        param[@"pass"] = _kValue;
-    }
-    
-    VHLog(@"开始=== %f",[[NSDate date] timeIntervalSince1970]);
-    
-    [_moviePlayer startPlayback:param];
-
-    //播放器
-    _moviePlayer.moviePlayerView.frame = CGRectMake(0, 0, self.view.frame.size.width, self.backView.height);//self.view.bounds;
-    
-    //遮盖
-    self.playMaskView.frame = _moviePlayer.moviePlayerView.bounds;
-    [_moviePlayer.moviePlayerView addSubview:self.playMaskView];
-    
-    [self.backView addSubview:_moviePlayer.moviePlayerView];
-    [self.backView sendSubviewToBack:_moviePlayer.moviePlayerView];
-   
-
-    if (self.playModelTemp == VHMovieVideoPlayModeTextAndVoice ) {
-        self.liveTypeLabel.text = @"语音回放中";
-    }else{
-        self.liveTypeLabel.text = @"";
-    }
-
-    if (self.textImageView.image == nil) {
-        [self.textImageView addSubview:self.textLabel];
-    }else{
-        [self.textLabel removeFromSuperview];
-        self.textLabel = nil;
-    }
-
 }
 
--(void)viewDidAppear:(BOOL)animated
+#pragma mark - 文档
+- (IBAction)textButtonClick:(UIButton *)sender {
+    [_docBtn setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
+    [_commentBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    [_detalBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    self.textImageView.hidden = NO;
+    
+}
+- (IBAction)detailBtnClick:(id)sender {
+//暂时无用
+//    [_docBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+//    [_commentBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+//    [_detalBtn setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
+}
+
+#pragma mark - 历史记录
+- (IBAction)historyCommentButtonClick:(id)sender
 {
-    [super viewDidAppear:animated];
+    _tableView.startPos=0;
+    [self pullingTableViewDidStartRefreshing:_tableView];
 }
 
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+#pragma mark - 视频控制
+- (void)Vh_playerButtonAction:(UIButton *)button {
+    if (button.selected) {
+        if(self.moviePlayer.playerState == VHPlayerStatePause){
+            [self.moviePlayer reconnectPlay];
+        }
+        else{
+            [self play];
+        }
+    }
+    else{
+        [self.moviePlayer pausePlay];
+    }
 }
 
--(void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
-    //[_tableView launchRefreshing];
+//全屏播放
+- (void)Vh_fullScreenButtonAction:(UIButton *)button {
     
-}
-- (void)dealloc
-{
-    //阻止iOS设备锁屏
-    [[UIApplication sharedApplication] setIdleTimerDisabled:NO];
-    [self.backView removeObserver:self forKeyPath:kViewFramePath];
-    [[NSNotificationCenter defaultCenter]removeObserver:self];
-    VHLog(@"%@ dealloc",[[self class]description]);
+    [self setDeciceOrientationLanscapeRight:button.selected];
 }
 
-#pragma mark - ProgressSlider
 - (void)monitorVideoPlayback
 {
     double currentTime = floor(self.moviePlayer.currentPlaybackTime);
@@ -344,11 +385,6 @@ static AnnouncementView* announcementView = nil;
     return [NSString stringWithFormat:@"%02d:%02d:%02d", hour, minute, secend];
 }
 
-//全屏播放
-- (void)Vh_fullScreenButtonAction:(UIButton *)button {
-   
-    [self setDeciceOrientationLanscapeRight:button.selected];
-}
 //电池栏在左屏
 - (void)setDeciceOrientationLanscapeRight:(BOOL)isLandscapeRight
 {
@@ -371,39 +407,22 @@ static AnnouncementView* announcementView = nil;
     
 }
 
-- (void)Vh_playerButtonAction:(UIButton *)button {
-    
-    if (button.selected) {
-        
-        [self.moviePlayer reconnectPlay];
-    }else
-    {
-        [self.moviePlayer pausePlay];
-    }
-}
-
 - (void)Vh_progressSliderTouchBegan:(UISlider *)slider {
-    
     [self.moviePlayer pausePlay];
     [self.playMaskView cancelAutoFadeOutControlBar];
 }
 
 - (void)Vh_progressSliderValueChanged:(UISlider *)slider {
-    
     double currentTime = floor(slider.value);
     double totalTime = floor(self.moviePlayer.duration);
-    
     [self setTimeLabelValues:currentTime totalTime:totalTime];
-    
 }
 
 - (void)Vh_progressSliderTouchEnded:(UISlider *)slider {
-    
     [self.moviePlayer setCurrentPlaybackTime:floor(slider.value)];
     [self.moviePlayer reconnectPlay];
     [self.playMaskView autoFadeOutControlBar];
 }
-
 
 #pragma mark - VHMoviePlayerDelegate
 - (void)playError:(VHLivePlayErrorType)livePlayErrorType info:(NSDictionary *)info;
@@ -413,8 +432,9 @@ static AnnouncementView* announcementView = nil;
     switch (livePlayErrorType) {
         case VHLivePlayGetUrlError:
         {
-            msg = @"获取活动信息错误";
+            msg = info[@"content"];
             [self showMsg:msg afterDelay:2];
+            NSLog( @"播放失败 %@ %@",info[@"code"],info[@"content"]);
         }
             break;
         case VHVodPlayError:
@@ -560,13 +580,32 @@ static AnnouncementView* announcementView = nil;
             _playMaskView.playButton.selected  = YES;
             
             VHLog(@"播放中=== %f",[[NSDate date] timeIntervalSince1970]);
+
+            float rate = self.moviePlayer.rate;
+            int index = 0;
+            if(fabs(rate - 1.0) <= 0.01)
+                index = 0;
+            else if(fabs(rate - 1.25) <= 0.01)
+                index = 1;
+            else if(fabs(rate - 1.5) <= 0.01)
+                index = 2;
+            else if(fabs(rate - 2.0) <= 0.01)
+                index = 3;
+            else if(fabs(rate - 0.5) <= 0.01)
+                index = 4;
+            else if(fabs(rate - 0.67) <= 0.01)
+                index = 5;
+            else if(fabs(rate - 0.8) <= 0.01)
+                index = 6;
+                
+            [_rateBtn setTitle:[NSString stringWithFormat:@"%.2f",[RATEARR[index] floatValue]] forState:UIControlStateNormal];
             
             break;
         case VHPlayerStatePause:
             _playMaskView.playButton.selected  = NO;
             break;
         case VHPlayerStateStreamStoped:
-            
+            _playMaskView.playButton.selected  = NO;
             break;
         default:
             break;
@@ -587,7 +626,6 @@ static AnnouncementView* announcementView = nil;
         _moviePlayer.moviePlayerView.frame = self.backView.bounds;
         //[self.backView addSubview:self.hlsMoviePlayer.view];
         [self.backView sendSubviewToBack:self.moviePlayer.moviePlayerView];
-
     }
 }
 
@@ -601,9 +639,6 @@ static AnnouncementView* announcementView = nil;
 
 - (void)didBecomeActive
 {
-    //观看直播
-    [self.moviePlayer reconnectPlay];
-    
     if(announcementView && !announcementView.hidden)
     {
         announcementView.content = announcementView.content;
@@ -641,40 +676,8 @@ static AnnouncementView* announcementView = nil;
     }
 }
 
-#pragma mark - 详情
-- (IBAction)detailsButtonClick:(UIButton *)sender {
-    self.textImageView.hidden = YES;
-    [_commentBtn setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
-    [_docBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-    [_detalBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-    [self getHistoryComment];
- 
-}
 
-#pragma mark - 文档
-- (IBAction)textButtonClick:(UIButton *)sender {
-    [_docBtn setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
-    [_commentBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-      [_detalBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-    self.textImageView.hidden = NO;
-
-}
-- (IBAction)detailBtnClick:(id)sender {
-    [_docBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-    [_commentBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-      [_detalBtn setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
-}
-
-#pragma mark - 历史记录
-- (IBAction)historyCommentButtonClick:(id)sender
-{
-    
-    _tableView.startPos=0;
-    [self pullingTableViewDidStartRefreshing:_tableView];
-    
-  }
-
-#pragma mark -拉取前20条评论
+#pragma mark - 拉取前20条评论
 
 -(void)getHistoryComment
 {
@@ -702,13 +705,13 @@ static AnnouncementView* announcementView = nil;
        [_messageToolView beginTextViewInView];
 }
 
-#pragma mark 点击聊天输入框蒙版
+#pragma mark - 点击聊天输入框蒙版
 -(void)toolViewBackViewClick
 {
     [_messageToolView endEditing:YES];
     [_toolViewBackView removeFromSuperview];
 }
-#pragma mark messageToolViewDelegate
+#pragma mark - messageToolViewDelegate
 - (void)didSendText:(NSString *)text
 {
     __weak typeof(self) weakSelf=self;
@@ -757,9 +760,7 @@ static AnnouncementView* announcementView = nil;
     [self showMsg:message afterDelay:1];
 }
 
-
-#pragma mark  tableView Delegate
-
+#pragma mark  - tableView Delegate
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     UITableViewCell *cell =nil;
@@ -772,7 +773,8 @@ static AnnouncementView* announcementView = nil;
             cell = [[WatchLiveChatTableViewCell alloc]init];
         }
         ((WatchLiveChatTableViewCell *)cell).model = model;
-    }else
+    }
+    else
     {
         static  NSString *indetify = @"identifyCell";
         cell = [tableView dequeueReusableCellWithIdentifier:indetify];
@@ -785,37 +787,25 @@ static AnnouncementView* announcementView = nil;
 
 -(NSInteger)tableView:(UITableView *)aTableView numberOfRowsInSection:(NSInteger)section
 {
-    
-        return _commentsArray.count ;
-   
+    return _commentsArray.count ;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    
-  
     return 60;
-   
-    
 }
 
-#pragma mark delegate
 #pragma mark - PullingRefreshTableViewDelegate
 - (void)pullingTableViewDidStartRefreshing:(VHPullingRefreshTableView *)tableView
 {
-    
     [_commentsArray removeAllObjects];
     [self performSelector:@selector(loadData:) withObject:tableView];
-
-    
 }
-
 
 - (void)pullingTableViewDidStartLoading:(VHPullingRefreshTableView *)tableView
 {
     [self performSelector:@selector(loadData:) withObject:tableView];
 }
-
 
 - (void)loadData:(VHPullingRefreshTableView *)tableView
 {
@@ -840,8 +830,6 @@ static AnnouncementView* announcementView = nil;
         [tableView tableViewDidFinishedLoading];
 //        [UIAlertView popupAlertByDelegate:nil title:failedData[@"content"] message:code];
     }];
-
-    
 }
 
 -(DLNAView *)dlnaView
@@ -855,36 +843,28 @@ static AnnouncementView* announcementView = nil;
 
 - (IBAction)dlnaClick:(id)sender {
     id control = self.dlnaView.control;
-      [_moviePlayer dlnaMappingObject:control];
-      [_showView insertSubview:self.dlnaView atIndex:10];
+    [_moviePlayer dlnaMappingObject:control];
+    [_showView insertSubview:self.dlnaView atIndex:10];
 }
 
-- (IBAction)definitionBtnCLicked:(UIButton *)sender {
-
-    int _leve = _moviePlayer.curDefinition;
-    BOOL isCanPlayDefinition = NO;
-    
-    while (!isCanPlayDefinition) {
-        _leve = _leve+1;
-        if(_leve>4)
-            _leve = 0;
-        for (NSNumber* definition in _definitionList) {
-            if(definition.intValue == _leve)
-            {
-                isCanPlayDefinition = YES;
-                break;
-            }
-        }
-    }
-    
-    if(_moviePlayer.curDefinition == _leve)
-        return;
-    
-    [MBProgressHUD hideHUDForView:_moviePlayer.moviePlayerView animated:NO];
-    [MBProgressHUD showHUDAddedTo:_moviePlayer.moviePlayerView animated:YES];
-    [_moviePlayer setCurDefinition:_leve];
-    [_definitionBtn setImage:[UIImage imageNamed:_videoLevePicArray[_moviePlayer.curDefinition]] forState:UIControlStateNormal];
-    _playModelTemp=_moviePlayer.playMode;
+#pragma mark - 旋转
+-(BOOL)shouldAutorotate
+{
+    return YES;
 }
 
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation
+{
+    return YES;
+}
+
+-(UIInterfaceOrientationMask)supportedInterfaceOrientations
+{
+    return UIInterfaceOrientationMaskPortrait|UIInterfaceOrientationMaskLandscapeLeft|UIInterfaceOrientationMaskLandscapeRight;
+}
+
+- (UIInterfaceOrientation)preferredInterfaceOrientationForPresentation
+{
+    return UIInterfaceOrientationPortrait;
+}
 @end

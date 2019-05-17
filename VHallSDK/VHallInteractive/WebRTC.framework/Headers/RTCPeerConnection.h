@@ -276,9 +276,6 @@ RTC_EXPORT
           currentBitrateBps:(nullable NSNumber *)currentBitrateBps
               maxBitrateBps:(nullable NSNumber *)maxBitrateBps;
 
-- (void)setVoiceChangeType:(int)type;
-- (int)getVoiceChangeType;
-
 /** Start or stop recording an Rtc EventLog. */
 - (BOOL)startRtcEventLogWithFilePath:(NSString *)filePath
                       maxSizeInBytes:(int64_t)maxSizeInBytes;

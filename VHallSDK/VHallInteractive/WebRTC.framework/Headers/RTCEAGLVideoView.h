@@ -39,6 +39,9 @@ RTC_EXPORT
 
 - (instancetype)initWithCoder:(NSCoder *)aDecoder
                        shader:(id<RTCVideoViewShading>)shader NS_DESIGNATED_INITIALIZER;
+- (void)setupGL;
+
+- (void)teardownGL;
 
 @end
 

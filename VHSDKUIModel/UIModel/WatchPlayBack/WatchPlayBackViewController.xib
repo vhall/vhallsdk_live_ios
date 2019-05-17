@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
-        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -21,6 +20,7 @@
                 <outlet property="docBtn" destination="Juj-J1-c6K" id="9Nj-Ps-y7P"/>
                 <outlet property="historyCommentTableView" destination="aon-zd-QHl" id="W4X-6A-Xqk"/>
                 <outlet property="liveTypeLabel" destination="3LA-sD-QBG" id="ebY-sK-cix"/>
+                <outlet property="rateBtn" destination="M0Q-rx-0fQ" id="ZPc-2a-eIX"/>
                 <outlet property="showView" destination="nKg-wQ-zdc" id="5xV-ih-GOp"/>
                 <outlet property="textImageView" destination="Zpm-nw-viq" id="6cq-RA-XOR"/>
                 <outlet property="topConstraint" destination="nwD-Xm-3yT" id="WQJ-bR-Xk3"/>
@@ -223,7 +223,7 @@
                             <nil key="highlightedColor"/>
                         </label>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ggp-SD-oTX">
-                            <rect key="frame" x="314" y="17" width="25" height="22"/>
+                            <rect key="frame" x="314" y="16.5" width="25" height="22"/>
                             <constraints>
                                 <constraint firstAttribute="width" constant="25" id="HnN-ak-rzW"/>
                                 <constraint firstAttribute="height" constant="22" id="rW2-qw-O4r"/>
@@ -247,10 +247,30 @@
                                 <action selector="definitionBtnCLicked:" destination="-1" eventType="touchUpInside" id="DcH-v1-aSS"/>
                             </connections>
                         </button>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="M0Q-rx-0fQ">
+                            <rect key="frame" x="247" y="14" width="27" height="27"/>
+                            <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.5" colorSpace="custom" customColorSpace="sRGB"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="27" id="TUl-CB-b6C"/>
+                                <constraint firstAttribute="height" constant="27" id="a3L-p6-bor"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                            <state key="normal" title="1.0"/>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                    <real key="value" value="13.5"/>
+                                </userDefinedRuntimeAttribute>
+                                <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
+                            </userDefinedRuntimeAttributes>
+                            <connections>
+                                <action selector="rateBtnClick:" destination="-1" eventType="touchUpInside" id="e7P-Oa-SHE"/>
+                            </connections>
+                        </button>
                     </subviews>
                     <color key="backgroundColor" red="0.074509803920000006" green="0.074509803920000006" blue="0.074509803920000006" alpha="1" colorSpace="calibratedRGB"/>
                     <constraints>
                         <constraint firstItem="3LA-sD-QBG" firstAttribute="leading" secondItem="Jzh-oH-Jp7" secondAttribute="leading" id="JNb-Ws-fSR"/>
+                        <constraint firstItem="JqT-Yy-Fv0" firstAttribute="leading" secondItem="M0Q-rx-0fQ" secondAttribute="trailing" constant="8" id="K6r-69-Ut4"/>
                         <constraint firstAttribute="trailing" secondItem="Z7f-xS-NdP" secondAttribute="trailing" id="O6n-4O-tmW"/>
                         <constraint firstAttribute="trailing" secondItem="3LA-sD-QBG" secondAttribute="trailing" id="S6d-D0-pnX"/>
                         <constraint firstItem="Zb9-aU-eP8" firstAttribute="leading" secondItem="Ggp-SD-oTX" secondAttribute="trailing" constant="6" id="T8U-zq-0Xe"/>
@@ -258,6 +278,7 @@
                         <constraint firstAttribute="width" secondItem="Jzh-oH-Jp7" secondAttribute="height" multiplier="16:9" id="bJ1-U9-4Vo"/>
                         <constraint firstItem="Zb9-aU-eP8" firstAttribute="top" secondItem="Jzh-oH-Jp7" secondAttribute="top" constant="15" id="gPj-Jr-dNh"/>
                         <constraint firstItem="JqT-Yy-Fv0" firstAttribute="centerY" secondItem="Ggp-SD-oTX" secondAttribute="centerY" id="gtZ-Or-mEb"/>
+                        <constraint firstItem="M0Q-rx-0fQ" firstAttribute="centerY" secondItem="JqT-Yy-Fv0" secondAttribute="centerY" id="iJm-oJ-NIE"/>
                         <constraint firstItem="3LA-sD-QBG" firstAttribute="top" secondItem="Zb9-aU-eP8" secondAttribute="bottom" id="lBZ-FD-3MW"/>
                         <constraint firstItem="59B-GZ-j6h" firstAttribute="top" secondItem="Jzh-oH-Jp7" secondAttribute="top" constant="10" id="n5w-aD-Np0"/>
                         <constraint firstItem="Ggp-SD-oTX" firstAttribute="leading" secondItem="JqT-Yy-Fv0" secondAttribute="trailing" constant="7" id="o5A-4c-ReF"/>

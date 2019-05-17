@@ -18,58 +18,47 @@
 @property(nonatomic,assign)int bufferTime;                      //RTMP 的缓冲时间 默认 6秒 单位为秒 必须>0 值越小延时越小,卡顿增加
 @property(assign,readonly)int realityBufferTime;                //获取RTMP播放实际的缓冲时间
 @property(nonatomic,assign,readonly)VHPlayerState playerState;  //播放器状态
-
-//点播
-@property (nonatomic, readonly) NSTimeInterval          duration;           //视频时长
-@property (nonatomic, readonly) NSTimeInterval          playableDuration;   //可播放时长
-@property (nonatomic, assign)   NSTimeInterval          currentPlaybackTime;//当前播放时间点
-
+/**
+ *  当前视频观看模式
+ */
+@property(nonatomic,assign)VHMovieVideoPlayMode playMode;
 /**
  *  视频View的缩放比例 默认是自适应模式
  */
 @property(nonatomic,assign)VHRTMPMovieScalingMode movieScalingMode;
 
 /**
- *  当前视频观看模式 观看直播允许切换观看模式(回放没有)
- */
-@property(nonatomic,assign)VHMovieVideoPlayMode playMode;
-
-/**
  *  设置默认播放的清晰度 默认原画
  */
 @property(nonatomic,assign)VHMovieDefinition defaultDefinition;
 
-/*! @brief 直播视频清晰度 （只有直播有效）
- *
- *  @return 返回当前视频清晰度 如果和设置的不一致 设置无效保存原有清晰度 设置成功刷新直播，有可能设置失败，请再获取definition查看设置状态
- *   当前视频清晰度 观看直播允许切换清晰度(回放没有) 默认是defaultDefinition
+/**
+ * 设置当前要观看的清晰度
  */
 @property(nonatomic,assign)VHMovieDefinition curDefinition;
 
 /**
- *   注意 已废弃内部会自行设置
- *   设置渲染视图 在VideoPlayMode:isVrVideo: 中设置 默认VHRenderModelNone 必须设置否则会出现黑屏
+ * 以下属性 点播/回放播放时使用 直播无效
  */
-//@property(nonatomic,assign)VHRenderModel renderViewModel;
+@property (nonatomic, readonly) NSTimeInterval          duration;           //视频时长
+@property (nonatomic, readonly) NSTimeInterval          playableDuration;   //可播放时长
+@property (nonatomic, assign)   NSTimeInterval          currentPlaybackTime;//当前播放时间点
+@property (nonatomic, assign)   float                   rate;//点播倍速播放速率 0.50, 0.67, 0.80, 1.0, 1.25, 1.50, and 2.0
 
 /**
  *  初始化VHMoviePlayer对象
- *
  *  @param delegate
- *
  *  @return   返回VHMoviePlayer的一个实例
  */
 - (instancetype)initWithDelegate:(id <VHallMoviePlayerDelegate>)delegate;
 
 /**
  *  观看直播视频
- *
  *  @param param
  *  param[@"id"]    = 活动Id 必传
  *  param[@"name"]  = 如已登录可以不传
  *  param[@"email"] = 如已登录可以不传
  *  param[@"pass"]  = 活动如果有K值或密码需要传
- *
  */
 -(BOOL)startPlay:(NSDictionary*)param;
 
@@ -93,16 +82,13 @@
  */
 - (BOOL)replyInvitationWithType:(NSInteger)type finish:(void(^)(NSError *error))finishBlock;
 
-
 /**
  *  观看回放/点播视频
- *
  *  @param param
  *  param[@"id"]    = 活动Id 必传
  *  param[@"name"]  = 如已登录可以不传
  *  param[@"email"] = 如已登录可以不传
  *  param[@"pass"]  = 活动如果有K值或密码需要传
- *
  */
 -(BOOL)startPlayback:(NSDictionary*)param;
 
@@ -124,19 +110,17 @@
 
 /**
  *  设置静音
- *
  *  @param mute 是否静音
  */
 - (void)setMute:(BOOL)mute;
-
 
 /**
  *  重连socket
  */
 -(BOOL)reconnectSocket;
+
 /**
  *  设置系统声音大小
- *
  *  @param size float  [0.0~1.0]
  */
 + (void)setSysVolumeSize:(float)size;
@@ -157,11 +141,14 @@
 - (void)cleanLastFrame;
 
 /**
- *  是否使用陀螺仪，仅VR播放时可用
+ *  仅播放 VR 活动时有效
+ *  是否启用陀螺仪控制画面模式
  */
 - (void)setUsingGyro:(BOOL)usingGyro;
+
 /**
- *  设置视频布局的方向，仅VR模式可用,切要开启陀螺仪
+ *  仅播放 VR 活动时，并且 开启陀螺仪模式时 必须设置
+ *  设置视频显示的方向 用于陀螺仪方向校对
  */
 - (void)setUILayoutOrientation:(UIDeviceOrientation)orientation;
 

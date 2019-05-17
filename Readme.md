@@ -23,6 +23,10 @@ pod 'VHallSDK_LiveFilter' , :git => 'https://github.com/vhall/vhallsdk_live_ios.
 pod 'VHallSDK_Interactive' , :git => 'https://github.com/vhall/vhallsdk_live_ios.git'<br>
 
 ### 版本更新信息
+#### 版本 v3.4.2 更新时间：2019.05.17
+更新内容：<br>
+1、回放支持倍速播放<br>
+
 #### 版本 v3.4.0 更新时间：2019.04.15
 更新内容：<br>
 1、底层优化<br>
