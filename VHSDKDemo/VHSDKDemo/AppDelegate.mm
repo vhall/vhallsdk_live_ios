@@ -8,7 +8,6 @@
 
 #import "AppDelegate.h"
 #import "LoginViewController.h"
-#import <objc/message.h>
 
 @interface AppDelegate ()
 
@@ -24,7 +23,7 @@
     CGRect bounds = [[UIScreen mainScreen]bounds];
     
     [VHallApi registerApp:DEMO_AppKey SecretKey:DEMO_AppSecretKey];
-    [VHallApi setLogType:VHLogType_ON];
+//    [VHallApi setLogType:VHLogType_ON];
     
     self.window = [[UIWindow alloc]initWithFrame:bounds];
     LoginViewController * loginVC = [[LoginViewController alloc]init];

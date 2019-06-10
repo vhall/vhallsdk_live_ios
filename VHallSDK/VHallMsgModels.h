@@ -133,6 +133,8 @@ typedef NS_ENUM(NSInteger,VHFlashMsgType) {
     VHFlashMsgType_HideBoard = 2,   //隐藏白板
     VHFlashMsgType_Doc  = 3,        //ppt相关消息
     VHFlashMsgType_Board = 4,       //白板相关消息
+    VHFlashMsgType_ShowDoc = 5,   //显示文档区域
+    VHFlashMsgType_HideDoc = 6,   //隐藏文档区域
 };
 
 /**

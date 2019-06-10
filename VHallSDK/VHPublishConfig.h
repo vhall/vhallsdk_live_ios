@@ -49,7 +49,7 @@ typedef NS_ENUM(int,VHStreamType){
 
 @optional
 /**
- *  采集到第一帧的回调
+ *  采集到第一帧的回调 开始直播后第一帧，多次开始多次调用
  *  @param image 第一帧的图片
  */
 -(void)firstCaptureImage:(UIImage*)image;

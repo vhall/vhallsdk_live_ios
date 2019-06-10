@@ -66,6 +66,8 @@ static AnnouncementView* announcementView = nil;
     VHDocumentView* _documentView;
     
     NSArray* _definitionList;
+    
+    BOOL _isShowDocument;
 }
 
 @property (weak, nonatomic) IBOutlet UILabel *bufferCountLabel;
@@ -123,8 +125,8 @@ static AnnouncementView* announcementView = nil;
     if (!_textLabel) {
         _textLabel = [[UILabel alloc]init];
         _textLabel.frame = CGRectMake(0, 10, self.textImageView.width, 21);
-        _textLabel.text = @"无文档";
-        _textLabel.textAlignment = NSTextAlignmentLeft;
+        _textLabel.text = @"暂未演示文档";
+        _textLabel.textAlignment = NSTextAlignmentCenter;
     }
     return _textLabel;
 }
@@ -210,7 +212,8 @@ static AnnouncementView* announcementView = nil;
     _reachAbility = [Reachability reachabilityForInternetConnection];
     [_reachAbility startNotifier];
 
-  
+    self.textLabel.center=CGPointMake(self.textImageView.width/2, self.textImageView.height/2);
+    [self.textImageView addSubview:self.textLabel];
 }
 
 - (void)initBarrageRenderer
@@ -293,7 +296,6 @@ static AnnouncementView* announcementView = nil;
     SZQuestionItem *item = [[SZQuestionItem alloc] initWithTitleArray:titleArray andOptionArray:optionArray andResultArray:self.surveyResultArray andQuestonTypes:typeArry isMustSelectArray:isMustSelectArray];
    VHQuestionCheckBox *questionBox=[[VHQuestionCheckBox alloc] initWithItem:item];
     questionBox.survey = survey;
-    
     [self presentViewController:questionBox animated:YES completion:^{
 
      }];
@@ -534,12 +536,14 @@ static AnnouncementView* announcementView = nil;
     // Do any additional setup after loading the view from its nib.
     
     [self initViews];
+    [self startPlayer];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     
-    [self startPlayer];
+//    [self startPlayer];
+    [_moviePlayer reconnectPlay];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -841,19 +845,22 @@ static AnnouncementView* announcementView = nil;
 //
 //    }
     
-    if (changeImagePath.length<=0) {
-        [self.textImageView addSubview:self.textLabel];
-    }else{
-        [self.textLabel removeFromSuperview];
-        self.textLabel = nil;
-        
-    }
+//    if (changeImagePath.length<=0) {
+//        [self.textImageView addSubview:self.textLabel];
+//    }else{
+//        [self.textLabel removeFromSuperview];
+//        self.textLabel = nil;
+//
+//    }
+    self.textLabel.center=CGPointMake(self.textImageView.width/2, self.textImageView.height/2);
+    [self.textImageView addSubview:self.textLabel];
     
     if(!_documentView)
     {
         _documentView = [[VHDocumentView alloc]initWithFrame:self.textImageView.bounds];
         _documentView.contentMode = UIViewContentModeScaleAspectFit;
         _documentView.backgroundColor=MakeColorRGB(0xe2e8eb);
+        _documentView.hidden = !_isShowDocument;
     }
     _documentView.frame = self.textImageView.bounds;
     [self.textImageView addSubview:_documentView];
@@ -1012,6 +1019,13 @@ static AnnouncementView* announcementView = nil;
     _startAndStopBtn.selected = NO;
     UIAlertView*alert = [[UIAlertView alloc]initWithTitle:@"提示" message:@"您已被踢出" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
     [alert show];
+}
+
+- (void)moviePlayer:(VHallMoviePlayer*)player isShowDocument:(BOOL)isShow
+{
+    _isShowDocument = isShow;
+    [self showMsg:isShow?@"主持人打开文档":@"主持人关闭文档" afterDelay:1];
+    _documentView.hidden = !_isShowDocument;
 }
 
 #pragma mark - VHInvitationAlertDelegate

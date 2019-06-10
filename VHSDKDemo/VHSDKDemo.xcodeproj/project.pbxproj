@@ -74,13 +74,13 @@
 		C016EC3121D0EE4200139DDD /* UIModel.bundle in Resources */ = {isa = PBXBuildFile; fileRef = C016EC2721D0EE4200139DDD /* UIModel.bundle */; };
 		C016EC4D21D0FCD000139DDD /* libReachability.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C016EC4C21D0FCD000139DDD /* libReachability.a */; };
 		C06BCC63211183FB0045EB04 /* VHSettingTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C06BCC62211183FB0045EB04 /* VHSettingTableViewCell.m */; };
-		C0B945A8211AE2E0004D93FA /* WHDebugConsoleLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = C0B9459B211AE2E0004D93FA /* WHDebugConsoleLabel.m */; };
-		C0B945A9211AE2E0004D93FA /* WHDebugCpuMonitor.m in Sources */ = {isa = PBXBuildFile; fileRef = C0B9459D211AE2E0004D93FA /* WHDebugCpuMonitor.m */; };
-		C0B945AA211AE2E0004D93FA /* WHDebugFPSMonitor.m in Sources */ = {isa = PBXBuildFile; fileRef = C0B9459F211AE2E0004D93FA /* WHDebugFPSMonitor.m */; };
-		C0B945AB211AE2E0004D93FA /* WHDebugMemoryMonitor.m in Sources */ = {isa = PBXBuildFile; fileRef = C0B945A1211AE2E0004D93FA /* WHDebugMemoryMonitor.m */; };
-		C0B945AC211AE2E0004D93FA /* WHDebugMonitor.m in Sources */ = {isa = PBXBuildFile; fileRef = C0B945A3211AE2E0004D93FA /* WHDebugMonitor.m */; };
-		C0B945AD211AE2E0004D93FA /* WHDebugTempVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C0B945A5211AE2E0004D93FA /* WHDebugTempVC.m */; };
-		C0B945AE211AE2E0004D93FA /* WHDebugToolManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C0B945A7211AE2E0004D93FA /* WHDebugToolManager.m */; };
+		C06D62BF22A67F6500A5D69E /* WHDebugToolManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C06D62B222A67F6500A5D69E /* WHDebugToolManager.m */; };
+		C06D62C022A67F6500A5D69E /* WHDebugTempVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C06D62B922A67F6500A5D69E /* WHDebugTempVC.m */; };
+		C06D62C122A67F6500A5D69E /* WHDebugFPSMonitor.m in Sources */ = {isa = PBXBuildFile; fileRef = C06D62BA22A67F6500A5D69E /* WHDebugFPSMonitor.m */; };
+		C06D62C222A67F6500A5D69E /* WHDebugMemoryMonitor.m in Sources */ = {isa = PBXBuildFile; fileRef = C06D62BB22A67F6500A5D69E /* WHDebugMemoryMonitor.m */; };
+		C06D62C322A67F6500A5D69E /* WHDebugConsoleLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = C06D62BC22A67F6500A5D69E /* WHDebugConsoleLabel.m */; };
+		C06D62C422A67F6500A5D69E /* WHDebugMonitor.m in Sources */ = {isa = PBXBuildFile; fileRef = C06D62BD22A67F6500A5D69E /* WHDebugMonitor.m */; };
+		C06D62C522A67F6500A5D69E /* WHDebugCpuMonitor.m in Sources */ = {isa = PBXBuildFile; fileRef = C06D62BE22A67F6500A5D69E /* WHDebugCpuMonitor.m */; };
 		C0B952FB20E384AF007E9E61 /* libVHallSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C0B952E120E384AE007E9E61 /* libVHallSDK.a */; };
 		C0EDA41921183E1600021602 /* libVHallInteractive.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C0EDA41321183E1600021602 /* libVHallInteractive.a */; };
 		C0EDA41B21183E1600021602 /* WebRTC.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C0EDA41821183E1600021602 /* WebRTC.framework */; };
@@ -223,20 +223,20 @@
 		C04637771EF77260002E70DE /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C06BCC61211183FB0045EB04 /* VHSettingTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VHSettingTableViewCell.h; sourceTree = "<group>"; };
 		C06BCC62211183FB0045EB04 /* VHSettingTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VHSettingTableViewCell.m; sourceTree = "<group>"; };
-		C0B9459A211AE2E0004D93FA /* WHDebugConsoleLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WHDebugConsoleLabel.h; sourceTree = "<group>"; };
-		C0B9459B211AE2E0004D93FA /* WHDebugConsoleLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WHDebugConsoleLabel.m; sourceTree = "<group>"; };
-		C0B9459C211AE2E0004D93FA /* WHDebugCpuMonitor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WHDebugCpuMonitor.h; sourceTree = "<group>"; };
-		C0B9459D211AE2E0004D93FA /* WHDebugCpuMonitor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WHDebugCpuMonitor.m; sourceTree = "<group>"; };
-		C0B9459E211AE2E0004D93FA /* WHDebugFPSMonitor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WHDebugFPSMonitor.h; sourceTree = "<group>"; };
-		C0B9459F211AE2E0004D93FA /* WHDebugFPSMonitor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WHDebugFPSMonitor.m; sourceTree = "<group>"; };
-		C0B945A0211AE2E0004D93FA /* WHDebugMemoryMonitor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WHDebugMemoryMonitor.h; sourceTree = "<group>"; };
-		C0B945A1211AE2E0004D93FA /* WHDebugMemoryMonitor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WHDebugMemoryMonitor.m; sourceTree = "<group>"; };
-		C0B945A2211AE2E0004D93FA /* WHDebugMonitor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WHDebugMonitor.h; sourceTree = "<group>"; };
-		C0B945A3211AE2E0004D93FA /* WHDebugMonitor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WHDebugMonitor.m; sourceTree = "<group>"; };
-		C0B945A4211AE2E0004D93FA /* WHDebugTempVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WHDebugTempVC.h; sourceTree = "<group>"; };
-		C0B945A5211AE2E0004D93FA /* WHDebugTempVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WHDebugTempVC.m; sourceTree = "<group>"; };
-		C0B945A6211AE2E0004D93FA /* WHDebugToolManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WHDebugToolManager.h; sourceTree = "<group>"; };
-		C0B945A7211AE2E0004D93FA /* WHDebugToolManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WHDebugToolManager.m; sourceTree = "<group>"; };
+		C06D62B122A67F6500A5D69E /* WHDebugTempVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WHDebugTempVC.h; sourceTree = "<group>"; };
+		C06D62B222A67F6500A5D69E /* WHDebugToolManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WHDebugToolManager.m; sourceTree = "<group>"; };
+		C06D62B322A67F6500A5D69E /* WHDebugConsoleLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WHDebugConsoleLabel.h; sourceTree = "<group>"; };
+		C06D62B422A67F6500A5D69E /* WHDebugMemoryMonitor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WHDebugMemoryMonitor.h; sourceTree = "<group>"; };
+		C06D62B522A67F6500A5D69E /* WHDebugFPSMonitor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WHDebugFPSMonitor.h; sourceTree = "<group>"; };
+		C06D62B622A67F6500A5D69E /* WHDebugMonitor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WHDebugMonitor.h; sourceTree = "<group>"; };
+		C06D62B722A67F6500A5D69E /* WHDebugCpuMonitor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WHDebugCpuMonitor.h; sourceTree = "<group>"; };
+		C06D62B822A67F6500A5D69E /* WHDebugToolManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WHDebugToolManager.h; sourceTree = "<group>"; };
+		C06D62B922A67F6500A5D69E /* WHDebugTempVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WHDebugTempVC.m; sourceTree = "<group>"; };
+		C06D62BA22A67F6500A5D69E /* WHDebugFPSMonitor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WHDebugFPSMonitor.m; sourceTree = "<group>"; };
+		C06D62BB22A67F6500A5D69E /* WHDebugMemoryMonitor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WHDebugMemoryMonitor.m; sourceTree = "<group>"; };
+		C06D62BC22A67F6500A5D69E /* WHDebugConsoleLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WHDebugConsoleLabel.m; sourceTree = "<group>"; };
+		C06D62BD22A67F6500A5D69E /* WHDebugMonitor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WHDebugMonitor.m; sourceTree = "<group>"; };
+		C06D62BE22A67F6500A5D69E /* WHDebugCpuMonitor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WHDebugCpuMonitor.m; sourceTree = "<group>"; };
 		C0B952E120E384AE007E9E61 /* libVHallSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libVHallSDK.a; sourceTree = "<group>"; };
 		C0B952E220E384AE007E9E61 /* VHallApi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VHallApi.h; sourceTree = "<group>"; };
 		C0B952E320E384AE007E9E61 /* VHallBasePlugin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VHallBasePlugin.h; sourceTree = "<group>"; };
@@ -357,7 +357,7 @@
 				C000AAFA1E66E66B005DFB7C /* Common */,
 				C000AAC81E66E646005DFB7C /* SDWebImage */,
 				C000AA8E1E66E49A005DFB7C /* MBProgressHUD */,
-				C0B94599211AE2E0004D93FA /* WHDebugTool */,
+				C06D62B022A67F6500A5D69E /* WHDebugTool */,
 				C000AA861E66E41C005DFB7C /* BaseViewController.h */,
 				C000AA871E66E41C005DFB7C /* BaseViewController.m */,
 			);
@@ -538,26 +538,26 @@
 			path = libs_third;
 			sourceTree = "<group>";
 		};
-		C0B94599211AE2E0004D93FA /* WHDebugTool */ = {
+		C06D62B022A67F6500A5D69E /* WHDebugTool */ = {
 			isa = PBXGroup;
 			children = (
-				C0B9459A211AE2E0004D93FA /* WHDebugConsoleLabel.h */,
-				C0B9459B211AE2E0004D93FA /* WHDebugConsoleLabel.m */,
-				C0B9459C211AE2E0004D93FA /* WHDebugCpuMonitor.h */,
-				C0B9459D211AE2E0004D93FA /* WHDebugCpuMonitor.m */,
-				C0B9459E211AE2E0004D93FA /* WHDebugFPSMonitor.h */,
-				C0B9459F211AE2E0004D93FA /* WHDebugFPSMonitor.m */,
-				C0B945A0211AE2E0004D93FA /* WHDebugMemoryMonitor.h */,
-				C0B945A1211AE2E0004D93FA /* WHDebugMemoryMonitor.m */,
-				C0B945A2211AE2E0004D93FA /* WHDebugMonitor.h */,
-				C0B945A3211AE2E0004D93FA /* WHDebugMonitor.m */,
-				C0B945A4211AE2E0004D93FA /* WHDebugTempVC.h */,
-				C0B945A5211AE2E0004D93FA /* WHDebugTempVC.m */,
-				C0B945A6211AE2E0004D93FA /* WHDebugToolManager.h */,
-				C0B945A7211AE2E0004D93FA /* WHDebugToolManager.m */,
+				C06D62B122A67F6500A5D69E /* WHDebugTempVC.h */,
+				C06D62B222A67F6500A5D69E /* WHDebugToolManager.m */,
+				C06D62B322A67F6500A5D69E /* WHDebugConsoleLabel.h */,
+				C06D62B422A67F6500A5D69E /* WHDebugMemoryMonitor.h */,
+				C06D62B522A67F6500A5D69E /* WHDebugFPSMonitor.h */,
+				C06D62B622A67F6500A5D69E /* WHDebugMonitor.h */,
+				C06D62B722A67F6500A5D69E /* WHDebugCpuMonitor.h */,
+				C06D62B822A67F6500A5D69E /* WHDebugToolManager.h */,
+				C06D62B922A67F6500A5D69E /* WHDebugTempVC.m */,
+				C06D62BA22A67F6500A5D69E /* WHDebugFPSMonitor.m */,
+				C06D62BB22A67F6500A5D69E /* WHDebugMemoryMonitor.m */,
+				C06D62BC22A67F6500A5D69E /* WHDebugConsoleLabel.m */,
+				C06D62BD22A67F6500A5D69E /* WHDebugMonitor.m */,
+				C06D62BE22A67F6500A5D69E /* WHDebugCpuMonitor.m */,
 			);
 			path = WHDebugTool;
-			sourceTree = "<group>";
+			sourceTree = SOURCE_ROOT;
 		};
 		C0B952E020E384AE007E9E61 /* VHallSDK */ = {
 			isa = PBXGroup;
@@ -653,6 +653,7 @@
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				English,
 				en,
 				Base,
 			);
@@ -692,33 +693,33 @@
 				C000AAF91E66E646005DFB7C /* UIView+WebCacheOperation.m in Sources */,
 				C000AAAD1E66E546005DFB7C /* VHStystemSetting.m in Sources */,
 				C000AAA81E66E546005DFB7C /* VHSettingItem.m in Sources */,
-				C0B945AE211AE2E0004D93FA /* WHDebugToolManager.m in Sources */,
 				C000AAF71E66E646005DFB7C /* UIImageView+HighlightedWebCache.m in Sources */,
+				C06D62C322A67F6500A5D69E /* WHDebugConsoleLabel.m in Sources */,
 				C000AAA91E66E546005DFB7C /* VHSettingTextFieldItem.m in Sources */,
 				C000AA881E66E41C005DFB7C /* BaseViewController.m in Sources */,
 				C000AAF11E66E646005DFB7C /* SDWebImageManager.m in Sources */,
-				C0B945AA211AE2E0004D93FA /* WHDebugFPSMonitor.m in Sources */,
-				C0B945AB211AE2E0004D93FA /* WHDebugMemoryMonitor.m in Sources */,
+				C06D62C122A67F6500A5D69E /* WHDebugFPSMonitor.m in Sources */,
+				C06D62C222A67F6500A5D69E /* WHDebugMemoryMonitor.m in Sources */,
+				C06D62C022A67F6500A5D69E /* WHDebugTempVC.m in Sources */,
 				C000AB2F1E66E893005DFB7C /* VHHomeViewController.m in Sources */,
 				C000AAEE1E66E646005DFB7C /* SDWebImageDecoder.m in Sources */,
+				C06D62C422A67F6500A5D69E /* WHDebugMonitor.m in Sources */,
 				C000AAAB1E66E546005DFB7C /* VHSettingViewController.m in Sources */,
 				C000AB0E1E66E66B005DFB7C /* ITTXibView.m in Sources */,
 				C000AB0D1E66E66B005DFB7C /* VHStatisticsStystem.m in Sources */,
 				C06BCC63211183FB0045EB04 /* VHSettingTableViewCell.m in Sources */,
-				C0B945AD211AE2E0004D93FA /* WHDebugTempVC.m in Sources */,
 				C000AAF21E66E646005DFB7C /* SDWebImagePrefetcher.m in Sources */,
-				C0B945AC211AE2E0004D93FA /* WHDebugMonitor.m in Sources */,
 				C000AAF81E66E646005DFB7C /* UIImageView+WebCache.m in Sources */,
 				C000AB0C1E66E66B005DFB7C /* UIView+ITTAdditions.m in Sources */,
 				C000AA941E66E49A005DFB7C /* MBProgressHUD.m in Sources */,
 				C000AA931E66E49A005DFB7C /* MBHUDHelper.m in Sources */,
-				C0B945A9211AE2E0004D93FA /* WHDebugCpuMonitor.m in Sources */,
 				C000AAF41E66E646005DFB7C /* UIImage+GIF.m in Sources */,
 				C000AB0F1E66E66B005DFB7C /* ITTXibViewUtils.m in Sources */,
 				C000AB2D1E66E893005DFB7C /* LoginViewController.m in Sources */,
 				C000AB0B1E66E66B005DFB7C /* UIAlertView+ITTAdditions.m in Sources */,
 				C000AAF61E66E646005DFB7C /* UIImage+WebP.m in Sources */,
 				C000AAEB1E66E646005DFB7C /* NSData+ImageContentType.m in Sources */,
+				C06D62C522A67F6500A5D69E /* WHDebugCpuMonitor.m in Sources */,
 				C000AAED1E66E646005DFB7C /* SDWebImageCompat.m in Sources */,
 				C000AB091E66E66B005DFB7C /* CustomPickerView.m in Sources */,
 				C000AA461E66E053005DFB7C /* AppDelegate.mm in Sources */,
@@ -729,9 +730,9 @@
 				C000AAF51E66E646005DFB7C /* UIImage+MultiFormat.m in Sources */,
 				C000AAF31E66E646005DFB7C /* UIButton+WebCache.m in Sources */,
 				C000AAEA1E66E646005DFB7C /* MKAnnotationView+WebCache.m in Sources */,
+				C06D62BF22A67F6500A5D69E /* WHDebugToolManager.m in Sources */,
 				C000AAF01E66E646005DFB7C /* SDWebImageDownloaderOperation.m in Sources */,
 				C000AA431E66E053005DFB7C /* main.m in Sources */,
-				C0B945A8211AE2E0004D93FA /* WHDebugConsoleLabel.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

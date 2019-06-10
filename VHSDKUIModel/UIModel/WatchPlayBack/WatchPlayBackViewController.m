@@ -32,6 +32,8 @@ static AnnouncementView* announcementView = nil;
     
     NSArray*_videoLevePicArray;
     NSArray* _definitionList;
+    
+    BOOL _isShowDocument;
 }
 @property (nonatomic,strong) VHallMoviePlayer  *moviePlayer;//播放器
 @property (weak, nonatomic) IBOutlet UILabel *bufferCountLabel;
@@ -70,8 +72,8 @@ static AnnouncementView* announcementView = nil;
     if (!_textLabel) {
         _textLabel = [[UILabel alloc]init];
         _textLabel.frame = CGRectMake(0, 10, self.textImageView.width, 21);
-        _textLabel.text = @"无文档";
-        _textLabel.textAlignment = NSTextAlignmentLeft;
+        _textLabel.text = @"暂未演示文档";
+        _textLabel.textAlignment = NSTextAlignmentCenter;
     }
     return _textLabel;
 }
@@ -168,14 +170,6 @@ static AnnouncementView* announcementView = nil;
     }else{
         self.liveTypeLabel.text = @"";
     }
-    
-    if (self.textImageView.image == nil) {
-        [self.textImageView addSubview:self.textLabel];
-    }else{
-        [self.textLabel removeFromSuperview];
-        self.textLabel = nil;
-    }
-    
 }
 #pragma mark - Private Method
 - (void)initViews
@@ -205,6 +199,9 @@ static AnnouncementView* announcementView = nil;
     _comment = [[VHallComment alloc] initWithMoviePlayer:_moviePlayer];
     
     _videoLevePicArray=@[@"UIModel.bundle/原画.tiff",@"UIModel.bundle/超清.tiff",@"UIModel.bundle/高清.tiff",@"UIModel.bundle/标清.tiff",@"UIModel.bundle/语音开启",@""];
+    
+    self.textLabel.center=CGPointMake(self.textImageView.width/2, self.textImageView.height/2);
+    [self.textImageView addSubview:self.textLabel];
 }
 
 - (void)destoryMoivePlayer
@@ -451,21 +448,15 @@ static AnnouncementView* announcementView = nil;
 
 -(void)PPTScrollNextPagechangeImagePath:(NSString *)changeImagePath
 {
-    if (changeImagePath.length<=0) {
-        [self.textImageView addSubview:self.textLabel];
-    }else{
-        [self.textLabel removeFromSuperview];
-        self.textLabel = nil;
-        
-    }
-    
     if(!_documentView)
     {
         _documentView = [[VHDocumentView alloc]initWithFrame:self.textImageView.bounds];
         _documentView.contentMode = UIViewContentModeScaleAspectFit;
         _documentView.backgroundColor=MakeColorRGB(0xe2e8eb);
+        _documentView.hidden = !_isShowDocument;
     }
     _documentView.frame = self.textImageView.bounds;
+    [self.textImageView addSubview:self.textLabel];
     [self.textImageView addSubview:_documentView];
     _documentView.imagePath = changeImagePath;
 }
@@ -477,10 +468,19 @@ static AnnouncementView* announcementView = nil;
         _documentView = [[VHDocumentView alloc]initWithFrame:self.textImageView.bounds];
         _documentView.contentMode = UIViewContentModeScaleAspectFit;
         _documentView.backgroundColor=MakeColorRGB(0xe2e8eb);
+        _documentView.hidden = !_isShowDocument;
     }
     _documentView.frame = self.textImageView.bounds;
+    [self.textImageView addSubview:self.textLabel];
     [self.textImageView addSubview:_documentView];
     [_documentView drawDocHandList:docList whiteBoardHandList:boardList];
+}
+
+- (void)moviePlayer:(VHallMoviePlayer*)player isShowDocument:(BOOL)isShow
+{
+    VHLog(@"isShowDocument %d",(int)isShow);
+    _isShowDocument = isShow;
+    _documentView.hidden = !isShow;
 }
 
 -(void)VideoPlayMode:(VHMovieVideoPlayMode)playMode isVrVideo:(BOOL)isVrVideo

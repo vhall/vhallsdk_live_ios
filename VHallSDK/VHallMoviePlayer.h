@@ -211,6 +211,11 @@
  *  获取当前视频播放模式
  *
  *  @param playMode  视频播放模式
+ VHMovieVideoPlayModeNone            = 0,    //不存在
+ VHMovieVideoPlayModeMedia           = 1,    //单视频
+ VHMovieVideoPlayModeTextAndVoice    = 2,    //文档＋声音
+ VHMovieVideoPlayModeTextAndMedia    = 3,    //文档＋视频
+ VHMovieVideoPlayModeVoice           = 4,    //单音频
  */
 - (void)VideoPlayMode:(VHMovieVideoPlayMode)playMode isVrVideo:(BOOL)isVrVideo;
 
@@ -285,6 +290,13 @@
  *  @param isKickout 被踢出 取消踢出后需要重新进入
  */
 - (void)moviePlayer:(VHallMoviePlayer*)player isKickout:(BOOL)isKickout;
+
+/**
+ *  主持人显示/隐藏文档
+ *
+ *  @param isShow  YES 主持人显示观看端文档，NO 主持人隐藏观看端文档
+ */
+- (void)moviePlayer:(VHallMoviePlayer*)player isShowDocument:(BOOL)isShow;
 #pragma mark - 点播
 /**
  *  statusDidChange
