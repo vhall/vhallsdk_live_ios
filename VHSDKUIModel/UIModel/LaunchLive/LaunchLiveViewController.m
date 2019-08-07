@@ -117,10 +117,12 @@
 -(void)LaunchLiveWillResignActive
 {
     [_engine disconnect];
+    [_engine stopVideoCapture];
 }
 
 -(void)LaunchLiveDidBecomeActive
 {
+    [_engine startVideoCapture];
     [_engine reconnect];
 }
 
@@ -154,8 +156,10 @@
 - (void)registerLiveNotification
 {
     [self.view addObserver:self forKeyPath:kViewFramePath options:NSKeyValueObservingOptionNew context:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(LaunchLiveWillResignActive)name:UIApplicationWillResignActiveNotification object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(LaunchLiveDidBecomeActive)name:UIApplicationDidBecomeActiveNotification object:nil];
+//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(LaunchLiveWillResignActive)name:UIApplicationWillResignActiveNotification object:nil];
+//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(LaunchLiveDidBecomeActive)name:UIApplicationDidBecomeActiveNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(LaunchLiveWillResignActive)name:UIApplicationDidEnterBackgroundNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(LaunchLiveDidBecomeActive)name:UIApplicationWillEnterForegroundNotification object:nil];
 }
 
 -(void)initDatas
@@ -267,6 +271,7 @@
     config.isOpenNoiseSuppresion = self.isOpenNoiseSuppresion;
     config.videoResolution = self.videoResolution;
     config.audioBitRate = self.audioBitRate;
+    config.isPrintLog = YES;
 #if VHallFilterSDK_ENABLE
     config.videoBitRate = self.videoBitRate*2;//开启美颜时建议调高码率
     config.captureDevicePosition = AVCaptureDevicePositionFront;

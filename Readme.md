@@ -31,6 +31,10 @@ pod 'VHallSDK_LiveFilter' , :git => 'https://github.com/vhall/vhallsdk_live_ios.
 pod 'VHallSDK_Interactive' , :git => 'https://github.com/vhall/vhallsdk_live_ios.git'<br>
 
 ### 版本更新信息
+#### 版本 v3.4.4 更新时间：2019.08.07
+更新内容：<br>
+1、修复推流bug<br>
+
 #### 版本 v3.4.3 更新时间：2019.06.10
 更新内容：<br>
 1、新增直播中文档打开关闭功能<br>
