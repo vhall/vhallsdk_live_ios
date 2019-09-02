@@ -9,7 +9,7 @@
 #import "VHQuestionCheckBox.h"
 #import "SZQuestionCell.h"
 #import "SZQuestionOptionCell.h"
-#import "VHallApi.h"
+#import <VHLiveSDK/VHallApi.h>
 @interface VHQuestionCheckBox ()
 
 @property (nonatomic, assign) CGFloat titleWidth;
@@ -125,7 +125,7 @@
     [label setTextColor:[UIColor blackColor]];
     [label setFont:[UIFont systemFontOfSize:12]];
     [label setTextAlignment:NSTextAlignmentLeft];
-    [label setText:_survey.surveyTitle];
+//    [label setText:_survey.surveyTitle];
     [self.view addSubview:label];
     CGRect rect = CGRectMake(0.0f, 84, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height-84);
     self.tableView = [[UITableView alloc] initWithFrame:rect];
@@ -445,7 +445,7 @@
     {
 
         [_waringLabel setText:nil];
-        
+
         for (int i = 0 ; i<_survey.questionArray.count; i++)
         {
             VHallSurveyQuestion *question = [_survey.questionArray objectAtIndex:i];
@@ -478,7 +478,7 @@
                 dic =[[ NSMutableDictionary alloc] init];
                 [dic setValue:str forKey:@"answer"];
                 [dic setValue:[NSString stringWithFormat:@"%ld",question.questionId] forKey:@"ques_id"];
-                
+
             }else
             {
                 continue;
@@ -497,7 +497,7 @@
                         if (str.length ==0)
                         {
                             str = answer;
-                            
+
                         }else
                         {
                             NSString *tempStr =[NSString stringWithFormat:@"|%@",answer];
@@ -505,18 +505,18 @@
                         }
                     }
                 }];
-                
 
-                
+
+
                  dic =[[ NSMutableDictionary alloc] init];
                 [dic setValue:str forKey:@"answer"];
                 [dic setValue:[NSString stringWithFormat:@"%ld",question.questionId] forKey:@"ques_id"];
                 [_uploadArray addObject:dic];
             }
-            
+
         }
-        
-       
+
+
     }
      [self uploadDataWithArray:_uploadArray];
 }

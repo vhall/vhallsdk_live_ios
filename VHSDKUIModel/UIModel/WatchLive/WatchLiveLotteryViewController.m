@@ -8,7 +8,7 @@
 
 #import "WatchLiveLotteryViewController.h"
 #import "WatchLiveLotteryTableViewCell.h"
-#import "VHallLottery.h"
+#import <VHLiveSDK/VHallLottery.h>
 
 @interface WatchLiveLotteryViewController () <UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate>
 

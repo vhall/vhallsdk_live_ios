@@ -7,8 +7,8 @@
 //
 
 #import "VHinteractiveViewController.h"
-#import "VHRoom.h"
-#import "VHallApi.h"
+#import <VHInteractive/VHRoom.h>
+#import <VHLiveSDK/VHallApi.h>
 
 #define iconSize 34
 
@@ -33,6 +33,15 @@
     }
     return self;
 }
+
+- (UIInterfaceOrientationMask)supportedInterfaceOrientations
+{
+    return UIInterfaceOrientationMaskPortrait;
+}
+- (UIInterfaceOrientation)preferredInterfaceOrientationForPresentation {
+    return UIInterfaceOrientationPortrait;
+}
+
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -136,7 +145,6 @@
 {
     //上麦推流
     [room publishWithCameraView:self.cameraView];
-    
     VHLog(@"房间连接成功，开始推流");
 }
 // 房间错误回调
@@ -177,6 +185,33 @@
     
     [self removeView:attendView];
 }
+
+/*
+ 被讲师下麦 v4.0.0
+ */
+- (void)leaveInteractiveRoomByHost:(VHRoom *)room
+{
+    [self showMsg:@"您已被主播下麦" afterDelay:3];
+    //离开互动房间
+    [self closeButtonClick:nil];
+}
+
+/*
+ 主播操作自己的麦克风 v4.0.0
+ */
+- (void)room:(VHRoom *)room microphoneClosed:(BOOL)isClose
+{
+    _micBtn.selected = isClose;
+}
+
+/*
+ 主播操作自己的摄像头 v4.0.0
+ */
+- (void)room:(VHRoom *)room screenClosed:(BOOL)isClose
+{
+    _cameraBtn.selected = isClose;
+}
+
 
 //互动房间互动消息处理
 - (void)room:(VHRoom *)room interactiveMsgWithEventName:(NSString *)eventName attribute:(id)attributes
@@ -231,13 +266,13 @@
     //...其他消息
     //Code...
 }
+
 /*
  * iskickout 被踢出房间
  */
 - (void)room:(VHRoom *)room iskickout:(BOOL)iskickout
 {
-    //离开互动房间
-    [self closeButtonClick:nil];
+    [self kickOut];
 }
 /**
  * 收到被禁言/取消禁言
@@ -350,6 +385,37 @@
         [_cameraView setDeviceOrientation:[UIDevice currentDevice].orientation];
     }
     return _cameraView;
+}
+
+- (void)kickOut {
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil message:@"您已被踢出房间" preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction *action = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        
+        [self kickOutAction];
+    }];
+    [alert addAction:action];
+    [self presentViewController:alert animated:NO completion:nil];
+}
+
+- (void)kickOutAction {
+    //移除互动视频
+    [self removeAllViews];
+    
+    [_cameraView stopStats];
+    
+    //离开互动房间
+    [_interactiveRoom leaveRoom];
+    _interactiveRoom = nil;
+    
+    UIViewController *vc = self;
+    Class homeVcClass = NSClassFromString(@"VHHomeViewController");
+    while (![vc isKindOfClass:homeVcClass]) {
+        vc = vc.presentingViewController;
+        NSLog(@"===== %@",vc.class);
+    }
+    [vc dismissViewControllerAnimated:YES completion:^{
+        
+    }];
 }
 
 //#pragma mark 权限

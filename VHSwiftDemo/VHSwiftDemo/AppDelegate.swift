@@ -17,7 +17,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         
-        VHallApi.registerApp("", secretKey: "")
+        VHallApi.registerApp("0ded0220eb3ac95dcc955f8969a27f54", secretKey: "78e01fe58a2514ae4b75451f272c71a0")
         VHallApi.setLogType(.ON)
         
         return true

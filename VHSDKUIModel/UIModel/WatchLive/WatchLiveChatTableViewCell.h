@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "VHallMsgModels.h"
+#import <VHLiveSDK/VHallMsgModels.h>
 
 @interface WatchLiveChatTableViewCell : UITableViewCell
 

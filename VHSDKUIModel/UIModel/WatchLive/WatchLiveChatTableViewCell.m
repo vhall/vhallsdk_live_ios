@@ -41,7 +41,7 @@
 //        _textLabel.font = lblContext.font;
         _textLabel.backgroundColor = [UIColor clearColor];
         _textLabel.lineBreakMode = NSLineBreakByCharWrapping;
-        _textLabel.isNeedAtAndPoundSign = YES;
+        _textLabel.isNeedAtAndPoundSign = NO;
         _textLabel.textColor = [UIColor blackColor];
         _textLabel.customEmojiRegex = @"\\[[a-zA-Z0-9\\u4e00-\\u9fa5]+\\]";
         _textLabel.customEmojiPlistName = @"faceExpression.plist";
@@ -82,6 +82,8 @@
         lblNickName.textColor = [UIColor blackColor];
         //内容
         [_textLabel setText:_model.text];
+        
+        NSLog(@"************ %@",_model.text);
         
         [_textLabel sizeToFit];
     }

@@ -14,7 +14,7 @@
 #import "WatchLiveSurveyTableViewCell.h"
 #import "WatchLiveLotteryViewController.h"
 #import "VHMessageToolView.h"
-#import "VHallApi.h"
+#import <VHLiveSDK/VHallApi.h>
 #import "MBProgressHUD.h"
 #import "AnnouncementView.h"
 #import "SignView.h"
@@ -22,18 +22,20 @@
 #import "SZQuestionItem.h"
 #import "VHQuestionCheckBox.h"
 #import "Reachability.h"
-//#import "VHDrawView.h"
-#import "VHDocumentView.h"
 #import "DLNAView.h"
 #import "MicCountDownView.h"
 #import "VHinteractiveViewController.h"
 
 #import "VHInvitationAlert.h"
 
+#import "VHSurveyViewController.h"
+
+#import "LaunchLiveViewController.h"
+
 # define DebugLog(fmt, ...) NSLog((@"\n[文件名:%s]\n""[函数名:%s]\n""[行号:%d] \n" fmt), __FILE__, __FUNCTION__, __LINE__, ##__VA_ARGS__);
 
 static AnnouncementView* announcementView = nil;
-@interface WatchLiveViewController ()<VHallMoviePlayerDelegate, VHallChatDelegate, VHallQADelegate, VHallLotteryDelegate,VHallSignDelegate,VHallSurveyDelegate, UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate,VHMessageToolBarDelegate,MicCountDownViewDelegate,VHInvitationAlertDelegate>
+@interface WatchLiveViewController ()<VHallMoviePlayerDelegate, VHallChatDelegate, VHallQADelegate, VHallLotteryDelegate,VHallSignDelegate,VHallSurveyDelegate, UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate,VHMessageToolBarDelegate,MicCountDownViewDelegate,VHInvitationAlertDelegate,VHSurveyViewControllerDelegate>
 {
     __weak IBOutlet UIView *_showView;
 
@@ -60,14 +62,8 @@ static AnnouncementView* announcementView = nil;
 //    NSMutableArray    *_videoPlayModelPicArray;//单视频纯音频切换
      UIButton          *_toolViewBackView;//遮罩
      NSMutableDictionary *announcementContentDic;//公告内容
-//     VHDrawView *_pptHandView;//PPT
-//    VHDrawView *_whiteBoardView;//白板
-//    UIView     *_whiteBoardContainer;//白板容器
-    VHDocumentView* _documentView;
     
     NSArray* _definitionList;
-    
-    BOOL _isShowDocument;
 }
 
 @property (weak, nonatomic) IBOutlet UILabel *bufferCountLabel;
@@ -76,13 +72,17 @@ static AnnouncementView* announcementView = nil;
 @property (weak, nonatomic) IBOutlet UILabel *bitRateLabel;
 @property (weak, nonatomic) IBOutlet UIButton *startAndStopBtn;
 @property (weak, nonatomic) IBOutlet UIView *backView;
-@property (weak, nonatomic) IBOutlet UIImageView *textImageView;
+@property (weak, nonatomic) IBOutlet UIView *docConentView;//文档tab容器
+@property (weak, nonatomic) IBOutlet UIImageView *docAreaView;//文档显示区域
 @property (weak, nonatomic) IBOutlet UILabel *liveTypeLabel;
 @property(nonatomic,assign) BOOL     connectedNetWork;
 @property (weak, nonatomic) IBOutlet UIButton *detailBtn;
 @property (weak, nonatomic) IBOutlet UIButton *docBtn;
 @property (weak, nonatomic) IBOutlet UIButton *chatBtn;
 @property (weak, nonatomic) IBOutlet UIButton *QABtn;
+@property (nonatomic, strong) UIButton *cueSelectedButton;
+
+
 @property (weak, nonatomic) IBOutlet UITableView *chatView;
 @property (weak, nonatomic) IBOutlet UIView *bottomView;
 @property (nonatomic,assign) VHMovieVideoPlayMode playModelTemp;
@@ -115,6 +115,8 @@ static AnnouncementView* announcementView = nil;
 @property (nonatomic, strong) MicCountDownView *countDowwnView;
 @property (nonatomic, strong) VHInvitationAlert *invitationAlertView;
 
+//v4.0.0 新版问卷功能类
+@property (nonatomic, strong) VHSurveyViewController *surveyController;
 
 @end
 
@@ -124,7 +126,7 @@ static AnnouncementView* announcementView = nil;
 {
     if (!_textLabel) {
         _textLabel = [[UILabel alloc]init];
-        _textLabel.frame = CGRectMake(0, 10, self.textImageView.width, 21);
+        _textLabel.frame = CGRectMake(0, 10, self.docAreaView.width, 21);
         _textLabel.text = @"暂未演示文档";
         _textLabel.textAlignment = NSTextAlignmentCenter;
     }
@@ -188,7 +190,7 @@ static AnnouncementView* announcementView = nil;
     [_moviePlayer.moviePlayerView addSubview:_logView];    
     [self.view bringSubviewToFront:self.backView];
     
-    _textImageView.hidden = YES;
+    _docConentView.hidden = YES;
     _logView.hidden = YES;
     _videoLevePicArray=@[@"UIModel.bundle/原画.tiff",@"UIModel.bundle/超清.tiff",@"UIModel.bundle/高清.tiff",@"UIModel.bundle/标清.tiff",@""];
 //    _videoPlayModelPicArray=@[@"UIModel.bundle/单视频",@"UIModel.bundle/单音频"];
@@ -212,8 +214,8 @@ static AnnouncementView* announcementView = nil;
     _reachAbility = [Reachability reachabilityForInternetConnection];
     [_reachAbility startNotifier];
 
-    self.textLabel.center=CGPointMake(self.textImageView.width/2, self.textImageView.height/2);
-    [self.textImageView addSubview:self.textLabel];
+    self.textLabel.center=CGPointMake(self.docAreaView.width/2, self.docAreaView.height/2);
+    [self.docAreaView insertSubview:self.textLabel atIndex:0];
 }
 
 - (void)initBarrageRenderer
@@ -254,10 +256,10 @@ static AnnouncementView* announcementView = nil;
     NSMutableArray *optionArray=[[NSMutableArray alloc] init];
     NSMutableArray *typeArry  =[[NSMutableArray alloc] init];
     NSMutableArray *isMustSelectArray = [[NSMutableArray alloc] init];
-    
+
     NSSortDescriptor *sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"_orderNum" ascending:NO];
     survey.questionArray =[survey.questionArray sortedArrayUsingDescriptors:[NSArray arrayWithObject:sortDescriptor]];
-    
+
     for (VHallSurveyQuestion *question in survey.questionArray)
     {
         // 选项类型 （0问答 1单选 2多选）
@@ -273,9 +275,9 @@ static AnnouncementView* announcementView = nil;
         }
         else
             continue;
-        
+
         [titleArray addObject:question.questionTitle];
-        
+
         if (question.quesionSelectArray !=nil)
         {
             [optionArray addObject:question.quesionSelectArray];
@@ -283,7 +285,7 @@ static AnnouncementView* announcementView = nil;
         {
             [optionArray addObject:@[]];
         }
-        
+
         if (question.isMustSelect)
         {
             [isMustSelectArray addObject:@"1"];
@@ -303,18 +305,49 @@ static AnnouncementView* announcementView = nil;
 
 -(void)clickSurvey:(id)mode
 {
+    if (![VHallApi isLoggedIn]) {
+        [self showMsg:@"请登录" afterDelay:2];
+        return;
+    }
+    
     VHallSurveyModel *model =mode;
-    __weak typeof(self) weakSelf =self;
-    [self rotateScreen:NO];
-    self.fullscreenBtn.enabled =NO;
-    [_survey getSurveryContentWithSurveyId:model.surveyId webInarId:_roomId success:^(VHallSurvey *survey) {
-        weakSelf.fullscreenBtn.enabled =YES;
-        [weakSelf showSurveyVCWithSruveyModel:survey];
-    } failed:^(NSDictionary *failedData) {
-        weakSelf.fullscreenBtn.enabled =YES;
-        NSString* code = [NSString stringWithFormat:@"%@", failedData[@"code"]];
-        [UIAlertView popupAlertByDelegate:nil title:failedData[@"content"] message:code];
-    }];
+    
+    //v4.0.0
+    if (model.surveyURL)
+    {
+        if (!_surveyController) {
+            _surveyController = [[VHSurveyViewController alloc] init];
+            _surveyController.delegate = self;
+        }
+        _surveyController.view.frame = self.view.bounds;
+        _surveyController.url = model.surveyURL;
+        [self.view addSubview:_surveyController.view];
+    }
+    // < v4.0.0
+    else
+    {
+//        __weak typeof(self) weakSelf =self;
+//        [self rotateScreen:NO];
+//        self.fullscreenBtn.enabled =NO;
+//        [_survey getSurveryContentWithSurveyId:model.surveyId webInarId:_roomId success:^(VHallSurvey *survey) {
+//            weakSelf.fullscreenBtn.enabled =YES;
+//            [weakSelf showSurveyVCWithSruveyModel:survey];
+//        } failed:^(NSDictionary *failedData) {
+//            weakSelf.fullscreenBtn.enabled =YES;
+//            NSString* code = [NSString stringWithFormat:@"%@", failedData[@"code"]];
+//            [UIAlertView popupAlertByDelegate:nil title:failedData[@"content"] message:code];
+//        }];
+        
+        //如果未升级SDK，但是需要使用webView的方式展示问卷，使用以下方式加载。如不使用webView的方式仍使用以上方法即可。
+        NSURL *surveyURL = [self surveyURLWithRoomId:self.roomId model:model];
+        if (!_surveyController) {
+            _surveyController = [[VHSurveyViewController alloc] init];
+            _surveyController.delegate = self;
+        }
+        _surveyController.view.frame = self.view.bounds;
+        _surveyController.url = surveyURL;
+        [self.view addSubview:_surveyController.view];
+    }
 }
 #pragma mark - 注册通知
 - (void)registerLiveNotification
@@ -338,7 +371,11 @@ static AnnouncementView* announcementView = nil;
         //申请上麦
         [_moviePlayer microApplyWithType:1 finish:^(NSError *error) {
             if(error)
-                NSLog(@"申请上麦失败 %@",error.domain);
+            {
+                NSString *msg = [NSString stringWithFormat:@"申请上麦失败 %@",error.domain];
+                [self showMsg:msg afterDelay:2];
+                NSLog(@"%@",msg);
+            }
         }];
     }
     else {
@@ -355,36 +392,7 @@ static AnnouncementView* announcementView = nil;
 - (IBAction)stopWatchBtnClick:(id)sender
 {
     _definitionBtn0.hidden = YES;
-    if (_moviePlayer.playerState == VHPlayerStateStoped || _moviePlayer.playerState == VHPlayerStateStreamStoped) {
-        [MBProgressHUD hideHUDForView:_moviePlayer.moviePlayerView animated:NO];
-         [MBProgressHUD showHUDAddedTo:_moviePlayer.moviePlayerView animated:YES];
-        _bufferCount = 0;
-        _bufferCountLabel.text = [NSString stringWithFormat:@"卡顿：%d",_bufferCount];
-        if(_moviePlayer.playerState == VHPlayerStateStreamStoped)
-        {
-            [_moviePlayer reconnectPlay];
-            if (self.playModelTemp == VHMovieVideoPlayModeTextAndVoice || self.playModelTemp == VHMovieVideoPlayModeVoice) {
-                self.liveTypeLabel.text = @"语音直播中";
-            }else{
-                _definitionBtn0.hidden = NO;
-                self.liveTypeLabel.text = @"";
-            }
-            return;
-        }
-        else
-        {
-//            NSMutableDictionary * param = [[NSMutableDictionary alloc]init];
-//            param[@"id"] =  _roomId;
-//            param[@"name"] = [UIDevice currentDevice].name;
-//            param[@"email"] = [[[UIDevice currentDevice] identifierForVendor] UUIDString];
-//            if (_kValue&&_kValue.length>0) {
-//                param[@"pass"] = _kValue;
-//            }
-//            [_moviePlayer startPlay:param];
-            [self startPlayer];
-        }
-    }
-    else if (_moviePlayer.playerState == VHPlayerStatePlaying)//暂停
+    if (_moviePlayer.playerState == VHPlayerStatePlaying)//暂停
     {
         [MBProgressHUD hideHUDForView:_moviePlayer.moviePlayerView animated:NO];
         _bitRateLabel.text = @"";
@@ -392,20 +400,48 @@ static AnnouncementView* announcementView = nil;
         _bufferCountLabel.text = [NSString stringWithFormat:@"卡顿：%d",_bufferCount];
         _startAndStopBtn.selected = NO;
         [_moviePlayer pausePlay];
-
+        
         if (self.playModelTemp == VHMovieVideoPlayModeTextAndVoice || self.playModelTemp == VHMovieVideoPlayModeVoice) {
             self.liveTypeLabel.text = @"已暂停语音直播";
         }else{
             self.liveTypeLabel.text = @"";
         }
     }
-
-    if (self.textImageView.image == nil) {
-        [self.textImageView addSubview:self.textLabel];
-    }else{
-        [self.textLabel removeFromSuperview];
-        self.textLabel = nil;
+    else if (_moviePlayer.playerState == VHPlayerStatePause)
+    {
+        [_moviePlayer reconnectPlay];
     }
+    
+//    if (_moviePlayer.playerState == VHPlayerStateStoped || _moviePlayer.playerState == VHPlayerStateStreamStoped)
+//    {
+//        [MBProgressHUD hideHUDForView:_moviePlayer.moviePlayerView animated:NO];
+//         [MBProgressHUD showHUDAddedTo:_moviePlayer.moviePlayerView animated:YES];
+//        _bufferCount = 0;
+//        _bufferCountLabel.text = [NSString stringWithFormat:@"卡顿：%d",_bufferCount];
+//        if(_moviePlayer.playerState == VHPlayerStateStreamStoped)
+//        {
+//            [_moviePlayer reconnectPlay];
+//            if (self.playModelTemp == VHMovieVideoPlayModeTextAndVoice || self.playModelTemp == VHMovieVideoPlayModeVoice) {
+//                self.liveTypeLabel.text = @"语音直播中";
+//            }else{
+//                _definitionBtn0.hidden = NO;
+//                self.liveTypeLabel.text = @"";
+//            }
+//            return;
+//        }
+//        else
+//        {
+////            NSMutableDictionary * param = [[NSMutableDictionary alloc]init];
+////            param[@"id"] =  _roomId;
+////            param[@"name"] = [UIDevice currentDevice].name;
+////            param[@"email"] = [[[UIDevice currentDevice] identifierForVendor] UUIDString];
+////            if (_kValue&&_kValue.length>0) {
+////                param[@"pass"] = _kValue;
+////            }
+////            [_moviePlayer startPlay:param];
+//            [self startPlayer];
+//        }
+//    }
 }
 
 
@@ -592,13 +628,9 @@ static AnnouncementView* announcementView = nil;
 - (void)viewDidLayoutSubviews
 {
     _moviePlayer.moviePlayerView.frame = self.backView.bounds;
+    _moviePlayer.documentView.frame= self.docAreaView.bounds;
     _logView.frame = _moviePlayer.moviePlayerView.bounds;
     _lotteryVC.view.frame = _showView.bounds;
-    if (_documentView)
-    {
-        _documentView.frame = self.textImageView.bounds;
-        [_documentView layoutSubviews];
-    }
 }
 
 - (void)didReceiveMemoryWarning
@@ -742,13 +774,71 @@ static AnnouncementView* announcementView = nil;
 }
 
 
+#pragma mark - VHSurveyViewControllerDelegate
+- (void)surveyviewControllerDidCloseed:(UIButton *)sender {
+    [_surveyController.view removeFromSuperview];
+    _surveyController = nil;
+}
+- (void)surveyViewControllerWebViewDidClosed:(VHSurveyViewController *)vc {
+    [_surveyController.view removeFromSuperview];
+    _surveyController = nil;
+}
+//提交成功
+- (void)surveyViewControllerWebViewDidSubmit:(VHSurveyViewController *)vc msg:(NSDictionary *)body {
+    [_surveyController.view removeFromSuperview];
+    _surveyController = nil;
+    [self showMsg:@"提交成功" afterDelay:2];
+}
+
+
 #pragma mark - VHMoviePlayerDelegate
 - (void)moviePlayer:(VHallMoviePlayer *)player statusDidChange:(int)state
 {
     
+//    VHPlayerStateStoped                 = 0,    //停止   可调用startPlay: startPlayback: 状态转为VHallPlayerStateStarting
+//    VHPlayerStateStarting               = 1,    //启动中
+//    VHPlayerStatePlaying                = 2,    //播放中 可调用stopPlay pausePlay 状态转为VHallPlayerStateStoped/VHallPlayerStatePaused
+//    VHPlayerStateStreamStoped           = 3,    //直播流停止 暂停pausePlay/流连接错误触发 可调用stopPlay reconnectPlay状态转为VHallPlayerStateStoped/VHallPlayerStatePlaying
+//    VHPlayerStatePause                  = 4,    //回放暂停状态
+
+    NSLog(@"^^^^^^^^^ %ld",(long)state);
+    
+    switch (state) {
+        case 0:
+        {
+            
+        }
+            break;
+        case 1:
+        {
+            
+        }
+            break;
+        case 2:
+        {
+            _startAndStopBtn.selected = YES;
+        }
+            break;
+        case 3:
+        {
+            
+        }
+            break;
+        case 4:
+        {
+            
+        }
+            break;
+
+        default:
+            break;
+    }
+
 }
 -(void)connectSucceed:(VHallMoviePlayer *)moviePlayer info:(NSDictionary *)info
 {
+    [self performSelector:@selector(chatButtonClick:) withObject:self.chatBtn afterDelay:1];
+
   //  [_startAndStopBtn setTitle:@"停止播放" forState:UIControlStateNormal];
     _startAndStopBtn.selected = YES;
     [_definitionBtn0 setImage:[UIImage imageNamed:_videoLevePicArray[_moviePlayer.curDefinition]] forState:UIControlStateNormal];
@@ -785,7 +875,7 @@ static AnnouncementView* announcementView = nil;
     }
 }
 
-- (void)playError:(VHLivePlayErrorType)livePlayErrorType info:(NSDictionary *)info;
+- (void)playError:(VHSaasLivePlayErrorType)livePlayErrorType info:(NSDictionary *)info;
 {
     [MBProgressHUD hideHUDForView:_moviePlayer.moviePlayerView animated:YES];
     void (^resetStartPlay)(NSString * msg) = ^(NSString * msg){
@@ -799,25 +889,25 @@ static AnnouncementView* announcementView = nil;
 
     NSString * msg = @"";
     switch (livePlayErrorType) {
-        case VHLivePlayParamError:
+        case VHSaasLivePlayParamError:
         {
             msg = @"参数错误";
             resetStartPlay(msg);
         }
             break;
-        case VHLivePlayRecvError:
+        case VHSaasLivePlayRecvError:
         {
             msg = @"对方已经停止直播";
             resetStartPlay(msg);
         }
             break;
-        case VHLivePlayCDNConnectError:
+        case VHSaasLivePlayCDNConnectError:
         {
             msg = @"CDNConnect Error";
             resetStartPlay(msg);
         }
             break;
-        case VHLivePlayGetUrlError:
+        case VHSaasLivePlayGetUrlError:
         {
             msg = @"获取活动信息错误";
             [self detailsButtonClick: nil];
@@ -831,61 +921,11 @@ static AnnouncementView* announcementView = nil;
     }
 }
 
-#pragma mark - vhallMoviePlayerDelegate
--(void)PPTScrollNextPagechangeImagePath:(NSString *)changeImagePath
-{
-//    [_pptHandView removeFromSuperview];
-//    _pptHandView = nil;
-//    self.textImageView.image = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:changeImagePath]]];
-//    if (self.textImageView.image == nil) {
-//        [self.textImageView addSubview:self.textLabel];
-//    }else{
-//        [self.textLabel removeFromSuperview];
-//        self.textLabel = nil;
-//
-//    }
-    
-//    if (changeImagePath.length<=0) {
-//        [self.textImageView addSubview:self.textLabel];
-//    }else{
-//        [self.textLabel removeFromSuperview];
-//        self.textLabel = nil;
-//
-//    }
-    self.textLabel.center=CGPointMake(self.textImageView.width/2, self.textImageView.height/2);
-    [self.textImageView addSubview:self.textLabel];
-    
-    if(!_documentView)
-    {
-        _documentView = [[VHDocumentView alloc]initWithFrame:self.textImageView.bounds];
-        _documentView.contentMode = UIViewContentModeScaleAspectFit;
-        _documentView.backgroundColor=MakeColorRGB(0xe2e8eb);
-        _documentView.hidden = !_isShowDocument;
-    }
-    _documentView.frame = self.textImageView.bounds;
-    [self.textImageView addSubview:_documentView];
-    _documentView.imagePath = changeImagePath;
-}
-
-- (void)docHandList:(NSArray*)docList whiteBoardHandList:(NSArray*)boardList
-{
-    if(!_documentView)
-    {
-        _documentView = [[VHDocumentView alloc]initWithFrame:self.textImageView.bounds];
-        _documentView.contentMode = UIViewContentModeScaleAspectFit;
-        _documentView.backgroundColor=MakeColorRGB(0xe2e8eb);
-    }
-    _documentView.frame = self.textImageView.bounds;
-    [_documentView drawDocHandList:docList whiteBoardHandList:boardList];
-}
-
-
-
 -(void)VideoPlayMode:(VHMovieVideoPlayMode)playMode isVrVideo:(BOOL)isVrVideo
 {
     _chatBtn.enabled = YES;
     
-    [self performSelector:@selector(chatButtonClick:) withObject:nil afterDelay:1];
+//    [self performSelector:@selector(chatButtonClick:) withObject:nil afterDelay:1];
     _isVr = isVrVideo;
     if (!_isRender)
     {
@@ -1017,15 +1057,23 @@ static AnnouncementView* announcementView = nil;
 {
     VHLog(@"您已被踢出");
     _startAndStopBtn.selected = NO;
-    UIAlertView*alert = [[UIAlertView alloc]initWithTitle:@"提示" message:@"您已被踢出" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
-    [alert show];
+    
+    [self kickOut];
 }
 
-- (void)moviePlayer:(VHallMoviePlayer*)player isShowDocument:(BOOL)isShow
+- (void)moviePlayer:(VHallMoviePlayer*)player isHaveDocument:(BOOL)isHave isShowDocument:(BOOL)isShow
 {
-    _isShowDocument = isShow;
-    [self showMsg:isShow?@"主持人打开文档":@"主持人关闭文档" afterDelay:1];
-    _documentView.hidden = !_isShowDocument;
+    if(isHave)
+    {
+        [self showMsg:isShow?@"主持人打开文档":@"主持人关闭文档" afterDelay:1];
+        
+        self.textLabel.center=CGPointMake(self.docAreaView.width/2, self.docAreaView.height/2);
+        [self.docAreaView insertSubview:self.textLabel atIndex:0];
+        
+        _moviePlayer.documentView.frame = self.docAreaView.bounds;
+        [self.docAreaView addSubview:_moviePlayer.documentView];
+    }
+    _moviePlayer.documentView.hidden = !isShow;
 }
 
 #pragma mark - VHInvitationAlertDelegate
@@ -1036,6 +1084,11 @@ static AnnouncementView* announcementView = nil;
     if(index == 1)
     {
         [self.moviePlayer replyInvitationWithType:1 finish:nil];
+        
+        //退出全屏
+        [self rotateScreen:NO];
+        _fullscreenBtn.selected = NO;
+        
         //进入互动
         VHinteractiveViewController *controller = [[VHinteractiveViewController alloc] init];
         controller.roomId = self.roomId;
@@ -1143,6 +1196,22 @@ static AnnouncementView* announcementView = nil;
     [self showMsg:allForbidChat?@"全体禁言":@"取消全体禁言" afterDelay:2];
 }
 #pragma mark - VHallQAndADelegate
+//主播开启问答
+- (void)vhallQAndADidOpened:(VHallQAndA *)QA
+{
+    [self showMsg:@"主播开启了问答" afterDelay:2];
+    if (self.cueSelectedButton == self.QABtn) {
+        [self QAButtonClick:self.QABtn];
+    }
+}
+//主播关闭问答
+- (void)vhallQAndADidClosed:(VHallQAndA *)QA
+{
+    [self showMsg:@"主播关闭了问答" afterDelay:2];
+    if (self.cueSelectedButton == self.QABtn) {
+        [self QAButtonClick:self.QABtn];
+    }
+}
 - (void)reciveQAMsg:(NSArray *)msgs
 {
     for (VHallQAModel * qaModel in msgs) {
@@ -1220,17 +1289,32 @@ static AnnouncementView* announcementView = nil;
     [self showMsg:@"签到结束" afterDelay:2];
 }
 
-#pragma mark 问卷调查delegate
--(void)receiveSurveryMsgs:(NSArray*)msgs
+#pragma mark VHallSurveyDelegate
+/*flsh活动，发布问卷以下两个方法都会回调。如果使用webView的方式加载问卷，在-receivedSurveyWithURL:处理，如果仍保留旧版加载问卷方式，在-receiveSurveryMsgs:方法处理，处理方式不变。H5活动发布问卷，只回调-receivedSurveyWithURL：。
+ */
+
+- (void)receivedSurveyWithURL:(NSURL *)surveyURL
 {
-    if (msgs.count > 0) {
-        [_chatDataArray addObjectsFromArray:msgs];
-        if (_chatBtn.selected) {
-            [_chatView reloadData];
-            [_chatView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:_chatDataArray.count-1 inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:YES];
-        }
+    VHallSurveyModel *model = [[VHallSurveyModel alloc] init];
+    model.surveyURL = surveyURL;
+    [_chatDataArray addObject:model];
+    
+    if (_chatBtn.selected) {
+        [_chatView reloadData];
+        [_chatView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:_chatDataArray.count-1 inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:YES];
     }
 }
+
+//-(void)receiveSurveryMsgs:(NSArray*)msgs
+//{
+//    if (msgs.count > 0) {
+//        [_chatDataArray addObjectsFromArray:msgs];
+//        if (_chatBtn.selected) {
+//            [_chatView reloadData];
+//            [_chatView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:_chatDataArray.count-1 inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:YES];
+//        }
+//    }
+//}
 
 #pragma mark - UIPanGestureRecognizer
 -(void)handlePan:(UIPanGestureRecognizer*)pan
@@ -1325,7 +1409,7 @@ static AnnouncementView* announcementView = nil;
 
 #pragma mark - 详情
 - (IBAction)detailsButtonClick:(UIButton *)sender {
-    self.textImageView.hidden = YES;
+    self.docConentView.hidden = YES;
     self.chatView.hidden = YES;
     self.bottomView.hidden = YES;
     
@@ -1334,7 +1418,7 @@ static AnnouncementView* announcementView = nil;
     self.chatBtn.selected = NO;
     self.QABtn.selected = NO;
     
-    
+    self.cueSelectedButton = sender;
     
     [self.detailBtn setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
     [self.docBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
@@ -1344,7 +1428,7 @@ static AnnouncementView* announcementView = nil;
 
 #pragma mark - 文档
 - (IBAction)textButtonClick:(UIButton *)sender {
-    self.textImageView.hidden = NO;
+    self.docConentView.hidden = NO;
     self.chatView.hidden = YES;
     self.bottomView.hidden = YES;
     self.detailBtn.selected = NO;
@@ -1352,6 +1436,7 @@ static AnnouncementView* announcementView = nil;
     self.chatBtn.selected = NO;
     self.QABtn.selected = NO;
     
+    self.cueSelectedButton = sender;
     
     [self.detailBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     [self.docBtn setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
@@ -1362,7 +1447,7 @@ static AnnouncementView* announcementView = nil;
 
 #pragma mark - 聊天
 - (IBAction)chatButtonClick:(UIButton *)sender {
-    self.textImageView.hidden = YES;
+    self.docConentView.hidden = YES;
     self.chatView.hidden = NO;
     self.bottomView.hidden = NO;
     self.detailBtn.selected = NO;
@@ -1370,7 +1455,7 @@ static AnnouncementView* announcementView = nil;
     self.chatBtn.selected = YES;
     self.QABtn.selected = NO;
     
-    
+    self.cueSelectedButton = sender;
     
     [self.detailBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     [self.docBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
@@ -1407,7 +1492,7 @@ static AnnouncementView* announcementView = nil;
 
 #pragma mark - 问答
 - (IBAction)QAButtonClick:(UIButton *)sender {
-    self.textImageView.hidden = YES;
+    self.docConentView.hidden = YES;
     self.chatView.hidden = NO;
     self.bottomView.hidden = NO;
     self.detailBtn.selected = NO;
@@ -1415,6 +1500,7 @@ static AnnouncementView* announcementView = nil;
     self.chatBtn.selected = NO;
     self.QABtn.selected = YES;
     
+    self.cueSelectedButton = sender;
     
     [self.detailBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     [self.docBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
@@ -1561,7 +1647,7 @@ static AnnouncementView* announcementView = nil;
 - (void)didSendText:(NSString *)text
 {
     __weak typeof(self) wf = self;
-    if (_chatBtn.selected == YES) {
+    if (self.cueSelectedButton == _chatBtn) {
         [_chat sendMsg:text success:^{
             
         } failed:^(NSDictionary *failedData) {
@@ -1574,13 +1660,14 @@ static AnnouncementView* announcementView = nil;
         return;
     }
     
-    if (_QABtn.selected == YES) {
+    if (self.cueSelectedButton == _QABtn) {
         
         [_QA sendMsg:text success:^{
+            
+            
         } failed:^(NSDictionary *failedData) {
             
             NSString* code = [NSString stringWithFormat:@"%@ %@", failedData[@"code"],failedData[@"content"]];
-//            [UIAlertView popupAlertByDelegate:nil title:failedData[@"content"] message:code];
             [wf showMsg:code afterDelay:2];
         }];
         
@@ -1685,4 +1772,44 @@ static AnnouncementView* announcementView = nil;
         }];
     }
 }
+
+
+#pragma mark - private
+
+- (void)kickOut {
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil message:@"您已被踢出房间" preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction *action = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        
+        [self kickOutAction];
+    }];
+    [alert addAction:action];
+    [self presentViewController:alert animated:NO completion:nil];
+}
+
+- (void)kickOutAction {
+    [_renderer stop];
+    [_moviePlayer stopPlay];
+    [_moviePlayer destroyMoivePlayer];
+    
+    UIViewController *vc = self;
+    Class homeVcClass = NSClassFromString(@"VHHomeViewController");
+    while (![vc isKindOfClass:homeVcClass]) {
+        vc = vc.presentingViewController;
+    }
+    [vc dismissViewControllerAnimated:YES completion:^{
+        
+    }];
+}
+
+
+#pragma waring 版本低于4.0.0 问卷Web URL拼接方式
+- (NSURL *)surveyURLWithRoomId:(NSString *)roomId model:(VHallSurveyModel *)model
+{
+    NSString *timeStamp = [NSString stringWithFormat:@"%.0f",[[NSDate date] timeIntervalSince1970]];//时间戳
+    NSString *string = [NSString stringWithFormat:@"https://cnstatic01.e.vhall.com/questionnaire/%@.html?",model.surveyId];
+    NSString *domain = [NSString stringWithFormat:@"https://e.vhall.com&webinar_id=%@&r=%@",roomId,timeStamp];
+    NSString *string1 = [NSString stringWithFormat:@"%@survey_id=%@&user_id=%@&domain=%@",string,model.surveyId,model.joinId,domain];
+    return [NSURL URLWithString:string1];
+}
+
 @end

@@ -1,6 +1,0 @@
-framework module VhallSignalingDynamic {
-  umbrella header "VhallSignalingDynamic.h"
-
-  export *
-  module * { export * }
-}

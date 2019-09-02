@@ -9,11 +9,10 @@
 #import "WatchPlayBackViewController.h"
 #import <AVFoundation/AVFoundation.h>
 #import "WatchLiveChatTableViewCell.h"
-#import "VHallApi.h"
+#import <VHLiveSDK/VHallApi.h>
 #import "VHMessageToolView.h"
 #import "VHPullingRefreshTableView.h"
 #import "AnnouncementView.h"
-#import "VHDocumentView.h"
 #import "DLNAView.h"
 #import "VHPlayerView.h"
 
@@ -28,17 +27,14 @@ static AnnouncementView* announcementView = nil;
     VHPullingRefreshTableView* _tableView;
     UIButton              *_toolViewBackView;//遮罩
     
-    VHDocumentView* _documentView;
-    
     NSArray*_videoLevePicArray;
     NSArray* _definitionList;
-    
-    BOOL _isShowDocument;
 }
 @property (nonatomic,strong) VHallMoviePlayer  *moviePlayer;//播放器
 @property (weak, nonatomic) IBOutlet UILabel *bufferCountLabel;
 @property (weak, nonatomic) IBOutlet UIView *backView;
-@property (weak, nonatomic) IBOutlet UIImageView *textImageView;
+@property (weak, nonatomic) IBOutlet UIView *docConentView;//文档容器
+@property (weak, nonatomic) IBOutlet UIImageView *docAreaView;
 @property (nonatomic,assign) VHMovieVideoPlayMode playModelTemp;
 @property (nonatomic,strong) UILabel*textLabel;
 @property (nonatomic,strong) VHPlayerView *playMaskView;
@@ -71,7 +67,7 @@ static AnnouncementView* announcementView = nil;
 {
     if (!_textLabel) {
         _textLabel = [[UILabel alloc]init];
-        _textLabel.frame = CGRectMake(0, 10, self.textImageView.width, 21);
+        _textLabel.frame = CGRectMake(0, 10, self.docAreaView.width, 21);
         _textLabel.text = @"暂未演示文档";
         _textLabel.textAlignment = NSTextAlignmentCenter;
     }
@@ -129,20 +125,8 @@ static AnnouncementView* announcementView = nil;
     _playMaskView.frame = _moviePlayer.moviePlayerView.bounds;
     [self.backView addSubview:_moviePlayer.moviePlayerView];
     [self.backView sendSubviewToBack:_moviePlayer.moviePlayerView];
-    if (_documentView)
-    {
-        _documentView.frame = self.textImageView.bounds;
-        _documentView.width = VH_SW;
-        if ([UIApplication sharedApplication].statusBarOrientation == UIDeviceOrientationPortrait)
-        {
-            _documentView.height = VH_SH-_backView.height-20-40;
-            [_documentView layoutSubviews];
-        }
-        else
-        {
-            _documentView.height = 0;
-        }
-    }
+
+    _moviePlayer.documentView.frame = self.docAreaView.bounds;
 }
 
 - (void)viewDidLoad {
@@ -153,6 +137,7 @@ static AnnouncementView* announcementView = nil;
     _commentsArray=[NSMutableArray array];//初始化评论数组
     
     [self play];
+    _docConentView.hidden = YES;
     
     //播放器
     _moviePlayer.moviePlayerView.frame = CGRectMake(0, 0, self.view.frame.size.width, self.backView.height);//self.view.bounds;
@@ -170,6 +155,8 @@ static AnnouncementView* announcementView = nil;
     }else{
         self.liveTypeLabel.text = @"";
     }
+    
+    [self textButtonClick:nil];
 }
 #pragma mark - Private Method
 - (void)initViews
@@ -178,10 +165,10 @@ static AnnouncementView* announcementView = nil;
     self.view.backgroundColor=[UIColor blackColor];
     [[UIApplication sharedApplication] setIdleTimerDisabled:YES];
     [self registerLiveNotification];
-    _moviePlayer = [[VHallMoviePlayer alloc]initWithDelegate:self];
-    _moviePlayer.moviePlayerView.frame = self.view.bounds;
-    _moviePlayer.timeout = (int)_timeOut;
-    _moviePlayer.defaultDefinition = VHMovieDefinitionSD;
+//    _moviePlayer = [[VHallMoviePlayer alloc]initWithDelegate:self];
+//    _moviePlayer.moviePlayerView.frame = self.view.bounds;
+//    _moviePlayer.timeout = (int)_timeOut;
+//    _moviePlayer.defaultDefinition = VHMovieDefinitionSD;
     
     _tableView = [[VHPullingRefreshTableView alloc] initWithFrame:CGRectMake(0, 0, VH_SW, _historyCommentTableView.height) pullingDelegate:self headView:YES  footView:YES];
     _tableView.backgroundColor = MakeColorRGB(0xe2e8eb);
@@ -200,8 +187,8 @@ static AnnouncementView* announcementView = nil;
     
     _videoLevePicArray=@[@"UIModel.bundle/原画.tiff",@"UIModel.bundle/超清.tiff",@"UIModel.bundle/高清.tiff",@"UIModel.bundle/标清.tiff",@"UIModel.bundle/语音开启",@""];
     
-    self.textLabel.center=CGPointMake(self.textImageView.width/2, self.textImageView.height/2);
-    [self.textImageView addSubview:self.textLabel];
+    self.textLabel.center=CGPointMake(self.docAreaView.width/2, self.docAreaView.height/2);
+    [self.docAreaView addSubview:self.textLabel];
 }
 
 - (void)destoryMoivePlayer
@@ -221,6 +208,17 @@ static AnnouncementView* announcementView = nil;
 
 - (void)play
 {
+    if (_moviePlayer) {
+        [_moviePlayer stopPlay];
+        [_moviePlayer destroyMoivePlayer];
+        _moviePlayer = nil;
+    }
+    
+    _moviePlayer = [[VHallMoviePlayer alloc]initWithDelegate:self];
+    _moviePlayer.moviePlayerView.frame = self.view.bounds;
+    _moviePlayer.timeout = (int)_timeOut;
+    _moviePlayer.defaultDefinition = VHMovieDefinitionSD;
+    
     if (_moviePlayer.moviePlayerView) {
         [MBProgressHUD showHUDAddedTo:_moviePlayer.moviePlayerView animated:YES];
     }
@@ -234,7 +232,6 @@ static AnnouncementView* announcementView = nil;
     }
     
     VHLog(@"开始=== %f",[[NSDate date] timeIntervalSince1970]);
-    _moviePlayer.currentPlaybackTime = 0.0;
     [_moviePlayer startPlayback:param];
 }
 
@@ -242,9 +239,30 @@ static AnnouncementView* announcementView = nil;
 #pragma mark - 关闭
 - (IBAction)closeBtnClick:(id)sender
 {
-    __weak typeof(self) weakSelf = self;
+//    if (_moviePlayer) {     //注意释放播放器对象，否则可能出现页面卡死等现象
+//        [_moviePlayer destroyMoivePlayer];
+//        _moviePlayer = nil;
+//    }
+    
+    NSLog(@"*****************OK_-3");
+
+    [_moviePlayer pausePlay];
+    
+    NSLog(@"*****************OK_-2");
+
+    [_moviePlayer destroyMoivePlayer];
+    
+    NSLog(@"*****************OK_4");
+    
+    _moviePlayer = nil;
+    
+    NSLog(@"*****************OK_5");
+
+//    [self.view removeFromSuperview];
+//    [self removeFromParentViewController];
+    
     [self dismissViewControllerAnimated:YES completion:^{
-            [weakSelf destoryMoivePlayer];
+//        [_moviePlayer destroyMoivePlayer];
     }];
 }
 
@@ -302,7 +320,7 @@ static AnnouncementView* announcementView = nil;
 
 #pragma mark - 详情
 - (IBAction)detailsButtonClick:(UIButton *)sender {
-    self.textImageView.hidden = YES;
+    self.docConentView.hidden = YES;
     [_commentBtn setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
     [_docBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     [_detalBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
@@ -315,7 +333,7 @@ static AnnouncementView* announcementView = nil;
     [_docBtn setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
     [_commentBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     [_detalBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-    self.textImageView.hidden = NO;
+    self.docConentView.hidden = NO;
     
 }
 - (IBAction)detailBtnClick:(id)sender {
@@ -334,16 +352,21 @@ static AnnouncementView* announcementView = nil;
 
 #pragma mark - 视频控制
 - (void)Vh_playerButtonAction:(UIButton *)button {
-    if (button.selected) {
-        if(self.moviePlayer.playerState == VHPlayerStatePause){
+    button.selected = !button.selected;
+    if (button.selected)
+    {
+        [self.moviePlayer pausePlay];
+    }
+    else
+    {
+        if (self.moviePlayer.playerState == VHPlayerStateStoped)
+        {
+            [self.moviePlayer setCurrentPlaybackTime:0];
+        }
+        else
+        {
             [self.moviePlayer reconnectPlay];
         }
-        else{
-            [self play];
-        }
-    }
-    else{
-        [self.moviePlayer pausePlay];
     }
 }
 
@@ -417,24 +440,24 @@ static AnnouncementView* announcementView = nil;
 
 - (void)Vh_progressSliderTouchEnded:(UISlider *)slider {
     [self.moviePlayer setCurrentPlaybackTime:floor(slider.value)];
-    [self.moviePlayer reconnectPlay];
+//    [self.moviePlayer reconnectPlay];
     [self.playMaskView autoFadeOutControlBar];
 }
 
 #pragma mark - VHMoviePlayerDelegate
-- (void)playError:(VHLivePlayErrorType)livePlayErrorType info:(NSDictionary *)info;
+- (void)playError:(VHSaasLivePlayErrorType)livePlayErrorType info:(NSDictionary *)info;
 {
     [MBProgressHUD hideAllHUDsForView:self.moviePlayer.moviePlayerView animated:YES];
     NSString * msg = @"";
     switch (livePlayErrorType) {
-        case VHLivePlayGetUrlError:
+        case VHSaasLivePlayGetUrlError:
         {
             msg = info[@"content"];
             [self showMsg:msg afterDelay:2];
             NSLog( @"播放失败 %@ %@",info[@"code"],info[@"content"]);
         }
             break;
-        case VHVodPlayError:
+        case VHSaasVodPlayError:
         {
             msg = @"播放超时,请检查网络后重试";
             [self showMsg:msg afterDelay:2];
@@ -444,43 +467,24 @@ static AnnouncementView* announcementView = nil;
         default:
             break;
     }
+    
+    _playMaskView.playButton.selected  = NO;
 }
 
--(void)PPTScrollNextPagechangeImagePath:(NSString *)changeImagePath
-{
-    if(!_documentView)
-    {
-        _documentView = [[VHDocumentView alloc]initWithFrame:self.textImageView.bounds];
-        _documentView.contentMode = UIViewContentModeScaleAspectFit;
-        _documentView.backgroundColor=MakeColorRGB(0xe2e8eb);
-        _documentView.hidden = !_isShowDocument;
-    }
-    _documentView.frame = self.textImageView.bounds;
-    [self.textImageView addSubview:self.textLabel];
-    [self.textImageView addSubview:_documentView];
-    _documentView.imagePath = changeImagePath;
-}
 
-- (void)docHandList:(NSArray*)docList whiteBoardHandList:(NSArray*)boardList
-{
-    if(!_documentView)
-    {
-        _documentView = [[VHDocumentView alloc]initWithFrame:self.textImageView.bounds];
-        _documentView.contentMode = UIViewContentModeScaleAspectFit;
-        _documentView.backgroundColor=MakeColorRGB(0xe2e8eb);
-        _documentView.hidden = !_isShowDocument;
-    }
-    _documentView.frame = self.textImageView.bounds;
-    [self.textImageView addSubview:self.textLabel];
-    [self.textImageView addSubview:_documentView];
-    [_documentView drawDocHandList:docList whiteBoardHandList:boardList];
-}
-
-- (void)moviePlayer:(VHallMoviePlayer*)player isShowDocument:(BOOL)isShow
+- (void)moviePlayer:(VHallMoviePlayer*)player isHaveDocument:(BOOL)isHave isShowDocument:(BOOL)isShow
 {
     VHLog(@"isShowDocument %d",(int)isShow);
-    _isShowDocument = isShow;
-    _documentView.hidden = !isShow;
+
+    if(isHave)
+    {
+        self.textLabel.center=CGPointMake(self.docAreaView.width/2, self.docAreaView.height/2);
+        [self.docAreaView insertSubview:self.textLabel atIndex:0];
+        
+        _moviePlayer.documentView.frame = self.docAreaView.bounds;
+        [self.docAreaView addSubview:_moviePlayer.documentView];
+    }
+    _moviePlayer.documentView.hidden = !isShow;
 }
 
 -(void)VideoPlayMode:(VHMovieVideoPlayMode)playMode isVrVideo:(BOOL)isVrVideo
@@ -573,7 +577,7 @@ static AnnouncementView* announcementView = nil;
             _playMaskView.playButton.selected  = NO;
             break;
         case VHPlayerStateStarting:
-            
+            _playMaskView.playButton.selected  = NO;
             break;
         case VHPlayerStatePlaying:
             [MBProgressHUD hideAllHUDsForView:self.moviePlayer.moviePlayerView animated:YES];

@@ -7,8 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "VHallLottery.h"
-#import "VHallMsgModels.h"
+#import <VHLiveSDK/VHallLottery.h>
+#import <VHLiveSDK/VHallMsgModels.h>
 
 @interface WatchLiveLotteryViewController : UIViewController
 

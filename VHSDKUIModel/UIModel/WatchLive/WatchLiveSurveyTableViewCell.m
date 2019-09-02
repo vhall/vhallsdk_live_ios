@@ -7,7 +7,7 @@
 //
 
 #import "WatchLiveSurveyTableViewCell.h"
-#import "VHallApi.h"
+#import <VHLiveSDK/VHallApi.h>
 @implementation WatchLiveSurveyTableViewCell
 
 

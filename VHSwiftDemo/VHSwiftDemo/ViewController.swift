@@ -20,7 +20,7 @@ class ViewController: UIViewController , VHallMoviePlayerDelegate{
         
         player = VHallMoviePlayer.init(delegate: self)
         
-//        player.renderViewModel = .origin
+        player.renderViewModel = .origin
         player.moviePlayerView.frame = self.view.bounds
         self.view.insertSubview(player.moviePlayerView, at: 0)
        

@@ -155,11 +155,13 @@
         
         
         [self willShowBottomView:self.faceView];
-        [UIView animateWithDuration:0.2 delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
-            _msgTextView.hidden = !button.selected;
-        } completion:^(BOOL finished) {
-            
-        }];
+        _msgTextView.hidden = !button.selected;
+
+//        [UIView animateWithDuration:0.2 delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
+//            _msgTextView.hidden = !button.selected;
+//        } completion:^(BOOL finished) {
+//            
+//        }];
     }
     else
     {

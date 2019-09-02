@@ -31,6 +31,12 @@ pod 'VHallSDK_LiveFilter' , :git => 'https://github.com/vhall/vhallsdk_live_ios.
 pod 'VHallSDK_Interactive' , :git => 'https://github.com/vhall/vhallsdk_live_ios.git'<br>
 
 ### 版本更新信息
+
+#### 版本 v4.0.0 更新时间：2019.09.02
+更新内容：<br>
+1、优化问卷展现形式<br>
+2、修复已知bug<br>
+
 #### 版本 v3.4.4 更新时间：2019.08.07
 更新内容：<br>
 1、修复推流bug<br>
@@ -225,3 +231,5 @@ pod 'VHallSDK_Interactive' , :git => 'https://github.com/vhall/vhallsdk_live_ios
 1、pc端rtmp发起直播，sdk观看视频扭曲；<br>
 2、sdk关闭播放会有卡顿问题；<br>
 3、sdk观看rtmp直播，切换发起端设置，观看端卡顿问题；<br>
+
+

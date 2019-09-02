@@ -73,6 +73,10 @@
         role = @"观众";
     }
 
+    if (!userName) {
+        userName = @"";
+    }
+    
     lblShow.text = [NSString stringWithFormat:@"%@[%@] %@房间:%@", userName, role, event, room];
     lblState.text = [NSString stringWithFormat:@"在线:%@ 参会:%@ %@", concurrent_user, attend_count, time];
 }

@@ -51,7 +51,7 @@
         curCnt = 30;
         //320 170
         self.alert = [[UIView alloc] init];
-        self.alert.frame = CGRectMake(self.width*0.5-155, 180, 310, 304);
+        self.alert.frame = CGRectMake(self.width*0.5-155, [UIScreen mainScreen].bounds.size.height*0.5-304*0.5, 310, 304);
         self.alert.backgroundColor = [UIColor whiteColor];
         self.alert.layer.cornerRadius = 4;
         [self addSubview:_alert];

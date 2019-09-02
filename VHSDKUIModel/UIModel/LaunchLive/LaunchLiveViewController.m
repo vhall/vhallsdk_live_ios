@@ -6,17 +6,12 @@
 //  Copyright (c) 2015年 vhall. All rights reserved.
 //
 
-#if VHallFilterSDK_ENABLE
-#import "VHallLivePublishFilter.h"
-#else
-#endif
-
 #import "LaunchLiveViewController.h"
 #import <AVFoundation/AVFoundation.h>
 #import "MBProgressHUD.h"
 #import "WatchLiveOnlineTableViewCell.h"
 #import "WatchLiveChatTableViewCell.h"
-#import "VHallApi.h"
+#import <VHLiveSDK/VHallApi.h>
 
 #import "VHLiveChatView.h"
 #import "VHMessageToolView.h"
@@ -36,11 +31,8 @@
     long              _liveTime;
 }
 
-#if VHallFilterSDK_ENABLE
-@property (strong, nonatomic)VHallLivePublishFilter *engine;
-#else
+
 @property (strong, nonatomic)VHallLivePublish *engine;
-#endif
 @property (weak, nonatomic) IBOutlet UIView *perView;
 @property (weak, nonatomic) IBOutlet UIImageView *logView;
 @property (weak, nonatomic) IBOutlet UILabel *bitRateLabel;
@@ -89,6 +81,14 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    
+    [[UIApplication sharedApplication] setIdleTimerDisabled:YES];
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    
+    [[UIApplication sharedApplication] setIdleTimerDisabled:NO];
 }
 
 - (void)didReceiveMemoryWarning
@@ -270,29 +270,35 @@
     config.videoCaptureFPS = self.videoCaptureFPS;
     config.isOpenNoiseSuppresion = self.isOpenNoiseSuppresion;
     config.videoResolution = self.videoResolution;
-    config.audioBitRate = self.audioBitRate;
-    config.isPrintLog = YES;
+    config.videoBitRate = self.videoBitRate;
+    config.captureDevicePosition = AVCaptureDevicePositionBack;
+   
 #if VHallFilterSDK_ENABLE
+    config.beautifyFilterEnable = YES;
     config.videoBitRate = self.videoBitRate*2;//开启美颜时建议调高码率
     config.captureDevicePosition = AVCaptureDevicePositionFront;
-    self.engine = [[VHallLivePublishFilter alloc] initWithConfig:config];
-
+    
     _torchBtn.hidden = YES;
     _isFontVideo = YES;
     [self filterSettingBtnClick:_defaultFilterSelectBtn];
-#else
-    config.videoBitRate = self.videoBitRate;
-    config.captureDevicePosition = AVCaptureDevicePositionBack;
-    self.engine = [[VHallLivePublish alloc] initWithConfig:config];
 #endif
+    _torchBtn.hidden = YES;
 
-    self.engine.delegate            = self;
+    self.engine = [[VHallLivePublish alloc] initWithConfig:config];
+
+    self.engine.delegate = self;
+
     self.engine.displayView.frame   = _perView.bounds;
-
     [self.perView insertSubview:_engine.displayView atIndex:0];
-    //开始视频采集、并显示预览界面
-    [self.engine startVideoCapture];
     
+//    NSMutableDictionary * param = [[NSMutableDictionary alloc]init];
+//    param[@"id"] =  _roomId;
+//    param[@"access_token"] = _token;
+//    [self.engine startLive:param];
+//
+//    //开始视频采集、并显示预览界面
+    [self.engine startVideoCapture];
+
     
     _noiseView.hidden = !_isOpenNoiseSuppresion;
 
@@ -308,6 +314,7 @@
     _isFontVideo = !_isFontVideo;
 
     BOOL success=  [_engine swapCameras:_isFontVideo ? AVCaptureDevicePositionFront : AVCaptureDevicePositionBack];
+    
     if(success)
     {
         _torchBtn.hidden = _isFontVideo;
@@ -315,6 +322,10 @@
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             btn.enabled=YES;
         });
+    }
+    
+    if (!self.engine.isPublishing) {
+        _torchBtn.hidden = YES;
     }
 }
 
@@ -360,19 +371,26 @@
         [_chatDataArray removeAllObjects];
         [_chatView update];
         [_hud show:YES];
+        _torchBtn.hidden = NO;
+
         NSMutableDictionary * param = [[NSMutableDictionary alloc]init];
         param[@"id"] =  _roomId;
         param[@"access_token"] = _token;
 //        param[@"is_single_audio"] = @"0";    // 0 ：视频， 1：音频
         [_engine startLive:param];
-    }else{
+
+        self.engine.displayView.frame   = _perView.bounds;
+        [self.perView insertSubview:_engine.displayView atIndex:0];
+    }
+    else
+    {
         _isVideoStart=NO;
         _bitRateLabel.text = @"";
         [_hud hide:YES];
         _videoStartAndStopBtn.selected = NO;
         [self chatShow:NO];
+        _torchBtn.hidden = YES;
         [_engine stopLive];//停止活动
-       
     }
     _logView.hidden = YES;
     //_isVideoStart = !_isVideoStart;
@@ -406,7 +424,7 @@
 //    _isAudioStart = !_isAudioStart;
 }
 
-#pragma mark Camera(CameraEngineDelegate)
+#pragma mark Delegate
 
 -(void)firstCaptureImage:(UIImage *)image
 {

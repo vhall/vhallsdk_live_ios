@@ -10,7 +10,7 @@
 #import "MLEmojiLabel.h"
 #import "UIButton+WebCache.h"
 #import "UIImageView+WebCache.h"
-#import "VHallApi.h"
+#import <VHLiveSDK/VHallApi.h>
 
 //获取物理屏幕的尺寸
 #define VHScreenHeight  ([UIScreen mainScreen].bounds.size.height)

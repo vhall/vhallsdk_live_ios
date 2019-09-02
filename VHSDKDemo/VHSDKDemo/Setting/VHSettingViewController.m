@@ -12,7 +12,7 @@
 #import "VHSettingTableViewCell.h"
 #import "VHSettingArrowItem.h"
 #import "CustomPickerView.h"
-#import "VHallApi.h"
+#import <VHLiveSDK/VHallApi.h>
 #define MakeColorRGB(hex)  ([UIColor colorWithRed:((hex>>16)&0xff)/255.0 green:((hex>>8)&0xff)/255.0 blue:(hex&0xff)/255.0 alpha:1.0])
 @interface VHSettingViewController()<UITableViewDataSource,UITableViewDelegate,CustomPickerViewDataSource,CustomPickerViewDelegate,UITextFieldDelegate>
 {

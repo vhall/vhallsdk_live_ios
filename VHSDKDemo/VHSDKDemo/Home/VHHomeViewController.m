@@ -9,7 +9,7 @@
 #import "VHHomeViewController.h"
 #import "UIImageView+WebCache.h"
 #import "LoginViewController.h"
-#import "VHallApi.h"
+#import <VHLiveSDK/VHallApi.h>
 
 #import "LaunchLiveViewController.h"
 #import "WatchLiveViewController.h"

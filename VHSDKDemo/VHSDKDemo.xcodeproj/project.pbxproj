@@ -7,16 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		2F6B05B71E94FF800010E0C7 /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F6B05B61E94FF800010E0C7 /* libc++.tbd */; };
 		2FA3F1A81F564C9900E2E436 /* libxml2.2.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 2FA3F1A71F564C9900E2E436 /* libxml2.2.tbd */; };
 		C000AA431E66E053005DFB7C /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = C000AA421E66E053005DFB7C /* main.m */; };
 		C000AA461E66E053005DFB7C /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = C000AA451E66E053005DFB7C /* AppDelegate.mm */; };
 		C000AA4E1E66E053005DFB7C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C000AA4D1E66E053005DFB7C /* Assets.xcassets */; };
 		C000AA511E66E053005DFB7C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C000AA4F1E66E053005DFB7C /* LaunchScreen.storyboard */; };
-		C000AA801E66E1C4005DFB7C /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C000AA7E1E66E1C4005DFB7C /* AVFoundation.framework */; };
-		C000AA811E66E1C4005DFB7C /* JavaScriptCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C000AA7F1E66E1C4005DFB7C /* JavaScriptCore.framework */; };
-		C000AA841E66E1CD005DFB7C /* OpenAL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C000AA821E66E1CD005DFB7C /* OpenAL.framework */; };
-		C000AA851E66E1CD005DFB7C /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C000AA831E66E1CD005DFB7C /* OpenGLES.framework */; };
 		C000AA881E66E41C005DFB7C /* BaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C000AA871E66E41C005DFB7C /* BaseViewController.m */; };
 		C000AA931E66E49A005DFB7C /* MBHUDHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = C000AA901E66E49A005DFB7C /* MBHUDHelper.m */; };
 		C000AA941E66E49A005DFB7C /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = C000AA921E66E49A005DFB7C /* MBProgressHUD.m */; };
@@ -50,24 +45,10 @@
 		C000AB0D1E66E66B005DFB7C /* VHStatisticsStystem.m in Sources */ = {isa = PBXBuildFile; fileRef = C000AB031E66E66B005DFB7C /* VHStatisticsStystem.m */; };
 		C000AB0E1E66E66B005DFB7C /* ITTXibView.m in Sources */ = {isa = PBXBuildFile; fileRef = C000AB061E66E66B005DFB7C /* ITTXibView.m */; };
 		C000AB0F1E66E66B005DFB7C /* ITTXibViewUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = C000AB081E66E66B005DFB7C /* ITTXibViewUtils.m */; };
-		C000AB111E66E741005DFB7C /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C000AB101E66E741005DFB7C /* CoreMedia.framework */; };
-		C000AB131E66E74C005DFB7C /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C000AB121E66E74C005DFB7C /* CoreTelephony.framework */; };
-		C000AB151E66E757005DFB7C /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C000AB141E66E757005DFB7C /* MediaPlayer.framework */; };
-		C000AB171E66E761005DFB7C /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C000AB161E66E761005DFB7C /* AssetsLibrary.framework */; };
-		C000AB191E66E769005DFB7C /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C000AB181E66E769005DFB7C /* QuartzCore.framework */; };
-		C000AB1B1E66E772005DFB7C /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C000AB1A1E66E772005DFB7C /* Security.framework */; };
-		C000AB1D1E66E77C005DFB7C /* VideoToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C000AB1C1E66E77C005DFB7C /* VideoToolbox.framework */; };
-		C000AB1F1E66E792005DFB7C /* libiconv.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = C000AB1E1E66E792005DFB7C /* libiconv.tbd */; };
-		C000AB211E66E79F005DFB7C /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = C000AB201E66E79F005DFB7C /* libz.tbd */; };
-		C000AB231E66E7B0005DFB7C /* libicucore.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = C000AB221E66E7B0005DFB7C /* libicucore.tbd */; };
-		C000AB251E66E7BC005DFB7C /* libbz2.1.0.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = C000AB241E66E7BC005DFB7C /* libbz2.1.0.tbd */; };
 		C000AB2D1E66E893005DFB7C /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C000AB281E66E893005DFB7C /* LoginViewController.m */; };
 		C000AB2E1E66E893005DFB7C /* LoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C000AB291E66E893005DFB7C /* LoginViewController.xib */; };
 		C000AB2F1E66E893005DFB7C /* VHHomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C000AB2B1E66E893005DFB7C /* VHHomeViewController.m */; };
 		C000AB301E66E893005DFB7C /* VHHomeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C000AB2C1E66E893005DFB7C /* VHHomeViewController.xib */; };
-		C012B64221199FB200F643E7 /* VhallSignalingDynamic.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C012B64121199FB200F643E7 /* VhallSignalingDynamic.framework */; };
-		C012B64321199FBD00F643E7 /* VhallSignalingDynamic.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C012B64121199FB200F643E7 /* VhallSignalingDynamic.framework */; };
-		C012B64421199FBD00F643E7 /* VhallSignalingDynamic.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C012B64121199FB200F643E7 /* VhallSignalingDynamic.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		C016EC2C21D0EE4200139DDD /* libBarrageRenderer.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C016EC2221D0EE4200139DDD /* libBarrageRenderer.a */; };
 		C016EC2D21D0EE4200139DDD /* libMasonry.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C016EC2321D0EE4200139DDD /* libMasonry.a */; };
 		C016EC3021D0EE4200139DDD /* libUIModel.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C016EC2621D0EE4200139DDD /* libUIModel.a */; };
@@ -81,17 +62,14 @@
 		C06D62C322A67F6500A5D69E /* WHDebugConsoleLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = C06D62BC22A67F6500A5D69E /* WHDebugConsoleLabel.m */; };
 		C06D62C422A67F6500A5D69E /* WHDebugMonitor.m in Sources */ = {isa = PBXBuildFile; fileRef = C06D62BD22A67F6500A5D69E /* WHDebugMonitor.m */; };
 		C06D62C522A67F6500A5D69E /* WHDebugCpuMonitor.m in Sources */ = {isa = PBXBuildFile; fileRef = C06D62BE22A67F6500A5D69E /* WHDebugCpuMonitor.m */; };
-		C0B952FB20E384AF007E9E61 /* libVHallSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C0B952E120E384AE007E9E61 /* libVHallSDK.a */; };
-		C0EDA41921183E1600021602 /* libVHallInteractive.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C0EDA41321183E1600021602 /* libVHallInteractive.a */; };
-		C0EDA41B21183E1600021602 /* WebRTC.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C0EDA41821183E1600021602 /* WebRTC.framework */; };
-		C0EDA41C21183E1A00021602 /* WebRTC.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C0EDA41821183E1600021602 /* WebRTC.framework */; };
-		C0EDA41D21183E1A00021602 /* WebRTC.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C0EDA41821183E1600021602 /* WebRTC.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		C0FABCE220EF101F003947C6 /* kodak.inf in Resources */ = {isa = PBXBuildFile; fileRef = C0FABCE020EF101F003947C6 /* kodak.inf */; };
-		C0FABCE320EF101F003947C6 /* VhallLiveBaseApi.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C0FABCE120EF101F003947C6 /* VhallLiveBaseApi.framework */; };
-		C0FABCE420EF1031003947C6 /* VhallLiveBaseApi.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C0FABCE120EF101F003947C6 /* VhallLiveBaseApi.framework */; };
-		C0FABCE520EF1031003947C6 /* VhallLiveBaseApi.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C0FABCE120EF101F003947C6 /* VhallLiveBaseApi.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		C0FABCF120EF11FF003947C6 /* libGPUImage.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C0FABCEE20EF11FF003947C6 /* libGPUImage.a */; };
-		C0FABCF220EF11FF003947C6 /* libVHallFilterSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C0FABCEF20EF11FF003947C6 /* libVHallFilterSDK.a */; };
+		C0DFA38322E85E9700449977 /* VhallLiveBaseApi.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C0DFA37F22E85E9700449977 /* VhallLiveBaseApi.framework */; };
+		C0DFA38422E85EB400449977 /* WebRTC.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C0DFA37D22E85E9700449977 /* WebRTC.framework */; };
+		C0DFA38522E85EB400449977 /* WebRTC.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C0DFA37D22E85E9700449977 /* WebRTC.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		C0DFA38622E85EB400449977 /* VHInteractive.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C0DFA37E22E85E9700449977 /* VHInteractive.framework */; };
+		C0DFA38722E85EB400449977 /* VHInteractive.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C0DFA37E22E85E9700449977 /* VHInteractive.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		C0DFA38922E85EB400449977 /* VhallLiveBaseApi.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C0DFA37F22E85E9700449977 /* VhallLiveBaseApi.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		C0DFA38A22E85EB400449977 /* VHLiveSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C0DFA37B22E85E9700449977 /* VHLiveSDK.framework */; };
+		C0DFA38B22E85EB400449977 /* VHLiveSDK.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C0DFA37B22E85E9700449977 /* VHLiveSDK.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -101,9 +79,10 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				C012B64421199FBD00F643E7 /* VhallSignalingDynamic.framework in Embed Frameworks */,
-				C0FABCE520EF1031003947C6 /* VhallLiveBaseApi.framework in Embed Frameworks */,
-				C0EDA41D21183E1A00021602 /* WebRTC.framework in Embed Frameworks */,
+				C0DFA38522E85EB400449977 /* WebRTC.framework in Embed Frameworks */,
+				C0DFA38722E85EB400449977 /* VHInteractive.framework in Embed Frameworks */,
+				C0DFA38922E85EB400449977 /* VhallLiveBaseApi.framework in Embed Frameworks */,
+				C0DFA38B22E85EB400449977 /* VHLiveSDK.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -208,7 +187,6 @@
 		C000AB2A1E66E893005DFB7C /* VHHomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VHHomeViewController.h; sourceTree = "<group>"; };
 		C000AB2B1E66E893005DFB7C /* VHHomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VHHomeViewController.m; sourceTree = "<group>"; };
 		C000AB2C1E66E893005DFB7C /* VHHomeViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = VHHomeViewController.xib; sourceTree = "<group>"; };
-		C012B64121199FB200F643E7 /* VhallSignalingDynamic.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = VhallSignalingDynamic.framework; sourceTree = "<group>"; };
 		C016EC2021D0EE4200139DDD /* LaunchLiveViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LaunchLiveViewController.h; sourceTree = "<group>"; };
 		C016EC2221D0EE4200139DDD /* libBarrageRenderer.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libBarrageRenderer.a; sourceTree = "<group>"; };
 		C016EC2321D0EE4200139DDD /* libMasonry.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libMasonry.a; sourceTree = "<group>"; };
@@ -237,28 +215,10 @@
 		C06D62BC22A67F6500A5D69E /* WHDebugConsoleLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WHDebugConsoleLabel.m; sourceTree = "<group>"; };
 		C06D62BD22A67F6500A5D69E /* WHDebugMonitor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WHDebugMonitor.m; sourceTree = "<group>"; };
 		C06D62BE22A67F6500A5D69E /* WHDebugCpuMonitor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WHDebugCpuMonitor.m; sourceTree = "<group>"; };
-		C0B952E120E384AE007E9E61 /* libVHallSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libVHallSDK.a; sourceTree = "<group>"; };
-		C0B952E220E384AE007E9E61 /* VHallApi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VHallApi.h; sourceTree = "<group>"; };
-		C0B952E320E384AE007E9E61 /* VHallBasePlugin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VHallBasePlugin.h; sourceTree = "<group>"; };
-		C0B952E420E384AE007E9E61 /* VHallChat.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VHallChat.h; sourceTree = "<group>"; };
-		C0B952E520E384AE007E9E61 /* VHallComment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VHallComment.h; sourceTree = "<group>"; };
-		C0B952E620E384AE007E9E61 /* VHallConst.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VHallConst.h; sourceTree = "<group>"; };
-		C0B952EB20E384AE007E9E61 /* VHallLivePublish.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VHallLivePublish.h; sourceTree = "<group>"; };
-		C0B952EC20E384AE007E9E61 /* VHallLottery.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VHallLottery.h; sourceTree = "<group>"; };
-		C0B952ED20E384AE007E9E61 /* VHallMoviePlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VHallMoviePlayer.h; sourceTree = "<group>"; };
-		C0B952EE20E384AE007E9E61 /* VHallMsgModels.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VHallMsgModels.h; sourceTree = "<group>"; };
-		C0B952EF20E384AE007E9E61 /* VHallQAndA.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VHallQAndA.h; sourceTree = "<group>"; };
-		C0B952F020E384AE007E9E61 /* VHallSign.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VHallSign.h; sourceTree = "<group>"; };
-		C0B952F120E384AE007E9E61 /* VHallSurvey.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VHallSurvey.h; sourceTree = "<group>"; };
-		C0EDA41321183E1600021602 /* libVHallInteractive.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libVHallInteractive.a; sourceTree = "<group>"; };
-		C0EDA41621183E1600021602 /* VHRenderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VHRenderView.h; sourceTree = "<group>"; };
-		C0EDA41721183E1600021602 /* VHRoom.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VHRoom.h; sourceTree = "<group>"; };
-		C0EDA41821183E1600021602 /* WebRTC.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = WebRTC.framework; sourceTree = "<group>"; };
-		C0FABCE020EF101F003947C6 /* kodak.inf */ = {isa = PBXFileReference; lastKnownFileType = file; path = kodak.inf; sourceTree = "<group>"; };
-		C0FABCE120EF101F003947C6 /* VhallLiveBaseApi.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = VhallLiveBaseApi.framework; sourceTree = "<group>"; };
-		C0FABCEE20EF11FF003947C6 /* libGPUImage.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libGPUImage.a; sourceTree = "<group>"; };
-		C0FABCEF20EF11FF003947C6 /* libVHallFilterSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libVHallFilterSDK.a; sourceTree = "<group>"; };
-		C0FABCF020EF11FF003947C6 /* VHallLivePublishFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VHallLivePublishFilter.h; sourceTree = "<group>"; };
+		C0DFA37B22E85E9700449977 /* VHLiveSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = VHLiveSDK.framework; sourceTree = "<group>"; };
+		C0DFA37D22E85E9700449977 /* WebRTC.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = WebRTC.framework; sourceTree = "<group>"; };
+		C0DFA37E22E85E9700449977 /* VHInteractive.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = VHInteractive.framework; sourceTree = "<group>"; };
+		C0DFA37F22E85E9700449977 /* VhallLiveBaseApi.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = VhallLiveBaseApi.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -266,37 +226,16 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C016EC2D21D0EE4200139DDD /* libMasonry.a in Frameworks */,
 				C016EC3021D0EE4200139DDD /* libUIModel.a in Frameworks */,
-				C016EC4D21D0FCD000139DDD /* libReachability.a in Frameworks */,
-				C0FABCE420EF1031003947C6 /* VhallLiveBaseApi.framework in Frameworks */,
 				2FA3F1A81F564C9900E2E436 /* libxml2.2.tbd in Frameworks */,
-				C0B952FB20E384AF007E9E61 /* libVHallSDK.a in Frameworks */,
-				2F6B05B71E94FF800010E0C7 /* libc++.tbd in Frameworks */,
-				C000AB251E66E7BC005DFB7C /* libbz2.1.0.tbd in Frameworks */,
-				C000AB231E66E7B0005DFB7C /* libicucore.tbd in Frameworks */,
-				C012B64321199FBD00F643E7 /* VhallSignalingDynamic.framework in Frameworks */,
-				C000AB211E66E79F005DFB7C /* libz.tbd in Frameworks */,
-				C0EDA41921183E1600021602 /* libVHallInteractive.a in Frameworks */,
-				C0FABCF120EF11FF003947C6 /* libGPUImage.a in Frameworks */,
-				C0EDA41B21183E1600021602 /* WebRTC.framework in Frameworks */,
-				C000AB1F1E66E792005DFB7C /* libiconv.tbd in Frameworks */,
-				C000AB131E66E74C005DFB7C /* CoreTelephony.framework in Frameworks */,
-				C000AB151E66E757005DFB7C /* MediaPlayer.framework in Frameworks */,
-				C000AA801E66E1C4005DFB7C /* AVFoundation.framework in Frameworks */,
-				C000AB1D1E66E77C005DFB7C /* VideoToolbox.framework in Frameworks */,
-				C000AB171E66E761005DFB7C /* AssetsLibrary.framework in Frameworks */,
-				C0FABCE320EF101F003947C6 /* VhallLiveBaseApi.framework in Frameworks */,
-				C012B64221199FB200F643E7 /* VhallSignalingDynamic.framework in Frameworks */,
-				C000AA841E66E1CD005DFB7C /* OpenAL.framework in Frameworks */,
-				C000AA851E66E1CD005DFB7C /* OpenGLES.framework in Frameworks */,
+				C016EC2D21D0EE4200139DDD /* libMasonry.a in Frameworks */,
+				C016EC4D21D0FCD000139DDD /* libReachability.a in Frameworks */,
 				C016EC2C21D0EE4200139DDD /* libBarrageRenderer.a in Frameworks */,
-				C0FABCF220EF11FF003947C6 /* libVHallFilterSDK.a in Frameworks */,
-				C000AB191E66E769005DFB7C /* QuartzCore.framework in Frameworks */,
-				C0EDA41C21183E1A00021602 /* WebRTC.framework in Frameworks */,
-				C000AB111E66E741005DFB7C /* CoreMedia.framework in Frameworks */,
-				C000AB1B1E66E772005DFB7C /* Security.framework in Frameworks */,
-				C000AA811E66E1C4005DFB7C /* JavaScriptCore.framework in Frameworks */,
+				C0DFA38322E85E9700449977 /* VhallLiveBaseApi.framework in Frameworks */,
+				C0DFA38A22E85EB400449977 /* VHLiveSDK.framework in Frameworks */,
+				C0DFA38322E85E9700449977 /* VhallLiveBaseApi.framework in Frameworks */,
+				C0DFA38622E85EB400449977 /* VHInteractive.framework in Frameworks */,
+				C0DFA38422E85EB400449977 /* WebRTC.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -562,48 +501,21 @@
 		C0B952E020E384AE007E9E61 /* VHallSDK */ = {
 			isa = PBXGroup;
 			children = (
-				C0B952E220E384AE007E9E61 /* VHallApi.h */,
-				C0B952E320E384AE007E9E61 /* VHallBasePlugin.h */,
-				C0B952E420E384AE007E9E61 /* VHallChat.h */,
-				C0B952E520E384AE007E9E61 /* VHallComment.h */,
-				C0B952E620E384AE007E9E61 /* VHallConst.h */,
-				C0B952EB20E384AE007E9E61 /* VHallLivePublish.h */,
-				C0B952EC20E384AE007E9E61 /* VHallLottery.h */,
-				C0B952ED20E384AE007E9E61 /* VHallMoviePlayer.h */,
-				C0B952EE20E384AE007E9E61 /* VHallMsgModels.h */,
-				C0B952EF20E384AE007E9E61 /* VHallQAndA.h */,
-				C0B952F020E384AE007E9E61 /* VHallSign.h */,
-				C0B952F120E384AE007E9E61 /* VHallSurvey.h */,
-				C0B952E120E384AE007E9E61 /* libVHallSDK.a */,
-				C0FABCE020EF101F003947C6 /* kodak.inf */,
-				C0EDA41221183E1600021602 /* VHallInteractive */,
-				C0FABCED20EF11FF003947C6 /* VHallFilterSDK */,
-				C0FABCE120EF101F003947C6 /* VhallLiveBaseApi.framework */,
+				C0DFA37C22E85E9700449977 /* VHallInteractive */,
+				C0DFA37F22E85E9700449977 /* VhallLiveBaseApi.framework */,
+				C0DFA37B22E85E9700449977 /* VHLiveSDK.framework */,
 			);
 			name = VHallSDK;
 			path = ../../VHallSDK;
 			sourceTree = "<group>";
 		};
-		C0EDA41221183E1600021602 /* VHallInteractive */ = {
+		C0DFA37C22E85E9700449977 /* VHallInteractive */ = {
 			isa = PBXGroup;
 			children = (
-				C0EDA41321183E1600021602 /* libVHallInteractive.a */,
-				C0EDA41621183E1600021602 /* VHRenderView.h */,
-				C0EDA41721183E1600021602 /* VHRoom.h */,
-				C012B64121199FB200F643E7 /* VhallSignalingDynamic.framework */,
-				C0EDA41821183E1600021602 /* WebRTC.framework */,
+				C0DFA37D22E85E9700449977 /* WebRTC.framework */,
+				C0DFA37E22E85E9700449977 /* VHInteractive.framework */,
 			);
 			path = VHallInteractive;
-			sourceTree = "<group>";
-		};
-		C0FABCED20EF11FF003947C6 /* VHallFilterSDK */ = {
-			isa = PBXGroup;
-			children = (
-				C0FABCEE20EF11FF003947C6 /* libGPUImage.a */,
-				C0FABCEF20EF11FF003947C6 /* libVHallFilterSDK.a */,
-				C0FABCF020EF11FF003947C6 /* VHallLivePublishFilter.h */,
-			);
-			path = VHallFilterSDK;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -675,7 +587,6 @@
 				C000AA511E66E053005DFB7C /* LaunchScreen.storyboard in Resources */,
 				C000AB2E1E66E893005DFB7C /* LoginViewController.xib in Resources */,
 				C000AB0A1E66E66B005DFB7C /* CustomPickerView.xib in Resources */,
-				C0FABCE220EF101F003947C6 /* kodak.inf in Resources */,
 				C000AAAC1E66E546005DFB7C /* VHSettingViewController.xib in Resources */,
 				C016EC3121D0EE4200139DDD /* UIModel.bundle in Resources */,
 				C000AA4E1E66E053005DFB7C /* Assets.xcassets in Resources */,
@@ -852,17 +763,10 @@
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "VHSDKDemo/VHSDKDemo-Header.pch";
-				HEADER_SEARCH_PATHS = (
-					"$(PROJECT_DIR)/../VHallSDK",
-					"$(PROJECT_DIR)/../UIModel",
-				);
 				INFOPLIST_FILE = VHSDKDemo/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
-					"$(PROJECT_DIR)/../VHallSDK",
-					"$(PROJECT_DIR)/../VHallSDK/VHallInteractive",
-					"$(PROJECT_DIR)/../VHallSDK/VHallFilterSDK",
 					"$(PROJECT_DIR)/../UIModel",
 					"$(PROJECT_DIR)/../UIModel/libs_third",
 					"$(PROJECT_DIR)",
@@ -885,17 +789,10 @@
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "VHSDKDemo/VHSDKDemo-Header.pch";
-				HEADER_SEARCH_PATHS = (
-					"$(PROJECT_DIR)/../VHallSDK",
-					"$(PROJECT_DIR)/../UIModel",
-				);
 				INFOPLIST_FILE = VHSDKDemo/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
-					"$(PROJECT_DIR)/../VHallSDK",
-					"$(PROJECT_DIR)/../VHallSDK/VHallInteractive",
-					"$(PROJECT_DIR)/../VHallSDK/VHallFilterSDK",
 					"$(PROJECT_DIR)/../UIModel",
 					"$(PROJECT_DIR)/../UIModel/libs_third",
 					"$(PROJECT_DIR)",
