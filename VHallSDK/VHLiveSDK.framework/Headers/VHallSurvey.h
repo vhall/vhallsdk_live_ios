@@ -47,7 +47,6 @@
  *                              失败Block中的字典结构如下：
  *                              key:code 表示错误码
  *                              value:content 表示错误信息
- * v4.0.0不在维护
  */
 - (void)getSurveryContentWithSurveyId:(NSString*)surveyId webInarId:(NSString*)webId success:(void(^)(VHallSurvey* msgs))success failed:(void (^)(NSDictionary* failedData))reslutFailedCallback;
 
@@ -55,47 +54,80 @@
  获取Flash活动问卷内容，对H5活动无效
  返回参数如下：
  {
-     "code": "200",
-     "msg": "成功",
-     "data": {
-         "survey_id": 591,                  //问卷id
-         "subject": "调查问卷",              //问卷标题
-         "list": [
-             {
-                 "ques_id": 711,            //选项id
-                 "subject": "test",         //选项内容
-                 "ordernum": 0,             //排序大小 倒序排）
-                 "must": 1,                 //是否必填（0否 1是）
-                 "typ": 0                   //选项类型（0问答 1单选 2多选）
-             },
-             {
-                 "ques_id": 714,
-                 "subject": "问答题",
-                 "ordernum": 0,
-                 "must": 0,
-                 "type": 0
-             },
-             {
-                 "ques_id": 715,
-                 "subject": "大大",
-                 "ordernum": 0,
-                 "must": 0,
-                 "typ": 1,
-                 "list": [
-                     {
-                         "subject": "选项1"
-                     },
-                     {
-                         "subject": "内容不能为空是"
-                     },
-                     {
-                         "subject": "其他"
-                     }
-                 ]
-             }
-         ]
-     }
+ "code": "200",
+ "msg": "成功",
+ "data": {
+ "survey_id": 591,
+ "subject": "调查问卷",
+ "list": [
+ {
+ "ques_id": 711,
+ "subject": "我是问答题"
+ "ordernum": 0,
+ "must": 1,
+ "type": 0
+ },
+ {
+ "ques_id": 712,
+ "subject": "我是单选题",
+ "ordernum": 0,
+ "must": 0,
+ "type": 1,
+ "list": [
+ {
+ "subject": "选项1",
+ "type": 0
+ },
+ {
+ "subject": "选项1",
+ "type": 0
+ },
+ {
+ "subject": "其他",
+ "type": 1
  }
+ ]
+ },
+ {
+ "ques_id": 713,
+ "subject": "我是多选题",
+ "ordernum": 0,
+ "must": 0,
+ "type": 2,
+ "list": [
+ {
+ "subject": "选项1",
+ "type": 0
+ },
+ {
+ "subject": "选项1",
+ "type": 0
+ },
+ {
+ "subject": "其他",
+ "type": 1
+ }
+ ]
+ },
+ {
+ "ques_id": 714,
+ "subject": "我是城市题",
+ "ordernum": 0,
+ "must": 0,
+ "type": 3
+ },
+ {
+ "ques_id": 715,
+ "subject": "我是小节题",
+ "ordernum": 0,
+ "must": 0,
+ "type": 4
+ }
+ ]
+ }
+ }
+
+
  @discussion 异步函数，获取问卷内容，并将原始数据返回。
  */
 - (void)getSurveryRequestWithSurveyId:(NSString *)surveyId webInarId:(NSString *)webId success:(void(^)(NSDictionary *result))success failed:(void (^)(NSDictionary* failedData))failedCallback;
@@ -110,7 +142,6 @@
  *         失败Block中的字典结构如下：
  *         key:code 表示错误码
  *        value:content 表示错误信息
- *  v4.0.0不在维护
  */
 - (void)sendMsg:(NSArray *)msg success:(void(^)())success failed:(void (^)(NSDictionary* failedData))reslutFailedCallback;
 

@@ -272,20 +272,22 @@
     config.videoResolution = self.videoResolution;
     config.videoBitRate = self.videoBitRate;
     config.captureDevicePosition = AVCaptureDevicePositionBack;
-   
 #if VHallFilterSDK_ENABLE
     config.beautifyFilterEnable = YES;
-    config.videoBitRate = self.videoBitRate*2;//开启美颜时建议调高码率
     config.captureDevicePosition = AVCaptureDevicePositionFront;
-    
-    _torchBtn.hidden = YES;
-    _isFontVideo = YES;
-    [self filterSettingBtnClick:_defaultFilterSelectBtn];
 #endif
     _torchBtn.hidden = YES;
 
     self.engine = [[VHallLivePublish alloc] initWithConfig:config];
 
+#if VHallFilterSDK_ENABLE
+    _torchBtn.hidden = YES;
+    _isFontVideo = YES;
+    
+    [self filterSettingBtnClick:_defaultFilterSelectBtn];
+#endif
+
+    
     self.engine.delegate = self;
 
     self.engine.displayView.frame   = _perView.bounds;
@@ -565,12 +567,26 @@
     [sender setBackgroundColor:MakeColorRGBA(0xfd3232,0.5)];
     _lastFilterSelectBtn = sender;
 
+//    switch (sender.tag) {
+//        case 1:[_engine setBeautifyFilterWithBilateral:10.0f Brightness:1.0f  Saturation:1.0f];break;
+//        case 2:[_engine setBeautifyFilterWithBilateral:8.0f  Brightness:1.05f Saturation:1.0f];break;
+//        case 3:[_engine setBeautifyFilterWithBilateral:6.0f  Brightness:1.10f Saturation:1.0f];break;
+//        case 4:[_engine setBeautifyFilterWithBilateral:4.0f  Brightness:1.15f Saturation:1.0f];break;
+//        case 5:[_engine setBeautifyFilterWithBilateral:2.0f  Brightness:1.20f Saturation:1.0f];break;
+//        default:break;
+//    }
+    
+//    *  @param beautify   磨皮   默认 2.0f  取值范围[1.0, 10.0]  10.0 正常图片没有磨皮
+//    *  @param brightness 亮度   默认 1.20f 取值范围[0.0, 2.0]  1.0 正常亮度
+//    *  @param saturation 饱和度 默认 1.0f  取值范围[0.0, 2.0]  1.0 正常饱和度
+//    *  @param sharpness  锐化   默认 0.5f  取值范围[-4.0，4.0] 0.0 正常锐化
+
     switch (sender.tag) {
-        case 1:[_engine setBeautifyFilterWithBilateral:10.0f Brightness:1.0f  Saturation:1.0f];break;
-        case 2:[_engine setBeautifyFilterWithBilateral:8.0f  Brightness:1.05f Saturation:1.0f];break;
-        case 3:[_engine setBeautifyFilterWithBilateral:6.0f  Brightness:1.10f Saturation:1.0f];break;
-        case 4:[_engine setBeautifyFilterWithBilateral:4.0f  Brightness:1.15f Saturation:1.0f];break;
-        case 5:[_engine setBeautifyFilterWithBilateral:2.0f  Brightness:1.20f Saturation:1.0f];break;
+        case 1:[self.engine setBeautify:10.0f Brightness:1.0f Saturation:1.0f Sharpness:1.0f];break;
+        case 2:[self.engine setBeautify:8.0f Brightness:1.25f Saturation:1.25f Sharpness:1.0f];break;
+        case 3:[self.engine setBeautify:6.0f Brightness:1.5f Saturation:1.5f Sharpness:1.0f];break;
+        case 4:[self.engine setBeautify:4.0f Brightness:1.75f Saturation:1.75f Sharpness:1.0f];break;
+        case 5:[self.engine setBeautify:2.0f Brightness:2.0f Saturation:1.0f Sharpness:1.0f];break;
         default:break;
     }
 }

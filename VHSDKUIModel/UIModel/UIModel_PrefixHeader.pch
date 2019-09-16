@@ -9,7 +9,7 @@
 #ifndef UIModel_PrefixHeader_pch
 #define UIModel_PrefixHeader_pch
 
-#define  VHallFilterSDK_ENABLE 0//是否启用 美颜滤镜功能 VHallFilterSDK
+#define  VHallFilterSDK_ENABLE 1//是否启用 美颜滤镜功能 VHallFilterSDK
 
 #define  iPhoneX ([UIScreen instancesRespondToSelector:@selector(currentMode)] ? CGSizeEqualToSize(CGSizeMake(1125, 2436), [[UIScreen mainScreen] currentMode].size) : NO)
 

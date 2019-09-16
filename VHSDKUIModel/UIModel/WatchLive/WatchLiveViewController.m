@@ -312,6 +312,21 @@ static AnnouncementView* announcementView = nil;
     
     VHallSurveyModel *model =mode;
     
+    //获取问卷详情，使用原生绘制问卷，可通过此接口获取问卷详情数据，更具问卷文档解析数据
+    [_survey getSurveryRequestWithSurveyId:model.surveyId webInarId:_roomId success:^(NSDictionary *result) {
+        
+        NSLog(@"问卷数据 %@",result);
+        
+        if ([result[@"code"] integerValue] == 200) {
+            
+        } else {
+            
+        }
+    } failed:^(NSDictionary *failedData) {
+        
+    }];
+    
+    
     //v4.0.0
     if (model.surveyURL)
     {
@@ -1298,7 +1313,7 @@ static AnnouncementView* announcementView = nil;
     VHallSurveyModel *model = [[VHallSurveyModel alloc] init];
     model.surveyURL = surveyURL;
     [_chatDataArray addObject:model];
-    
+
     if (_chatBtn.selected) {
         [_chatView reloadData];
         [_chatView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:_chatDataArray.count-1 inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:YES];

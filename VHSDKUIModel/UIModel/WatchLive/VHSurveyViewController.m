@@ -56,12 +56,17 @@
     
     self.contentView = [[SueveyBackGroundView alloc] initWithFrame:CGRectMake(30, 90, CGRectGetWidth(self.view.frame)-60, CGRectGetHeight(self.view.frame)-90-40)];
     self.contentView.backgroundColor = [UIColor whiteColor];
-    self.contentView.layer.cornerRadius = 4;
+    self.contentView.layer.cornerRadius = 8;
     [self.view insertSubview:self.contentView atIndex:0];
     
     
+    UIImageView *titleView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.contentView.frame), 66)];
+    titleView.image = [UIImage imageNamed:@"UIModel.bundle/title.tiff"];
+    [self.contentView addSubview:titleView];
+    
+    
     WKWebViewConfiguration *config = [[WKWebViewConfiguration alloc] init];
-    self.webView = [[WKWebView alloc] initWithFrame:CGRectMake(8, 16, CGRectGetWidth(self.contentView.frame)-16, CGRectGetHeight(self.contentView.frame)-16) configuration:config];
+    self.webView = [[WKWebView alloc] initWithFrame:CGRectMake(8, CGRectGetMaxY(titleView.frame), CGRectGetWidth(self.contentView.frame)-16, CGRectGetHeight(self.contentView.frame)-16-66) configuration:config];
     self.webView.navigationDelegate = self;
     self.webView.UIDelegate = self;
     self.webView.layer.masksToBounds = YES;

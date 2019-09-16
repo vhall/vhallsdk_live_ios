@@ -32,6 +32,11 @@ pod 'VHallSDK_Interactive' , :git => 'https://github.com/vhall/vhallsdk_live_ios
 
 ### 版本更新信息
 
+#### 版本 v4.0.1 更新时间：2019.09.16
+更新内容：<br>
+1、优化Demo<br>
+2、修改美颜设置<br>
+
 #### 版本 v4.0.0 更新时间：2019.09.02
 更新内容：<br>
 1、优化问卷展现形式<br>
