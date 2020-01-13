@@ -1,9 +1,14 @@
 # vhallsdk-live-ios
 自助式网络直播SDK
 
+# 微吼直播 SaaS SDK 库迁移 
+
+**微吼直播 SaaS SDK v4.0 及以后版本迁移至 
+[vhallsdk_live_ios_v4.0](https://github.com/vhall/vhallsdk_live_ios_v4.0) 给您带来不便请谅解** <br>
+
 ### 集成和调用方式
 
-参见官方文档：http://www.vhall.com/saas/doc/310.html <br>
+[官方文档](http://www.vhall.com/saas/doc/310.html)<br>
 
 ### APP工程集成SDK基本设置
 1、工程中AppDelegate.m 文件名修改为 AppDelegate.mm<br>
@@ -36,7 +41,6 @@ pod 'VHallSDK_Interactive' , :git => 'https://github.com/vhall/vhallsdk_live_ios
 更新内容：<br>
 1、优化Demo<br>
 2、修改美颜设置<br>
-
 #### 版本 v4.0.0 更新时间：2019.09.02
 更新内容：<br>
 1、优化问卷展现形式<br>
