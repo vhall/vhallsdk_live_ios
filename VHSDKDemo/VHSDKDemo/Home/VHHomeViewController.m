@@ -91,6 +91,8 @@
     rtmpLivedemoVC.videoCaptureFPS  = DEMO_Setting.videoCaptureFPS;
     rtmpLivedemoVC.interfaceOrientation = orientation;
     rtmpLivedemoVC.isOpenNoiseSuppresion = DEMO_Setting.isOpenNoiseSuppresion;
+    rtmpLivedemoVC.beautifyFilterEnable  = DEMO_Setting.beautifyFilterEnable;
+    rtmpLivedemoVC.modalPresentationStyle = UIModalPresentationFullScreen;
     [self presentViewController:rtmpLivedemoVC animated:YES completion:nil];
 }
 
@@ -121,6 +123,7 @@
             watchVC.roomId      = DEMO_Setting.watchActivityID;
             watchVC.kValue      = DEMO_Setting.kValue;
             watchVC.bufferTimes = DEMO_Setting.bufferTimes;
+            watchVC.modalPresentationStyle = UIModalPresentationFullScreen;
             [self presentViewController:watchVC animated:YES completion:nil];
         }
             break;
@@ -134,6 +137,7 @@
             watchVC.roomId = DEMO_Setting.watchActivityID;
             watchVC.kValue = DEMO_Setting.kValue;
             watchVC.timeOut = DEMO_Setting.timeOut*1000;
+            watchVC.modalPresentationStyle = UIModalPresentationFullScreen;
             [self presentViewController:watchVC animated:YES completion:nil];
         }
             break;
@@ -145,6 +149,7 @@
 - (IBAction)systemSettingClick:(id)sender
 {
     VHSettingViewController *settingVc=[[VHSettingViewController alloc] init];
+    settingVc.modalPresentationStyle = UIModalPresentationFullScreen;
     [self presentViewController:settingVc animated:YES completion:nil];
 }
 - (IBAction)loginOrloginOutClick:(id)sender
@@ -162,6 +167,7 @@
     }else
     {
         LoginViewController *login = [[LoginViewController alloc] init];
+        login.modalPresentationStyle = UIModalPresentationFullScreen;
         [self presentViewController:login animated:YES completion:nil];
     }
 }

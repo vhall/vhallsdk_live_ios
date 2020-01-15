@@ -13,7 +13,12 @@
 #import "WHDebugConsoleLabel.h"
 #import "WHDebugTempVC.h"
 
-#define kDebugIsiPhoneX ([UIScreen instancesRespondToSelector:@selector(currentMode)] ? CGSizeEqualToSize(CGSizeMake(1125, 2436), [[UIScreen mainScreen] currentMode].size) : NO)
+#define kDebugIsiPhoneX  \
+({BOOL isPhoneX = NO;\
+if ([[[UIDevice currentDevice] systemVersion] floatValue]>=11.0) {\
+isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bottom > 0.0;\
+}\
+(isPhoneX);})
 #define kDebugScreenWidth [UIScreen mainScreen].bounds.size.width
 #define kDebugLabelWidth 70
 #define kDebugLabelHeight 20

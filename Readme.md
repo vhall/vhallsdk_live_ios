@@ -1,9 +1,15 @@
 # vhallsdk-live-ios
 自助式网络直播SDK
 
-### 集成和调用方式
+# 微吼直播 SaaS SDK v4.0 库迁移 
 
-参见官方文档：http://www.vhall.com/saas/doc/310.html <br>
+**微吼直播 SaaS SDK v4.0 及以后版本迁移至 
+[vhallsdk_live_ios_v4.0](https://github.com/vhall/vhallsdk_live_ios_v4.0) 给您带来不便请谅解** <br>
+
+## 集成和调用方式
+
+[官方文档](http://www.vhall.com/saas/doc/310.html)<br>
+
 
 ### APP工程集成SDK基本设置
 1、工程中AppDelegate.m 文件名修改为 AppDelegate.mm<br>
@@ -31,6 +37,10 @@ pod 'VHallSDK_LiveFilter' , :git => 'https://github.com/vhall/vhallsdk_live_ios.
 pod 'VHallSDK_Interactive' , :git => 'https://github.com/vhall/vhallsdk_live_ios.git'<br>
 
 ### 版本更新信息
+#### 版本 v3.4.5 更新时间：2020.01.15
+更新内容：<br>
+1、修复美颜进入卡顿问题<br>
+
 #### 版本 v3.4.4 更新时间：2019.08.07
 更新内容：<br>
 1、修复推流bug<br>

@@ -296,6 +296,7 @@ static AnnouncementView* announcementView = nil;
     SZQuestionItem *item = [[SZQuestionItem alloc] initWithTitleArray:titleArray andOptionArray:optionArray andResultArray:self.surveyResultArray andQuestonTypes:typeArry isMustSelectArray:isMustSelectArray];
    VHQuestionCheckBox *questionBox=[[VHQuestionCheckBox alloc] initWithItem:item];
     questionBox.survey = survey;
+    questionBox.modalPresentationStyle = UIModalPresentationFullScreen;
     [self presentViewController:questionBox animated:YES completion:^{
 
      }];
@@ -1002,6 +1003,7 @@ static AnnouncementView* announcementView = nil;
         //进入互动
         VHinteractiveViewController *controller = [[VHinteractiveViewController alloc] init];
         controller.roomId = self.roomId;
+        controller.modalPresentationStyle = UIModalPresentationFullScreen;
         [self presentViewController:controller animated:YES completion:^{
             
         }];
@@ -1039,6 +1041,7 @@ static AnnouncementView* announcementView = nil;
         //进入互动
         VHinteractiveViewController *controller = [[VHinteractiveViewController alloc] init];
         controller.roomId = self.roomId;
+        controller.modalPresentationStyle = UIModalPresentationFullScreen;
         [self presentViewController:controller animated:YES completion:^{
             
         }];

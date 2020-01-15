@@ -16,12 +16,14 @@
 @property (nonatomic, assign) BOOL openFilter;
 
 /**
- *  setBeautifyFilterWithBilateral:Brightness:Saturation: 设置VHall美颜滤镜参数 curFilterType == VHFilterType_Beautify时有效
- *  @param distanceNormalizationFactor  // A normalization factor for the distance between central color and sample color.
- *  @param brightness                   // The brightness adjustment is in the range [0.0, 2.0] with 1.0 being no-change.
- *  @param saturation                   // The saturation adjustment is in the range [0.0, 2.0] with 1.0 being no-change.
- *  return BOOL YES设置成功 NO 设置失败
- *  默认Bilateral:10.0 Brightness:1.0 Saturation:1.0];
- */
-- (BOOL)setBeautifyFilterWithBilateral:(CGFloat)distanceNormalizationFactor Brightness:(CGFloat)brightness Saturation:(CGFloat)saturation;
+*  美颜参数设置
+*  VHPublishConfig beautifyFilterEnable为YES时设置生效 根据具体使用情况微调
+*  @param beautify   磨皮   默认 2.0f  取值范围[1.0, 10.0]  10.0 正常图片没有磨皮
+*  @param brightness 亮度   默认 1.20f 取值范围[0.0, 2.0]  1.0 正常亮度
+*  @param saturation 饱和度 默认 1.0f  取值范围[0.0, 2.0]  1.0 正常饱和度
+*  @param sharpness  锐化   默认 0.1f  取值范围[-4.0，4.0] 0.0 无锐化
+*/
+- (BOOL)setBeautifyFilterWithBilateral:(CGFloat)beautify Brightness:(CGFloat)brightness Saturation:(CGFloat)saturation Sharpness:(CGFloat)sharpness;
+//锐化参数默认0.0f
+- (BOOL)setBeautifyFilterWithBilateral:(CGFloat)beautify Brightness:(CGFloat)brightness Saturation:(CGFloat)saturation;
 @end

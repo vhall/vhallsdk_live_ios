@@ -6,11 +6,8 @@
 //  Copyright (c) 2015年 vhall. All rights reserved.
 //
 
-#if VHallFilterSDK_ENABLE
-#import "VHallLivePublishFilter.h"
-#else
-#endif
 
+#import "VHallLivePublishFilter.h"
 #import "LaunchLiveViewController.h"
 #import <AVFoundation/AVFoundation.h>
 #import "MBProgressHUD.h"
@@ -36,11 +33,9 @@
     long              _liveTime;
 }
 
-#if VHallFilterSDK_ENABLE
-@property (strong, nonatomic)VHallLivePublishFilter *engine;
-#else
+
+//@property (strong, nonatomic)VHallLivePublishFilter *engine;
 @property (strong, nonatomic)VHallLivePublish *engine;
-#endif
 @property (weak, nonatomic) IBOutlet UIView *perView;
 @property (weak, nonatomic) IBOutlet UIImageView *logView;
 @property (weak, nonatomic) IBOutlet UILabel *bitRateLabel;
@@ -63,6 +58,10 @@
 @property (nonatomic,strong) VHMessageToolView * messageToolView;  //输入框
 @property (weak, nonatomic) IBOutlet UIView *noiseView;
 @property (weak, nonatomic) IBOutlet UILabel *noiseLabel;
+
+
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *backbtntopConstraint;
+
 @end
 
 @implementation LaunchLiveViewController
@@ -190,16 +189,11 @@
     
     _msgTextField.layer.masksToBounds = YES;
     _msgTextField.layer.cornerRadius = 15;
-    [_msgTextField setValue:[UIColor lightGrayColor] forKeyPath:@"_placeholderLabel.textColor"];
+//    [_msgTextField setValue:[UIColor lightGrayColor] forKeyPath:@"_placeholderLabel.textColor"];
 
     // TODO:暂时不支持此功能，但保留。
     _audioStartAndStopBtn.hidden = YES;
-    
-#if VHallFilterSDK_ENABLE
-    _filterBtn.hidden = NO;
-#else
-    _filterBtn.hidden = YES;
-#endif
+    _filterBtn.hidden = !self.beautifyFilterEnable;
 }
 
 - (void)viewDidLayoutSubviews
@@ -216,6 +210,9 @@
     else
         _chatView.frame = CGRectMake(10, 0,_chatContainerView.width-10,_chatContainerView.height - 50);
     [_chatContainerView addSubview:_chatView];
+    
+    if (self.interfaceOrientation == UIInterfaceOrientationPortrait)
+        _backbtntopConstraint.constant = iPhoneX? 40 :20;
 }
 
 -(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
@@ -272,19 +269,20 @@
     config.videoResolution = self.videoResolution;
     config.audioBitRate = self.audioBitRate;
     config.isPrintLog = YES;
-#if VHallFilterSDK_ENABLE
-    config.videoBitRate = self.videoBitRate*2;//开启美颜时建议调高码率
-    config.captureDevicePosition = AVCaptureDevicePositionFront;
-    self.engine = [[VHallLivePublishFilter alloc] initWithConfig:config];
+    if(self.beautifyFilterEnable)
+    {
+        config.captureDevicePosition = AVCaptureDevicePositionFront;
+        self.engine = [[VHallLivePublishFilter alloc] initWithConfig:config];
 
-    _torchBtn.hidden = YES;
-    _isFontVideo = YES;
-    [self filterSettingBtnClick:_defaultFilterSelectBtn];
-#else
-    config.videoBitRate = self.videoBitRate;
-    config.captureDevicePosition = AVCaptureDevicePositionBack;
-    self.engine = [[VHallLivePublish alloc] initWithConfig:config];
-#endif
+        _torchBtn.hidden = YES;
+        _isFontVideo = YES;
+        [self filterSettingBtnClick:_defaultFilterSelectBtn];
+    }
+    else
+    {
+        config.captureDevicePosition = AVCaptureDevicePositionBack;
+        self.engine = [[VHallLivePublish alloc] initWithConfig:config];
+    }
 
     self.engine.delegate            = self;
     self.engine.displayView.frame   = _perView.bounds;
@@ -507,9 +505,7 @@
 }
 
 
-#if VHallFilterSDK_ENABLE
-#pragma mark - Filter
-#pragma mark -
+#pragma mark - 美颜
 - (IBAction)filterBtnClick:(UIButton *)sender
 {
 //    [_chatMsgInput resignFirstResponder];
@@ -547,23 +543,21 @@
     [sender setBackgroundColor:MakeColorRGBA(0xfd3232,0.5)];
     _lastFilterSelectBtn = sender;
 
-    switch (sender.tag) {
-        case 1:[_engine setBeautifyFilterWithBilateral:10.0f Brightness:1.0f  Saturation:1.0f];break;
-        case 2:[_engine setBeautifyFilterWithBilateral:8.0f  Brightness:1.05f Saturation:1.0f];break;
-        case 3:[_engine setBeautifyFilterWithBilateral:6.0f  Brightness:1.10f Saturation:1.0f];break;
-        case 4:[_engine setBeautifyFilterWithBilateral:4.0f  Brightness:1.15f Saturation:1.0f];break;
-        case 5:[_engine setBeautifyFilterWithBilateral:2.0f  Brightness:1.20f Saturation:1.0f];break;
-        default:break;
+    if(self.beautifyFilterEnable)
+    {
+        VHallLivePublishFilter *beautifyEngine = (VHallLivePublishFilter *)_engine;
+        switch (sender.tag) {
+            case 1:[beautifyEngine setBeautifyFilterWithBilateral:10.0f Brightness:1.0f  Saturation:1.0f];break;
+            case 2:[beautifyEngine setBeautifyFilterWithBilateral:8.0f  Brightness:1.05f Saturation:1.0f];break;
+            case 3:[beautifyEngine setBeautifyFilterWithBilateral:6.0f  Brightness:1.10f Saturation:1.0f];break;
+            case 4:[beautifyEngine setBeautifyFilterWithBilateral:4.0f  Brightness:1.15f Saturation:1.0f];break;
+            case 5:[beautifyEngine setBeautifyFilterWithBilateral:2.0f  Brightness:1.20f Saturation:1.0f];break;
+            default:break;
+        }
     }
 }
-#else
-- (IBAction)filterBtnClick:(UIButton *)sender{}
-- (IBAction)filterSettingBtnClick:(UIButton *)sender{}
-#endif
 
 #pragma mark - Chat && QA
-#pragma mark -
-
 - (void)chatShow:(BOOL)isShow
 {
     if(isShow)

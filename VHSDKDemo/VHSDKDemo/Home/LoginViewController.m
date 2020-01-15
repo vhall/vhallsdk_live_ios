@@ -61,6 +61,7 @@
         VHLog(@"Account: %@ userID:%@",[VHallApi currentAccount],[VHallApi currentUserID]);
         [weekself showMsg:@"登录成功" afterDelay:1.5];
         VHHomeViewController *homeVC=[[VHHomeViewController alloc] init];
+        homeVC.modalPresentationStyle = UIModalPresentationFullScreen;
         [weekself presentViewController:homeVC animated:YES completion:nil];
         
     } failure:^(NSError * error) {
@@ -83,6 +84,7 @@
         return;
     }
     VHHomeViewController *homeVC=[[VHHomeViewController alloc] init];
+    homeVC.modalPresentationStyle = UIModalPresentationFullScreen;
     [self presentViewController:homeVC animated:YES completion:nil];
 }
 
@@ -107,14 +109,8 @@
     // Do any additional setup after loading the view from its nib.
     [self initViews];
     
-    
-#ifdef DEBUG
     //测试工具
-//    [[WHDebugToolManager sharedInstance] toggleWith:DebugToolTypeMemory | DebugToolTypeCPU | DebugToolTypeFPS];
-#else
-    
-#endif
-
+    [[WHDebugToolManager sharedInstance] toggleWith:DebugToolTypeMemory | DebugToolTypeCPU | DebugToolTypeFPS];
 }
 
 - (void)didReceiveMemoryWarning {

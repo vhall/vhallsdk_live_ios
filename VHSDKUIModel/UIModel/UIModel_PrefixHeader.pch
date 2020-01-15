@@ -9,9 +9,12 @@
 #ifndef UIModel_PrefixHeader_pch
 #define UIModel_PrefixHeader_pch
 
-#define  VHallFilterSDK_ENABLE 0//是否启用 美颜滤镜功能 VHallFilterSDK
-
-#define  iPhoneX ([UIScreen instancesRespondToSelector:@selector(currentMode)] ? CGSizeEqualToSize(CGSizeMake(1125, 2436), [[UIScreen mainScreen] currentMode].size) : NO)
+#define iPhoneX \
+({BOOL isPhoneX = NO;\
+if ([[[UIDevice currentDevice] systemVersion] floatValue]>=11.0) {\
+isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bottom > 0.0;\
+}\
+(isPhoneX);})
 
 // Include any system framework and library headers here that should be included in all compilation units.
 // You will also need to set the Prefix Header build setting of one or more of your targets to reference this file.

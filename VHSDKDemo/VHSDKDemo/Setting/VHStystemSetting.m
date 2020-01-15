@@ -115,16 +115,16 @@ static VHStystemSetting *pub_sharedSetting = nil;
             _videoResolution = @"2";
         }
 
-        if(_videoBitRate<=0)
+        if(_videoBitRate<=500)
         {
-            _videoBitRate = 600;
+            _videoBitRate = 800;
         }
-        if(_audioBitRate<=0)
+        if(_audioBitRate<=64)
         {
-            _audioBitRate = 16;
+            _audioBitRate = 64;
         }
-        if(_videoCaptureFPS <1)
-            _videoCaptureFPS = 10;
+        if(_videoCaptureFPS <10)
+            _videoCaptureFPS = 15;
         if(_videoCaptureFPS >30)
             _videoCaptureFPS = 30;
         if(_bufferTimes <=0)
@@ -134,6 +134,7 @@ static VHStystemSetting *pub_sharedSetting = nil;
             self.isOpenNoiseSuppresion = [standardUserDefaults boolForKey:@"VHisOpenNoiseSuppresion"];
         else
             self.isOpenNoiseSuppresion = YES;
+        self.beautifyFilterEnable = [standardUserDefaults boolForKey:@"VHbeautifyFilterEnable"];
         
         if(_appKey.length>0 && _appSecretKey.length>0)
         {
@@ -248,6 +249,12 @@ static VHStystemSetting *pub_sharedSetting = nil;
 {
     _isOpenNoiseSuppresion = isOpenNoiseSuppresion;
     [[NSUserDefaults standardUserDefaults] setBool:_isOpenNoiseSuppresion forKey:@"VHisOpenNoiseSuppresion"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+}
+- (void)setBeautifyFilterEnable:(BOOL)beautifyFilterEnable
+{
+    _beautifyFilterEnable = beautifyFilterEnable;
+    [[NSUserDefaults standardUserDefaults] setBool:_beautifyFilterEnable forKey:@"VHbeautifyFilterEnable"];
     [[NSUserDefaults standardUserDefaults] synchronize];
 }
 

@@ -21,6 +21,13 @@
 #define VHScreenWidth   ([UIScreen mainScreen].bounds.size.width)
 #define VH_Device_OS_ver [[UIDevice currentDevice] systemVersion]
 
+#define iPhoneX \
+({BOOL isPhoneX = NO;\
+if ([[[UIDevice currentDevice] systemVersion] floatValue]>=11.0) {\
+isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bottom > 0.0;\
+}\
+(isPhoneX);})
+
 #ifdef __OBJC__
 #import <UIKit/UIKit.h>
 #import <Foundation/Foundation.h>
