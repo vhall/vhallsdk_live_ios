@@ -88,7 +88,8 @@ typedef NS_ENUM(NSInteger,VHVideoResolution)
     VHLowVideoResolution                = 0,    //低分边率  352*288
     VHGeneralVideoResolution            = 1,    //普通分辨率 640*480
     VHHVideoResolution                  = 2,    //高分辨率  960*540
-    VHHDVideoResolution                 = 3     //超高分辨率 1280*720
+    VHHDVideoResolution                 = 3,    //超高分辨率 1280*720
+    VH1080pVideoResolution              = 4,    //1080p    1920*1080
 };
 
 

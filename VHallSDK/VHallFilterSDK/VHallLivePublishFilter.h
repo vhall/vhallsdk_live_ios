@@ -21,7 +21,7 @@
 *  @param beautify   磨皮   默认 2.0f  取值范围[1.0, 10.0]  10.0 正常图片没有磨皮
 *  @param brightness 亮度   默认 1.20f 取值范围[0.0, 2.0]  1.0 正常亮度
 *  @param saturation 饱和度 默认 1.0f  取值范围[0.0, 2.0]  1.0 正常饱和度
-*  @param sharpness  锐化   默认 0.1f  取值范围[-4.0，4.0] 0.0 无锐化
+*  @param sharpness  锐化   默认 0.1f  取值范围[-4.0，4.0] 0.0 无锐化  作废
 */
 - (BOOL)setBeautifyFilterWithBilateral:(CGFloat)beautify Brightness:(CGFloat)brightness Saturation:(CGFloat)saturation Sharpness:(CGFloat)sharpness;
 //锐化参数默认0.0f

@@ -20,13 +20,6 @@
 6、plist中添加相机、麦克风权限 <br>
 
 
-### 上传App Store时会报模拟器错误
-1、从 v3.4.3 版本开始 VHallSDK 支持模拟器编译（包含模拟器的 framework 库打包上传App Store时会报错）<br> 
-2、打开终端(Terminal) <br>
-3、cd VHallSDK 文件夹 <br>
-4、sh del_simulator.sh      即删除 VHYunSDK 文件夹中动态库的模拟器部分，再打包上传App Store。<br>
-
-
 ### 使用CocoaPods 引入SDK
 pod 'VHallSDK_Live' , :git => 'https://github.com/vhall/vhallsdk_live_ios.git'<br>
 
@@ -37,6 +30,10 @@ pod 'VHallSDK_LiveFilter' , :git => 'https://github.com/vhall/vhallsdk_live_ios.
 pod 'VHallSDK_Interactive' , :git => 'https://github.com/vhall/vhallsdk_live_ios.git'<br>
 
 ### 版本更新信息
+#### 版本 v3.4.6 更新时间：2020.05.25
+更新内容：<br>
+1、修复第三方推流可能导致播放花屏问题<br>
+
 #### 版本 v3.4.5 更新时间：2020.01.15
 更新内容：<br>
 1、修复美颜进入卡顿问题<br>
