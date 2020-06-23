@@ -30,6 +30,11 @@ pod 'VHallSDK_LiveFilter' , :git => 'https://github.com/vhall/vhallsdk_live_ios.
 pod 'VHallSDK_Interactive' , :git => 'https://github.com/vhall/vhallsdk_live_ios.git'<br>
 
 ### 版本更新信息
+#### 版本 v3.4.7 更新时间：2020.06.23
+更新内容：<br>
+1、修复互动偶现声音小问题<br>
+2、修复变量冲突问题<br>
+
 #### 版本 v3.4.6 更新时间：2020.05.25
 更新内容：<br>
 1、修复第三方推流可能导致播放花屏问题<br>
